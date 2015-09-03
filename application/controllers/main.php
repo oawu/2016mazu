@@ -12,6 +12,7 @@ class Main extends Site_controller {
   }
 
   public function index () {
+    Identity ()->set_session ('aaaaaaa', 'asd');
     $this->load_view (null);
   }
 }
