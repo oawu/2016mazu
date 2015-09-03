@@ -198,32 +198,51 @@ class CI_Session {
 		// Is there a corresponding session in the DB?
 		if ($this->sess_use_database === TRUE)
 		{
-			$this->CI->db->where('session_id', $session['session_id']);
+			// $this->CI->db->where('session_id', $session['session_id']);
+
+			SessionData::addConditions ($conditions, 'session_id = ?', $session['session_id']);
 
 			if ($this->sess_match_ip == TRUE)
 			{
-				$this->CI->db->where('ip_address', $session['ip_address']);
+				SessionData::addConditions ($conditions, 'ip_address = ?', $session['ip_address']);
+				// $this->CI->db->where('ip_address', $session['ip_address']);
 			}
 
 			if ($this->sess_match_useragent == TRUE)
 			{
-				$this->CI->db->where('user_agent', $session['user_agent']);
+				SessionData::addConditions ($conditions, 'user_agent = ?', $session['user_agent']);
+				// $this->CI->db->where('user_agent', $session['user_agent']);
 			}
 
-			$query = $this->CI->db->get($this->sess_table_name);
-
-			// No result?  Kill it!
-			if ($query->num_rows() == 0)
-			{
+			if (!($sessionObj = SessionData::find ('one', array ('conditions' => $conditions)))) {
 				$this->sess_destroy();
 				return FALSE;
 			}
+			// $query = $this->CI->db->get($this->sess_table_name);
+
+			// No result?  Kill it!
+			// if ($query->num_rows() == 0)
+			// {
+			// 	$this->sess_destroy();
+			// 	return FALSE;
+			// }
 
 			// Is there custom data?  If so, add it to the main session array
-			$row = $query->row();
-			if (isset($row->user_data) AND $row->user_data != '')
-			{
-				$custom_data = $this->_unserialize($row->user_data);
+			// $row = $query->row();
+			// if (isset($row->user_data) AND $row->user_data != '')
+			// {
+			// 	$custom_data = $this->_unserialize($row->user_data);
+
+			// 	if (is_array($custom_data))
+			// 	{
+			// 		foreach ($custom_data as $key => $val)
+			// 		{
+			// 			$session[$key] = $val;
+			// 		}
+			// 	}
+			// }
+			if ($sessionObj->user_data != '') {
+				$custom_data = $this->_unserialize($sessionObj->user_data);
 
 				if (is_array($custom_data))
 				{
@@ -238,7 +257,6 @@ class CI_Session {
 		// Session is valid!
 		$this->userdata = $session;
 		unset($session);
-
 		return TRUE;
 	}
 
@@ -285,8 +303,16 @@ class CI_Session {
 		}
 
 		// Run the update query
-		$this->CI->db->where('session_id', $this->userdata['session_id']);
-		$this->CI->db->update($this->sess_table_name, array('last_activity' => $this->userdata['last_activity'], 'user_data' => $custom_userdata));
+		// $this->CI->db->where('session_id', $this->userdata['session_id']);
+		// $this->CI->db->update($this->sess_table_name, array('last_activity' => $this->userdata['last_activity'], 'user_data' => $custom_userdata));
+
+    SessionData::update_all (array (
+    		'set' => array (
+    				'last_activity' => $this->userdata['last_activity'],
+    				'user_data' => $custom_userdata
+    			),
+        'conditions' => array('session_id = ?', $this->userdata['session_id'])
+      ));
 
 		// Write the cookie.  Notice that we manually pass the cookie data array to the
 		// _set_cookie() function. Normally that function will store $this->userdata, but
@@ -325,7 +351,8 @@ class CI_Session {
 		// Save the data to the DB if needed
 		if ($this->sess_use_database === TRUE)
 		{
-			$this->CI->db->query($this->CI->db->insert_string($this->sess_table_name, $this->userdata));
+			// $this->CI->db->query($this->CI->db->insert_string($this->sess_table_name, $this->userdata));
+			SessionData::create ($this->userdata);
 		}
 
 		// Write the cookie
@@ -381,7 +408,16 @@ class CI_Session {
 				$cookie_data[$val] = $this->userdata[$val];
 			}
 
-			$this->CI->db->query($this->CI->db->update_string($this->sess_table_name, array('last_activity' => $this->now, 'session_id' => $new_sessid), array('session_id' => $old_sessid)));
+	    SessionData::update_all (array (
+	    		'set' => array (
+	    				'last_activity' => $this->now,
+	    				'session_id' => $new_sessid
+	    			),
+	        'conditions' => array('session_id = ?', $old_sessid)
+	      ));
+
+			// $this->CI->db->query($this->CI->db->update_string($this->sess_table_name, 
+			// 	array('last_activity' => $this->now, 'session_id' => $new_sessid), array('session_id' => $old_sessid)));
 		}
 
 		// Write the cookie
@@ -401,8 +437,12 @@ class CI_Session {
 		// Kill the session DB row
 		if ($this->sess_use_database === TRUE && isset($this->userdata['session_id']))
 		{
-			$this->CI->db->where('session_id', $this->userdata['session_id']);
-			$this->CI->db->delete($this->sess_table_name);
+			// $this->CI->db->where('session_id', $this->userdata['session_id']);
+			// $this->CI->db->delete($this->sess_table_name);
+
+      SessionData::delete_all (array (
+      		'conditions' =>  array('session_id = ?', $this->userdata['session_id'])
+      	));
 		}
 
 		// Kill the cookie
@@ -765,8 +805,12 @@ class CI_Session {
 		{
 			$expire = $this->now - $this->sess_expiration;
 
-			$this->CI->db->where("last_activity < {$expire}");
-			$this->CI->db->delete($this->sess_table_name);
+			// $this->CI->db->where("last_activity < {$expire}");
+			// $this->CI->db->delete($this->sess_table_name);
+
+      SessionData::delete_all (array (
+      		'conditions' =>  array('last_activity < ?', $expire)
+      	));
 
 			log_message('debug', 'Session garbage collection performed.');
 		}

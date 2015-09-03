@@ -6,7 +6,7 @@
  */
 
 class Scws {
-  function __construct () {
+  public function __construct () {
   }
 
   private static function _inArrayLike ($referencia, $array) {

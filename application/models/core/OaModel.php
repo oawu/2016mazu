@@ -10,6 +10,19 @@ class OaModel extends ActiveRecordModel {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
   }
 
+  public static function addConditions (&$conditions, $str, $val = null) {
+    if (!isset($conditions))
+      $conditions = array();
+
+    if (!$conditions)
+      $conditions[0] = '(' . $str . ')';
+    else
+      $conditions[0] .= ' AND (' . $str . ')';
+
+    if ($val !== null)
+      array_push ($conditions, $val);
+  }
+
   public function recycle () {
     if (!(class_exists ($ori_model = get_called_class ()) && class_exists ($delete_model = 'Delete' . $ori_model)))
       showError ('The origin model or delete mode error!');

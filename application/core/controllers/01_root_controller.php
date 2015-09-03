@@ -27,6 +27,7 @@ class Root_controller extends CI_Controller {
     $this->load->helper ('upload_file');
     $this->load->helper ('cell');
     $this->load->library ('cfg');
+    $this->load->library ('session');
 
     $this->set_controllers_path ('application', 'controllers')
          ->set_libraries_path ('application', 'libraries')
