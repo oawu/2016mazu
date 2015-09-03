@@ -6,9 +6,10 @@
 @import "_oa";
 
 @include font-face("Monaco", font-files("monaco/monaco.ttf", "monaco/monaco.otf"));
+@include font-face("cwTeXHei", font-files("cwTeXHei/cwTeXHei-zhonly.eot", "cwTeXHei/cwTeXHei-zhonly.woff2",  "cwTeXHei/cwTeXHei-zhonly.woff", "cwTeXHei/cwTeXHei-zhonly.ttf"));
 // @include font-face("icomoon", font-files("icomoon/icomoon.eot", "icomoon/icomoon.woff", "icomoon/icomoon.ttf", "icomoon/icomoon.svg"));
 // [class^="icon-"], [class*=" icon-"] {
-//   font-family: 'icomoon', Monaco, "微軟正黑體", "Microsoft JhengHei";
+//   font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
 //   speak: none;
 //   font-style: normal;
 //   font-weight: normal;
@@ -39,7 +40,7 @@ html {
     width: 100%;
     height: 100%;
     font-size: medium;
-    font-family: Monaco, "微軟正黑體", "Microsoft JhengHei";
+    font-family: cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
     background: $mainBackgroundColor $mainBackgroundImage;
     color: rgba(50, 50, 50, 0.8);
 
