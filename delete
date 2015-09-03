@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+  //       file     type         name              action
+  // =============================================================
+  // php   delete   controller   controller_name   [site | admin | delay]
+  // php   delete   model        model_name
+  // php   delete   cell         cell_name
+  // php   delete   search       search_name
+
+  include 'system/cmd/delete.php';
