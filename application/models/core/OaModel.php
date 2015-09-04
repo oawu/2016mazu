@@ -10,7 +10,10 @@ class OaModel extends ActiveRecordModel {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
   }
 
-  public static function addConditions (&$conditions, $str, $val = null) {
+  public static function addConditions (&$conditions, $str) {
+    $args = array_filter (func_get_args ());
+    $args = array_splice($args, 1, 3);
+
     if (!isset($conditions))
       $conditions = array();
 
@@ -19,8 +22,9 @@ class OaModel extends ActiveRecordModel {
     else
       $conditions[0] .= ' AND (' . $str . ')';
 
-    if ($val !== null)
-      array_push ($conditions, $val);
+    foreach ($args as $arg)
+      if ($arg !== null)
+        array_push($conditions, $arg);
   }
 
   public function recycle () {
