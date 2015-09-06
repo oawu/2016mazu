@@ -4,4 +4,5 @@
  * @author      OA Wu <comdan66@gmail.com>
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
-$site['main']['title'] = '慈雲灑潤';
+
+$site['main']['title'] = '北港迎媽祖';

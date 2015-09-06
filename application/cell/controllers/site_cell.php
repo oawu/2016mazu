@@ -17,13 +17,17 @@ class Site_cell extends Cell_Controller {
 
     $item_lists = array (
       '主選單' => array (
-          array ('name' => '首頁', 'href' => base_url (), 'icon' => 'icon-home', 'target' => '_self', 'visible' => true, 'active' => ($class == 'main') && ($method == 'index')),
-          array ('name' => '今日最新', 'href' => base_url ('avs', 'today'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'avs') && ($method == 'today')),
-          array ('name' => '所有影片', 'href' => base_url ('avs'), 'icon' => 'icon-list2', 'target' => '_self', 'visible' => true, 'active' => ($class == 'avs') && ($method == 'index')),
-          array ('name' => '所有標籤', 'href' => base_url ('tags'), 'icon' => 'icon-tag', 'target' => '_self', 'visible' => true, 'active' => ($class == 'tags') && ($method == 'index')),
+          array ('name' => '首頁', 'href' => base_url ('x'), 'icon' => 'icon-home', 'target' => '_self', 'visible' => true, 'active' => ($class == 'maind') && ($method == 'index')),
+          array ('name' => '朝天宮', 'href' => base_url ('avs', 'today'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'avs') && ($method == 'today')),
+          array ('name' => '百年藝陣', 'href' => base_url ('avs', 'today'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'avs') && ($method == 'today')),
+          array ('name' => '三月十九', 'href' => base_url (), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'main') && ($method == 'index')),
+          array ('name' => '白沙屯', 'href' => base_url ('tags'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'tags') && ($method == 'index')),
+          array ('name' => '耆老回憶', 'href' => base_url ('tags'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'tags') && ($method == 'index')),
+          array ('name' => '旅遊美食', 'href' => base_url ('tags'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'tags') && ($method == 'index')),
         ),
       '其他功能'=> array (
-          array ('name' => '排程紀錄', 'href' => base_url ('logs'), 'icon' => 'icon-clipboard', 'target' => '_self', 'visible' => true, 'active' => ($class == 'logs') && ($method == 'index')),
+          array ('name' => '回報建議', 'href' => base_url ('logs'), 'icon' => 'icon-clipboard', 'target' => '_self', 'visible' => true, 'active' => ($class == 'logs') && ($method == 'index')),
+          array ('name' => '網站聲明', 'href' => base_url ('logs'), 'icon' => 'icon-clipboard', 'target' => '_self', 'visible' => true, 'active' => ($class == 'logs') && ($method == 'index')),
         ),
     );
     return $this->load_view (array (

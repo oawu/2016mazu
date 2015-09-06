@@ -450,7 +450,7 @@ html {
               &.active {
                 font-weight: bold;
                 padding-left: 12px;
-                border-left: 5px solid rgba(219, 71, 67, 1);
+                border-left: 3px solid rgba(219, 71, 67, 1);
               }
               &:before {
                 vertical-align: middle;
@@ -499,7 +499,7 @@ html {
           @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
             width: 100%;
             word-break: break-all;
-            padding: $mobileVerticalPadding $mobileHorizontalPadding;
+            // padding: $mobileVerticalPadding $mobileHorizontalPadding;
             border-top: 0;
             border-left: 0;
             border-right: 0;
@@ -507,7 +507,7 @@ html {
           @media screen and (min-width: $mediaTabletWidth) {
             z-index: 995;
             border-left: 1px solid rgba(39, 40, 34, .25);
-            padding: 20px;
+            // padding: 20px;
             @include border-bottom-left-radius(3px);
           }
           @media screen and (min-width: #{$mainWidth + 40px}) {
