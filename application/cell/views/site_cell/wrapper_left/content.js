@@ -3,4 +3,5 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-@import "_oa";
+$(function () {
+});

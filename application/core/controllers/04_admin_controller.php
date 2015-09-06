@@ -34,7 +34,6 @@ class Admin_controller extends Oa_controller {
 
   private function _add_js () {
     return $this->add_js (base_url ('resource', 'javascript', 'jquery_v1.10.2', 'jquery-1.10.2.min.js'))
-                ->add_js (base_url ('resource', 'javascript', 'jquery-rails_d2015_03_09', 'jquery_ujs.js'))
                 ;
   }
 }

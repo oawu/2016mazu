@@ -6,19 +6,85 @@
 @import "_oa";
 
 @include font-face("Monaco", font-files("monaco/monaco.ttf", "monaco/monaco.otf"));
+@include font-face("icomoon", font-files("icomoon/icomoon.eot", "icomoon/icomoon.woff", "icomoon/icomoon.ttf", "icomoon/icomoon.svg"));
 @include font-face("cwTeXHei", font-files("cwTeXHei/cwTeXHei-zhonly.eot", "cwTeXHei/cwTeXHei-zhonly.woff2",  "cwTeXHei/cwTeXHei-zhonly.woff", "cwTeXHei/cwTeXHei-zhonly.ttf"));
-// @include font-face("icomoon", font-files("icomoon/icomoon.eot", "icomoon/icomoon.woff", "icomoon/icomoon.ttf", "icomoon/icomoon.svg"));
-// [class^="icon-"], [class*=" icon-"] {
-//   font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
-//   speak: none;
-//   font-style: normal;
-//   font-weight: normal;
-//   font-variant: normal;
-//   text-transform: none;
-//   line-height: 1;
 
-//   @include font-smoothing(antialiased);
-// }
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  @include font-smoothing(antialiased);
+}
+
+.icon-menu:before {
+  content: "\e600";
+}
+.icon-home:before {
+  content: "\e601";
+}
+.icon-list2:before {
+  content: "\e602";
+}
+.icon-link-external:before {
+  content: "\e605";
+}
+.icon-plus:before {
+  content: "\e608";
+}
+.icon-chevron-right:before {
+  content: "\e60a";
+}
+.icon-chevron-left:before {
+  content: "\e60b";
+}
+.icon-arrow-right:before {
+  content: "\e60e";
+}
+.icon-file-text2:before {
+  content: "\e612";
+}
+.icon-refresh:before {
+  content: "\e615";
+}
+.icon-in:before {
+  content: "\e61a";
+}
+.icon-exclamation:before {
+  content: "\e61c";
+}
+.icon-pencil2:before {
+  content: "\e906";
+}
+.icon-bin:before {
+  content: "\e9ac";
+}
+.icon-more:before {
+  content: "\f833";
+}
+.icon-tools:before {
+  content: "\e60c";
+}
+.icon-tag:before {
+  content: "\e606";
+}
+.icon-user:before {
+  content: "\e604";
+}
+.icon-fire:before {
+  content: "\e603";
+}
+.icon-clipboard:before {
+  content: "\e609";
+}
+.icon-code:before {
+  content: "\e607";
+}
+
 
 * {
   &, &:after, &:before {
@@ -45,18 +111,15 @@ html {
     color: rgba(50, 50, 50, 0.8);
 
     @include font-smoothing(antialiased);
-    
+
     #container {
       position: relative;
       display: block;
       margin: 0 auto;
-      max-width: $mainWidth;
-
-      padding: 0 10px;
-
-      @media screen and (min-width: #{$mainWidth}) {
-        padding: 0;
-      }
     }
   }
+}
+
+.gm-style-cc {
+  display: none;
 }

@@ -5,8 +5,667 @@
 
 @import "_oa";
 
+$navHeight: 55px;
+$wrapperLeftWidth: 250px;
+$navRightWidth: 110px;
+$mobileHeight: 75px;
+$mobileHorizontalPadding: 10px;
+$mobileVerticalPadding: 15px;
+
 html {
   body {
 
+    padding-top: $navHeight;
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      height: $navHeight;
+      background-color: rgba(54, 51, 50, 1);
+      border-top: 5px solid rgba(30, 27, 26, 1);
+      @include box-shadow(0 1px 4px 1px rgba(39, 40, 34, .4));
+      z-index: 9999;
+
+      @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+        padding: 0 $mobileHorizontalPadding;
+      }
+      .container {
+        width: 100%;
+        height: 100%;
+        max-width: $mainWidth;
+        display: inline-block;
+        @include clearfix();
+
+        .logo, .left, .right {
+          float: left;
+          display: inline-block;
+          height: 100%;
+        }
+        .logo {
+          width: $wrapperLeftWidth;
+          height: 100%;
+          font-size: 33px;
+          color: rgba(255, 255, 255, 1);
+          font-weight: bolder;
+          line-height: 45px;
+          letter-spacing: 5px;
+          @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+            width: 0;
+            display: none;
+          }
+        }
+        .left {
+          text-align: left;
+          width: calc(100% - #{$wrapperLeftWidth + $navRightWidth});
+
+          @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+            width: calc(100% - #{0 + $navRightWidth});
+          }
+
+          > div {
+            position: relative;
+            float: left;
+            display: inline-block;
+            height: 40px;
+            margin-top: 3px;
+            text-align: center;
+            @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
+            color: rgba(255, 255, 255, .9);
+            font-weight: bold;
+            font-size: 30px;
+            @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+              margin-top: 10px;
+              font-size: 25px;
+            }
+            &[class*="icon-"] {
+              width: 40px;
+              margin-top: 5px;
+              font-size: 35px;
+              @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+                margin-top: 10px;
+                font-size: 30px;
+              }
+            }
+            + div {
+              margin-left: 5px;
+            }
+
+            &.option {
+              @media screen and (min-width: $mediaTabletWidth) {
+                display: none;
+              }
+            }
+            &.title {
+              width: calc(100% - 40px - 5px);
+              text-align: left;
+              @include overflow-docx3();
+              @media screen and (min-width: $mediaTabletWidth) {
+                padding-top: 7px;
+                font-size: 25px;
+              }
+            }
+          }
+        }
+        .right {
+          position: relative;
+          float: right;
+          width: $navRightWidth;
+
+          @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+            width: $navRightWidth;
+          }
+          > div[class*="icon-"] {
+            position: relative;
+            float: right;
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            margin-top: 5px;
+            line-height: 38px;
+            font-size: 25px;
+            @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+              margin-top: 6px;
+              font-size: 23px;
+            }
+            color: rgba(0, 67, 60, 1);
+            cursor: pointer;
+            @include text-shadow(0 -1px 2px rgba(255, 255, 255, .3));
+            @include transition(all .3s);
+
+            + div {
+              margin-right: 5px;
+            }
+            &:hover {
+              color: rgba(0, 45, 40, 1);
+            }
+            &.white {
+              color: rgba(255, 255, 255, .85);
+              @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
+
+              &:hover {
+                color: rgba(255, 255, 255, 1);
+              }
+            }
+
+            &.option {
+              $menuCount: 5;
+              $menuPadding: 0;
+              $menuWidth: 170px;
+              $menuHeight: 40px;
+
+              &:before {
+                display: inline-block;
+                @include transition(all .5s);
+                @include transform(rotate(90deg) scale(1));
+              }
+              &.show {
+                &:before {
+                  @include transform(rotate(270deg) scale(0));
+                  @include opacity(0);
+                }
+                .cover {
+                  display: inline-block;
+                }
+                .menu {
+                  width: $menuWidth;
+                  height: $menuHeight * $menuCount + $menuPadding * 2 + 2px;
+                  padding: $menuPadding;
+                  @include opacity(1);
+
+                  @for $i from 1 through 10 {
+                    &.i#{$i} {
+                      height: $menuHeight * $i + $menuPadding * 2 + 5px;
+                    }
+                  }
+                }
+              }
+              .cover {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: none;
+                z-index: 9995;
+                background-color: rgba(39, 40, 34, .1);
+                cursor: auto;
+              }
+              .menu {
+                position: absolute;
+                right: 5px;
+                top: 0;
+                display: inline-block;
+                width: calc(100% - 10px);
+                height: calc(100%);
+                padding: 0;
+                overflow: hidden;
+
+                background-color: rgba(255, 255, 255, 1);
+                border: 1px solid rgba(39, 40, 34, .3);
+                @include border-radius(2px);
+                @include box-shadow(0 1px 2px rgba(39, 40, 34, .2));
+
+                z-index: 9999;
+
+                @include transition(all .3s);
+                @include opacity(0);
+
+                a {
+                  @include a(0, false, rgba(36, 36, 36, .6), rgba(36, 36, 36, .8));
+                  display: block;
+                  width: 100%;
+                  font-size: 13px;
+                  margin: 0;
+                  @include text-shadow(none);
+                  height: $menuHeight;
+                  line-height: $menuHeight - 5px;
+
+                  &.top_line {
+                    margin-top: 3px;
+                    border-top: 1px solid rgba(39, 40, 34, .15);
+                  }
+                }
+              }
+            }
+
+          }
+        }
+      }
+    }
+
+    #container {
+      @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+        display: block;
+      }
+      @media screen and (min-width: $mediaTabletWidth) {
+        display: table;
+        min-height: 100%;
+      }
+      width: 100%;
+      max-width: $mainWidth;
+
+      &.show {
+        .wrapper {
+          .wrapper_left {
+            left: 0;
+            @include box-shadow(0 0 5px 1px rgba(39, 40, 34, .3), 1px 0 1px rgba(39, 40, 34, .3));
+            @include opacity(1);
+          }
+          .cover {
+            right: 0;
+            @include opacity(1);
+          }
+        }
+      }
+
+      .wrapper {
+        position: relative;
+        @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+          display: block;
+        }
+        @media screen and (min-width: $mediaTabletWidth) {
+          display: table-row;
+        }
+
+        .wrapper_left, .wrapper_right {
+          position: relative;
+          display: table-cell;
+          @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+            display: block;
+          }
+        }
+
+        .wrapper_left {
+          padding: 0;
+          width: $wrapperLeftWidth;
+          z-index: 990;
+          padding-bottom: 50px;
+
+          @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+            position: fixed;
+            left: 0 - $wrapperLeftWidth - 2px;
+            top: 0;
+            display: inline-block;
+            height: 100%;
+            overflow-y: auto;
+            z-index: 999999;
+            border: 0;
+            -webkit-overflow-scrolling: touch;
+            background: $mainBackgroundColor $mainBackgroundImage;
+            @include transition(all .3s);
+          }
+
+          .logo {
+            display: inline-block;
+            width: 100%;
+            height: $mobileHeight;
+            color: rgba(255, 255, 255, 1);
+            font-weight: bolder;
+            font-size: 40px;
+            padding-top: 10px;
+            background-color: rgba(74, 71, 70, 1);
+            @media screen and (min-width: $mediaTabletWidth) {
+              display: none;
+            }
+          }
+          .title {
+            text-align: left;
+            padding: 5px;
+            margin-top: 10px;
+            height: 30px;
+            font-weight: bold;
+          }
+          .group {
+            position: relative;
+            background-color: rgba(255, 255, 255, 1);
+            border-top: 1px solid rgba(39, 40, 34, .15);
+            border-bottom: 1px solid rgba(39, 40, 34, .25);
+            padding: 5px 0;
+            @include box-shadow(0 1px 1px rgba(39, 40, 34, .1));
+
+            @media screen and (min-width: $mainWidth) {
+              border-left: 1px solid rgba(39, 40, 34, .15);
+              @include border-left-radius(3px);
+            }
+            + .group {
+              margin-top: 15px;
+            }
+            a {
+              @include a(0, false, rgba(36, 36, 36, .6), rgba(36, 36, 36, .8));
+              position: relative;
+              display: inline-block;
+              width: 100%;
+              text-align: left;
+              padding: 5px;
+              vertical-align: middle;
+              line-height: 28px;
+              padding-left: 15px;
+              font-size: 15px;
+
+              &.active {
+                font-weight: bold;
+                padding-left: 12px;
+                border-left: 5px solid rgba(74, 71, 70, 1);
+              }
+              &:before {
+                vertical-align: middle;
+                font-size: 20px;
+                margin-right: 10px;
+              }
+              &:not(:first-child) {
+                $paddingLeft: 40px;
+
+                &:after {
+                  content: '';
+                  position: absolute;
+                  top: 0;
+                  left: $paddingLeft;
+                  display: inline-block;
+                  width: calc(100% - #{$paddingLeft});
+                  height: 1px;
+                  background-color: rgba(39, 40, 34, .15);
+                }
+              }
+            }
+          }
+        }
+        .cover {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(39, 40, 34, .5);
+          z-index: 999998;
+          @include opacity(0);
+          @include transition(all .3s);
+
+          @media screen and (min-width: $mediaTabletWidth) {
+            width: 0;
+            display: none;
+          }
+        }
+        .wrapper_right {
+          background-color: rgba(255, 255, 255, 1);
+          border-bottom: 1px solid rgba(39, 40, 34, .25);
+          @include box-shadow(0 0 3px 1px rgba(39, 40, 34, .2));
+
+          @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+            width: 100%;
+            word-break: break-all;
+            padding: $mobileVerticalPadding $mobileHorizontalPadding;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+          }
+          @media screen and (min-width: $mediaTabletWidth) {
+            z-index: 995;
+            border-left: 1px solid rgba(39, 40, 34, .25);
+            padding: 20px;
+            @include border-bottom-left-radius(3px);
+          }
+          @media screen and (min-width: #{$mainWidth + 40px}) {
+            @include border-bottom-right-radius(3px);
+            border-right: 1px solid rgba(39, 40, 34, .25);
+          }
+        }
+      }
+    }
+
+    #action {
+      position: fixed;
+      display: inline-block;
+      background-color: rgba(0, 149, 135, 1);
+      font-size: 18px;
+      color: rgba(255, 255, 255, .9);
+      z-index: 99999;
+      cursor: pointer;
+      @include transition(all .3s);
+      @include border-radius(50%);
+      @include box-shadow(0 5px 7px 1px rgba(39, 40, 34, .3), inset 0 1px 2px rgba(255, 255, 255, .4));
+
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        right: 20px;
+        bottom: 30px;
+        width: 44px;
+        height: 44px;
+        line-height: 40px;
+        @include box-shadow(0 3px 4px 1px rgba(39, 40, 34, .25), inset 0 1px 2px rgba(255, 255, 255, .4));
+      }
+      @media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mainWidth - 1px}) {
+        right: 40px;
+        bottom: 40px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+      }
+      @media screen and (min-width: #{$mainWidth + 40px}) {
+        right: 50px;
+        bottom: 50px;
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+      }
+    }
+    #footer {
+      $footerWidth: 250px;
+
+      margin: 0 auto;
+      padding: 50px 0;
+      padding-top: 100px;
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        padding-top: 50px;
+      }
+      @include clearfix();
+
+      > div {
+        float: left;
+        height: 100%;
+
+        &.l, &.r {
+          display: inline-block;
+          width: calc(50% - #{$footerWidth / 2});
+          background-color: rgba(202, 200, 199, 1);
+          height: 1px;
+          margin-top: 20px;
+        }
+        &.c {
+          display: inline-block;
+          width: $footerWidth;
+
+          > div {
+            &:first-child {
+              color: rgba(89, 89, 89, .8);
+              font-weight: bold;
+            }
+            &:last-child {
+              margin-top: 5px;
+              a {
+                @include a();
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      @include loading();
+    }
+
+    .OAprompt {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 99999;
+      text-align: center;
+      display: none;
+
+      &.hide_animation {
+        .cover {
+          @include opacity(0);
+          @include animation(OApromptCoverHide .5s);
+          @include keyframes(OApromptCoverHide) {
+            0% {
+              @include opacity(1);
+            }
+            100% {
+              @include opacity(0);
+            }
+          }
+        }
+        .wrapper {
+          top: -50%;
+          @include opacity(0);
+
+          @include animation(OApromptWrapperHide .3s);
+          @include keyframes(OApromptWrapperHide) {
+            0% {
+              top: calc(20%);
+              @include opacity(1);
+            }
+            100% {
+              top: -50%;
+              @include opacity(0);
+            }
+          }
+        }
+      }
+      &.show {
+        display: inline-block;
+      }
+      &.show_animation {
+        .cover {
+          @include opacity(1);
+          @include animation(OApromptCoverShow .5s);
+          @include keyframes(OApromptCoverShow) {
+            0% {
+              @include opacity(0);
+            }
+            100% {
+              @include opacity(1);
+            }
+          }
+        }
+        .wrapper {
+          top: calc(20%);
+          @include opacity(1);
+
+          @include animation(OApromptWrapperShow .3s);
+          @include keyframes(OApromptWrapperShow) {
+            0% {
+              top: -50%;
+              @include opacity(0);
+            }
+            100% {
+              top: calc(20%);
+              @include opacity(1);
+            }
+          }
+        }
+      }
+
+      .cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(39, 40, 34, .5);
+        @include opacity(0);
+        @include transition(all .3s);
+      }
+      .wrapper {
+        position: absolute;
+        top: -50%;
+        left: calc(50% - (350px / 2));
+        display: inline-block;
+        width: 350px;
+        background-color: white;
+        border: 1px solid rgba(39, 40, 34, .6);
+        @include opacity(0);
+        @include box-shadow(0 3px 25px rgba(39, 40, 34, .5));
+        @include border-radius(3px);
+        @include transition(all .3s);
+
+        @media screen and (min-width: 0) and (max-width: #{$mediaTabletWidth - 1px}) {
+          left: 20px;
+          width: calc(100% - 40px);
+        }
+
+        .title {
+          padding: 18px;
+          padding-bottom: 10px;
+
+          text-align: left;
+          color: rgba(39, 40, 34, .8);
+          font-weight: bold;
+          border-bottom: 1px solid rgba(39, 40, 34, .1);
+        }
+        .content {
+          position: relative;
+          padding: 0 18px;
+          margin-top: 15px;
+          text-align: left;
+
+          input {
+            @include input();
+            width: 100%;
+            margin-top: 15px;
+
+            &, &:focus {
+              border-top: 0;
+              border-left: 0;
+              border-right: 0;
+              @include box-shadow(none);
+            }
+            &.val, &:focus {
+              + label {
+                top: 0;
+                font-size: 13px;
+                color: rgba(9, 111, 202, 1);
+              }
+            }
+            @include border-radius(0);
+          }
+          label {
+            position: absolute;
+            top: 15px;
+            left: 18px;
+            display: inline-block;
+            color: rgba(0, 0, 0, 0.26);
+            cursor: text;
+            @include transition(all .2s);
+          }
+        }
+        .btns {
+          padding: 0 10px;
+          margin-top: 24px;
+          margin-bottom: 6px;
+          height: 30px;
+          @include clearfix();
+
+          a {
+            @include a();
+            float: right;
+            margin-top: 5px;
+            cursor: pointer;
+            + a {
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+    }
   }
 }
