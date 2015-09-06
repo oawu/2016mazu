@@ -4,3 +4,8 @@
  */
 
 @import "_oa";
+
+img {
+  width: 100%;
+  @include filter(blur(20px));
+}

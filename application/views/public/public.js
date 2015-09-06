@@ -21,32 +21,7 @@ window.ajaxError = function (result) {
 };
 
 $(function () {
-  $('.created_at').timeago ();
-  
-  window.mainLoading = $('#loading');
+  $('.timeago').timeago ();
+  $('.imgLiquid_center').imgLiquid ({verticalAlign: 'center'});
 
-  window.showLoading = function (callback) {
-    this.mainLoading.fadeIn (function () {
-      $(this).removeClass ('hide');
-      if (callback)
-        callback ();
-    });
-  };
-
-  window.hideLoading = function (callback) {
-    this.mainLoading.addClass ('hide').fadeOut (function () {
-      $(this).hide (function () {
-        if (callback)
-          callback ();
-      });
-    });
-  };
-
-  window.closeLoading = function (callback) {
-    window.hideLoading (function  () {
-      if (callback)
-        callback ();
-        window.mainLoading.remove ();
-    });
-  };
 });

@@ -1,4 +1,7 @@
-<div class='logo'><?php echo Cfg::setting ('site', 'main', 'title');?></div>
+<div class='logo'>
+  <div>北港<span>Mazu</span></div>
+  <div><span>Beigang</span>迎媽祖</div>
+</div>
 <?php
   if ($item_lists) {
     foreach ($item_lists as $title => $item_list) { ?>

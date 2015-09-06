@@ -6,7 +6,7 @@
 @import "_oa";
 
 $navHeight: 55px;
-$wrapperLeftWidth: 250px;
+$wrapperLeftWidth: 230px;
 $navRightWidth: 110px;
 $mobileHeight: 75px;
 $mobileHorizontalPadding: 10px;
@@ -24,10 +24,13 @@ html {
       display: inline-block;
       width: 100%;
       height: $navHeight;
-      background-color: rgba(54, 51, 50, 1);
-      border-top: 5px solid rgba(30, 27, 26, 1);
-      @include box-shadow(0 1px 4px 1px rgba(39, 40, 34, .4));
+      border-top: 5px solid rgba(39, 40, 34, .25);
       z-index: 9999;
+      @include box-shadow(0 1px 4px 1px rgba(39, 40, 34, .4));
+      background-color: rgba(255, 255, 255, 1);
+      @include background-image(linear-gradient(
+        top, rgba(215, 20, 0, .8) 0%, rgba(215, 50, 50, 1) 100%));
+
 
       @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
         padding: 0 $mobileHorizontalPadding;
@@ -45,16 +48,67 @@ html {
           height: 100%;
         }
         .logo {
+          position: relative;
           width: $wrapperLeftWidth;
           height: 100%;
-          font-size: 33px;
-          color: rgba(255, 255, 255, 1);
+          color: rgba(255, 255, 255, .9);
           font-weight: bolder;
-          line-height: 45px;
-          letter-spacing: 5px;
+          text-decoration: none;
+          @include text-shadow(0 0 5px rgba(173, 47, 41, 1));
+          @include transition(all .3s);
+          padding: 0;
+          padding-left: 5px;
+          @media screen and (min-width: #{$mainWidth + 20px}) {
+            padding: 0;
+          }
+          &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 120%));
+            background-repeat: no-repeat;
+            background-position: 50% 5px; 
+            z-index: -1;
+          }
+          &:hover {
+            color: rgba(255, 255, 255, 1);
+          }
           @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
             width: 0;
             display: none;
+          }
+          @include split-left(95px, '> div:first-child', '> div:last-child');
+          > div {
+            overflow: hidden;
+
+            &:first-child {
+              margin-top: 5px;
+              font-size: 37px;
+              text-align: left;
+              letter-spacing: 10px;
+              white-space: nowrap;
+            }
+            &:last-child {
+              padding-left: 2px;
+              margin-top: 6px;
+              text-align: right;
+              text-align: left;
+              > div {
+                font-size: 20px;
+                letter-spacing: 12px;
+
+                &:last-child {
+                  font-size: 10px;
+                  margin-top: 2px;
+                  color: rgba(255, 255, 255, .7);
+                  letter-spacing: 2px;
+                }
+              }
+            }
           }
         }
         .left {
@@ -72,10 +126,10 @@ html {
             height: 40px;
             margin-top: 3px;
             text-align: center;
-            @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
-            color: rgba(255, 255, 255, .9);
             font-weight: bold;
             font-size: 30px;
+            color: rgba(255, 255, 255, .9);
+            @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
             @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
               margin-top: 10px;
               font-size: 25px;
@@ -230,7 +284,6 @@ html {
                 }
               }
             }
-
           }
         }
       }
@@ -299,14 +352,63 @@ html {
           }
 
           .logo {
+            position: relative;
             display: inline-block;
             width: 100%;
-            height: $mobileHeight;
             color: rgba(255, 255, 255, 1);
             font-weight: bolder;
-            font-size: 40px;
-            padding-top: 10px;
             background-color: rgba(74, 71, 70, 1);
+            overflow: hidden;
+            z-index: 1;
+            padding: 10px 5px;
+            background-color: rgba(255, 255, 255, 1);
+            @include text-shadow(0 0 5px rgba(173, 47, 41, 1));
+            @include background-image(linear-gradient(top, rgba(215, 20, 0, .8) 0%, rgba(215, 50, 50, 1) 100%));
+
+            &:after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              display: inline-block;
+              width: 100%;
+              height: 100%;
+              @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 120%));
+              background-repeat: no-repeat;
+              background-position: 50% 5px; 
+              z-index: -1;
+            }
+            > div {
+              &:first-child {
+                text-align: left;
+                font-size: 40px;
+                letter-spacing: 5px;
+
+                > span {
+                  padding-top: 10px;
+                  margin-left: 5px;
+                }
+              }
+              &:last-child {
+                text-align: right;
+                font-size: 30px;
+                margin-top: 2px;
+                letter-spacing: 5px;
+
+                > span {
+                  margin-right: 10px;
+                  margin-top: -5px;
+                }
+              }
+
+                > span {
+                  display: inline-block;
+                  font-size: 20px;
+                  letter-spacing: 0;
+                  color: rgba(255, 255, 255, .8);
+                }
+            }
+
             @media screen and (min-width: $mediaTabletWidth) {
               display: none;
             }
@@ -348,7 +450,7 @@ html {
               &.active {
                 font-weight: bold;
                 padding-left: 12px;
-                border-left: 5px solid rgba(74, 71, 70, 1);
+                border-left: 5px solid rgba(219, 71, 67, 1);
               }
               &:before {
                 vertical-align: middle;
@@ -418,12 +520,12 @@ html {
 
     #action {
       position: fixed;
-      display: inline-block;
-      background-color: rgba(0, 149, 135, 1);
+      display: none;
       font-size: 18px;
       color: rgba(255, 255, 255, .9);
       z-index: 99999;
       cursor: pointer;
+      background-color: rgba(220, 55, 43, 1);
       @include transition(all .3s);
       @include border-radius(50%);
       @include box-shadow(0 5px 7px 1px rgba(39, 40, 34, .3), inset 0 1px 2px rgba(255, 255, 255, .4));

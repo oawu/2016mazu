@@ -5,12 +5,9 @@
 
 $(function () {
   var $container = $('#container');
-  var $leftOption = $('nav .left .option');
-  var $rightOption = $('nav .right .option');
-  var $wrapperCover = $container.find ('.cover');
   var overflow = $('body').css ('overflow');
 
-  $leftOption.click (function () {
+  $('nav .left .option').click (function () {
     if ($container.hasClass ('show')) {
       $container.removeClass ('show');
       $('body').css ('overflow', overflow);
@@ -19,11 +16,38 @@ $(function () {
       $('body').css ('overflow', 'hidden');
     }
   });
-  $wrapperCover.click (function () {
+  $container.find ('.cover').click (function () {
     $container.removeClass ('show');
     $('body').css ('overflow', overflow);
   });
-  $rightOption.click (function () {
+  $('nav .right .option').click (function () {
     $(this).toggleClass ('show');
   });
+
+  window.mainLoading = $('#loading');
+
+  window.showLoading = function (callback) {
+    this.mainLoading.fadeIn (function () {
+      $(this).removeClass ('hide');
+      if (callback)
+        callback ();
+    });
+  };
+
+  window.hideLoading = function (callback) {
+    this.mainLoading.addClass ('hide').fadeOut (function () {
+      $(this).hide (function () {
+        if (callback)
+          callback ();
+      });
+    });
+  };
+
+  window.closeLoading = function (callback) {
+    window.hideLoading (function  () {
+      if (callback)
+        callback ();
+        window.mainLoading.remove ();
+    });
+  };
 });
