@@ -4,3 +4,31 @@
  */
 
 @import "_oa";
+
+
+.table-form {
+  @include material-table-form(100px);
+  
+  input[type='text'] {
+    @include material-input;
+  }
+
+  label.c {
+    position: relative;
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 1px solid rgba(255, 0, 0, .3);
+      z-index: -1;
+    }
+    span {
+      z-index: 2;
+      cursor: pointer;
+      &:before {
+        content: "X";
+      }
+    }
+    border: 1px solid rgba(255, 0, 0, .3);
+  }
+}
