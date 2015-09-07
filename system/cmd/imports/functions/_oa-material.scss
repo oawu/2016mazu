@@ -3,6 +3,39 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
+// <input />
+@mixin material-input() {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid rgba(39, 40, 34, .25);
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  font-size: 16px;
+  color: rgba(50, 50, 50, 0.7);
+
+  @include transition(border .3s);
+
+  &[readonly] {
+    cursor: not-allowed;
+    @include opacity(.5);
+    &:focus {
+      border-color: rgba(39, 40, 34, .25);
+      @include box-shadow(none);
+    }
+  }
+  &[type="file"] {
+    font-size: 14px;
+  }
+  &:focus {
+    border-color: rgba(102, 175, 233, 1);
+  }
+  &, &:focus {
+    outline: 0;
+    @include box-shadow(none);
+  }
+}
+
 // <button></button>
 @mixin button($color: 'blue', $shadow: true) {
   border: 0 solid transparent;
@@ -748,7 +781,9 @@
             height: 100%;
             background-color: rgba(191, 192, 191, 1);
             border-right: 1px solid $mobileBorderColor;
-            @include overflow-docx3();
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
           &[colspan] {
             padding-left: $bodyCellPadding;
@@ -785,7 +820,9 @@
                 line-height: $headerHeight - 3px;
                 padding: $headCellPadding;
                 border-bottom: 1px solid $headerUnderLineColor;
-                @include overflow-docx3();
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
                 color: rgba(50, 50, 50, 0.5);
               }
               &[colspan] {
@@ -903,6 +940,42 @@
       tr {
         td, th {
           padding: $footCellPadding;
+        }
+      }
+    }
+  }
+}
+
+@mixin material-table-form($width: 100px) {
+  margin: 0;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
+  $padding: 5px;
+
+  &, &:after, &:before, *, *:after, *:before {
+    @include box-sizing(border-box);
+  }
+  tbody {
+    tr {
+      &:first-child {
+        th {
+          &:first-child {
+            width: $width;
+          }
+        }
+      }
+      th {
+        text-align: right;
+        padding: $padding;
+        vertical-align: middle;
+      }
+      td {
+        text-align: left;
+        padding: $padding;
+
+        &[colspan='2'] {
+          text-align: right;
         }
       }
     }
