@@ -69,7 +69,7 @@ html {
             display: inline-block;
             width: 100%;
             height: 100%;
-            @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 120%));
+            @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 100%));
             background-repeat: no-repeat;
             background-position: 50% 5px;
             z-index: -1;
@@ -383,7 +383,7 @@ html {
               display: inline-block;
               width: 100%;
               height: 100%;
-              @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 120%));
+              @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 100%));
               background-repeat: no-repeat;
               background-position: 50% 5px;
               z-index: -1;

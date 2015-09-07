@@ -69,7 +69,7 @@ html {
             display: inline-block;
             width: 100%;
             height: 100%;
-            @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 120%));
+            @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 100%));
             background-repeat: no-repeat;
             background-position: 50% 5px;
             z-index: -1;
@@ -373,7 +373,7 @@ html {
               display: inline-block;
               width: 100%;
               height: 100%;
-              @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 120%));
+              @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 100%));
               background-repeat: no-repeat;
               background-position: 50% 5px;
               z-index: -1;
@@ -499,7 +499,7 @@ html {
           @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
             width: 100%;
             word-break: break-all;
-            // padding: $mobileVerticalPadding $mobileHorizontalPadding;
+            padding: $mobileVerticalPadding $mobileHorizontalPadding;
             border-top: 0;
             border-left: 0;
             border-right: 0;
@@ -507,7 +507,7 @@ html {
           @media screen and (min-width: $mediaTabletWidth) {
             z-index: 995;
             border-left: 1px solid rgba(39, 40, 34, .25);
-            // padding: 20px;
+            padding: 20px;
             @include border-bottom-left-radius(3px);
           }
           @media screen and (min-width: #{$mainWidth + 40px}) {
