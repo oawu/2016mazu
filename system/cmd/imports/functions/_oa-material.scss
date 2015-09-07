@@ -648,7 +648,7 @@
   } @else if($type == 'corner') {
     overflow: visible;
     @include box-shadow(none);
-    
+
     &:before, &:after {
       content: "";
       z-index: -1;
@@ -672,6 +672,239 @@
       left: auto;
 
       @include transform(rotate(4deg));
+    }
+  }
+}
+
+@mixin material-table-list($changeWidth: 900px) {
+  $bgc: rgba(255, 255, 255, 1);
+  $headerUnderLineColor: rgba(39, 39, 34, .5);
+  $headerHeight: 30px;
+  $headCellPadding: 10px;
+  $bodyCellPadding: 10px;
+  $footCellPadding: 10px;
+  $borderColor: rgba(39, 39, 34, .2);
+
+  // mobile
+  $trTopMargin: 10px;
+  $titleWidth: 90px;
+  $titlePadding: 5px;
+  $borderRadius: 3px;
+  $mobileBorderColor: rgba(39, 39, 34, .4);
+  $mobileBodyCellPadding: 5px;
+
+  margin: 0;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  &, &:after, &:before, *, *:after, *:before {
+    @include box-sizing(border-box);
+  }
+  background-color: $bgc;
+
+  @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+    display: block;
+
+    thead, tbody, tfoot {
+      display: block;
+
+      tr {
+        display: block;
+        @include box-shadow(0 1px 4px 0 rgba(153, 153, 153, 0.5));
+        & + tr {
+          margin-top: $trTopMargin;
+        }
+        td, th {
+          &:first-child {
+            @include border-top-radius($borderRadius);
+          }
+          &:last-child {
+            @include border-bottom-radius($borderRadius);
+          }
+          position: relative;
+          display: block;
+          border: 1px solid $mobileBorderColor;
+          text-align: left;
+          padding: $mobileBodyCellPadding;
+          padding-left: $mobileBodyCellPadding + $titleWidth;
+          word-break: break-all;
+          width: 100%;
+          min-height: 30px;
+
+          &:not(:last-child) {
+            border-bottom: 0;
+          }
+
+          &:before {
+            content: attr(data-title);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: inline-block;
+            width: $titleWidth;
+            padding: $titlePadding;
+            text-align: right;
+            height: 100%;
+            background-color: rgba(191, 192, 191, 1);
+            border-right: 1px solid $mobileBorderColor;
+            @include overflow-docx3();
+          }
+          &[colspan] {
+            padding-left: $bodyCellPadding;
+            text-align: center;
+            &:before {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media screen and (min-width: #{$changeWidth}) {
+    thead, tbody, tfoot {
+      &:first-child {
+        tr {
+          &:first-child {
+            td, th {
+              border-top: 0;
+              &:first-child {
+              }
+              &:last-child {
+              }
+              position: relative;
+              padding-top: $headerHeight + $headCellPadding + $headCellPadding;
+              &:before {
+                content: attr(data-title);
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: inline-block;
+                width: 100%;
+                height: $headerHeight + $headCellPadding;
+                line-height: $headerHeight - 3px;
+                padding: $headCellPadding;
+                border-bottom: 1px solid $headerUnderLineColor;
+                @include overflow-docx3();
+                color: rgba(50, 50, 50, 0.5);
+              }
+              &[colspan] {
+                padding-top: $headCellPadding;
+                &:before {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+      &:last-child {
+        tr {
+          &:last-child {
+            td, th {
+              border-bottom: 0;
+              &:first-child {
+              }
+              &:last-child {
+              }
+            }
+          }
+        }
+      }
+
+      tr {
+        td, th {
+          border-top: 1px solid $borderColor;
+          padding: $headCellPadding;
+          text-align: right;
+
+          &.left {
+            text-align: left;
+          }
+          &.right {
+            text-align: right;
+          }
+          &.center {
+            text-align: center;
+          }
+          &.middle {
+            vertical-align: middle;
+          }
+          &:first-child {
+            text-align: left;
+          }
+          &:last-child {
+          }
+        }
+      }
+    }
+    tbody {
+      &:first-child {
+        tr {
+          &:first-child {
+            td, th {
+              padding-top: $headerHeight + $bodyCellPadding + $bodyCellPadding;
+              &:before {
+                height: $headerHeight + $bodyCellPadding;
+                padding: $bodyCellPadding;
+              }
+              &[colspan] {
+                padding-top: $bodyCellPadding;
+              }
+            }
+          }
+
+          &:last-child {
+            td, th {
+              border-bottom: 2px solid rgba(0, 0, 0, 0);
+            }
+          }
+          td, th {
+            @include transition(border-color .3s);
+            border-bottom: 1px solid rgba(0, 0, 0, 0);
+          }
+          &:hover {
+            td, th {
+              border-color: $borderColor;
+            }
+            &:last-child {
+              td, th {
+                border-color: $borderColor;
+              }
+            }
+          }
+        }
+      }
+      tr {
+        td {
+          word-break: break-all;
+          font-weight: normal;
+          padding: $bodyCellPadding;
+        }
+      }
+    }
+    tfoot {
+      &:first-child {
+        tr {
+          &:first-child {
+            td, th {
+              padding-top: $headerHeight + $footCellPadding + $footCellPadding;
+              &:before {
+                height: $headerHeight + $footCellPadding;
+                padding: $footCellPadding;
+              }
+              &[colspan] {
+                padding-top: $footCellPadding;
+              }
+            }
+          }
+        }
+      }
+      tr {
+        td, th {
+          padding: $footCellPadding;
+        }
+      }
     }
   }
 }

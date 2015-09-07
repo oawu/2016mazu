@@ -298,8 +298,10 @@
                 display: inline-block;
                 width: 100%;
                 height: $headerHeight;
+                line-height: $headerHeight;
                 background-color: rgba(191, 192, 191, 1);
                 border-bottom: 1px solid $borderColor;
+                @include overflow-docx3();
               }
               &[colspan] {
                 padding-top: $headCellPadding;
