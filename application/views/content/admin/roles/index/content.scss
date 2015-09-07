@@ -4,3 +4,112 @@
  */
 
 @import "_oa";
+
+#container {
+  form {
+    @include clearfix();
+    $submitWidth: 60px;
+    $newWidth: 60px;
+
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      display: none;
+      &.show {
+        display: block;
+      }
+    }
+    .l, > button[type='submit'], > a {
+      display: inline-block;
+      float: left;
+      width: calc(100% / 3);
+    }
+    .l {
+      width: calc(100% - #{$submitWidth});
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        width: 100%;
+      }
+      text-align: left;
+
+      &.n {
+        width: calc(100% - #{$submitWidth + $newWidth + 10px});
+        ~ a {
+          display: inline-block;
+        }
+      }
+      input {
+        float: left;
+        @include clearfix();
+        @include input();
+        margin: 0;
+      }
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        input {
+          width: 100%;
+          &:not(:first-child) {
+            margin-top: 5px;
+          }
+        }
+      }
+      @media screen and (min-width: #{$mediaMobileWidth}) {
+        @for $i from 1 through 8 {
+          &.i#{$i} {
+            input {
+              width: calc((100% / #{$i}) - 7px);
+              &:not(:nth-child(#{$i}n + 1)) {
+                margin-left: 5px;
+              }
+              &:not(:nth-child(-n + #{$i})) {
+                margin-top: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+    > button[type='submit'] {
+      width: $submitWidth;
+      @include button('blue-gray');
+      margin-top: 2px;
+      height: 30px;
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        width: 100%;
+        margin-top: 5px;
+      }
+    }
+    > a {
+      @include button();
+      width: $newWidth;
+      margin-top: 2px;
+      margin-left: 10px;
+      display: none;
+      height: 30px;
+    }
+  }
+
+  .search_feature {
+    @include button('indigo');
+    @media screen and (min-width: #{$mediaMobileWidth}) {
+      display: none;
+    }
+    width: 100%;
+    margin-top: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    &:before {
+      display: inline-block;
+      @include transform(rotate(90deg));
+    }
+  }
+  .table-list-rwd {
+    @include material-table-list;
+    margin-top: 20px;
+    a {
+      @include a;
+      font-size: 13px;
+
+      &[class*="icon-"] {
+        font-size: 18px;
+      }
+    }
+  }
+}
