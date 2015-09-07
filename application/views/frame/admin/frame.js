@@ -4,6 +4,26 @@
  */
 
 $(function () {
+  var $container = $('#container');
+  var overflow = $('body').css ('overflow');
+
+  $('nav .left .option').click (function () {
+    if ($container.hasClass ('show')) {
+      $container.removeClass ('show');
+      $('body').css ('overflow', overflow);
+    } else {
+      $container.addClass ('show');
+      $('body').css ('overflow', 'hidden');
+    }
+  });
+  $container.find ('.cover').click (function () {
+    $container.removeClass ('show');
+    $('body').css ('overflow', overflow);
+  });
+  $('nav .right .option').click (function () {
+    $(this).toggleClass ('show');
+  });
+
   $('.timeago').timeago ();
   $('.imgLiquid_center').imgLiquid ({verticalAlign: 'center'});
 
