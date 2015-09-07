@@ -16,7 +16,7 @@ class Session {
       self::$CI =& get_instance ();
     return self::$CI;
   }
-  
+
   protected static function session () {
     if (isset (self::ci ()->ci_session))
       return self::ci ()->ci_session;
@@ -34,7 +34,7 @@ class Session {
       self::session ()->set_flashdata ($key, $value);
   }
 
-  public function getData ($key, $is_flashdata = false) {
+  public static function getData ($key, $is_flashdata = false) {
     return !$is_flashdata ? self::session ()->userdata ($key) : self::session ()->flashdata ($key);
   }
 }

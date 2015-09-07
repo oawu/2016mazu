@@ -13,6 +13,7 @@ application/logs/*
 
 application/config/database.php
 application/config/setting/mail_gun.php
+application/config/setting/facebook.php
 
 temp/*
 
