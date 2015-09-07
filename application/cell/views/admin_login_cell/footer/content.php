@@ -1,1 +1,0 @@
-<div id='footer'><div></div><div><div><?php echo Cfg::setting ('admin_login', 'main', 'footer', 'title');?></div><div><?php echo Cfg::setting ('admin_login', 'main', 'footer', 'description');?></div></div><div></div></div>
