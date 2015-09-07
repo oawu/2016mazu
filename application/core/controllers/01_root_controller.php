@@ -28,6 +28,7 @@ class Root_controller extends CI_Controller {
     $this->load->helper ('cell');
     $this->load->library ('cfg');
     $this->load->library ('session');
+    $this->load->library ('fb');
 
     $this->set_controllers_path ('application', 'controllers')
          ->set_libraries_path ('application', 'libraries')
@@ -80,7 +81,7 @@ class Root_controller extends CI_Controller {
   public function get_views_path () {
     return $this->views_path;
   }
-  
+
   protected function input_gets ($xss_clean = true) {
     $security = $this->security;
     return ($gets = $this->input->get ()) ? array_filter ($this->input->get (), function ($get) use ($xss_clean, $security) {
