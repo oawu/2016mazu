@@ -23,6 +23,9 @@
         </div>
         <div class='cover'></div>
         <div class='wrapper_right'>
+    <?php if ($_flash_message = Session::getData ('_flash_message', true)) { ?>
+            <div class='message'><?php echo $_flash_message;?></div>
+    <?php }?>
           <?php echo isset ($content) ? $content : ''; ?>
         </div>
       </div>

@@ -502,14 +502,16 @@ html {
           }
         }
         .wrapper_right {
+          position: relative;
           background-color: rgba(255, 255, 255, 1);
           border-bottom: 1px solid rgba(39, 40, 34, .25);
+          font-size: 13px;
           @include box-shadow(0 0 3px 1px rgba(39, 40, 34, .2));
 
           @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
             width: 100%;
             word-break: break-all;
-            // padding: $mobileVerticalPadding $mobileHorizontalPadding;
+            padding: $mobileVerticalPadding $mobileHorizontalPadding;
             border-top: 0;
             border-left: 0;
             border-right: 0;
@@ -517,12 +519,40 @@ html {
           @media screen and (min-width: $mediaTabletWidth) {
             z-index: 995;
             border-left: 1px solid rgba(39, 40, 34, .25);
-            // padding: 20px;
+            padding: 20px;
             @include border-bottom-left-radius(3px);
           }
           @media screen and (min-width: #{$mainWidth + 40px}) {
             @include border-bottom-right-radius(3px);
             border-right: 1px solid rgba(39, 40, 34, .25);
+          }
+
+          .message {
+            @include alert('info', false);
+            position: absolute;
+            top: -40px;
+            left: 0;
+            display: inline-block;
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            border-right: 0;
+            border-left: 0;
+            background-color: rgba(217, 237, 247, .65);
+
+            @include background-image(radial-gradient(50% 50%, rgba(217, 237, 247, 1) 0px, rgba(255, 255, 255, 0) 100%));
+            background-repeat: no-repeat;
+            background-position: 50% 5px;
+            
+            @include border-radius(0);
+            @include animation(message_show 5s);
+            @include keyframes(message_show){
+              0% { top: -40px; }
+              5% { top: -40px; }
+              15% { top: 0; }
+              90% { top: 0; }
+              100% { top: -40px; }
+            }
           }
         }
       }
@@ -798,6 +828,120 @@ html {
           }
         }
       }
+    }
+  }
+}
+
+
+form.search {
+  @include clearfix();
+  $submitWidth: 60px;
+  $newWidth: 60px;
+
+  @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+    display: none;
+    &.show {
+      display: block;
+    }
+  }
+  .l, > button[type='submit'], > a {
+    display: inline-block;
+    float: left;
+    width: calc(100% / 3);
+  }
+  .l {
+    width: calc(100% - #{$submitWidth});
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      width: 100%;
+    }
+    text-align: left;
+
+    &.n {
+      @media screen and (min-width: #{$mediaMobileWidth}) {
+        width: calc(100% - #{$submitWidth + $newWidth + 10px});
+      }
+      ~ a {
+        display: inline-block;
+      }
+    }
+    input {
+      float: left;
+      @include clearfix();
+      @include input();
+      margin: 0;
+    }
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      input {
+        width: 100%;
+        &:not(:first-child) {
+          margin-top: 5px;
+        }
+      }
+    }
+    @media screen and (min-width: #{$mediaMobileWidth}) {
+      @for $i from 1 through 8 {
+        &.i#{$i} {
+          input {
+            width: calc((100% / #{$i}) - 7px);
+            &:not(:nth-child(#{$i}n + 1)) {
+              margin-left: 5px;
+            }
+            &:not(:nth-child(-n + #{$i})) {
+              margin-top: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+  > button[type='submit'] {
+    width: $submitWidth;
+    @include button('blue-gray');
+    margin-top: 2px;
+    height: 30px;
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      width: 100%;
+      margin-top: 5px;
+    }
+  }
+  > a {
+    @include button();
+    width: $newWidth;
+    margin-top: 2px;
+    margin-left: 10px;
+    display: none;
+    height: 30px;
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 5px;
+    }
+  }
+  ~ button {
+    @include button('indigo');
+    @media screen and (min-width: #{$mediaMobileWidth}) {
+      display: none;
+    }
+    width: 100%;
+    margin-top: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+    &:before {
+      display: inline-block;
+      @include transform(rotate(90deg));
+    }
+  }
+}
+table.table-list-rwd {
+  @include material-table-list;
+  margin-top: 20px;
+  a {
+    @include a;
+    font-size: 13px;
+
+    &[class*="icon-"] {
+      font-size: 18px;
     }
   }
 }
