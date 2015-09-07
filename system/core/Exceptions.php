@@ -103,8 +103,8 @@ class CI_Exceptions {
 	 */
 	function show_404($page = '', $log_error = TRUE)
 	{
-		$heading = "404 Page Not Found";
-		$message = "The page you requested was not found.";
+		$heading = "肆零肆 - 頁面找不到";
+		$message = "找不到您所需求的頁面。";
 
 		// By default we log this, but allow a dev to skip it
 		if ($log_error)
