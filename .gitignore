@@ -24,3 +24,5 @@ assets/*
 system/cmd/.sass-cache/*
 system/cmd/node_modules/*
 system/cmd/npm-debug.log
+
+vendor/*
