@@ -12,6 +12,7 @@ application/logs/*
 !application/logs/.htaccess
 
 application/config/database.php
+application/config/setting/mail_gun.php
 
 temp/*
 
