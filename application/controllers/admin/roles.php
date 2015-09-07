@@ -11,6 +11,13 @@ class Roles extends Admin_controller {
     parent::__construct ();
   }
 
+  public function add () {
+    $params = Session::getData ('params', true);
+
+    $this->load_view (array (
+        'params' => $params
+      ));
+  }
   public function index ($offset = 0) {
     $columns = array ('id' => 'int', 'name' => 'string');
     $configs = array ('admin', 'roles', '%s');
