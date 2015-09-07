@@ -16,7 +16,7 @@ class Admin_controller extends Oa_controller {
          ->set_content_path ('content', 'admin')
          ->set_public_path ('public')
 
-         ->set_title (Cfg::setting ('site', 'main', 'title'))
+         ->set_title (Cfg::setting ('admin', 'main', 'title'))
 
          ->_add_meta ()
          ->_add_css ()

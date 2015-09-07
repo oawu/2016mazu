@@ -24,8 +24,10 @@ $(function () {
     $(this).toggleClass ('show');
   });
 
-  window.mainLoading = $('#loading');
+  $('.timeago').timeago ();
+  $('.imgLiquid_center').imgLiquid ({verticalAlign: 'center'});
 
+  window.mainLoading = $('#loading');
   window.showLoading = function (callback) {
     this.mainLoading.fadeIn (function () {
       $(this).removeClass ('hide');

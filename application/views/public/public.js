@@ -21,7 +21,4 @@ window.ajaxError = function (result) {
 };
 
 $(function () {
-  $('.timeago').timeago ();
-  $('.imgLiquid_center').imgLiquid ({verticalAlign: 'center'});
-
 });

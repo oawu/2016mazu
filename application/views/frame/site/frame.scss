@@ -71,7 +71,7 @@ html {
             height: 100%;
             @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 120%));
             background-repeat: no-repeat;
-            background-position: 50% 5px; 
+            background-position: 50% 5px;
             z-index: -1;
           }
           &:hover {
@@ -375,7 +375,7 @@ html {
               height: 100%;
               @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 120%));
               background-repeat: no-repeat;
-              background-position: 50% 5px; 
+              background-position: 50% 5px;
               z-index: -1;
             }
             > div {
@@ -553,31 +553,51 @@ html {
         line-height: 60px;
       }
     }
-    #footer {
-      $footerWidth: 250px;
 
+
+    #footer {
       margin: 0 auto;
       padding: 50px 0;
-      padding-top: 100px;
-      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-        padding-top: 50px;
-      }
       @include clearfix();
+
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+        padding-top: 50px;
+        $footerWidth: 220px;
+        > div {
+          &:first-child, &:last-child {
+            width: calc(50% - #{$footerWidth / 2});
+          }
+          &:not(:first-child):not(:last-child) {
+            font-size: 14px;
+            width: $footerWidth;
+          }
+        }
+      }
+      @media screen and (min-width: $mediaMiniMobileWidth) {
+        padding-top: 100px;
+        $footerWidth: 250px;
+        > div {
+          &:first-child, &:last-child {
+            width: calc(50% - #{$footerWidth / 2});
+          }
+          &:not(:first-child):not(:last-child) {
+            width: $footerWidth;
+          }
+        }
+      }
 
       > div {
         float: left;
         height: 100%;
 
-        &.l, &.r {
+        &:first-child, &:last-child {
           display: inline-block;
-          width: calc(50% - #{$footerWidth / 2});
           background-color: rgba(202, 200, 199, 1);
           height: 1px;
           margin-top: 20px;
         }
-        &.c {
+        &:not(:first-child):not(:last-child) {
           display: inline-block;
-          width: $footerWidth;
 
           > div {
             &:first-child {

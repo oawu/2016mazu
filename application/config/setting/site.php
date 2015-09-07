@@ -6,3 +6,5 @@
  */
 
 $site['main']['title'] = '北港迎媽祖';
+$site['main']['footer']['title'] = '北港迎媽祖 © 2015';
+$site['main']['footer']['description'] = '如有相關問題歡迎與<a href="https://www.facebook.com/comdan66" target="_blank">作者</a>討論。';
