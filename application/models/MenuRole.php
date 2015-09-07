@@ -5,9 +5,9 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-class UserPermission extends OaModel {
+class MenuRole extends OaModel {
 
-  static $table_name = 'user_permissions';
+  static $table_name = 'menu_roles';
 
   static $has_one = array (
   );

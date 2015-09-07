@@ -5,10 +5,10 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-class Migration_Add_menu_permissions extends CI_Migration {
+class Migration_Add_menu_roles extends CI_Migration {
   public function up () {
     $this->db->query (
-      "CREATE TABLE `menu_permissions` (
+      "CREATE TABLE `menu_roles` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `menu_id` int(11) NOT NULL COMMENT 'Menu ID',
         `role_id` int(11) NOT NULL COMMENT 'Role ID',
@@ -25,7 +25,7 @@ class Migration_Add_menu_permissions extends CI_Migration {
   }
   public function down () {
     $this->db->query (
-      "DROP TABLE `menu_permissions`;"
+      "DROP TABLE `menu_roles`;"
     );
   }
 }
