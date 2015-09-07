@@ -10,6 +10,11 @@ class Admin_controller extends Oa_controller {
   public function __construct () {
     parent::__construct ();
 
+    if (!(User::current () && in_array ('admin', User::current ()->role_names ()))) {
+      // Session::setData ('_flash_message', '請先登入，或者您沒有後台權限！', true);
+      return show_404();
+    }
+
     $this
          ->set_componemt_path ('component', 'admin')
          ->set_frame_path ('frame', 'admin')

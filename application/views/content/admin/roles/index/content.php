@@ -14,23 +14,11 @@
 <?php if ($roles) {
         foreach ($roles as $role) { ?>
           <tr>
-            <td data-title='ID'><?php echo $role->id;?></td>
-            <td data-title='名稱' width='200' ><?php echo $role->name;?></td>
-            <td data-title='下載' width='200'>
-              <a href='<?php echo base_url ('roles', 'edit', $role->id);?>' class='icon-in'></a>
-            </td>
-          </tr>
-          <tr>
-            <td data-title='ID'><?php echo $role->id;?></td>
-            <td data-title='名稱' width='200' ><?php echo $role->name;?></td>
-            <td data-title='下載' width='200'>
-              <a href='<?php echo base_url ('roles', 'edit', $role->id);?>' class='icon-in'></a>
-            </td>
-          </tr>
-          <tr>
-            <td data-title='ID'><?php echo $role->id;?></td>
-            <td data-title='名稱' width='200' ><?php echo $role->name;?></td>
-            <td data-title='下載' width='200'>
+            <td data-title='ID' width='100'><?php echo $role->id;?></td>
+            <td data-title='名稱'><?php echo $role->name;?></td>
+            <td data-title='選單數量' width='150'><?php echo count ($role->menus ());?></td>
+            <td data-title='使用者數量' width='150'><?php echo count ($role->users ());?></td>
+            <td data-title='編輯' width='100'>
               <a href='<?php echo base_url ('roles', 'edit', $role->id);?>' class='icon-in'></a>
             </td>
           </tr>
@@ -41,5 +29,5 @@
     </tbody>
   </table>
 
-<?php echo render_cell ('site_cell', 'pagination', $pagination);?>
+<?php echo render_cell ('admin_cell', 'pagination', $pagination);?>
 
