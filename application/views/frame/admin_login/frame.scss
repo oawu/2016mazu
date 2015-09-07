@@ -1,0 +1,190 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@import "_oa";
+
+$navHeight: 55px;
+$wrapperLeftWidth: 230px;
+$navRightWidth: 110px;
+$mobileHeight: 75px;
+$mobileHorizontalPadding: 10px;
+$mobileVerticalPadding: 15px;
+
+html {
+  body {
+
+    padding-top: $navHeight;
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      height: $navHeight;
+      text-align: center;
+      border-top: 5px solid rgba(39, 40, 34, .25);
+      z-index: 9999;
+      @include box-shadow(0 1px 4px 1px rgba(39, 40, 34, .4));
+      background-color: rgba(255, 255, 255, 1);
+      @include background-image(linear-gradient(top, rgba(215, 20, 0, .8) 0%, rgba(215, 50, 50, 1) 100%));
+
+      > a {
+        display: inline-block;
+        margin: 0 auto;
+        position: relative;
+        width: $wrapperLeftWidth;
+        height: 100%;
+        color: rgba(255, 255, 255, .9);
+        font-weight: bolder;
+        text-decoration: none;
+        @include text-shadow(0 0 5px rgba(173, 47, 41, 1));
+        @include transition(all .3s);
+        padding: 0;
+        padding-left: 5px;
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+          width: 100%;
+          div {
+            @include overflow-docx3();
+          }
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 120%));
+          background-repeat: no-repeat;
+          background-position: 50% 5px;
+          z-index: -1;
+        }
+        &:hover {
+          color: rgba(255, 255, 255, 1);
+        }
+        @include split-left(95px, '> div:first-child', '> div:last-child');
+        > div {
+          overflow: hidden;
+
+          &:first-child {
+            margin-top: 5px;
+            font-size: 37px;
+            text-align: left;
+            letter-spacing: 10px;
+            white-space: nowrap;
+          }
+          &:last-child {
+            padding-left: 2px;
+            margin-top: 6px;
+            text-align: right;
+            text-align: left;
+            > div {
+              font-size: 20px;
+              letter-spacing: 12px;
+
+              &:last-child {
+                font-size: 10px;
+                margin-top: 2px;
+                color: rgba(255, 255, 255, .7);
+                letter-spacing: 2px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #container {
+      border: 1px solid rgba(255, 0, 0, .3);
+      text-align: center;
+      padding: 0 10px;
+
+      .wrapper {
+        display: inline-block;
+        width: 500px;
+        min-height: 300px;
+
+        background-color: white;
+        margin-top: 10px;
+        border: 1px solid rgba(39, 39, 34, .3);
+        @include border-radius(2px);
+
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          width: 100%;
+        }
+      }
+    }
+
+    #footer {
+      margin: 0 auto;
+      padding: 50px 0;
+      @include clearfix();
+
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+        padding-top: 50px;
+        $footerWidth: 220px;
+        > div {
+          &:first-child, &:last-child {
+            width: calc(50% - #{$footerWidth / 2});
+          }
+          &:not(:first-child):not(:last-child) {
+            font-size: 14px;
+            width: $footerWidth;
+          }
+        }
+      }
+      @media screen and (min-width: $mediaMiniMobileWidth) {
+        padding-top: 100px;
+        $footerWidth: 250px;
+        > div {
+          &:first-child, &:last-child {
+            width: calc(50% - #{$footerWidth / 2});
+          }
+          &:not(:first-child):not(:last-child) {
+            width: $footerWidth;
+          }
+        }
+      }
+
+      > div {
+        float: left;
+        height: 100%;
+
+        &:first-child, &:last-child {
+          display: inline-block;
+          background-color: rgba(202, 200, 199, 1);
+          height: 1px;
+          margin-top: 20px;
+        }
+        &:not(:first-child):not(:last-child) {
+          display: inline-block;
+
+          > div {
+            &:first-child {
+              color: rgba(89, 89, 89, .8);
+              font-weight: bold;
+            }
+            &:last-child {
+              margin-top: 5px;
+              a {
+                @include a();
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      @include loading();
+    }
+  }
+}
