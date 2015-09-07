@@ -34,6 +34,7 @@ class Site_controller extends Oa_controller {
     //             ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.css'))
     //             ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
                 ;
+    return $this;
   }
 
   private function _add_js () {
