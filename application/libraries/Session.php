@@ -22,7 +22,7 @@ class Session {
       return self::ci ()->ci_session;
 
     if (!class_exists ('CI_Session'))
-      include_once FCPATH . 'system' . DIRECTORY_SEPARATOR . 'libraries' . DIRECTORY_SEPARATOR . 'session.php';
+      include_once FCPATH . 'system' . DIRECTORY_SEPARATOR . 'libraries' . DIRECTORY_SEPARATOR . 'Session.php';
 
     return self::ci ()->ci_session = new CI_Session ();
   }

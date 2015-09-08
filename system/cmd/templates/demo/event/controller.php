@@ -54,7 +54,7 @@ class Events extends Site_controller {
     $info      = trim (OAInput::post ('info'));
     $tag_ids   = OAInput::post ('tag_ids');
     $attendees = OAInput::post ('attendees');
-    $cover     = OAInput::post ('cover', true, true);
+    $cover     = OAInput::file ('cover');
 
     // 檢查參數 使否格式正確
     if (!($title && $info && $cover)) {
@@ -133,7 +133,7 @@ class Events extends Site_controller {
     $info  = trim (OAInput::post ('info'));
     $tag_ids = ($tag_ids = OAInput::post ('tag_ids')) ? $tag_ids : array ();
     $old_attendees = ($old_attendees = OAInput::post ('old_attendees')) ? $old_attendees : array ();
-    $cover = OAInput::post ('cover', true, true);
+    $cover = OAInput::file ('cover');
     $attendees = OAInput::post ('attendees');
 
     // 檢查參數 使否格式正確
