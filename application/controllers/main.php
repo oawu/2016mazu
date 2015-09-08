@@ -7,10 +7,6 @@
 
 class Main extends Site_controller {
 
-  public function __construct () {
-    parent::__construct ();
-  }
-
   public function index () {
     $this->load_view (null);
   }

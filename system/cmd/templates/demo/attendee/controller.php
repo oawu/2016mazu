@@ -6,10 +6,6 @@
  */
 
 class <?php echo ucfirst ($name);?> extends <?php echo ucfirst ($action);?>_controller {
-
-  public function __construct () {
-    parent::__construct ();
-  }
 <?php
   if ($methods) {
     foreach ($methods as $method) { ?>

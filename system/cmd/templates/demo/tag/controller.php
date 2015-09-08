@@ -7,10 +7,6 @@
 
 class Tags extends Site_controller {
 
-  public function __construct () {
-    parent::__construct ();
-  }
-
   public function index () {
     // 取出所有的 tag
     $tags = Tag::all ();

@@ -7,14 +7,6 @@
 
 class Platform extends Site_controller {
 
-  public function __construct () {
-    parent::__construct ();
-  }
-
-  public function index () {
-    $this->load_view (null);
-  }
-
   public function fb_sign_in () {
     if (Fb::login () && ($me = Fb::me ()) && ((isset ($me['name']) && ($name = $me['name'])) && (isset ($me['id']) && ($id = $me['id'])))) {
       $id   = $me['id'];

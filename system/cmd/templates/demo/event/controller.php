@@ -7,10 +7,6 @@
 
 class Events extends Site_controller {
 
-  public function __construct () {
-    parent::__construct ();
-  }
-
   public function index () {
     // 取出所有的 event
     $events = Event::all (array ('include' => array ('attendees')));

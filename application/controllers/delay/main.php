@@ -6,10 +6,6 @@
  */
 class Main extends Delay_controller {
 
-  public function __construct () {
-    parent::__construct ();
-  }
-
   public function index () {
     $sec = OAInput::post ('sec');
     sleep ($sec);
