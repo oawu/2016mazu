@@ -15,10 +15,11 @@
           <tr>
             <td data-title='ID' width='80'><?php echo $role->id;?></td>
             <td data-title='名稱'><?php echo $role->name;?></td>
-            <td data-title='選單數量' width='150'><?php echo count ($role->menus ());?></td>
-            <td data-title='使用者數量' width='150'><?php echo count ($role->users ());?></td>
+            <td data-title='選單數量' width='150'><?php echo count ($role->menu_roles);?></td>
+            <td data-title='使用者數量' width='150'><?php echo count ($role->user_roles);?></td>
             <td data-title='編輯' width='100'>
-              <a href='<?php echo base_url ('roles', 'edit', $role->id);?>' class='icon-in'></a>
+              <a href='<?php echo base_url ('', 'roles', 'edit', $role->id);?>' class='icon-pencil2'></a>
+              <a href='<?php echo base_url ('', 'roles', 'destroy', $role->id);?>' class='icon-bin'></a>
             </td>
           </tr>
   <?php }

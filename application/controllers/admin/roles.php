@@ -7,22 +7,10 @@
 
 class Roles extends Admin_controller {
 
-  public function __construct () {
-    parent::__construct ();
-  }
-
-  public function add () {
-    $params = Session::getData ('params', true);
-
-    $this->load_view (array (
-        'params' => $params
-      ));
-  }
   public function index ($offset = 0) {
     $columns = array ('id' => 'int', 'name' => 'string');
     $configs = array ('admin', 'roles', '%s');
-
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Role', $this->input_gets ())));
+    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Role', OAInput::get ())));
 
     $limit = 25;
     $total = Role::count (array ('conditions' => $conditions));
@@ -46,5 +34,105 @@ class Roles extends Admin_controller {
         'has_search' => array_filter ($columns),
         'columns' => $columns
       ));
+  }
+
+  public function add () {
+    $posts = Session::getData ('posts', true);
+
+    $this->load_view (array (
+        'posts' => $posts
+      ));
+  }
+
+  public function create () {
+    if (!$this->has_post ())
+      return redirect_message (array ('admin', 'roles', 'add'), array (
+          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
+        ));
+
+    $posts = OAInput::post ();
+
+    if($msg = $this->_validation_posts ($posts))
+      return redirect_message (array ('admin', 'roles', 'add'), array (
+          '_flash_message' => $msg,
+          'posts' => $posts
+        ));
+
+    if(Role::find_by_name ($posts['name'], array ('select' => 'id')))
+      return redirect_message (array ('admin', 'roles', 'add'), array (
+          '_flash_message' => '重複的角色名稱！',
+          'posts' => $posts
+        ));
+
+    if (!verifyCreateOrm ($role = Role::create ($posts)))
+      return redirect_message (array ('admin', 'roles', 'add'), array (
+          '_flash_message' => '新增失敗！',
+          'posts' => $posts
+        ));
+
+    return redirect_message (array ('admin', 'roles', 'add'), array (
+        '_flash_message' => '新增成功！'
+      ));
+  }
+
+  public function edit ($id) {
+    if (!($role = Role::find_by_id ($id)))
+      return redirect_message (array ('admin', 'roles'), array (
+          '_flash_message' => '找不到指定的資料。'
+        ));
+
+    $posts = Session::getData ('posts', true);
+
+    $this->load_view (array (
+        'posts' => $posts,
+        'role' => $role
+      ));
+  }
+
+  public function update ($id) {
+    if (!($role = Role::find_by_id ($id)))
+      return redirect_message (array ('admin', 'roles'), array (
+          '_flash_message' => '找不到指定的資料。'
+        ));
+
+    if (!$this->has_post ())
+      return redirect_message (array ('admin', 'roles', 'edit', $role->id), array (
+          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
+        ));
+
+    $posts = OAInput::post ();
+
+    if($msg = $this->_validation_posts ($posts))
+      return redirect_message (array ('admin', 'roles', 'edit', $role->id), array (
+          '_flash_message' => $msg,
+          'posts' => $posts
+        ));
+
+    if(Role::find ('one', array ('select' => 'id', 'conditions' => array ('name = ? AND id != ?', $posts['name'], $role->id))))
+      return redirect_message (array ('admin', 'roles', 'edit', $role->id), array (
+          '_flash_message' => '重複的角色名稱！',
+          'posts' => $posts
+        ));
+
+    foreach (array_keys (Role::table ()->columns) as $column)
+      if (isset ($posts[$column]))
+        $role->$column = $posts[$column];
+
+    if (!$role->save ())
+      return redirect_message (array ('admin', 'roles', 'edit', $role->id), array (
+          '_flash_message' => '修改失敗！',
+          'posts' => $posts
+        ));
+
+    return redirect_message (array ('admin', 'roles'), array (
+        '_flash_message' => '修改成功！'
+      ));
+  }
+
+  private function _validation_posts (&$posts) {
+      if (!(isset ($posts['name']) && ($posts['name'] = trim ($posts['name']))))
+        return '沒有填寫角色名稱！';
+
+      return '';
   }
 }
