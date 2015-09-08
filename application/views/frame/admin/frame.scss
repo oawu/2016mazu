@@ -506,6 +506,7 @@ html {
           background-color: rgba(255, 255, 255, 1);
           border-bottom: 1px solid rgba(39, 40, 34, .25);
           font-size: 13px;
+          overflow: hidden;
           @include box-shadow(0 0 3px 1px rgba(39, 40, 34, .2));
 
           @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
@@ -539,19 +540,21 @@ html {
             border-right: 0;
             border-left: 0;
             background-color: rgba(217, 237, 247, .65);
+            z-index: 9997;
 
             @include background-image(radial-gradient(50% 50%, rgba(217, 237, 247, 1) 0px, rgba(255, 255, 255, 0) 100%));
             background-repeat: no-repeat;
             background-position: 50% 5px;
 
             @include border-radius(0);
+            @include opacity(0);
             @include animation(message_show 5s);
             @include keyframes(message_show){
-              0% { top: -40px; }
-              5% { top: -40px; }
-              15% { top: 0; }
-              90% { top: 0; }
-              100% { top: -40px; }
+              0% { top: -40px; @include opacity(0); }
+              5% { top: -40px; @include opacity(0); }
+              15% { top: 0; @include opacity(1); }
+              90% { top: 0; @include opacity(1); }
+              100% { top: -40px; @include opacity(0); }
             }
           }
         }
@@ -837,6 +840,7 @@ form.search {
   @include clearfix();
   $submitWidth: 60px;
   $newWidth: 60px;
+  position: relative;
 
   @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
     display: none;
@@ -933,6 +937,7 @@ form.search {
     }
   }
 }
+
 table.table-list-rwd {
   @include material-table-list;
   margin-top: 20px;
@@ -946,7 +951,7 @@ table.table-list-rwd {
   }
 }
 
-.table-form {
+table.table-form {
   @include material-table-form(100px);
 
   td {
