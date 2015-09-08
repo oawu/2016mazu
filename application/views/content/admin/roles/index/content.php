@@ -18,8 +18,8 @@
             <td data-title='選單數量' width='150'><?php echo count ($role->menu_roles);?></td>
             <td data-title='使用者數量' width='150'><?php echo count ($role->user_roles);?></td>
             <td data-title='編輯' width='100'>
-              <a href='<?php echo base_url ('', 'roles', 'edit', $role->id);?>' class='icon-pencil2'></a>
-              <a href='<?php echo base_url ('', 'roles', 'destroy', $role->id);?>' class='icon-bin'></a>
+              <a href='<?php echo base_url ('admin', 'roles', 'edit', $role->id);?>' class='icon-pencil2'></a>
+              <a href='<?php echo base_url ('admin', 'roles', 'destroy', $role->id);?>' class='icon-bin'></a>
             </td>
           </tr>
   <?php }

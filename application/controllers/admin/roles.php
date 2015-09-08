@@ -74,7 +74,6 @@ class Roles extends Admin_controller {
         '_flash_message' => '新增成功！'
       ));
   }
-
   public function edit ($id) {
     if (!($role = Role::find_by_id ($id)))
       return redirect_message (array ('admin', 'roles'), array (
@@ -127,6 +126,22 @@ class Roles extends Admin_controller {
     return redirect_message (array ('admin', 'roles'), array (
         '_flash_message' => '修改成功！'
       ));
+  }
+
+  public function destroy ($id) {
+    if (!($role = Role::find_by_id ($id)))
+      return redirect_message (array ('admin', 'roles'), array (
+          '_flash_message' => '找不到指定的資料。'
+        ));
+
+    if (!$role->destroy ())
+      return redirect_message (array ('admin', 'roles'), array (
+          '_flash_message' => '刪除失敗。'
+        ));
+
+    return redirect_message (array ('admin', 'roles'), array (
+          '_flash_message' => '刪除成功。'
+        ));
   }
 
   private function _validation_posts (&$posts) {

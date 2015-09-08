@@ -46,4 +46,11 @@ class Role extends OaModel {
 
     return $this->menus = Menu::find ('all', array ('conditions' => array ('id IN (?)', $menu_ids)));
   }
+
+  public function destroy () {
+    UserRole::delete_all (array ('conditions' => array ('role_id = ?', $this->id)));
+    MenuRole::delete_all (array ('conditions' => array ('role_id = ?', $this->id)));
+
+    return $this->delete ();
+  }
 }
