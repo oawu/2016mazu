@@ -25,7 +25,15 @@
           <tr>
             <th>縣市</th>
             <td>
-              <label class='c'><input type='checkbox'><span>saddsa</span></label>
+              <label><input type='checkbox'><div>saddsa</div></label>
+              <label><input type='checkbox' disabled><div>saddsa</div></label>
+            </td>
+          </tr>
+          <tr>
+            <th>縣市</th>
+            <td>
+              <label><input type='radio' name='x'><div>saddsa</div></label>
+              <label><input type='radio' name='x' disabled><div>saddsa</div></label>
             </td>
           </tr>
 
