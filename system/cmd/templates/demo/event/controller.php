@@ -50,11 +50,11 @@ class Events extends Site_controller {
 
   public function create () {
     // 承接 POST 參數
-    $title     = trim ($this->input_post ('title'));
-    $info      = trim ($this->input_post ('info'));
-    $tag_ids   = $this->input_post ('tag_ids');
-    $attendees = $this->input_post ('attendees');
-    $cover     = $this->input_post ('cover', true, true);
+    $title     = trim (OAInput::post ('title'));
+    $info      = trim (OAInput::post ('info'));
+    $tag_ids   = OAInput::post ('tag_ids');
+    $attendees = OAInput::post ('attendees');
+    $cover     = OAInput::post ('cover', true, true);
 
     // 檢查參數 使否格式正確
     if (!($title && $info && $cover)) {
@@ -82,7 +82,7 @@ class Events extends Site_controller {
         identity ()->set_session ('_flash_message', '上傳圖片失敗!', true);
         return redirect (array ($this->get_class (), 'add'), 'refresh');
       }
-      
+
       // 新增成功後，新增對應的 tag
       // 藉由 tag 的 ids 藉由 where in 塞選存在的 tag，以防止不存在的 tag id
       if ($tag_ids)
@@ -129,12 +129,12 @@ class Events extends Site_controller {
       redirect (array ($this->get_class (), 'index'));
 
     // 承接 POST 參數
-    $title = trim ($this->input_post ('title'));
-    $info  = trim ($this->input_post ('info'));
-    $tag_ids = ($tag_ids = $this->input_post ('tag_ids')) ? $tag_ids : array ();
-    $old_attendees = ($old_attendees = $this->input_post ('old_attendees')) ? $old_attendees : array ();
-    $cover = $this->input_post ('cover', true, true);
-    $attendees = $this->input_post ('attendees');
+    $title = trim (OAInput::post ('title'));
+    $info  = trim (OAInput::post ('info'));
+    $tag_ids = ($tag_ids = OAInput::post ('tag_ids')) ? $tag_ids : array ();
+    $old_attendees = ($old_attendees = OAInput::post ('old_attendees')) ? $old_attendees : array ();
+    $cover = OAInput::post ('cover', true, true);
+    $attendees = OAInput::post ('attendees');
 
     // 檢查參數 使否格式正確
     if (!($title && $info)) {

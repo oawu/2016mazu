@@ -29,6 +29,7 @@ class Root_controller extends CI_Controller {
     $this->load->library ('cfg');
     $this->load->library ('session');
     $this->load->library ('fb');
+    $this->load->library ('OAInput');
 
     $this->set_controllers_path ('application', 'controllers')
          ->set_libraries_path ('application', 'libraries')
@@ -80,27 +81,6 @@ class Root_controller extends CI_Controller {
 
   public function get_views_path () {
     return $this->views_path;
-  }
-
-  protected function input_gets ($xss_clean = true) {
-    $security = $this->security;
-    return ($gets = $this->input->get ()) ? array_filter ($this->input->get (), function ($get) use ($xss_clean, $security) {
-      return $xss_clean ? $security->xss_clean ($get) : $get;
-    }) : array ();
-  }
-
-  protected function input_get ($index = null, $xss_clean = true) {
-    return $index = trim ($index) && ($gets = $this->input->get ()) && isset ($gets[$index]) ? $xss_clean ? $this->security->xss_clean ($gets[$index]) : $gets[$index] : null;
-  }
-
-  protected function input_post ($index = null, $is_files = false, $xss_clean = true) {
-    return !$is_files ? $index = trim ($index) && ($posts = $this->input->post ()) && isset ($posts[$index]) ? $xss_clean ? $this->security->xss_clean ($posts[$index]) : $posts[$index] : null : $this->_getPostFiles (trim ($index));
-  }
-
-  private function _getPostFiles ($index) {
-    if (!($index && $_FILES)) return null;
-    preg_match_all ('/^(?P<var>\w+)(\s?\[\s?\]\s?)$/', $index, $matches);
-    return ($matches = $matches['var'] ? $matches['var'][0] : null) ? get_upload_file ($matches) : get_upload_file ($index, 'one');
   }
 
   protected function load_content ($data = '', $return = false) {

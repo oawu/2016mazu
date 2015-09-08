@@ -39,7 +39,7 @@ class Tags extends Site_controller {
   public function add () {
     // 取出 session flash data
     $message = identity ()->get_session ('_flash_message', true);
-    
+
     // load view
     $this->load_view (array (
         'message' => $message
@@ -48,7 +48,7 @@ class Tags extends Site_controller {
 
   public function create () {
     // 承接 POST 參數
-    $name = trim ($this->input_post ('name'));
+    $name = trim (OAInput::post ('name'));
 
     // 檢查參數 使否格式正確
     if (!$name) {
@@ -80,7 +80,7 @@ class Tags extends Site_controller {
 
     // 取出 session flash data
     $message = identity ()->get_session ('_flash_message', true);
-    
+
     // load view
     $this->load_view (array (
         'message' => $message,
@@ -94,7 +94,7 @@ class Tags extends Site_controller {
       redirect (array ($this->get_class (), 'index'));
 
     // 承接 POST 參數
-    $name = trim ($this->input_post ('name'));
+    $name = trim (OAInput::post ('name'));
 
     // 檢查參數 使否格式正確
     if (!$name) {
