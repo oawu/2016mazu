@@ -13,13 +13,13 @@
   <body lang="zh-tw">
     <?php echo isset ($hidden_list) ? $hidden_list : ''; ?>
 
-    <?php //echo render_cell ('admin_cell', 'nav');?>
+    <?php echo render_cell ('admin_cell', 'nav');?>
 
 
     <div id='container'>
       <div class='wrapper'>
         <div class='wrapper_left '>
-          <?php //echo render_cell ('admin_cell', 'wrapper_left');?>
+          <?php echo render_cell ('admin_cell', 'wrapper_left');?>
         </div>
         <div class='cover'></div>
         <div class='wrapper_right'>
