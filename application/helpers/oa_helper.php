@@ -5,6 +5,16 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
+if (!function_exists ('redirect_message')) {
+  function redirect_message ($uri, $datas) {
+    if (class_exists ('Session') && $datas)
+      foreach ($datas as $key => $data)
+        Session::setData ($key, $data, true);
+
+    return redirect ($uri, 'refresh');
+  }
+}
+
 if (!function_exists ('conditions')) {
   function conditions (&$columns, &$configs, $model_name, $inputs = null) {
     $inputs = $inputs === null ? $_GET : $inputs;
