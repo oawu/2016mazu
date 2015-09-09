@@ -52,4 +52,7 @@ $(function () {
         window.mainLoading.remove ();
     });
   };
+  $('form').submit (function () {
+    window.showLoading ();
+  });
 });
