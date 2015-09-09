@@ -26,7 +26,8 @@ class Roles extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    $this->load_view (array (
+    $this->add_subtitle ('角色列表')
+         ->load_view (array (
         'roles' => $roles,
         'pagination' => $pagination,
         'has_search' => array_filter ($columns),
@@ -37,7 +38,8 @@ class Roles extends Admin_controller {
   public function add () {
     $posts = Session::getData ('posts', true);
 
-    $this->load_view (array (
+    $this->add_subtitle ('新增角色')
+         ->load_view (array (
         'posts' => $posts
       ));
   }
@@ -80,7 +82,8 @@ class Roles extends Admin_controller {
 
     $posts = Session::getData ('posts', true);
 
-    $this->load_view (array (
+    $this->add_subtitle ('修改角色')
+         ->load_view (array (
         'posts' => $posts,
         'role' => $role
       ));

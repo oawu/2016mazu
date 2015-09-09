@@ -28,7 +28,11 @@ class Admin_controller extends Oa_controller {
          ->_add_js ()
          ;
   }
-
+  protected function add_subtitle ($subtitle) {
+    if (is_string ($subtitle))
+      $this->add_param ('subtitle', $subtitle);
+    return $this;
+  }
   private function _add_meta () {
     return $this->add_meta (array ('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui'));
   }

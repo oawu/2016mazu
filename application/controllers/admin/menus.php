@@ -31,7 +31,8 @@ class Menus extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    $this->load_view (array (
+    $this->add_subtitle ($parent_menu ? $parent_menu->text . ' 內項目列表' : '項目根列表')
+         ->load_view (array (
         'menus' => $menus,
         'pagination' => $pagination,
         'has_search' => array_filter ($columns),
@@ -45,7 +46,8 @@ class Menus extends Admin_controller {
     $posts = Session::getData ('posts', true);
     $roles = $parent_menu ? $parent_menu->roles : Role::all ();
 
-    $this->load_view (array (
+    $this->add_subtitle ($parent_menu ? $parent_menu->text . ' 內新增項目' : '新增項目')
+         ->load_view (array (
         'posts' => $posts,
         'roles' => $roles,
         'parent_menu' => $parent_menu
@@ -96,7 +98,8 @@ class Menus extends Admin_controller {
     $posts = Session::getData ('posts', true);
     $roles = $menu->parent ? $menu->parent->roles : Role::all ();
 
-    $this->load_view (array (
+    $this->add_subtitle ('修改項目')
+         ->load_view (array (
         'posts' => $posts,
         'roles' => $roles,
         'menu' => $menu

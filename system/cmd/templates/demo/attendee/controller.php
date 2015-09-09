@@ -11,7 +11,7 @@ class <?php echo ucfirst ($name);?> extends <?php echo ucfirst ($action);?>_cont
     foreach ($methods as $method) { ?>
 
   public function <?php echo $method;?> () {
-    $this->load_view (null);
+    $this->load_view ();
   }
 <?php
     }

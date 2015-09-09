@@ -36,8 +36,9 @@ class Admin_cell extends Cell_Controller {
   // public function nav () {
   //   return array ('time' => 60 * 60, 'key' => null);
   // }
-  public function nav () {
+  public function nav ($subtitle) {
     return $this->load_view (array (
+      'subtitle' => $subtitle
       ));
   }
 

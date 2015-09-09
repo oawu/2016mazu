@@ -13,6 +13,8 @@ class Root_controller extends CI_Controller {
   private $views_path       = array ();
   private $libraries_path   = array ();
 
+  private $param = array ();
+
   public function __construct () {
     parent::__construct ();
 
@@ -83,13 +85,18 @@ class Root_controller extends CI_Controller {
     return $this->views_path;
   }
 
-  protected function load_content ($data = '', $return = false) {
+  public function add_param ($key, $value) {
+    $this->param = array_merge ($this->param, array($key => $value));
+    return $this;
+  }
+
+  protected function load_content ($data = array (), $return = false) {
     if (!is_readable ($abs_path = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge ($this->get_views_path (), $this->get_content_path (), array ($this->get_class (), $this->get_method (), 'content.php')))))
       return show_error ('Can not find content file. path: ' . $abs_path);
     else
       $path = implode (DIRECTORY_SEPARATOR, array_merge ($this->get_content_path (), array ($this->get_class (), $this->get_method (), 'content.php')));
 
-    if ($return) return $this->load->view ($path, $data, $return);
-    else $this->load->view ($path, $data, $return);
+    if ($return) return $this->load->view ($path, array_merge ($data, $this->param), $return);
+    else $this->load->view ($path, array_merge ($data, $this->param), $return);
   }
 }

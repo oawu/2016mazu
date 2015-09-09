@@ -155,10 +155,13 @@ html {
             &.title {
               width: calc(100% - 40px - 5px);
               text-align: left;
+              line-height: 37px;
+              font-size: 18px;
+              letter-spacing: 3px;
               @include overflow-docx3();
               @media screen and (min-width: $mediaTabletWidth) {
                 padding-top: 7px;
-                font-size: 25px;
+                font-size: 20px;
               }
             }
           }

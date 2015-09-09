@@ -169,7 +169,7 @@ class Oa_controller extends Root_controller {
     return $this;
   }
 
-  protected function load_view ($data = '', $return = false, $cache_time = 0) {
+  protected function load_view ($data = array (), $return = false, $cache_time = 0) {
     if (!is_readable ($path = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge ($this->get_views_path (), $this->get_frame_path (), array ('frame' . EXT)))))
       return show_error ('Can not find frame file. path: ' . $path);
     else

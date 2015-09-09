@@ -2,7 +2,7 @@
   <div class='container'>
     <a href='<?php echo base_url ();?>' class='logo'><div>北港</div><div><div>迎媽祖</div><div>Beigang Mazu</div></div></a>
 
-    <div class='left'><div class='option icon-menu'></div><div class='title'></div></div>
+    <div class='left'><div class='option icon-menu'></div><div class='title'><?php echo isset ($subtitle) ? $subtitle : '';?></div></div>
 
     <div class='right'>
 

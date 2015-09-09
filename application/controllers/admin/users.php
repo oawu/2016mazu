@@ -8,6 +8,6 @@
 class Users extends Admin_controller {
 
   public function index () {
-    $this->load_view (null);
+    $this->load_view ();
   }
 }
