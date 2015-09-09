@@ -10,7 +10,7 @@ class Migration_Add_menus extends CI_Migration {
     $this->db->query (
       "CREATE TABLE `menus` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
-        `menu_id` int(11) NOT NULL,
+        `menu_id` int(11) DEFAULT NULL,
 
         `text` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '文字',
         `href` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '網址',
@@ -18,6 +18,7 @@ class Migration_Add_menus extends CI_Migration {
 
         `class` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '類別',
         `method` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '方法',
+        `target` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '鏈結開啟方法',
 
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
