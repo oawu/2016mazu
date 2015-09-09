@@ -529,7 +529,7 @@ html {
           }
 
           .message {
-            @include alert('info', false);
+            @include alert('info');
             position: absolute;
             top: -40px;
             left: 0;

@@ -3,13 +3,10 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-@mixin alert ($type: 'danger', $shadow: true) {
+@mixin alert ($type: 'danger') {
   padding: 5px 10px;
   @include border-radius(4px);
 
-  @if $shadow == true {
-    @include box-shadow(0 2px 3px rgba(0,0,0,.175));
-  }
   @if $type == 'success' {
     color: rgba(60, 118, 61, 1);
     background-color: rgba(223, 240, 216, 1);
