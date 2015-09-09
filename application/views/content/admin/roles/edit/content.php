@@ -10,7 +10,7 @@
 
       <tr>
         <td colspan='2'>
-          <a href='<?php echo base_url ('admin', 'towns');?>'>回列表</a>
+          <a href='<?php echo base_url ('admin', 'roles');?>'>回列表</a>
           <button type='reset' class='button'>重填</button>
           <button type='submit' class='button'>確定</button>
         </td>
