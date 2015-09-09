@@ -83,7 +83,7 @@ class Menus extends Admin_controller {
             'role_id' => $role_id
           ));
 
-    return redirect_message (array ('admin', 'menus'), array (
+    return redirect_message (array ('admin', 'menus', $parent_menu ? $parent_menu->id : 0), array (
         '_flash_message' => '新增成功！'
       ));
   }
@@ -131,7 +131,8 @@ class Menus extends Admin_controller {
         MenuRole::create (array ('menu_id' => $menu->id, 'role_id' => $role_id));
 
     if ($del_ids = array_diff ($old_ids, $role_ids))
-      MenuRole::delete_all (array ('conditions' => array ('role_id IN (?)', $del_ids)));
+      foreach (MenuRole::find ('all', array ('select' => 'id', 'conditions' => array ('role_id IN (?)', $del_ids))) as $menu_role)
+        $menu_role->destroy ();
 
     foreach (array_keys (Menu::table ()->columns) as $column)
       if (isset ($posts[$column]))
@@ -143,10 +144,26 @@ class Menus extends Admin_controller {
           'posts' => $posts
         ));
 
-    return redirect_message (array ('admin', 'menus'), array (
+    return redirect_message (array ('admin', 'menus', $menu->parent ? $menu->parent->id : 0), array (
         '_flash_message' => '修改成功！'
       ));
   }
+  public function destroy ($id) {
+    if (!($menu = Menu::find_by_id ($id)))
+      return redirect_message (array ('admin', 'menus'), array (
+          '_flash_message' => '找不到指定的資料。'
+        ));
+
+    if (!$menu->destroy ())
+      return redirect_message (array ('admin', 'menus', $menu->id), array (
+          '_flash_message' => '刪除失敗。'
+        ));
+
+    return redirect_message (array ('admin', 'menus', $menu->id), array (
+          '_flash_message' => '刪除成功。'
+        ));
+  }
+
   private function _validation_posts (&$posts, $parent_menu) {
     if (!(isset ($posts['text']) && ($posts['text'] = trim ($posts['text']))))
       return '沒有填寫文字！';

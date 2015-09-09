@@ -48,8 +48,13 @@ class Role extends OaModel {
   }
 
   public function destroy () {
-    UserRole::delete_all (array ('conditions' => array ('role_id = ?', $this->id)));
-    MenuRole::delete_all (array ('conditions' => array ('role_id = ?', $this->id)));
+    if ($this->user_roles)
+      foreach ($this->user_roles as $user_role)
+        $user_role->destroy ();
+
+    if ($this->menu_roles)
+      foreach ($this->menu_roles as $menu_role)
+        $menu_role->destroy ();
 
     return $this->delete ();
   }

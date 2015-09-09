@@ -11,20 +11,28 @@
 </form>
 <button type='button' onClick="if (!$(this).prev ().is (':visible')) $(this).attr ('class', 'icon-chevron-left').prev ().addClass ('show'); else $(this).attr ('class', 'icon-chevron-right').prev ().removeClass ('show');" class='icon-chevron-<?php echo $has_search ? 'left' : 'right';?>'></button>
 
+<div class='level'>
+<?php
+  echo implode ("<span class='icon-chevron-right'></span>", array_merge (array (anchor (base_url ('admin', 'menus'), '根目錄')), array_map (function ($ancestry) {
+                return anchor (base_url ('admin', 'menus', $ancestry->id), $ancestry->text);
+              }, $parent_menu ? $parent_menu->ancestry () : array ()))); ?>
+</div>
+
   <table class='table-list-rwd'>
     <tbody>
 <?php if ($menus) {
         foreach ($menus as $menu) { ?>
           <tr>
             <td data-title='ID' width='80'><?php echo $menu->id;?></td>
-            <td data-title='文字'><?php echo $menu->text;?></td>
+            <td data-title='圖示' width='50'><i class='<?php echo $menu->icon;?>'></i></td>
+            <td data-title='文字' width='150'><?php echo $menu->text;?></td>
             <td data-title='網址'><?php echo $menu->href;?></td>
-            <td data-title='類別'><?php echo $menu->class;?></td>
-            <td data-title='方法'><?php echo $menu->method;?></td>
-            <td data-title='子項目'><?php echo count ($menu->children);?></td>
+            <td data-title='類別' width='150'><?php echo $menu->class;?></td>
+            <td data-title='方法' width='150'><?php echo $menu->method;?></td>
+            <td data-title='子項目' width='80'><?php echo count ($menu->children);?></td>
 
             <td data-title='編輯' width='130'>
-              <a href='<?php echo base_url ('admin', 'menus', 'index', $menu->id);?>' class='icon-list2'></a>
+              <a href='<?php echo base_url ('admin', 'menus', $menu->id);?>' class='icon-list2'></a>
               <a href='<?php echo base_url ('admin', 'menus', 'edit', $menu->id);?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'menus', 'destroy', $menu->id);?>' class='icon-bin'></a>
             </td>

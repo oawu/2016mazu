@@ -20,7 +20,7 @@ class Admin_cell extends Cell_Controller {
           array ('name' => '首頁', 'href' => base_url ('admin'), 'icon' => 'icon-home', 'target' => '_self', 'visible' => true, 'active' => ($class == 'maind') && ($method == 'index')),
           array ('name' => '角色設定', 'href' => base_url ('admin', 'roles'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'roles')),
           array ('name' => '項目設定', 'href' => base_url ('admin', 'menus'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'menus')),
-          array ('name' => '使用者設定', 'href' => base_url ('admin', 'users'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'menus')),
+          array ('name' => '使用者設定', 'href' => base_url ('admin', 'users'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'users')),
         ),
       '文章上搞'=> array (
         ),

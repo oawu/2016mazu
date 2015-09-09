@@ -32,4 +32,15 @@ class Menu extends OaModel {
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
   }
+
+  // asc 祖父,父親,自己，desc 自己,父親,祖父
+  public function ancestry ($order = 'asc') {
+    return $this->parent ? strtolower ($order) == 'asc' ? array_merge ($this->parent->ancestry ($order), array ($this)) : array_merge (array ($this), $this->parent->ancestry ($order)) : array ($this);
+  }
+  public function destroy () {
+    if ($this->children)
+      foreach ($this->children as $children)
+        $children->destroy ();
+    return $this->delete ();
+  }
 }
