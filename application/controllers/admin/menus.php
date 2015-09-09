@@ -171,9 +171,6 @@ class Menus extends Admin_controller {
     if (!(isset ($posts['text']) && ($posts['text'] = trim ($posts['text']))))
       return '沒有填寫文字！';
 
-    if (!(isset ($posts['href']) && ($posts['href'] = trim ($posts['href']))))
-      return '沒有填寫網址！';
-
     if (!(isset ($posts['target']) && isset (menu::$targets[$posts['target'] = trim ($posts['target'])])))
       return '沒有選擇 Target！';
 

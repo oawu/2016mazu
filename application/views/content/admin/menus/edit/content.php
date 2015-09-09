@@ -10,7 +10,7 @@
       <tr>
         <th>網 址：</th>
         <td>
-          <input type='text' name='href' value='<?php echo $posts['href'] ? $posts['href'] : $menu->href;?>' placeholder='請輸入網址名稱..' maxlength='200' pattern='.{1,200}' required title='輸入網址名稱!' />
+          <input type='text' name='href' value='<?php echo $posts['href'] ? $posts['href'] : $menu->href;?>' placeholder='請輸入網址名稱..' maxlength='200' />
         </td>
       </tr>
       <tr>
