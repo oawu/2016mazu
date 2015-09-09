@@ -12,9 +12,9 @@ class OaModel extends ActiveRecordModel {
 
   public static function addConditions (&$conditions, $str) {
     $args = array_filter (func_get_args ());
-    $args = array_splice($args, 1, 3);
+    $args = array_splice($args, 2, 3);
 
-    if (!isset($conditions))
+    if (!isset($conditions) || !array_filter($conditions))
       $conditions = array();
 
     if (!$conditions)
