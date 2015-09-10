@@ -53,7 +53,7 @@
 <?php } ?>
       <tr>
         <td colspan='2'>
-          <a href='<?php echo base_url ('admin', 'menus');?>'>回列表</a>
+          <a href='<?php echo base_url ('admin', 'menus', $parent_menu ? $parent_menu->id : 0);?>'>回列表</a>
           <button type='reset' class='button'>重填</button>
           <button type='submit' class='button'>確定</button>
         </td>
