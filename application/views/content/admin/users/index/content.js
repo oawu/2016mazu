@@ -4,4 +4,5 @@
  */
 
 $(function () {
+  window.hideLoading ();
 });
