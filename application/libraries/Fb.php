@@ -57,8 +57,8 @@ class Fb {
   public static function me () {
     if (!(self::faceBook () && self::$accessToken))
       return null;
-
+    $get_fields = implode (',', Cfg::setting ('facebook', 'get_fields'));
     self::faceBook ()->setDefaultAccessToken (self::$accessToken);
-    return self::faceBook ()->get ('/me')->getGraphUser ();
+    return self::faceBook ()->get ('/me' . ($get_fields ? '?fields=' . $get_fields : ''))->getGraphUser ();
   }
 }
