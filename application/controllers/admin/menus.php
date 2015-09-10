@@ -134,7 +134,7 @@ class Menus extends Admin_controller {
         MenuRole::create (array ('menu_id' => $menu->id, 'role_id' => $role_id));
 
     if ($del_ids = array_diff ($old_ids, $role_ids))
-      foreach (MenuRole::find ('all', array ('select' => 'id', 'conditions' => array ('role_id IN (?)', $del_ids))) as $menu_role)
+      foreach (MenuRole::find ('all', array ('select' => 'id', 'conditions' => array ('menu_id = ? AND role_id IN (?)', $menu->id, $del_ids))) as $menu_role)
         $menu_role->destroy ();
 
     foreach (array_keys (Menu::table ()->columns) as $column)
