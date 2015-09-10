@@ -7,6 +7,76 @@
 
 class Roles extends Admin_controller {
 
+  public function menus ($id, $offset = 0) {
+    if (!($role = Role::find_by_id ($id)))
+      return redirect_message (array ('admin', 'roles'), array (
+          '_flash_message' => '找不到指定的資料。'
+        ));
+
+    $columns = array ('id' => 'int', 'text' => 'string', 'href' => 'string', 'class' => 'string', 'method' => 'string');
+    $configs = array ('admin', 'roles', $role->id, 'menus', '%s');
+    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Menu', OAInput::get ())));
+
+    if ($user_ids = column_array ($role->user_roles, 'user_id'))
+      Menu::addConditions ($conditions, 'id IN (?)', $user_ids);
+
+    $limit = 25;
+    $total = Menu::count (array ('conditions' => $conditions));
+    $offset = $offset < $total ? $offset : 0;
+
+    $this->load->library ('pagination');
+    $pagination = $this->pagination->initialize (array_merge (array ('total_rows' => $total, 'num_links' => 5, 'per_page' => $limit, 'uri_segment' => 0, 'base_url' => '', 'page_query_string' => false, 'first_link' => '第一頁', 'last_link' => '最後頁', 'prev_link' => '上一頁', 'next_link' => '下一頁', 'full_tag_open' => '<ul class="pagination">', 'full_tag_close' => '</ul>', 'first_tag_open' => '<li>', 'first_tag_close' => '</li>', 'prev_tag_open' => '<li>', 'prev_tag_close' => '</li>', 'num_tag_open' => '<li>', 'num_tag_close' => '</li>', 'cur_tag_open' => '<li class="active"><a href="#">', 'cur_tag_close' => '</a></li>', 'next_tag_open' => '<li>', 'next_tag_close' => '</li>', 'last_tag_open' => '<li>', 'last_tag_close' => '</li>'), $configs))->create_links ();
+    $menus = Menu::find ('all', array (
+        'offset' => $offset,
+        'limit' => $limit,
+        'order' => 'id ASC',
+        'conditions' => $conditions
+      ));
+
+    $this->add_subtitle ('屬於 ' . $role->description . ' 的使用者列表')
+         ->load_view (array (
+        'menus' => $menus,
+        'pagination' => $pagination,
+        'has_search' => array_filter ($columns),
+        'columns' => $columns
+      ));
+  }
+
+  public function users ($id, $offset = 0) {
+    if (!($role = Role::find_by_id ($id)))
+      return redirect_message (array ('admin', 'roles'), array (
+          '_flash_message' => '找不到指定的資料。'
+        ));
+
+    $columns = array ('id' => 'int', 'name' => 'string', 'email' => 'string');
+    $configs = array ('admin', 'roles', $role->id, 'users', '%s');
+    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'User', OAInput::get ())));
+
+    if ($user_ids = column_array ($role->user_roles, 'user_id'))
+      User::addConditions ($conditions, 'id IN (?)', $user_ids);
+
+    $limit = 25;
+    $total = User::count (array ('conditions' => $conditions));
+    $offset = $offset < $total ? $offset : 0;
+
+    $this->load->library ('pagination');
+    $pagination = $this->pagination->initialize (array_merge (array ('total_rows' => $total, 'num_links' => 5, 'per_page' => $limit, 'uri_segment' => 0, 'base_url' => '', 'page_query_string' => false, 'first_link' => '第一頁', 'last_link' => '最後頁', 'prev_link' => '上一頁', 'next_link' => '下一頁', 'full_tag_open' => '<ul class="pagination">', 'full_tag_close' => '</ul>', 'first_tag_open' => '<li>', 'first_tag_close' => '</li>', 'prev_tag_open' => '<li>', 'prev_tag_close' => '</li>', 'num_tag_open' => '<li>', 'num_tag_close' => '</li>', 'cur_tag_open' => '<li class="active"><a href="#">', 'cur_tag_close' => '</a></li>', 'next_tag_open' => '<li>', 'next_tag_close' => '</li>', 'last_tag_open' => '<li>', 'last_tag_close' => '</li>'), $configs))->create_links ();
+    $users = User::find ('all', array (
+        'offset' => $offset,
+        'limit' => $limit,
+        'order' => 'id ASC',
+        'conditions' => $conditions
+      ));
+
+    $this->add_subtitle ('屬於 ' . $role->description . ' 的使用者列表')
+         ->load_view (array (
+        'role' => $role,
+        'users' => $users,
+        'pagination' => $pagination,
+        'has_search' => array_filter ($columns),
+        'columns' => $columns
+      ));
+  }
   public function index ($offset = 0) {
     $columns = array ('id' => 'int', 'name' => 'string');
     $configs = array ('admin', 'roles', '%s');

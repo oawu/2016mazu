@@ -7,6 +7,12 @@
           <input type='text' name='name' value='<?php echo $posts['name'] ? $posts['name'] : '';?>' placeholder='請輸入角色名稱..' maxlength='200' pattern='.{1,200}' required title='輸入角色名稱!' />
         </td>
       </tr>
+      <tr>
+        <th>角色描述：</th>
+        <td>
+          <input type='text' name='description' value='<?php echo $posts['description'] ? $posts['description'] : '';?>' placeholder='請輸入角色描述..' maxlength='200' pattern='.{1,200}' required title='輸入角色描述!' />
+        </td>
+      </tr>
 
       <tr>
         <td colspan='2'>
