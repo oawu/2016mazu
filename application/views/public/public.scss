@@ -21,6 +21,66 @@
   @include font-smoothing(antialiased);
 }
 
+* {
+  &, &:after, &:before {
+    vertical-align: top;
+    @include box-sizing(border-box);
+    @include selection(rgba(150, 200, 255, 1), rgba(255, 255, 255, 1));
+    @include font-smoothing(antialiased);
+  }
+}
+
+html {
+  height: 100%;
+
+  body {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    font-size: medium;
+    font-family: cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
+    background: $mainBackgroundColor $mainBackgroundImage;
+    color: rgba(50, 50, 50, 0.8);
+
+    @include font-smoothing(antialiased);
+
+    #container {
+      position: relative;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}
+
+.gm-style-cc {
+  display: none;
+}
+
+
+.icon-user2:before {
+  content: "\e611";
+}
+.icon-images:before {
+  content: "\e60c";
+}
+.icon-list2:before {
+  content: "\e602";
+}
+.icon-enter:before {
+  content: "\e60d";
+}
+.icon-exit:before {
+  content: "\e60f";
+}
+.icon-github:before {
+  content: "\e603";
+}
+.icon-user:before {
+  content: "\e610";
+}
 .icon-menu:before {
   content: "\e600";
 }
@@ -105,58 +165,6 @@
 .icon-more:before {
   content: "\f833";
 }
-.icon-images:before {
-  content: "\e60c";
-}
-.icon-list2:before {
-  content: "\e602";
-}
-.icon-enter:before {
-  content: "\e60d";
-}
-.icon-exit:before {
-  content: "\e60f";
-}
-.icon-github:before {
-  content: "\e603";
-}
-
-
-
-* {
-  &, &:after, &:before {
-    vertical-align: top;
-    @include box-sizing(border-box);
-    @include selection(rgba(150, 200, 255, 1), rgba(255, 255, 255, 1));
-    @include font-smoothing(antialiased);
-  }
-}
-
-html {
-  height: 100%;
-
-  body {
-    position: relative;
-    display: inline-block;
-    text-align: center;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    font-size: medium;
-    font-family: cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
-    background: $mainBackgroundColor $mainBackgroundImage;
-    color: rgba(50, 50, 50, 0.8);
-
-    @include font-smoothing(antialiased);
-
-    #container {
-      position: relative;
-      display: block;
-      margin: 0 auto;
-    }
-  }
-}
-
-.gm-style-cc {
-  display: none;
+.icon-key:before {
+  content: "\e613";
 }
