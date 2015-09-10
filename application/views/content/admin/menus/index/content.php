@@ -29,10 +29,8 @@
             <td data-title='網址'><?php echo $menu->href;?></td>
             <td data-title='類別' width='150'><?php echo $menu->class;?></td>
             <td data-title='方法' width='150'><?php echo $menu->method;?></td>
-            <td data-title='子項目' width='80'><?php echo count ($menu->children);?></td>
-
-            <td data-title='編輯' width='130'>
-              <a href='<?php echo base_url ('admin', 'menus', $menu->id);?>' class='icon-list2'></a>
+            <td data-title='子項目數量' width='130'><?php echo anchor (base_url ('admin', 'menus', $menu->id), count ($menu->children));?></td>
+            <td data-title='編輯' width='100'>
               <a href='<?php echo base_url ('admin', 'menus', 'edit', $menu->id);?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'menus', 'destroy', $menu->id);?>' class='icon-bin'></a>
             </td>
