@@ -51,7 +51,7 @@ class Menu extends OaModel {
     return column_array ($this->roles (), 'name');
   }
 
-  public function filter ($roles = array ()) {
+  public function struct ($roles = array ()) {
     sort ($roles = is_string ($roles) ? array ($roles) : array_map (function ($role) { return is_object ($role) ? $role->name : $role; }, $roles));
 
     $static_key = $this->id . '|' . implode ('_', $roles);
@@ -60,19 +60,23 @@ class Menu extends OaModel {
       return Menu::$struct[$static_key];
 
     if (!($roles && $this->role_names () && array_intersect ($this->role_names (), $roles)))
-      return Menu::$struct[$static_key] = array ();
+      return Menu::$struct[$static_key] = null;
 
     $menu = array ();
       foreach ($this->table()->columns as $key => $column)
         $menu[$key] = (string)$this->$key;
 
-    $menu['children'] = array_map (function ($child) use ($roles) {
-      return $child->filter ($roles);
-    }, $this->children);
+    $menu['roles'] = array_map (function ($role) {
+      return array ('name' => $role->name, 'description' => $role->description);
+    }, $this->roles ());
+
+    $menu['children'] = array_filter (array_map (function ($child) use ($roles) {
+          return $child->struct ($roles);
+        }, $this->children));
 
     return Menu::$struct[$static_key] = $menu;
   }
-  public static function struct ($roles = array (), $option = array ('conditions' => array ('menu_id IS NULL'))) {
+  public static function structs ($roles = array (), $option = array ('conditions' => array ('menu_id IS NULL'))) {
     sort ($roles = is_string ($roles) ? array ($roles) : array_map (function ($role) { return is_object ($role) ? $role->name : $role; }, $roles));
 
     $menus = self::all ($option);
@@ -81,9 +85,9 @@ class Menu extends OaModel {
     if (isset (Menu::$struct[$static_key]))
       return Menu::$struct[$static_key];
 
-    return Menu::$struct[$static_key] = array_map (function ($menu) use ($roles) {
-      return $menu->filter ($roles);
-    }, $menus);
+    return Menu::$struct[$static_key] = array_filter (array_map (function ($menu) use ($roles) {
+          return $menu->struct ($roles);
+        }, $menus));
   }
 
   // asc 祖父,父親,自己，desc 自己,父親,祖父
