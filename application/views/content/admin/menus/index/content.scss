@@ -24,3 +24,12 @@
     margin: 0 2px;
   }
 }
+.role {
+  display: inline-block;
+  width: 100%;
+
+  + .role {
+    margin-top: 3px;
+    @include overflow-docx3();
+  }
+}
