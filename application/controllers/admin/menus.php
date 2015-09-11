@@ -9,10 +9,14 @@ class Menus extends Admin_controller {
 
   public function tree ($id = 0) {
     $menu = Menu::find_by_id ($id);
+    $roles = column_array (Role::all (), 'name');
+    $structs = $menu && ($structs = $menu->struct ($roles)) ? $structs['children'] : Menu::structs ($roles);
 
     $this->add_subtitle ($menu ? $menu->text . ' 下的結構' : '項目根下的結構')
          ->load_view (array (
         'menu' => $menu,
+        'roles' => $roles,
+        'structs' => $structs,
       ));
   }
   public function index ($parent_id = 0, $offset = 0) {
