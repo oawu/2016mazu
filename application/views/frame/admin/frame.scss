@@ -863,12 +863,14 @@ form.search {
     }
     text-align: left;
 
-    &.n {
-      @media screen and (min-width: #{$mediaMobileWidth}) {
-        width: calc(100% - #{$submitWidth + $newWidth + 10px});
-      }
-      ~ a {
-        display: inline-block;
+    @for $i from 1 through 10 {
+      &.n#{$i} {
+        @media screen and (min-width: #{$mediaMobileWidth}) {
+          width: calc(100% - #{$submitWidth + ($newWidth + 10px) * $i});
+        }
+        ~ a {
+          display: inline-block;
+        }
       }
     }
     input {

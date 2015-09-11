@@ -1,5 +1,5 @@
 <form action='<?php echo base_url ('admin', 'roles');?>' method='get' class="search<?php echo $has_search ? ' show' : '';?>">
-  <div class='l i2 n'>
+  <div class='l i2 n1'>
     <input type='text' name='id' value='<?php echo @$columns['id'];?>' placeholder='請輸入 ID..' />
     <input type='text' name='name' value='<?php echo @$columns['name'];?>' placeholder='請輸入 標題..' />
   </div>
