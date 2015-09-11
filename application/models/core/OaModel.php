@@ -14,7 +14,7 @@ class OaModel extends ActiveRecordModel {
     $args = array_filter (func_get_args (), function ($t) {
       return $t !== null;
     });
-    $args = array_splice($args, 2, 3);
+    $args = array_splice($args, !isset ($conditions) ? 1 : 2, 3);
 
     if (!isset($conditions) || !array_filter($conditions))
       $conditions = array();
