@@ -7,6 +7,14 @@
 
 class Menus extends Admin_controller {
 
+  public function tree ($id = 0) {
+    $menu = Menu::find_by_id ($id);
+
+    $this->add_subtitle ($menu ? $menu->text . ' 下的結構' : '項目根下的結構')
+         ->load_view (array (
+        'menu' => $menu,
+      ));
+  }
   public function index ($parent_id = 0, $offset = 0) {
     $parent_menu = Menu::find_by_id ($parent_id);
 
