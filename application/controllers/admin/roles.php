@@ -17,8 +17,8 @@ class Roles extends Admin_controller {
     $configs = array ('admin', 'roles', $role->id, 'menus', '%s');
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Menu', OAInput::get ())));
 
-    if ($user_ids = column_array ($role->user_roles, 'user_id'))
-      Menu::addConditions ($conditions, 'id IN (?)', $user_ids);
+    if ($menu_ids = column_array ($role->menu_roles, 'menu_id'))
+      Menu::addConditions ($conditions, 'id IN (?)', $menu_ids);
 
     $limit = 25;
     $total = Menu::count (array ('conditions' => $conditions));
@@ -33,7 +33,7 @@ class Roles extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    $this->add_subtitle ('屬於 ' . $role->description . ' 的使用者列表')
+    $this->add_subtitle ('屬於 ' . $role->description . ' 的選項列表')
          ->load_view (array (
         'menus' => $menus,
         'pagination' => $pagination,
