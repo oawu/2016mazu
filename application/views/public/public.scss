@@ -59,27 +59,8 @@ html {
   display: none;
 }
 
-
-.icon-user2:before {
-  content: "\e611";
-}
-.icon-images:before {
-  content: "\e60c";
-}
-.icon-list2:before {
-  content: "\e602";
-}
-.icon-enter:before {
-  content: "\e60d";
-}
-.icon-exit:before {
-  content: "\e60f";
-}
-.icon-github:before {
-  content: "\e603";
-}
-.icon-user:before {
-  content: "\e610";
+.icon-exclamation-triangle:before {
+  content: "\e61e";
 }
 .icon-menu:before {
   content: "\e600";
@@ -87,17 +68,23 @@ html {
 .icon-home:before {
   content: "\e601";
 }
+.icon-list2:before {
+  content: "\e602";
+}
+.icon-github:before {
+  content: "\e603";
+}
 .icon-search:before {
   content: "\e604";
-}
-.icon-share:before {
-  content: "\e607";
 }
 .icon-link-external:before {
   content: "\e605";
 }
 .icon-link:before {
   content: "\e606";
+}
+.icon-share:before {
+  content: "\e607";
 }
 .icon-plus:before {
   content: "\e608";
@@ -111,11 +98,29 @@ html {
 .icon-chevron-left:before {
   content: "\e60b";
 }
+.icon-images:before {
+  content: "\e60c";
+}
+.icon-enter:before {
+  content: "\e60d";
+}
 .icon-arrow-right:before {
   content: "\e60e";
 }
+.icon-exit:before {
+  content: "\e60f";
+}
+.icon-user:before {
+  content: "\e610";
+}
+.icon-user2:before {
+  content: "\e611";
+}
 .icon-file-text2:before {
   content: "\e612";
+}
+.icon-key:before {
+  content: "\e613";
 }
 .icon-refresh:before {
   content: "\e615";
@@ -165,6 +170,15 @@ html {
 .icon-more:before {
   content: "\f833";
 }
-.icon-key:before {
-  content: "\e613";
+.icon-triangle-up:before {
+  content: "\e614";
+}
+.icon-triangle-right:before {
+  content: "\e617";
+}
+.icon-triangle-left:before {
+  content: "\e618";
+}
+.icon-triangle-down:before {
+  content: "\e61b";
 }
