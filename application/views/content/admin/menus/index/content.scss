@@ -33,3 +33,12 @@
     @include overflow-docx3();
   }
 }
+
+.sort {
+  
+  a {
+    margin: 0;
+    float: right;
+    cursor: pointer;
+  }
+}

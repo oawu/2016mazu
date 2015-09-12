@@ -7,6 +7,42 @@
 
 class Menus extends Admin_controller {
 
+  public function sort () {
+    if (!(($id = trim (OAInput::post ('id'))) && ($sort = trim (OAInput::post ('sort'))) && in_array ($sort, array ('up', 'down')) && ($menu = Menu::find_by_id ($id))))
+      return $this->output_json (array ('status' => false));
+
+    if ($menu->parent)
+      Menu::addConditions ($conditions, 'menu_id = ?', $menu->menu_id);
+    else
+      Menu::addConditions ($conditions, 'menu_id IS NULL');
+
+    $total = Menu::count (array ('conditions' => $conditions));
+
+    switch ($sort) {
+      case 'up':
+        $sort = $menu->sort;
+        $menu->sort = $menu->sort - 1 < 0 ? $total - 1 : $menu->sort - 1;
+        break;
+
+      case 'down':
+        $sort = $menu->sort;
+        $menu->sort = $menu->sort + 1 >= $total ? 0 : $menu->sort + 1;
+        break;
+    }
+
+    Menu::addConditions ($conditions, 'sort = ?', $menu->sort);
+    if ($next = Menu::find ('one', array ('conditions' => $conditions))) {
+      $next->sort = $sort;
+      if (!$next->save ())
+        return $this->output_json (array ('status' => false));
+    }
+
+    if (!$menu->save ())
+      return $this->output_json (array ('status' => false));
+
+    return $this->output_json (array ('status' => true));
+  }
+
   public function tree ($id = 0) {
     $menu = Menu::find_by_id ($id);
     $roles = column_array (Role::all (), 'name');
@@ -39,11 +75,12 @@ class Menus extends Admin_controller {
         'include' => array ('children'),
         'offset' => $offset,
         'limit' => $limit,
-        'order' => 'id ASC',
+        'order' => 'sort ASC',
         'conditions' => $conditions
       ));
 
     $this->add_subtitle ($parent_menu ? $parent_menu->text . ' 內項目列表' : '項目根列表')
+         ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', $this->get_class (), 'sort')))
          ->load_view (array (
         'menus' => $menus,
         'pagination' => $pagination,
@@ -83,6 +120,9 @@ class Menus extends Admin_controller {
 
     $role_ids = isset($posts['role_ids']) ? $posts['role_ids'] : array ();
     unset ($posts['role_ids']);
+
+    $conditions  = $parent_menu ? array ('menu_id = ?', $parent_menu->id) : array ('menu_id IS NULL');
+    $posts['sort'] = Menu::count (array ('conditions' => $conditions));
 
     if (!verifyCreateOrm ($menu = Menu::create ($posts)))
       return redirect_message (array ('admin', 'menus', 'add', $parent_menu ? $parent_menu->id : 0), array (

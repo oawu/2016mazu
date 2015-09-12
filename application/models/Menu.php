@@ -15,7 +15,7 @@ class Menu extends OaModel {
   static $has_many = array (
     array ('roles', 'class_name' => 'Role', 'through' => 'menu_roles'),
     array ('menu_roles', 'class_name' => 'MenuRole'),
-    array ('children', 'class_name' => 'Menu', 'include' => array ('children'))
+    array ('children', 'class_name' => 'Menu', 'order' => 'sort ASC', 'include' => array ('children'))
   );
 
   static $belongs_to = array (
@@ -76,7 +76,7 @@ class Menu extends OaModel {
 
     return Menu::$struct[$static_key] = $menu;
   }
-  public static function structs ($roles = array (), $option = array ('conditions' => array ('menu_id IS NULL'))) {
+  public static function structs ($roles = array (), $option = array ('order' => 'sort ASC', 'conditions' => array ('menu_id IS NULL'))) {
     sort ($roles = is_string ($roles) ? array ($roles) : array_map (function ($role) { return is_object ($role) ? $role->name : $role; }, $roles));
 
     $menus = self::all ($option);

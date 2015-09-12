@@ -37,6 +37,10 @@
               <a href='<?php echo base_url ('admin', 'menus', 'edit', $menu->id);?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'menus', 'destroy', $menu->id);?>' class='icon-bin'></a>
             </td>
+            <td data-title='排序' width='90' class='sort'>
+              <a data-id='<?php echo $menu->id;?>' data-sort='down' class='icon-triangle-down'></a>
+              <a data-id='<?php echo $menu->id;?>' data-sort='up' class='icon-triangle-up'></a>
+            </td>
           </tr>
   <?php }
       } else { ?>
