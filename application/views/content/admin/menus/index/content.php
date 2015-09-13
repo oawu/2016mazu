@@ -13,10 +13,7 @@
 <button type='button' onClick="if (!$(this).prev ().is (':visible')) $(this).attr ('class', 'icon-chevron-left').prev ().addClass ('show'); else $(this).attr ('class', 'icon-chevron-right').prev ().removeClass ('show');" class='icon-chevron-<?php echo $has_search ? 'left' : 'right';?>'></button>
 
 <div class='level'>
-<?php
-  echo implode ("<span class='icon-chevron-right'></span>", array_merge (array (anchor (base_url ('admin', 'menus'), '根目錄')), array_map (function ($ancestry) {
-                return anchor (base_url ('admin', 'menus', $ancestry->id), $ancestry->text);
-              }, $parent_menu ? $parent_menu->ancestry () : array ()))); ?>
+<?php echo implode ("<span class='icon-chevron-right'></span>", array_merge (array (anchor (base_url ('admin', 'menus'), '根目錄')), array_map (function ($ancestry) { return anchor (base_url ('admin', 'menus', $ancestry->id), $ancestry->text); }, $parent_menu ? $parent_menu->ancestry () : array ()))); ?>
 </div>
 
   <table class='table-list-rwd'>
