@@ -23,7 +23,7 @@
           <tr>
             <td data-title='ID' width='80'><?php echo $menu->id;?></td>
             <td data-title='圖示' width='50'><i class='<?php echo $menu->icon;?>'></i></td>
-            <td data-title='文字' width='150'><?php echo $menu->text;?></td>
+            <td data-title='文字' width='150'><?php echo anchor (base_url ('admin', 'menus', $menu->id), $menu->text);?></td>
             <td data-title='網址'><?php echo $menu->href;?></td>
             <td data-title='類別' width='110'><?php echo $menu->class;?></td>
             <td data-title='方法' width='110'><?php echo $menu->method;?></td>
