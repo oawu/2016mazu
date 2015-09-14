@@ -32,13 +32,18 @@
       <tr>
         <th>類 別：</th>
         <td>
-          <input type='text' name='class' value='<?php echo $posts['class'] ? $posts['class'] : '';?>' placeholder='請輸入類別名稱..'/>
+          <select name='class'>
+            <option value='' data-methods='<?php echo json_encode (array ());?>'>請選擇類別</option>
+      <?php foreach ($classes as $class => $methods) { ?>
+              <option value='<?php echo $class;?>' data-methods='<?php echo json_encode ($methods);?>'<?php echo $posts['class'] == $class ? ' selected' : '';?>><?php echo $class;?></option>
+      <?php } ?>
+          </select>
         </td>
       </tr>
       <tr>
         <th>方 法：</th>
         <td>
-          <input type='text' name='method' value='<?php echo $posts['method'] ? $posts['method'] : '';?>' placeholder='請輸入方法名稱..'/>
+          <select name='method' data-method='<?php echo $posts['method'] ? $posts['method'] : '';?>'></select>
         </td>
       </tr>
 <?php if ($roles) { ?>

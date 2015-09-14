@@ -89,16 +89,32 @@ class Menus extends Admin_controller {
         'columns' => $columns
       ));
   }
-
+  private function _load_controllers_methods () {
+    $this->load->helper ('directory');
+    $controller_path = FCPATH . 'application' . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR;
+    $classes = array_filter (directory_map ($controller_path, 1), function ($class) {
+          $path = FCPATH . 'application' . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR . $class;
+          return is_file ($path) && is_readable ($path) && (pathinfo ($path, PATHINFO_EXTENSION) == 'php');
+        });
+    return array_combine (array_map (function ($class) {
+          return preg_replace ('/\.php$/', '', $class);
+        }, $classes), array_map (function ($class) use ($controller_path) {
+          $pattern = '/[\s\n]+public[\s\n]+function[\s\n]+(?P<methods>\S+)[\s\n]*\(/';
+          preg_match_all ($pattern, $controller = read_file ($controller_path . $class), $controller);
+          return $controller['methods'];
+        }, $classes));
+  }
   public function add ($id = 0) {
     $parent_menu = Menu::find_by_id ($id);
     $posts = Session::getData ('posts', true);
     $roles = $parent_menu ? $parent_menu->roles : Role::all ();
+    $classes = $this->_load_controllers_methods ();
 
     $this->add_subtitle ($parent_menu ? $parent_menu->text . ' 內新增項目' : '新增項目')
          ->load_view (array (
         'posts' => $posts,
         'roles' => $roles,
+        'classes' => $classes,
         'parent_menu' => $parent_menu
       ));
   }
@@ -149,11 +165,13 @@ class Menus extends Admin_controller {
 
     $posts = Session::getData ('posts', true);
     $roles = $menu->parent ? $menu->parent->roles : Role::all ();
+    $classes = $this->_load_controllers_methods ();
 
     $this->add_subtitle ('修改項目')
          ->load_view (array (
         'posts' => $posts,
         'roles' => $roles,
+        'classes' => $classes,
         'menu' => $menu
       ));
   }
