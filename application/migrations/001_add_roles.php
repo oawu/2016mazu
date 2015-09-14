@@ -20,12 +20,12 @@ class Migration_Add_roles extends CI_Migration {
     );
 
     $this->db->query (
-      "INSERT INTO `roles` (`name`, `description`)
-        VALUES ('root', '最終權限'),
-               ('admin', '後台管理員'),
-               ('login', '一般會員'),
-               ('black', '黑名單會員'),
-               ('guest', '一般遊客');"
+      "INSERT INTO `roles` (`id`, `name`, `description`)
+        VALUES (1, 'root', '最終權限'),
+               (2, 'admin', '後台管理員'),
+               (3, 'login', '一般會員'),
+               (4, 'guest', '一般遊客'),
+               (5, 'black', '黑名單會員');"
     );
   }
   public function down () {

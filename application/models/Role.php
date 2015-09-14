@@ -24,8 +24,8 @@ class Role extends OaModel {
       'root' => 1,
       'admin' => 2,
       'login' => 3,
-      'black' => 4,
-      'guest' => 5,
+      'guest' => 4,
+      'black' => 5,
     );
 
   private $users = null;
