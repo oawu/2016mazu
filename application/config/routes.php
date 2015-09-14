@@ -53,6 +53,11 @@ Route::get ('admin/roles/(:num)', 'admin/roles@index($1)');
 
 Route::get ('admin/menus/(:num)', 'admin/menus@index($1)');
 Route::get ('admin/menus/(:num)/(:num)', 'admin/menus@index($1, $2)');
+
+Route::get ('admin/users/(:num)/roles', 'admin/users@roles($1)');
+Route::post ('admin/users/(:num)/set_roles', 'admin/users@set_roles($1)');
+Route::get ('admin/users/(:num)', 'admin/users@index($1)');
+
 Route::get ('admin/login', 'admin_login/main@login');
 Route::post ('admin/singin', 'admin_login/main@singin');
 

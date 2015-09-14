@@ -7,6 +7,65 @@
 
 class Users extends Admin_controller {
 
+  private function _validation_posts (&$posts) {
+    if (isset ($posts['role_ids']) && $posts['role_ids'])
+      if (!(($role_ids = column_array (Role::all (array ('select' => 'id')), 'id')) && ($posts['role_ids'] = array_intersect ($posts['role_ids'], $role_ids))))
+        return '錯誤的角色 ID！';
+    return '';
+  }
+
+  public function set_roles ($id = 0) {
+    if (!($user = User::find_by_id ($id)))
+      return redirect_message (array ('admin', 'users'), array (
+          '_flash_message' => '找不到指定的資料。'
+        ));
+
+    if (!$this->has_post ())
+      return redirect_message (array ('admin', 'users', $menu->id, 'roles'), array (
+          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
+        ));
+
+    $posts = OAInput::post ();
+
+    if($msg = $this->_validation_posts ($posts))
+      return redirect_message (array ('admin', 'users', $menu->id, 'roles'), array (
+          '_flash_message' => $msg,
+          'posts' => $posts
+        ));
+
+    $role_ids = isset($posts['role_ids']) ? $posts['role_ids'] : array ();
+    unset ($posts['role_ids']);
+
+    $old_ids = column_array ($user->user_roles, 'role_id');
+
+    if ($add_ids = array_diff ($role_ids, $old_ids))
+      foreach ($add_ids as $role_id)
+        UserRole::create (array ('user_id' => $user->id, 'role_id' => $role_id));
+
+    if ($del_ids = array_diff ($old_ids, $role_ids))
+      foreach (UserRole::find ('all', array ('select' => 'id', 'conditions' => array ('user_id = ? AND role_id IN (?)', $user->id, $del_ids))) as $user_role)
+        $user_role->destroy ();
+
+    return redirect_message (array ('admin', 'users'), array (
+        '_flash_message' => '修改成功！'
+      ));
+  }
+  public function roles ($id = 0) {
+    if (!($user = User::find_by_id ($id)))
+      return redirect_message (array ('admin', 'users'), array (
+          '_flash_message' => '找不到指定的資料。'
+        ));
+
+    $posts = Session::getData ('posts', true);
+    $roles = Role::all ();
+
+    $this->add_subtitle ('修改 ' . $user->name . ' 角色')
+         ->load_view (array (
+        'user' => $user,
+        'posts' => $posts,
+        'roles' => $roles,
+      ));
+  }
   public function index ($offset = 0) {
 
     $columns = array ('id' => 'int', 'name' => 'string', 'email' => 'string');
