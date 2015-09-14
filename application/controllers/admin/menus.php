@@ -228,11 +228,11 @@ class Menus extends Admin_controller {
         ));
 
     if (!$menu->destroy ())
-      return redirect_message (array ('admin', 'menus', $menu->id), array (
+      return redirect_message (array ('admin', 'menus', $menu->parent ? $menu->parent->id : 0), array (
           '_flash_message' => '刪除失敗。'
         ));
 
-    return redirect_message (array ('admin', 'menus', $menu->id), array (
+    return redirect_message (array ('admin', 'menus', $menu->parent ? $menu->parent->id : 0), array (
           '_flash_message' => '刪除成功。'
         ));
   }
