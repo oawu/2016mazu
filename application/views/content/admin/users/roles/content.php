@@ -31,7 +31,7 @@
           <th>角 色：</th>
           <td>
       <?php foreach ($roles as $role) { ?>
-              <label><input type='checkbox' name='role_ids[]' value='<?php echo $role->id;?>'<?php echo $user->user_roles && in_array ($role->id, column_array ($user->user_roles, 'role_id')) ? ' checked' : '';?>/><div><?php echo $role->name;?></div></label>
+              <label><input type='checkbox' name='role_ids[]' value='<?php echo $role->id;?>'<?php echo $user->user_roles && in_array ($role->id, column_array ($user->user_roles, 'role_id')) ? ' checked' : '';?>/><div><?php echo $role->description;?></div></label>
       <?php } ?>
           </td>
         </tr>

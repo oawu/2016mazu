@@ -991,6 +991,15 @@ table.table-form {
         z-index: -1;
         @include opacity(0);
 
+        + * {
+          z-index: 2;
+          display: inline-block;
+          cursor: pointer;
+          padding: 3px;
+          font-size: 14px;
+          line-height: 20px;
+          height: 24px;
+        }
         &[type='checkbox'] {
           &:checked {
             + * {
@@ -1001,12 +1010,6 @@ table.table-form {
             }
           }
           + * {
-            z-index: 2;
-            display: inline-block;
-            cursor: pointer;
-            padding: 3px;
-            font-size: 14px;
-
             &:before {
               content: "\e620";
               color: rgba(255, 255, 255, 1);
@@ -1034,12 +1037,6 @@ table.table-form {
             }
           }
           + * {
-            z-index: 2;
-            display: inline-block;
-            cursor: pointer;
-            padding: 3px;
-            font-size: 14px;
-
             &:after {
               position: absolute;
               top: 7px;
