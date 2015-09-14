@@ -10,10 +10,8 @@ class Migration_Add_roles extends CI_Migration {
     $this->db->query (
       "CREATE TABLE `roles` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
-
         `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '名稱',
         `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '描述',
-
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         PRIMARY KEY (`id`),
