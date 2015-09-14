@@ -48,4 +48,11 @@ class User extends OaModel {
       else
         return self::$current = null;
   }
+  public function avatar ($w = 100, $h = 100) {
+    $size = array ();
+    array_push ($size, isset ($w) && $w ? 'width=' . $w : '');
+    array_push ($size, isset ($h) && $h ? 'height=' . $h : '');
+
+    return 'https://graph.facebook.com/' . $this->uid . '/picture' . (($size = implode ('&', array_filter ($size))) ? '?' . $size : '');
+  }
 }
