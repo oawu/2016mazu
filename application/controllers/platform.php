@@ -9,7 +9,19 @@ class Platform extends Site_controller {
 
   public function fb_sign_in () {
     if (Fb::login () && ($me = Fb::me ()) && ((isset ($me['name']) && ($name = $me['name'])) && (isset ($me['email']) && ($email = $me['email'])) && (isset ($me['id']) && ($id = $me['id'])))) {
-      if ((($user = User::find ('one', array ('conditions' => array ('uid = ?', $id)))) && ($user->name = $name) && ($user->email = $email) && ($user->logined_at = date ('Y-m-d H:i:s')) && $user->save ()) || verifyCreateOrm ($user = User::create (array ('uid' => $id, 'name' => $name, 'email' => $email, 'logined_at' => date ('Y-m-d H:i:s'))))) {
+      if ($user = User::find ('one', array ('conditions' => array ('uid = ?', $id)))) {
+        $user->name = $name;
+        $user->email = $email;
+        $user->logined_at = date ('Y-m-d H:i:s');
+        $user->save ();
+
+        if (!in_array (Role::const_ids ('login'), column_array ($user->user_roles, 'role_id')))
+          UserRole::create (array ('user_id' => $user->id, 'role_id' => 4));
+
+        Session::setData ('user_id', $user->id);
+        Session::setData ('_flash_message', '使用 Facebook 登入成功!', true);
+      } else if (verifyCreateOrm ($user = User::create (array ('uid' => $id, 'name' => $name, 'email' => $email, 'logined_at' => date ('Y-m-d H:i:s'))))) {
+        UserRole::create (array ('user_id' => $user->id, 'role_id' => Role::const_ids ('login')));
         Session::setData ('user_id', $user->id);
         Session::setData ('_flash_message', '使用 Facebook 登入成功!', true);
       } else {

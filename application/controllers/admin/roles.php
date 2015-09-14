@@ -150,6 +150,11 @@ class Roles extends Admin_controller {
           '_flash_message' => '找不到指定的資料。'
         ));
 
+    if (in_array ($role->id, Role::const_ids()))
+      return redirect_message (array ('admin', 'roles'), array (
+          '_flash_message' => '此角色是不可以被修改的！'
+        ));
+
     $posts = Session::getData ('posts', true);
 
     $this->add_subtitle ('修改角色')
@@ -163,6 +168,11 @@ class Roles extends Admin_controller {
     if (!($role = Role::find_by_id ($id)))
       return redirect_message (array ('admin', 'roles'), array (
           '_flash_message' => '找不到指定的資料。'
+        ));
+
+    if (in_array ($role->id, Role::const_ids()))
+      return redirect_message (array ('admin', 'roles'), array (
+          '_flash_message' => '此角色是不可以被修改的！'
         ));
 
     if (!$this->has_post ())
@@ -203,6 +213,11 @@ class Roles extends Admin_controller {
     if (!($role = Role::find_by_id ($id)))
       return redirect_message (array ('admin', 'roles'), array (
           '_flash_message' => '找不到指定的資料。'
+        ));
+
+    if (in_array ($role->id, Role::const_ids()))
+      return redirect_message (array ('admin', 'roles'), array (
+          '_flash_message' => '此角色是不可以被刪除的！'
         ));
 
     if (!$role->destroy ())

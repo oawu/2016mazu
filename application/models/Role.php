@@ -20,6 +20,14 @@ class Role extends OaModel {
   static $belongs_to = array (
   );
 
+  private static $const_ids = array (
+      'root' => 1,
+      'admin' => 2,
+      'login' => 3,
+      'black' => 4,
+      'guest' => 5,
+    );
+
   private $users = null;
   private $menus = null;
 
@@ -27,6 +35,9 @@ class Role extends OaModel {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
   }
 
+  public static function const_ids ($key = null) {
+    return $key && isset (self::$const_ids[$key]) ? self::$const_ids[$key] : (!$key ? self::$const_ids : array ());
+  }
   public function users () {
     if ($this->users !== null)
       return $this->users;

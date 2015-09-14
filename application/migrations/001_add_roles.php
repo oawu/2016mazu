@@ -24,6 +24,7 @@ class Migration_Add_roles extends CI_Migration {
         VALUES ('root', '最終權限'),
                ('admin', '後台管理員'),
                ('login', '一般會員'),
+               ('black', '黑名單會員'),
                ('guest', '一般遊客');"
     );
   }

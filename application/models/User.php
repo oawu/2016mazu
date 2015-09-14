@@ -39,6 +39,7 @@ class User extends OaModel {
   public function role_names () {
     return column_array ($this->roles (), 'name');
   }
+
   public static function current () {
       if (self::$current !== '')
         return self::$current;
@@ -48,6 +49,7 @@ class User extends OaModel {
       else
         return self::$current = null;
   }
+
   public function avatar ($w = 100, $h = 100) {
     $size = array ();
     array_push ($size, isset ($w) && $w ? 'width=' . $w : '');

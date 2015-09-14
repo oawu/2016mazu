@@ -19,8 +19,12 @@
             <td data-title='選單數量' width='120'><?php echo anchor (base_url ('admin', 'roles', $role->id, 'menus'), count ($role->menu_roles));?></td>
             <td data-title='使用者數量' width='120'><?php echo anchor (base_url ('admin', 'roles', $role->id, 'users'), count ($role->user_roles));?></td>
             <td data-title='編輯' width='100'>
-              <a href='<?php echo base_url ('admin', 'roles', 'edit', $role->id);?>' class='icon-pencil2'></a>
-              <a href='<?php echo base_url ('admin', 'roles', 'destroy', $role->id);?>' class='icon-bin'></a>
+        <?php if (!in_array ($role->id, Role::const_ids())) { ?>
+                <a href='<?php echo base_url ('admin', 'roles', 'edit', $role->id);?>' class='icon-pencil2'></a>
+                <a href='<?php echo base_url ('admin', 'roles', 'destroy', $role->id);?>' class='icon-bin'></a>
+        <?php } else { ?>
+                --
+        <?php }?>
             </td>
           </tr>
   <?php }
