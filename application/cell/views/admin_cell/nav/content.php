@@ -11,13 +11,13 @@
         <div class='menu i<?php echo 1 + (User::current () ? in_array ('admin', User::current ()->role_names ()) ? 2 : 1 : 1);?>'>
           <a class='icon-menu'>分享</a>
     <?php if (!User::current ()) { ?>
-            <a href='<?php echo Fb::loginUrl ('platform', 'fb_sign_in');?>' class='top_line icon-link-external'>登入</a>
+            <a class='login top_line icon-link-external' href='<?php echo Fb::loginUrl ('platform', 'fb_sign_in');?>'>登入</a>
     <?php } else {
             if (in_array ('admin', User::current ()->role_names ())) { ?>
-              <a class='icon-menu top_line' href='<?php echo base_url ('admin');?>'>管理</a>
-              <a class='icon-menu' href='<?php echo Fb::logoutUrl ('platform', 'sign_out');?>'>登出</a>
+              <a class='admin icon-menu top_line' href='<?php echo base_url ('admin');?>'>管理</a>
+              <a class='logout icon-menu' href='<?php echo Fb::logoutUrl ('platform', 'sign_out');?>'>登出</a>
       <?php } else { ?>
-              <a class='icon-menu top_line' href='<?php echo Fb::logoutUrl ('platform', 'sign_out');?>'>登出</a>
+              <a class='logout icon-menu top_line' href='<?php echo Fb::logoutUrl ('platform', 'sign_out');?>'>登出</a>
       <?php }
           }?>
         </div>

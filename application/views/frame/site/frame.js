@@ -22,6 +22,8 @@ $(function () {
   });
   $('nav .right .option').click (function () {
     $(this).toggleClass ('show');
+  }).find ('.admin, .login, .logout').click (function () {
+    window.showLoading ();
   });
 
   $('.timeago').timeago ();
