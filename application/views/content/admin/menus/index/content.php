@@ -25,16 +25,16 @@
             <td data-title='圖示' width='50'><i class='<?php echo $menu->icon;?>'></i></td>
             <td data-title='文字' width='150'><?php echo $menu->text;?></td>
             <td data-title='網址'><?php echo $menu->href;?></td>
-            <td data-title='類別' width='150'><?php echo $menu->class;?></td>
-            <td data-title='方法' width='150'><?php echo $menu->method;?></td>
-            <td data-title='角色' width='180'><?php echo implode ('', array_map (function ($role) { return '<a href="' . base_url ('admin', 'roles', 'show', $role->id) . '" class="role">' . $role->description . '</a>';}, $menu->roles ()));?></td>
-            <td data-title='子項目數量' width='130'><?php echo anchor (base_url ('admin', 'menus', $menu->id), count ($menu->children));?></td>
+            <td data-title='類別' width='110'><?php echo $menu->class;?></td>
+            <td data-title='方法' width='110'><?php echo $menu->method;?></td>
+            <td data-title='角色' width='150'><?php echo implode ('', array_map (function ($role) { return '<a href="' . base_url ('admin', 'roles', 'show', $role->id) . '" class="role">' . $role->description . '</a>';}, $menu->roles ()));?></td>
+            <td data-title='子項目數量' width='100'><?php echo anchor (base_url ('admin', 'menus', $menu->id), count ($menu->children));?></td>
             <td data-title='編輯' width='120'>
               <a href='<?php echo base_url ('admin', 'menus', 'add', $menu->id);?>' class='icon-plus'></a>
               <a href='<?php echo base_url ('admin', 'menus', 'edit', $menu->id);?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'menus', 'destroy', $menu->id);?>' class='icon-bin'></a>
             </td>
-            <td data-title='排序' width='90' class='sort'>
+            <td data-title='排序' width='70' class='sort'>
               <a data-id='<?php echo $menu->id;?>' data-sort='down' class='icon-triangle-down'></a>
               <a data-id='<?php echo $menu->id;?>' data-sort='up' class='icon-triangle-up'></a>
             </td>
