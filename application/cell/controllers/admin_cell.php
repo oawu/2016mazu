@@ -22,9 +22,18 @@ class Admin_cell extends Cell_Controller {
           array ('name' => '項目設定', 'href' => base_url ('admin', 'menus'), 'icon' => 'icon-list2', 'target' => '_self', 'visible' => true, 'active' => ($class == 'menus')),
           array ('name' => '使用者設定', 'href' => base_url ('admin', 'users'), 'icon' => 'icon-user2', 'target' => '_self', 'visible' => true, 'active' => ($class == 'users')),
         ),
-      '文章上搞'=> array (
+      '文章系統'=> array (
+          array ('name' => '美食上搞', 'href' => base_url ('admin'), 'icon' => 'icon-spoon-knife', 'target' => '_self', 'visible' => true, 'active' => ($class == 'maind') && ($method == 'index')),
+          array ('name' => '陣頭上搞', 'href' => base_url ('admin'), 'icon' => 'icon-file-text2', 'target' => '_self', 'visible' => true, 'active' => ($class == 'maind') && ($method == 'index')),
+          array ('name' => '照片上搞', 'href' => base_url ('admin'), 'icon' => 'icon-images', 'target' => '_self', 'visible' => true, 'active' => ($class == 'maind') && ($method == 'index')),
         ),
-      '美食上搞'=> array (
+      '郵件系統'=> array (
+          array ('name' => '問題清單', 'href' => base_url ('admin'), 'icon' => 'icon-help', 'target' => '_self', 'visible' => true, 'active' => ($class == 'maind') && ($method == 'index')),
+          array ('name' => '發送郵件', 'href' => base_url ('admin'), 'icon' => 'icon-mail', 'target' => '_self', 'visible' => true, 'active' => ($class == 'maind') && ($method == 'index')),
+        ),
+      '系統紀錄'=> array (
+          array ('name' => '排程紀錄', 'href' => base_url ('admin'), 'icon' => 'icon-clipboard', 'target' => '_self', 'visible' => true, 'active' => ($class == 'maind') && ($method == 'index')),
+          array ('name' => '郵件紀錄', 'href' => base_url ('admin'), 'icon' => 'icon-paperplane', 'target' => '_self', 'visible' => true, 'active' => ($class == 'maind') && ($method == 'index')),
         ),
     );
     return $this->load_view (array (
