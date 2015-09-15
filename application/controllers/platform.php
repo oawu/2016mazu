@@ -15,13 +15,14 @@ class Platform extends Site_controller {
         $user->logined_at = date ('Y-m-d H:i:s');
         $user->save ();
 
-        if (!in_array (Role::const_ids ('login'), column_array ($user->user_roles, 'role_id')))
-          UserRole::create (array ('user_id' => $user->id, 'role_id' => 4));
+        if (!in_array ('login', column_array ($user->roles, 'role')))
+          UserRole::create (array ('user_id' => $user->id, 'role' => 'login'));
 
         Session::setData ('user_id', $user->id);
         Session::setData ('_flash_message', '使用 Facebook 登入成功!', true);
       } else if (verifyCreateOrm ($user = User::create (array ('uid' => $id, 'name' => $name, 'email' => $email, 'logined_at' => date ('Y-m-d H:i:s'))))) {
-        UserRole::create (array ('user_id' => $user->id, 'role_id' => Role::const_ids ('login')));
+        UserRole::create (array ('user_id' => $user->id, 'role' => 'login'));
+
         Session::setData ('user_id', $user->id);
         Session::setData ('_flash_message', '使用 Facebook 登入成功!', true);
       } else {

@@ -7,17 +7,33 @@
 
 class Roles extends Admin_controller {
 
-  public function menus ($id, $offset = 0) {
-    if (!($role = Role::find_by_id ($id)))
+  public function index () {
+    $roles = array_combine (array_keys (Cfg::setting ('role')), array_map (function ($role, $key) {
+          return array_merge ($role, array (
+                        'users_count' => UserRole::count (array ('conditions' => array ('role = ?', $key))),
+                        'menus_count' => MenuRole::count (array ('conditions' => array ('role = ?', $key)))
+                      ));
+        }, Cfg::setting ('role'), array_keys (Cfg::setting ('role'))));
+
+    $this->add_subtitle ('角色列表')
+         ->load_view (array (
+        'roles' => $roles
+      ));
+  }
+
+
+  public function menus ($role, $offset = 0) {
+    $roles = Cfg::setting ('role');
+    if (!isset ($roles[$role]))
       return redirect_message (array ('admin', 'roles'), array (
           '_flash_message' => '找不到指定的資料。'
         ));
 
     $columns = array ('id' => 'int', 'text' => 'string', 'href' => 'string', 'class' => 'string', 'method' => 'string');
-    $configs = array ('admin', 'roles', $role->id, 'menus', '%s');
+    $configs = array ('admin', 'roles', $role, 'menus', '%s');
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Menu', OAInput::get ())));
 
-    if ($menu_ids = column_array ($role->menu_roles, 'menu_id'))
+    if ($menu_ids = column_array (MenuRole::find ('all', array ('select' => 'menu_id', 'conditions' => array ('role = ?', $role))), 'menu_id'))
       Menu::addConditions ($conditions, 'id IN (?)', $menu_ids);
 
     $limit = 25;
@@ -33,8 +49,9 @@ class Roles extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    $this->add_subtitle ('屬於 ' . $role->description . ' 的選項列表')
+    $this->add_subtitle ('屬於 ' . $roles[$role]['name'] . ' 的選項列表')
          ->load_view (array (
+        'role' => $role,
         'menus' => $menus,
         'pagination' => $pagination,
         'has_search' => array_filter ($columns),
@@ -42,17 +59,18 @@ class Roles extends Admin_controller {
       ));
   }
 
-  public function users ($id, $offset = 0) {
-    if (!($role = Role::find_by_id ($id)))
+  public function users ($role, $offset = 0) {
+    $roles = Cfg::setting ('role');
+    if (!isset ($roles[$role]))
       return redirect_message (array ('admin', 'roles'), array (
           '_flash_message' => '找不到指定的資料。'
         ));
 
     $columns = array ('id' => 'int', 'name' => 'string', 'email' => 'string');
-    $configs = array ('admin', 'roles', $role->id, 'users', '%s');
+    $configs = array ('admin', 'roles', $role, 'users', '%s');
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'User', OAInput::get ())));
 
-    if ($user_ids = column_array ($role->user_roles, 'user_id'))
+    if ($user_ids = column_array (UserRole::find ('all', array ('select' => 'user_id', 'conditions' => array ('role = ?', $role))), 'user_id'))
       User::addConditions ($conditions, 'id IN (?)', $user_ids);
 
     $limit = 25;
@@ -68,7 +86,7 @@ class Roles extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    $this->add_subtitle ('屬於 ' . $role->description . ' 的使用者列表')
+    $this->add_subtitle ('屬於 ' . $roles[$role]['name'] . ' 的使用者列表')
          ->load_view (array (
         'role' => $role,
         'users' => $users,
@@ -76,164 +94,5 @@ class Roles extends Admin_controller {
         'has_search' => array_filter ($columns),
         'columns' => $columns
       ));
-  }
-  public function index ($offset = 0) {
-    $columns = array ('id' => 'int', 'name' => 'string');
-    $configs = array ('admin', 'roles', '%s');
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Role', OAInput::get ())));
-
-    $limit = 25;
-    $total = Role::count (array ('conditions' => $conditions));
-    $offset = $offset < $total ? $offset : 0;
-
-    $this->load->library ('pagination');
-    $pagination = $this->pagination->initialize (array_merge (array ('total_rows' => $total, 'num_links' => 5, 'per_page' => $limit, 'uri_segment' => 0, 'base_url' => '', 'page_query_string' => false, 'first_link' => '第一頁', 'last_link' => '最後頁', 'prev_link' => '上一頁', 'next_link' => '下一頁', 'full_tag_open' => '<ul class="pagination">', 'full_tag_close' => '</ul>', 'first_tag_open' => '<li>', 'first_tag_close' => '</li>', 'prev_tag_open' => '<li>', 'prev_tag_close' => '</li>', 'num_tag_open' => '<li>', 'num_tag_close' => '</li>', 'cur_tag_open' => '<li class="active"><a href="#">', 'cur_tag_close' => '</a></li>', 'next_tag_open' => '<li>', 'next_tag_close' => '</li>', 'last_tag_open' => '<li>', 'last_tag_close' => '</li>'), $configs))->create_links ();
-    $roles = Role::find ('all', array (
-        'offset' => $offset,
-        'limit' => $limit,
-        'include' => array ('user_roles', 'menu_roles'),
-        'order' => 'id ASC',
-        'conditions' => $conditions
-      ));
-
-    $this->add_subtitle ('角色列表')
-         ->load_view (array (
-        'roles' => $roles,
-        'pagination' => $pagination,
-        'has_search' => array_filter ($columns),
-        'columns' => $columns
-      ));
-  }
-
-  public function add () {
-    $posts = Session::getData ('posts', true);
-
-    $this->add_subtitle ('新增角色')
-         ->load_view (array (
-        'posts' => $posts
-      ));
-  }
-
-  public function create () {
-    if (!$this->has_post ())
-      return redirect_message (array ('admin', 'roles', 'add'), array (
-          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
-        ));
-
-    $posts = OAInput::post ();
-
-    if($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', 'roles', 'add'), array (
-          '_flash_message' => $msg,
-          'posts' => $posts
-        ));
-
-    if(Role::find_by_name ($posts['name'], array ('select' => 'id')))
-      return redirect_message (array ('admin', 'roles', 'add'), array (
-          '_flash_message' => '重複的角色名稱！',
-          'posts' => $posts
-        ));
-
-    if (!verifyCreateOrm ($role = Role::create ($posts)))
-      return redirect_message (array ('admin', 'roles', 'add'), array (
-          '_flash_message' => '新增失敗！',
-          'posts' => $posts
-        ));
-
-    return redirect_message (array ('admin', 'roles'), array (
-        '_flash_message' => '新增成功！'
-      ));
-  }
-  public function edit ($id) {
-    if (!($role = Role::find_by_id ($id)))
-      return redirect_message (array ('admin', 'roles'), array (
-          '_flash_message' => '找不到指定的資料。'
-        ));
-
-    if (in_array ($role->id, Role::const_ids()))
-      return redirect_message (array ('admin', 'roles'), array (
-          '_flash_message' => '此角色是不可以被修改的！'
-        ));
-
-    $posts = Session::getData ('posts', true);
-
-    $this->add_subtitle ('修改角色')
-         ->load_view (array (
-        'posts' => $posts,
-        'role' => $role
-      ));
-  }
-
-  public function update ($id) {
-    if (!($role = Role::find_by_id ($id)))
-      return redirect_message (array ('admin', 'roles'), array (
-          '_flash_message' => '找不到指定的資料。'
-        ));
-
-    if (in_array ($role->id, Role::const_ids()))
-      return redirect_message (array ('admin', 'roles'), array (
-          '_flash_message' => '此角色是不可以被修改的！'
-        ));
-
-    if (!$this->has_post ())
-      return redirect_message (array ('admin', 'roles', 'edit', $role->id), array (
-          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
-        ));
-
-    $posts = OAInput::post ();
-
-    if($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', 'roles', 'edit', $role->id), array (
-          '_flash_message' => $msg,
-          'posts' => $posts
-        ));
-
-    if(Role::find ('one', array ('select' => 'id', 'conditions' => array ('name = ? AND id != ?', $posts['name'], $role->id))))
-      return redirect_message (array ('admin', 'roles', 'edit', $role->id), array (
-          '_flash_message' => '重複的角色名稱！',
-          'posts' => $posts
-        ));
-
-    foreach (array_keys (Role::table ()->columns) as $column)
-      if (isset ($posts[$column]))
-        $role->$column = $posts[$column];
-
-    if (!$role->save ())
-      return redirect_message (array ('admin', 'roles', 'edit', $role->id), array (
-          '_flash_message' => '修改失敗！',
-          'posts' => $posts
-        ));
-
-    return redirect_message (array ('admin', 'roles'), array (
-        '_flash_message' => '修改成功！'
-      ));
-  }
-
-  public function destroy ($id) {
-    if (!($role = Role::find_by_id ($id)))
-      return redirect_message (array ('admin', 'roles'), array (
-          '_flash_message' => '找不到指定的資料。'
-        ));
-
-    if (in_array ($role->id, Role::const_ids()))
-      return redirect_message (array ('admin', 'roles'), array (
-          '_flash_message' => '此角色是不可以被刪除的！'
-        ));
-
-    if (!$role->destroy ())
-      return redirect_message (array ('admin', 'roles'), array (
-          '_flash_message' => '刪除失敗。'
-        ));
-
-    return redirect_message (array ('admin', 'roles'), array (
-          '_flash_message' => '刪除成功。'
-        ));
-  }
-
-  private function _validation_posts (&$posts) {
-    if (!(isset ($posts['name']) && ($posts['name'] = trim ($posts['name']))))
-      return '沒有填寫角色名稱！';
-
-    return '';
   }
 }

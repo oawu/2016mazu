@@ -10,7 +10,7 @@ class Admin_controller extends Oa_controller {
   public function __construct () {
     parent::__construct ();
 
-    if (!(User::current () && array_intersect (Cfg::setting ('admin', 'roles'), User::current ()->role_names ()))) {
+    if (!(User::current () && array_intersect (Cfg::setting ('admin', 'roles'), User::current ()->roles ()))) {
       // Session::setData ('_flash_message', '請先登入，或者您沒有後台權限！', true);
       return show_404();
     }

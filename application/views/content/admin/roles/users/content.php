@@ -1,7 +1,7 @@
-<form action='<?php echo base_url ('admin', 'roles', $role->id, 'users');?>' method='get' class="search<?php echo $has_search ? ' show' : '';?>">
+<form action='<?php echo base_url ('admin', 'roles', $role, 'users');?>' method='get' class="search<?php echo $has_search ? ' show' : '';?>">
   <div class='l i3'>
     <input type='text' name='id' value='<?php echo @$columns['id'];?>' placeholder='請輸入 ID..' />
-    <input type='text' name='name' value='<?php echo @$columns['name'];?>' placeholder='請輸入 標題..' />
+    <input type='text' name='name' value='<?php echo @$columns['name'];?>' placeholder='請輸入 名稱..' />
     <input type='text' name='email' value='<?php echo @$columns['email'];?>' placeholder='請輸入 信箱..' />
   </div>
   <button type='submit'>尋找</button>

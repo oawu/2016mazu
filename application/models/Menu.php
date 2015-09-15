@@ -13,8 +13,7 @@ class Menu extends OaModel {
   );
 
   static $has_many = array (
-    array ('roles', 'class_name' => 'Role', 'through' => 'menu_roles'),
-    array ('menu_roles', 'class_name' => 'MenuRole'),
+    array ('roles', 'class_name' => 'MenuRole', 'order' => 'id ASC'),
     array ('children', 'class_name' => 'Menu', 'order' => 'sort ASC', 'include' => array ('children'))
   );
 
@@ -28,7 +27,6 @@ class Menu extends OaModel {
     '_parent' => '父層分頁開啟',
     '_top' => '上層視窗開啟',
   );
-  private $roles = null;
 
   static $struct = array (
     );
@@ -38,37 +36,43 @@ class Menu extends OaModel {
   }
 
   public function roles () {
-    if ($this->roles !== null)
-      return $this->roles;
+    return column_array ($this->roles, 'role');
+  }
+  public function destroy () {
+    if ($this->children)
+      foreach ($this->children as $children)
+        $children->destroy ();
 
-    if (!($role_ids = column_array ($this->menu_roles, 'role_id')))
-      return $this->roles = array ();
+    if ($this->roles)
+      foreach ($this->roles as $menu_role)
+        $menu_role->destroy ();
 
-    return $this->roles = Role::find ('all', array ('conditions' => array ('id IN (?)', $role_ids)));
+    return $this->delete ();
   }
 
-  public function role_names () {
-    return column_array ($this->roles (), 'name');
+  // asc 祖父,父親,自己，desc 自己,父親,祖父
+  public function ancestry ($order = 'asc') {
+    return $this->parent ? strtolower ($order) == 'asc' ? array_merge ($this->parent->ancestry ($order), array ($this)) : array_merge (array ($this), $this->parent->ancestry ($order)) : array ($this);
   }
 
   public function struct ($roles = array ()) {
-    sort ($roles = is_string ($roles) ? array ($roles) : array_map (function ($role) { return is_object ($role) ? $role->name : $role; }, $roles));
-
     $static_key = $this->id . '|' . implode ('_', $roles);
 
     if (isset (Menu::$struct[$static_key]))
       return Menu::$struct[$static_key];
 
-    if (!($roles && $this->role_names () && array_intersect ($this->role_names (), $roles)))
+    if (!($roles && $this->roles () && ($roles = array_intersect ($this->roles (), $roles))))
       return Menu::$struct[$static_key] = null;
 
     $menu = array ();
       foreach ($this->table()->columns as $key => $column)
         $menu[$key] = (string)$this->$key;
 
-    $menu['roles'] = array_map (function ($role) {
-      return array ('name' => $role->name, 'description' => $role->description);
-    }, $this->roles ());
+    $role_infos = Cfg::setting ('role');
+
+    $menu['roles'] = array_combine ($roles, array_map (function ($role) use ($role_infos) {
+              return array_merge (array ('key' => $role), $role_infos[$role]);
+            }, $roles));
 
     $menu['children'] = array_filter (array_map (function ($child) use ($roles) {
           return $child->struct ($roles);
@@ -77,7 +81,6 @@ class Menu extends OaModel {
     return Menu::$struct[$static_key] = $menu;
   }
   public static function structs ($roles = array (), $option = array ('order' => 'sort ASC', 'conditions' => array ('menu_id IS NULL'))) {
-    sort ($roles = is_string ($roles) ? array ($roles) : array_map (function ($role) { return is_object ($role) ? $role->name : $role; }, $roles));
 
     $menus = self::all ($option);
     $static_key = implode ('_', column_array ($menus, 'id')) . '|' . implode ('_', $roles);
@@ -90,14 +93,4 @@ class Menu extends OaModel {
         }, $menus));
   }
 
-  // asc 祖父,父親,自己，desc 自己,父親,祖父
-  public function ancestry ($order = 'asc') {
-    return $this->parent ? strtolower ($order) == 'asc' ? array_merge ($this->parent->ancestry ($order), array ($this)) : array_merge (array ($this), $this->parent->ancestry ($order)) : array ($this);
-  }
-  public function destroy () {
-    if ($this->children)
-      foreach ($this->children as $children)
-        $children->destroy ();
-    return $this->delete ();
-  }
 }

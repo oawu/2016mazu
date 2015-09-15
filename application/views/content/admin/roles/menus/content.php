@@ -1,4 +1,4 @@
-<form action='<?php echo base_url ('admin', 'roles', $role->id, 'users');?>' method='get' class="search<?php echo $has_search ? ' show' : '';?>">
+<form action='<?php echo base_url ('admin', 'roles', $role, 'menus');?>' method='get' class="search<?php echo $has_search ? ' show' : '';?>">
   <div class='l i5'>
     <input type='text' name='id' value='<?php echo @$columns['id'];?>' placeholder='請輸入 ID..' />
     <input type='text' name='text' value='<?php echo @$columns['text'];?>' placeholder='請輸入 文字..' />
