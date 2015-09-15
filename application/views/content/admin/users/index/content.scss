@@ -14,3 +14,7 @@
     @include overflow-docx3();
   }
 }
+.avatar {
+  @include box-shadow(0 0 3px rgba(39, 40, 34, .2));
+  @include border-radius(2px);
+}
