@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot?-wz4qjv');
-	src:url('fonts/icomoon.eot?#iefix-wz4qjv') format('embedded-opentype'),
-		url('fonts/icomoon.ttf?-wz4qjv') format('truetype'),
-		url('fonts/icomoon.woff?-wz4qjv') format('woff'),
-		url('fonts/icomoon.svg?-wz4qjv#icomoon') format('svg');
+	src:url('fonts/icomoon.eot?-ef6yls');
+	src:url('fonts/icomoon.eot?#iefix-ef6yls') format('embedded-opentype'),
+		url('fonts/icomoon.ttf?-ef6yls') format('truetype'),
+		url('fonts/icomoon.woff?-ef6yls') format('woff'),
+		url('fonts/icomoon.svg?-ef6yls#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,8 +23,23 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-exclamation-triangle:before {
-	content: "\e61e";
+.icon-clipboard:before {
+	content: "\e62c";
+}
+.icon-paperplane:before {
+	content: "\e62f";
+}
+.icon-pin_drop:before {
+	content: "\e1f6";
+}
+.icon-thumb_up:before {
+	content: "\e2ee";
+}
+.icon-comment:before {
+	content: "\e62e";
+}
+.icon-location-outline:before {
+	content: "\e626";
 }
 .icon-menu:before {
 	content: "\e600";
@@ -86,32 +101,47 @@
 .icon-key:before {
 	content: "\e613";
 }
-.icon-refresh:before {
+.icon-triangle-up2:before {
 	content: "\e615";
 }
-.icon-location2:before {
+.icon-refresh:before {
 	content: "\e616";
 }
-.icon-calendar:before {
+.icon-location2:before {
 	content: "\e619";
 }
-.icon-in:before {
+.icon-triangle-right2:before {
 	content: "\e61a";
 }
-.icon-exclamation:before {
+.icon-triangle-left2:before {
 	content: "\e61c";
 }
-.icon-grid:before {
+.icon-calendar:before {
 	content: "\e61d";
 }
-.icon-pin-alt:before {
+.icon-in:before {
+	content: "\e61e";
+}
+.icon-triangle-down2:before {
 	content: "\e61f";
 }
-.icon-checkmark:before {
+.icon-exclamation:before {
 	content: "\e620";
 }
-.icon-x:before {
+.icon-grid:before {
 	content: "\e621";
+}
+.icon-exclamation-triangle:before {
+	content: "\e622";
+}
+.icon-pin-alt:before {
+	content: "\e623";
+}
+.icon-checkmark:before {
+	content: "\e624";
+}
+.icon-x:before {
+	content: "\e625";
 }
 .icon-pencil2:before {
 	content: "\e906";
@@ -134,6 +164,12 @@
 .icon-more:before {
 	content: "\f833";
 }
+.icon-mail:before {
+	content: "\e62d";
+}
+.icon-help:before {
+	content: "\e62b";
+}
 .icon-triangle-up:before {
 	content: "\e614";
 }
@@ -145,4 +181,16 @@
 }
 .icon-triangle-down:before {
 	content: "\e61b";
+}
+.icon-price-tag:before {
+	content: "\e627";
+}
+.icon-price-tags:before {
+	content: "\e628";
+}
+.icon-spoon-knife:before {
+	content: "\e629";
+}
+.icon-eye-blocked:before {
+	content: "\e62a";
 }
