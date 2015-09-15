@@ -5,7 +5,7 @@ function children_loop ($structs) {
 <?php foreach ($structs as $struct) { ?>
         <li><span>
               <i><?php echo $struct['text'];?></i>
-              <?php echo implode ('', array_map (function ($role) { return '<i class="role">' . $role['description'] . '</i>';}, $struct['roles']));?>
+              <?php echo implode ('', array_map (function ($role) { return '<i class="role">' . $role['name'] . '</i>';}, $struct['roles']));?>
             </span>
       <?php children_loop ($struct['children']);?>
         </li>
@@ -22,7 +22,7 @@ function children_loop ($structs) {
   <?php
   } else {
     echo '<i>' . $menu->text . '</i>';
-    echo implode ('', array_map (function ($role) { return '<i class="role">' . $role->description . '</i>';}, $menu->roles ()));
+    echo implode ('', array_map (function ($role) { return '<i class="role">' . $role . '</i>';}, $menu->roles ()));
   }?>
   <a href='<?php echo base_url ('admin', 'menus', $menu ? $menu->id : 0);?>'>回列表</a>
 </div>

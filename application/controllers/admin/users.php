@@ -8,9 +8,11 @@
 class Users extends Admin_controller {
 
   private function _validation_posts (&$posts) {
-    if (isset ($posts['role_ids']) && $posts['role_ids'])
-      if (!(($role_ids = column_array (Role::all (array ('select' => 'id')), 'id')) && ($posts['role_ids'] = array_intersect ($posts['role_ids'], $role_ids))))
-        return '錯誤的角色 ID！';
+    $roles = Cfg::setting ('role');
+
+    if (isset ($posts['roles']) && $posts['roles'])
+      if (!array_intersect ($posts['roles'], array_keys ($roles)))
+        return '錯誤的角色！';
     return '';
   }
 
@@ -33,17 +35,17 @@ class Users extends Admin_controller {
           'posts' => $posts
         ));
 
-    $role_ids = isset($posts['role_ids']) ? $posts['role_ids'] : array ();
-    unset ($posts['role_ids']);
+    $roles = isset($posts['roles']) ? $posts['roles'] : array ();
+    unset ($posts['roles']);
 
-    $old_ids = column_array ($user->user_roles, 'role_id');
+    $old_roles = $user->roles ();
 
-    if ($add_ids = array_diff ($role_ids, $old_ids))
-      foreach ($add_ids as $role_id)
-        UserRole::create (array ('user_id' => $user->id, 'role_id' => $role_id));
+    if ($add_roles = array_diff ($roles, $old_roles))
+      foreach ($add_roles as $role)
+        UserRole::create (array ('user_id' => $user->id, 'role' => $role));
 
-    if ($del_ids = array_diff ($old_ids, $role_ids))
-      foreach (UserRole::find ('all', array ('select' => 'id', 'conditions' => array ('user_id = ? AND role_id IN (?)', $user->id, $del_ids))) as $user_role)
+    if ($del_roles = array_diff ($old_roles, $roles))
+      foreach (UserRole::find ('all', array ('select' => 'id', 'conditions' => array ('user_id = ? AND role IN (?)', $user->id, $del_roles))) as $user_role)
         $user_role->destroy ();
 
     return redirect_message (array ('admin', 'users'), array (
@@ -57,7 +59,7 @@ class Users extends Admin_controller {
         ));
 
     $posts = Session::getData ('posts', true);
-    $roles = Role::all ();
+    $roles = Cfg::setting ('role');
 
     $this->add_subtitle ('修改 ' . $user->name . ' 角色')
          ->load_view (array (

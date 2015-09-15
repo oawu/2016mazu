@@ -27,7 +27,7 @@
             <td data-title='網址'><?php echo $menu->href;?></td>
             <td data-title='類別' width='110'><?php echo $menu->class;?></td>
             <td data-title='方法' width='110'><?php echo $menu->method;?></td>
-            <td data-title='角色' width='150'><?php echo implode ('', array_map (function ($role) { return '<a href="' . base_url ('admin', 'roles', 'show', $role->id) . '" class="role">' . $role->description . '</a>';}, $menu->roles ()));?></td>
+            <td data-title='角色' width='150'><?php echo implode ('', array_map (function ($role) { return '<a class="role">' . $role . '</a>';}, $menu->roles ()));?></td>
             <td data-title='子項目數量' width='100'><?php echo anchor (base_url ('admin', 'menus', $menu->id), count ($menu->children));?></td>
             <td data-title='編輯' width='120'>
               <a href='<?php echo base_url ('admin', 'menus', 'add', $menu->id);?>' class='icon-plus'></a>

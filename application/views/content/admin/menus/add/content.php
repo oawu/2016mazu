@@ -50,9 +50,11 @@
         <tr>
           <th>角 色：</th>
           <td>
-      <?php foreach ($roles as $role) { ?>
-              <label><input type='checkbox' name='role_ids[]' value='<?php echo $role->id;?>' /><div><?php echo $role->description;?></div></label>
-      <?php } ?>
+      <?php foreach ($roles as $key => $role) {
+              if ($role['choice'] && (!$parent_menu || ($parent_menu->roles () && in_array ($key, $parent_menu->roles ())))) {?>
+                <label><input type='checkbox' name='roles[]' value='<?php echo $key;?>' /><div><?php echo $role['name'];?></div></label>
+        <?php }
+            }?>
           </td>
         </tr>
 <?php } ?>
