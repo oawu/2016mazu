@@ -27,6 +27,8 @@ class OaModel extends ActiveRecordModel {
     foreach ($args as $arg)
       if ($arg !== null)
         array_push($conditions, $arg);
+
+    return $conditions;
   }
 
   public function recycle () {
