@@ -55,6 +55,12 @@ html {
   }
 }
 
+.clearfix {
+  @include clearfix;
+}
+.overflow-docx3 {
+  @include overflow-docx3;
+}
 .gm-style-cc {
   display: none;
 }
