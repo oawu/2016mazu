@@ -6,10 +6,12 @@
  */
 
 class Site_controller extends Oa_controller {
+  public $menus = array ();
 
   public function __construct () {
     parent::__construct ();
 
+    $this->menus = $this->_menu_active (Menu::structs (User::current () ? User::current ()->roles () : array  ('guest')));
     $this
          ->set_componemt_path ('component', 'site')
          ->set_frame_path ('frame', 'site')
@@ -21,9 +23,22 @@ class Site_controller extends Oa_controller {
          ->_add_meta ()
          ->_add_css ()
          ->_add_js ()
+
+         ->add_param ('menus', $this->menus)
          ;
   }
 
+  private function _menu_active ($menus) {
+    $that = $this;
+    return array_map (function ($menu) use ($that) {
+      $class = $that->get_class ();
+      $method = $that->get_method ();
+      $menu['active'] = ($class && ($class == $menu['class']) && $method && ($method == $menu['method'])) || ($class && ($class == $menu['class']) && !$method) || (!$class && $method && ($method == $menu['method'])) ? true : false;
+      $menu['children'] = $menu['children'] ? $that->_menu_active ($menu['children']) : array ();
+      unset ($menu['class'], $menu['method'], $menu['sort'], $menu['roles']);
+      return $menu;
+    }, $menus);
+  }
   private function _add_meta () {
     return $this->add_meta (array ('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui'));
   }
