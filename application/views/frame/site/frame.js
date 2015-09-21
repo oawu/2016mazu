@@ -7,7 +7,7 @@ $(function () {
   var $container = $('#container');
   var overflow = $('body').css ('overflow');
 
-  $('nav .left .option').click (function () {
+  $('nav .l').click (function () {
     if ($container.hasClass ('show')) {
       $container.removeClass ('show');
       $('body').css ('overflow', overflow);
@@ -16,14 +16,15 @@ $(function () {
       $('body').css ('overflow', 'hidden');
     }
   });
-  $container.find ('.cover').click (function () {
-    $container.removeClass ('show');
-    $('body').css ('overflow', overflow);
-  });
-  $('nav .right .option').click (function () {
+  $('nav .r').click (function () {
     $(this).toggleClass ('show');
   }).find ('.admin, .login, .logout').click (function () {
     window.showLoading ();
+  });
+
+  $container.find ('> div > div').last ().click (function () {
+    $container.removeClass ('show');
+    $('body').css ('overflow', overflow);
   });
 
   $('.timeago').timeago ();
