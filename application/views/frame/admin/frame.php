@@ -11,31 +11,28 @@
 
   </head>
   <body lang="zh-tw">
+
     <?php echo isset ($hidden_list) ? $hidden_list : ''; ?>
 
     <?php echo render_cell ('admin_cell', 'nav', isset ($subtitle) ? $subtitle : '');?>
 
-
     <div id='container'>
-      <div class='wrapper'>
-        <div class='wrapper_left '>
-          <?php echo render_cell ('admin_cell', 'wrapper_left');?>
-        </div>
-        <div class='cover'></div>
-        <div class='wrapper_right'>
+      <div>
+        <?php echo render_cell ('admin_cell', 'wrapper_left');?>
+        <div>
     <?php if ($_flash_message = Session::getData ('_flash_message', true)) { ?>
-            <div class='message'><?php echo $_flash_message;?></div>
+            <div class='_m'><?php echo $_flash_message;?></div>
     <?php }?>
           <?php echo isset ($content) ? $content : ''; ?>
         </div>
+        <div></div>
       </div>
     </div>
 
-    <div id='action' class='icon-plus'></div>
-
-    <?php echo render_cell ('admin_cell', 'loading');?>
-
     <?php echo render_cell ('admin_cell', 'footer');?>
+
+    <div id='action' class='icon-plus'></div>
+    <div id='loading'><svg class="svg" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div>
 
   </body>
 </html>
