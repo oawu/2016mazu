@@ -8,7 +8,7 @@
 $role = array (
     'root' => array ('name' => 'root', 'choice' => true),
     'admin' => array ('name' => '管理員', 'choice' => true),
-    'login' => array ('name' => '登入', 'choice' => true),
-    'guest' => array ('name' => '遊客', 'choice' => true),
+    'login' => array ('name' => '登入', 'choice' => false),
+    'guest' => array ('name' => '遊客', 'choice' => false),
   );
 
