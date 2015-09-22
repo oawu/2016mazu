@@ -10,8 +10,7 @@ class Roles extends Admin_controller {
   public function index () {
     $roles = array_combine (array_keys (Cfg::setting ('role')), array_map (function ($role, $key) {
           return array_merge ($role, array (
-                        'users_count' => UserRole::count (array ('conditions' => array ('role = ?', $key))),
-                        'menus_count' => MenuRole::count (array ('conditions' => array ('role = ?', $key)))
+                        'users_count' => UserRole::count (array ('conditions' => array ('role = ?', $key)))
                       ));
         }, Cfg::setting ('role'), array_keys (Cfg::setting ('role'))));
 
