@@ -8,30 +8,19 @@
 class Site_cell extends Cell_Controller {
 
   /* render_cell ('site_cell', 'wrapper_left', var1, ..); */
-  // public function _cache_wrapper_left () {
-  //   return array ('time' => 60 * 60, 'key' => null);
-  // }
-  public function wrapper_left () {
-    $class = $this->CI->get_class ();
-    $method = $this->CI->get_method ();
+  // public function _cache_wrapper_left ($class = null, $method = null) {
+  //   $class = $class ? $class : $this->CI->get_class ();
+  //   $method = $method ? $method : $this->CI->get_method ();
 
-    $item_lists = array (
-      '主選單' => array (
-          array ('name' => '首頁', 'href' => base_url ('x'), 'icon' => 'icon-home', 'target' => '_self', 'visible' => true, 'active' => ($class == 'maind') && ($method == 'index')),
-          array ('name' => '朝天宮', 'href' => base_url ('avs', 'today'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'avs') && ($method == 'today')),
-          array ('name' => '百年藝陣', 'href' => base_url ('avs', 'today'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'avs') && ($method == 'today')),
-          array ('name' => '三月十九', 'href' => base_url (), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'main') && ($method == 'index')),
-          array ('name' => '白沙屯', 'href' => base_url ('tags'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'tags') && ($method == 'index')),
-          array ('name' => '耆老回憶', 'href' => base_url ('tags'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'tags') && ($method == 'index')),
-          array ('name' => '旅遊美食', 'href' => base_url ('tags'), 'icon' => 'icon-fire', 'target' => '_self', 'visible' => true, 'active' => ($class == 'tags') && ($method == 'index')),
-        ),
-      '其他功能'=> array (
-          array ('name' => '回報建議', 'href' => base_url ('logs'), 'icon' => 'icon-clipboard', 'target' => '_self', 'visible' => true, 'active' => ($class == 'logs') && ($method == 'index')),
-          array ('name' => '網站聲明', 'href' => base_url ('logs'), 'icon' => 'icon-clipboard', 'target' => '_self', 'visible' => true, 'active' => ($class == 'logs') && ($method == 'index')),
-        ),
-    );
+  //   return array ('time' => 60 * 60, 'key' => $class . '_' . $method);
+  // }
+  public function wrapper_left ($class = null, $method = null) {
+    $class = $class ? $class : $this->CI->get_class ();
+    $method = $method ? $method : $this->CI->get_method ();
+
     return $this->load_view (array (
-        'item_lists' => $item_lists
+        'class' => $class,
+        'method' => $method
       ));
   }
 
@@ -39,17 +28,10 @@ class Site_cell extends Cell_Controller {
   // public function nav () {
   //   return array ('time' => 60 * 60, 'key' => null);
   // }
-  public function nav () {
+  public function nav ($subtitle) {
     return $this->load_view (array (
+      'subtitle' => $subtitle
       ));
-  }
-
-  /* render_cell ('site_cell', 'loading', var1, ..); */
-  // public function loading () {
-  //   return array ('time' => 60 * 60, 'key' => null);
-  // }
-  public function loading () {
-    return $this->load_view ();
   }
 
   /* render_cell ('site_cell', 'footer', var1, ..); */

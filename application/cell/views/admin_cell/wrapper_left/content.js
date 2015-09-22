@@ -4,4 +4,11 @@
  */
 
 $(function () {
+  var $container = $('#container');
+  var overflow = $('body').css ('overflow');
+
+  $container.find ('> div > div').last ().click (function () {
+    $container.removeClass ('show');
+    $('body').css ('overflow', overflow);
+  });
 });

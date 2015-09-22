@@ -49,22 +49,19 @@ html {
 
     #container {
       position: relative;
-      display: block;
       margin: 0 auto;
+      width: 100%;
     }
   }
 }
 
-.clearfix {
-  @include clearfix;
-}
-.overflow-docx3 {
-  @include overflow-docx3;
-}
 .gm-style-cc {
   display: none;
 }
 
+.icon-map2:before {
+  content: "\e631";
+}
 .icon-clipboard:before {
   content: "\e62c";
 }
@@ -80,7 +77,7 @@ html {
 .icon-comment:before {
   content: "\e62e";
 }
-.icon-location-outline:before {
+.icon-map:before {
   content: "\e626";
 }
 .icon-menu:before {
@@ -211,6 +208,9 @@ html {
 }
 .icon-help:before {
   content: "\e62b";
+}
+.icon-location:before {
+  content: "\e630";
 }
 .icon-triangle-up:before {
   content: "\e614";
