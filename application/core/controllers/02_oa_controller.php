@@ -17,6 +17,8 @@ class Oa_controller extends Root_controller {
   private $hidden_list = array ();
   private $js_list     = array ();
   private $css_list    = array ();
+  private $append_js_list     = array ();
+  private $append_css_list    = array ();
 
   public function __construct () {
     parent::__construct ();
@@ -65,6 +67,16 @@ class Oa_controller extends Root_controller {
 
   public function add_css ($path, $is_minify = true) {
     array_push ($this->css_list, array ('path' => $path, 'is_minify' => $is_minify));
+    return $this;
+  }
+
+  public function append_js ($path, $is_minify = true) {
+    array_push ($this->append_js_list, array ('path' => $path, 'is_minify' => $is_minify));
+    return $this;
+  }
+
+  public function append_css ($path, $is_minify = true) {
+    array_push ($this->append_css_list, array ('path' => $path, 'is_minify' => $is_minify));
     return $this;
   }
 
@@ -128,8 +140,9 @@ class Oa_controller extends Root_controller {
     if (!is_writable ($folder_path = FCPATH . implode (DIRECTORY_SEPARATOR, Cfg::system ('static', 'assets_folder')) . DIRECTORY_SEPARATOR))
       return null;
 
+    $version = 0;
     $file_name = implode (Cfg::system ('static', 'separate'), array (Cfg::system ('static', 'file_prefix'), get_parent_class ($this), $this->get_class (), $this->get_method (), Cfg::system ('static', 'name'), $i));
-    $file_name = (Cfg::system ('static', 'is_md5') ? md5 ($file_name) : $file_name) . '.' .  $format;
+    $file_name = (Cfg::system ('static', 'is_md5') ? md5 ($file_name) : $file_name) . '.' .  $format . ($version ? '?v=' . $version : '');
 
     if (!is_readable ($folder_path . $file_name) && !($data = '')) {
       foreach ($temp as $key => $value)
@@ -184,6 +197,14 @@ class Oa_controller extends Root_controller {
          ->add_js (base_url (implode ('/', array_merge ($this->get_views_path (), $this->get_public_path (), array ('public.js')))))
          ->add_js (base_url (implode ('/', array_merge ($this->get_views_path (), $this->get_frame_path (), array ('frame.js')))))
          ->add_js (base_url (implode ('/', array_merge ($this->get_views_path (), $this->get_content_path (), array ($this->get_class (), $this->get_method (), 'content.js')))));
+
+    if ($this->append_js_list)
+      foreach ($this->append_js_list as $append_js)
+        $this->add_js ($append_js['path'], $append_js['is_minify']);
+    
+    if ($this->append_css_list)
+      foreach ($this->append_css_list as $append_css)
+        $this->add_css ($append_css['path'], $append_css['is_minify']);
 
     $frame_data = array ();
     $frame_data['title']   = $this->get_title ();

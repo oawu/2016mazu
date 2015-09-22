@@ -6,12 +6,10 @@
  */
 
 class Site_controller extends Oa_controller {
-  public $menus = array ();
 
   public function __construct () {
     parent::__construct ();
 
-    $this->menus = $this->_menu_active (Menu::structs (User::current () ? User::current ()->roles () : array  ('guest')));
     $this
          ->set_componemt_path ('component', 'site')
          ->set_frame_path ('frame', 'site')
@@ -24,30 +22,17 @@ class Site_controller extends Oa_controller {
          ->_add_css ()
          ->_add_js ()
 
-         ->add_param ('menus', $this->menus)
          ;
   }
 
-  private function _menu_active ($menus) {
-    $that = $this;
-    return array_map (function ($menu) use ($that) {
-      $class = $that->get_class ();
-      $method = $that->get_method ();
-      $menu['active'] = ($class && ($class == $menu['class']) && $method && ($method == $menu['method'])) || ($class && ($class == $menu['class']) && !$method) || (!$class && $method && ($method == $menu['method'])) ? true : false;
-      $menu['children'] = $menu['children'] ? $that->_menu_active ($menu['children']) : array ();
-      unset ($menu['class'], $menu['method'], $menu['sort'], $menu['roles']);
-      return $menu;
-    }, $menus);
-  }
   private function _add_meta () {
     return $this->add_meta (array ('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui'));
   }
 
   private function _add_css () {
-    // return $this->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox.css'))
-    //             ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.css'))
-    //             ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.css'))
-    //             ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
+    return $this->append_css (base_url ('application', 'cell', 'views', 'site_cell', 'nav', 'content.css'))
+                ->append_css (base_url ('application', 'cell', 'views', 'site_cell', 'wrapper_left', 'content.css'))
+                ->append_css (base_url ('application', 'cell', 'views', 'site_cell', 'footer', 'content.css'))
                 ;
     return $this;
   }
@@ -55,12 +40,10 @@ class Site_controller extends Oa_controller {
   private function _add_js () {
     return $this->add_js (base_url ('resource', 'javascript', 'jquery_v1.11.3', 'jquery-1.11.3.min.js'))
                 ->add_js (base_url ('resource', 'javascript', 'imgLiquid_v0.9.944', 'imgLiquid-min.js'))
-                // ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox.js'))
-                // ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.js'))
-                // ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.js'))
-                // ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-media.js'))
                 ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'jquery.timeago.js'))
-                ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'));
+                ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'))
+                ->append_js (base_url ('application', 'cell', 'views', 'site_cell', 'nav', 'content.js'))
+                ->append_js (base_url ('application', 'cell', 'views', 'site_cell', 'wrapper_left', 'content.js'))
                 ;
   }
 }
