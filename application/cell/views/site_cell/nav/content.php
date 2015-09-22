@@ -1,13 +1,16 @@
 <nav>
-  <div class='container'>
-    <a href='<?php echo base_url ();?>' class='logo'><div>北港</div><div><div>迎媽祖</div><div>Beigang Mazu</div></div></a>
+  <div>
+    <a href='<?php echo base_url ();?>' class='o'><div>北港</div><div><div>迎媽祖</div><div>Beigang Mazu</div></div></a>
 
-    <div class='left'><div class='option icon-menu'></div><div class='title'></div></div>
+    <div>
+      <div class='l icon-menu'></div>
+      <div><?php echo isset ($subtitle) ? $subtitle : '';?></div>
+    </div>
 
-    <div class='right'>
+    <div>
 
-      <div class='option icon-more white'>
-        <div class='cover'></div>
+      <div class='r icon-more'>
+        <div class='c'></div>
         <div class='menu i<?php echo 1 + (User::current () ? array_intersect (Cfg::setting ('admin', 'roles'), User::current ()->roles ()) ? 2 : 1 : 1);?>'>
           <a class='icon-menu'>分享</a>
     <?php if (!User::current ()) { ?>
