@@ -19,7 +19,6 @@ class Admin_cell extends Cell_Controller {
       '權限' => array (
           array ('name' => '首頁', 'href' => base_url ('admin'), 'icon' => 'icon-home', 'target' => '_self', 'visible' => true, 'active' => ($class == 'maind') && ($method == 'index')),
           array ('name' => '角色設定', 'href' => base_url ('admin', 'roles'), 'icon' => 'icon-user', 'target' => '_self', 'visible' => true, 'active' => ($class == 'roles')),
-          array ('name' => '項目設定', 'href' => base_url ('admin', 'menus'), 'icon' => 'icon-list2', 'target' => '_self', 'visible' => true, 'active' => ($class == 'menus')),
           array ('name' => '使用者設定', 'href' => base_url ('admin', 'users'), 'icon' => 'icon-user2', 'target' => '_self', 'visible' => true, 'active' => ($class == 'users')),
         ),
       '文章系統'=> array (
