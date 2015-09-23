@@ -19,7 +19,29 @@
       <div>
         <?php echo render_cell ('site_cell', 'wrapper_left');?>
         <div>
-          <?php echo isset ($content) ? $content : ''; ?>
+          <div class='_t'>
+            <a class='icon-chevron-left'></a>
+            <div>
+              <div>
+                <a href='' class='a'>陣頭路關</a>
+                <a href=''>藝閣路關1</a>
+                <a href=''>陣頭地we圖</a>
+                <a href=''>藝地圖</a>
+                <a href=''>陣頭路關</a>
+                <a href=''>藝地圖</a>
+                <a href=''>陣頭地we圖</a>
+                <a href=''>藝地圖</a>
+                <a href=''>陣頭路關</a>
+                <a href=''>藝地圖x</a>
+              </div>
+            </div>
+            <a class='icon-chevron-right'></a>
+          </div>
+
+          <div class='_c'>
+            <?php echo isset ($content) ? $content : ''; ?>
+          </div>
+          <div class='_m'>12</div>
         </div>
         <div></div>
       </div>

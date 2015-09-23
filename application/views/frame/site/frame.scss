@@ -130,3 +130,146 @@ $mobileVerticalPadding: 15px;
 
   @include loading();
 }
+
+._t {
+  $tabHeight: 45px;
+  $arrowWidth: 30px;
+
+  position: fixed;
+  left: $wrapperLeftWidth;
+  top: $navHeight;
+  display: inline-block;
+  width: calc(100% - #{$wrapperLeftWidth});
+  z-index: 9998;
+  height: $tabHeight;
+  background-color: rgba(255, 255, 255, 1);
+  border-bottom: 1px solid rgba(201, 202, 200, 1);
+  @include clearfix();
+  @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    left: 0;
+    width: 100%;
+  }
+  &.o {
+    > a {
+      width: $arrowWidth;
+      display: inline-block;
+      @include opacity(1);
+    }
+    > div {
+      width: calc(100% - #{$arrowWidth * 2});
+    }
+  }
+  > div, > a {
+    float: left;
+    display: inline-block;
+    height: 100%;
+  }
+  > a {
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+    text-align: center;
+    font-size: 18px;
+    line-height: $tabHeight + 5px;
+    cursor: pointer;
+    color: rgba(91, 91, 91, .65);
+    @include opacity(0);
+    @include transition(all .3s);
+    
+    &:hover {
+      color: rgba(91, 91, 91, 1);
+    }
+    &.d {
+      color: rgba(91, 91, 91, .2);
+      cursor: not-allowed;
+      // @include text-shadow(0 0 1px rgba(91, 91, 91, .3));
+    }
+  }
+  > div {
+    position: relative;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+    padding-top: 5px;
+    overflow: hidden;
+    @include transition(all .3s);
+
+    > div {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      @include transition(all .3s);
+      @include clearfix();
+      
+      a {
+        float: left;
+        display: inline-block;
+        height: 100%;
+        line-height: 50px;
+        padding: {
+          top: auto;
+          bottom: auto;
+          left: 20px;
+          right: 20px;
+        };
+        text-decoration: none;
+        border-bottom: 2px solid rgba(0, 0, 0, 0);
+        color: rgba(36, 36, 36, .6);
+        @include transition(all .3s);
+        
+        &:hover {
+          color: rgba(36, 36, 36, .8);
+        }
+        &.a {
+          color: rgba(36, 36, 36, .8);
+          font-weight: bold;
+          border-bottom: 2px solid rgba(221, 58, 42, 1);
+        }
+      }
+    }
+  }
+  // a {
+  //   display: inline-block;
+  //   padding: 10px 20px;
+  //   text-decoration: none;
+  //   border-bottom: 2px solid rgba(255, 0, 0, 0);
+  //   color: rgba(36, 36, 36, .6);
+  //   line-height: 10px;
+  //   @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+  //     padding: 10px;
+  //     line-height: 10px;
+  //   }
+  //   &:hover {
+  //     color: rgba(36, 36, 36, .8);
+  //   }
+  //   &.active {
+  //     color: rgba(36, 36, 36, .8);
+  //     font-weight: bold;
+  //     border-bottom: 2px solid rgba(221, 58, 42, 1);
+  //   }
+  //   &:not([href]) {
+  //     position: absolute;
+  //     top: 3px;
+  //     left: 0;
+  //     padding: 5px;
+  //     border: 1px solid rgba(255, 0, 0, .3);
+  //     &:last-child {
+  //       left: auto;
+  //       right: 0;
+    //   }
+    // }
+  // }
+  ~ ._c {
+    margin-top: $tabHeight;
+    // @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    //   // margin-top: 33px;
+    // }
+  }
+  // ~ ._m {
+  //   // border: 1px solid rgba(255, 0, 0, .3);
+  // }
+}

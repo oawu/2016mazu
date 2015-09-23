@@ -5,44 +5,6 @@
 
 @import "_oa";
 
-.tabs {
-  position: fixed;
-  z-index: 9998;
-  width: 100%;
-  padding-top: 5px;
-  background-color: rgba(255, 255, 255, 1);
-  border-bottom: 1px solid rgba(201, 202, 200, 1);
-  @include clearfix();
-  @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
-    left: 0;
-    top: 55px;
-  }
-  a {
-    float: left;
-    display: inline-block;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-bottom: 2px solid rgba(255, 0, 0, 0);
-    color: rgba(36, 36, 36, .6);
-    @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
-      padding: 5px 10px;
-    }
-    &:hover {
-      color: rgba(36, 36, 36, .8);
-    }
-    &.active {
-      color: rgba(36, 36, 36, .8);
-      font-weight: bold;
-      border-bottom: 2px solid rgba(221, 58, 42, 1);
-    }
-  }
-  ~ * {
-    margin-top: 50px;
-    @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
-      margin-top: 33px;
-    }
-  }
-}
 
 .content {
   text-align: left;
