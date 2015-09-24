@@ -1,5 +1,5 @@
 <?php
-require 'vendor/autoload.php';
+require FCPAH . 'vendor/autoload.php';
 use Facebook\FacebookApp;
 use Facebook\SignedRequest;
 
