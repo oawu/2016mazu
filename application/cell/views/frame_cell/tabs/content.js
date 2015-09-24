@@ -51,6 +51,8 @@ $(function () {
         $lastArrow.removeClass ('d');
       else
         $lastArrow.addClass ('d');
-    }).first ().click ();
+    });
+    if ($(this).hasClass ('o'))
+      $arrow.first ().click ();
   });
 });
