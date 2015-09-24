@@ -45,24 +45,4 @@ class User extends OaModel {
 
     return 'https://graph.facebook.com/' . $this->uid . '/picture' . (($size = implode ('&', array_filter ($size))) ? '?' . $size : '');
   }
-
-
-
-
-
-  // private $roles = null;
-
-
-  // public function roles () {
-  //   if ($this->roles !== null)
-  //     return $this->roles;
-
-  //   if (!($role_ids = column_array ($this->user_roles, 'role_id')))
-  //     return $this->roles = array ();
-
-  //   return $this->roles = Role::find ('all', array ('conditions' => array ('id IN (?)', $role_ids)));
-  // }
-
-
-
 }
