@@ -7,7 +7,8 @@
 
 @include font-face("Monaco", font-files("monaco/monaco.ttf", "monaco/monaco.otf"));
 @include font-face("icomoon", font-files("icomoon/icomoon.eot", "icomoon/icomoon.woff", "icomoon/icomoon.ttf", "icomoon/icomoon.svg"));
-@include font-face("cwTeXHei", font-files("cwTeXHei/cwTeXHei-zhonly.eot", "cwTeXHei/cwTeXHei-zhonly.woff2",  "cwTeXHei/cwTeXHei-zhonly.woff", "cwTeXHei/cwTeXHei-zhonly.ttf"));
+@include font-face("cwTeXHei", font-files("//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.eot", "//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff2",  "//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff", "//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.ttf"));
+// @include font-face("cwTeXHei", font-files("cwTeXHei/cwTeXHei-zhonly.eot", "cwTeXHei/cwTeXHei-zhonly.woff2",  "cwTeXHei/cwTeXHei-zhonly.woff", "cwTeXHei/cwTeXHei-zhonly.ttf"));
 
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
