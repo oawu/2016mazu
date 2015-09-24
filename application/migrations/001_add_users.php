@@ -9,7 +9,7 @@ class Migration_Add_users extends CI_Migration {
   public function up () {
     $this->db->query (
       "CREATE TABLE `users` (
-        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
         `uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Facebook UID',
         `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '名稱',
         `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '電子郵件',
