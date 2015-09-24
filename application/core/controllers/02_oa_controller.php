@@ -56,6 +56,10 @@ class Oa_controller extends Root_controller {
       $this->add_param ('subtitle', $subtitle);
     return $this;
   }
+  protected function set_tab_index ($tab_index = null) {
+    $this->add_param ('tab_index', $tab_index);
+    return $this;
+  }
   protected function add_tab ($key, $val) {
     if (is_string ($key))
       $this->tabs[$key] = $val;

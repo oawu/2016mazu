@@ -7,7 +7,7 @@
   <div>
     <div>
 <?php foreach ($tabs as $text => $tab) { ?>
-        <a href=''<?php echo ((isset ($tab['class']) && $tab['class']) && ($class == $tab['class']) && (isset ($tab['method']) && $tab['method']) && ($method == $tab['method'])) || (((isset ($tab['class']) && $tab['class'])) && ($class == $tab['class']) && !((isset ($tab['method']) && $tab['method']))) || (!(isset ($tab['class']) && $tab['class']) && (isset ($tab['method']) && $tab['method']) && ($method == $tab['method'])) ? " class='a'": '';?>><?php echo $text;?></a>
+        <a href=''<?php echo ($index !== null) && isset ($tab['index']) && ($tab['index'] == $index) ? " class='a'": '';?>><?php echo $text;?></a>
 <?php } ?>
     </div>
   </div>

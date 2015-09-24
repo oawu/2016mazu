@@ -65,17 +65,14 @@ class Frame_cell extends Cell_Controller {
   }
 
   /* render_cell ('frame_cell', 'tabs', var1, ..); */
-  // public function tabs ($type, $tabs = array (), $class = null, $method = null) {
-  //   return array ('time' => 60 * 60, 'key' => $type . '_' . implode ('|', array_keys ($tabs)) . '_' . $class . '_' . $method);
+  // public function tabs ($type, $tabs = array (), $index = null) {
+  //   return array ('time' => 60 * 60, 'key' => $type . '_' . implode ('|', array_keys ($tabs)) . ($index !== null ? '_' . $index : ''));
   // }
-  public function tabs ($type, $tabs = array (), $class = null, $method = null) {
-    $class = $class ? $class : $this->CI->get_class ();
-    $method = $method ? $method : $this->CI->get_method ();
+  public function tabs ($type, $tabs = array (), $index = null) {
 
     return $this->load_view (array (
-        'class' => $class,
-        'method' => $method,
-        'tabs' => $tabs
+        'tabs' => $tabs,
+        'index' => $index
       ));
   }
 

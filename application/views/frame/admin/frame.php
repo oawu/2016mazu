@@ -19,7 +19,7 @@
       <div>
         <?php echo render_cell ('frame_cell', 'wrapper_left', 'admin');?>
         <div>
-          <?php echo render_cell ('frame_cell', 'tabs', 'admin', isset ($tabs) ? $tabs : array ());?>
+          <?php echo render_cell ('frame_cell', 'tabs', 'admin', isset ($tabs) ? $tabs : array (), isset ($tab_index) ? $tab_index : null);?>
 
           <div class='_c'>
             <?php echo isset ($content) ? $content : ''; ?>
