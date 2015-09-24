@@ -12,8 +12,8 @@ $menu['admin'] = array (
         '使用者設定' => array ('icon' => 'icon-user2', 'href' => base_url ('admin', 'users'), 'class' => 'users', 'method' => '', 'target' => '_self', 'tags' => array ()),
       ),
     '文章系統' => array (
+        '陣頭上搞' => array ('icon' => 'icon-file-text2', 'href' => base_url ('admin', 'dintaos'), 'class' => 'dintaos', 'method' => '', 'target' => '_self', 'tags' => array ()),
         '美食上搞' => array ('icon' => 'icon-spoon-knife', 'href' => base_url ('admin'), 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array ()),
-        '陣頭上搞' => array ('icon' => 'icon-file-text2', 'href' => base_url ('admin'), 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array ()),
         '照片上搞' => array ('icon' => 'icon-images', 'href' => base_url ('admin'), 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array ()),
       ),
     '郵件系統' => array (
@@ -31,7 +31,7 @@ $menu['site'] = array (
     '三月十九' => array (
         '陣頭路關' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'main', 'method' => '', 'target' => '_self', 'tags' => array ()),
         '藝閣路關' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array ()),
-        '陣頭遶境地圖' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'dintaos', 'method' => '', 'target' => '_self', 'tags' => array (
+        '陣頭遶境地圖' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array (
             // '三月十九' => array ('href' => '', 'class' => '', 'method' => ''),
             // '三月二十' => array ('href' => '', 'class' => '', 'method' => ''),
           )),
@@ -45,7 +45,7 @@ $menu['site'] = array (
         '2015 回顧' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array ()),
       ),
     '百年藝陣' => array (
-        '駕前陣頭' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array ()),
+        '駕前陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'official'), 'class' => 'dintaos', 'method' => 'official', 'target' => '_self', 'tags' => array ()),
         '地方陣頭' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array ()),
         '其他介紹' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array ()),
       ),
