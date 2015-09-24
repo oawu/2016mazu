@@ -33,20 +33,20 @@ class Frame_cell extends Cell_Controller {
   public function nav ($type, $subtitle = '') {
     $menus = array ();
     if ($type == 'admin') {
-      array_push ($menus, array ('text' => '前台', 'class' => 'icon-menu', 'href' => base_url ()));
-      array_push ($menus, array ('text' => '登出', 'class' => 'icon-menu top_line logout', 'href' => Fb::logoutUrl ('platform', 'sign_out')));
+      array_push ($menus, array ('text' => '前台', 'class' => 'icon-home', 'href' => base_url ()));
+      array_push ($menus, array ('text' => '登出', 'class' => 'icon-exit top_line logout', 'href' => Fb::logoutUrl ('platform', 'sign_out')));
     }
 
     if ($type == 'site') {
-      array_push ($menus, array ('text' => '分享', 'class' => 'icon-menu share', 'href' => ''));
+      array_push ($menus, array ('text' => '分享', 'class' => 'icon-share share', 'href' => ''));
       
       if (!User::current ())
-        array_push ($menus, array ('text' => '登入', 'class' => 'icon-link-external top_line login', 'href' => Fb::loginUrl ('platform', 'fb_sign_in')));
+        array_push ($menus, array ('text' => '登入', 'class' => 'icon-enter top_line login', 'href' => Fb::loginUrl ('platform', 'fb_sign_in')));
       else {
         if (array_intersect (Cfg::setting ('admin', 'roles'), User::current ()->roles ()))
-          array_push ($menus, array ('text' => '管理', 'class' => 'icon-menu top_line admin', 'href' => base_url ('admin')));
+          array_push ($menus, array ('text' => '管理', 'class' => 'icon-user top_line admin', 'href' => base_url ('admin')));
         
-        array_push ($menus, array ('text' => '登出', 'class' => 'icon-menu logout', 'href' => Fb::logoutUrl ('platform', 'sign_out')));
+        array_push ($menus, array ('text' => '登出', 'class' => 'icon-exit logout', 'href' => Fb::logoutUrl ('platform', 'sign_out')));
       }
     }
 
