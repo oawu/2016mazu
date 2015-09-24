@@ -251,7 +251,10 @@ table.table-list-rwd {
 table.table-form {
   @include material-table-form(100px);
 
-  td {
+  tbody tr th {
+    padding-top: 8px;
+  }
+  tbody tr td {
     &[colspan] {
       text-align: right;
       padding-top: 10px;
@@ -265,6 +268,17 @@ table.table-form {
         font-size: 15px;
         margin-top: 6px;
         margin-right: 10px;
+      }
+    }
+
+    textarea.pure {
+      @include material-textarea;
+    }
+    textarea.ckeditor {
+      ~ [class*="cke"] {
+          &, &:after, &:before, *, *:after, *:before {
+              @include box-sizing(content-box);
+          }
       }
     }
 

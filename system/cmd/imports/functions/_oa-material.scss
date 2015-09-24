@@ -2,7 +2,36 @@
  * @author      OA Wu <comdan66@gmail.com>
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
+// <textarea />
+@mixin material-textarea () {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid rgba(39, 40, 34, .25);
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  font-size: 16px;
+  color: rgba(50, 50, 50, 0.7);
+  resize: none;
 
+  @include transition(border .3s);
+
+  &[readonly] {
+    cursor: not-allowed;
+    @include opacity(.5);
+    &:focus {
+      border-color: rgba(39, 40, 34, .25);
+      @include box-shadow(none);
+    }
+  }
+  &:focus {
+    border-color: rgba(102, 175, 233, 1);
+  }
+  &, &:focus {
+    outline: 0;
+    @include box-shadow(none);
+  }
+}
 // <input />
 @mixin material-input() {
   width: 100%;
@@ -968,7 +997,7 @@
       th {
         text-align: right;
         padding: $padding;
-        vertical-align: middle;
+        vertical-align: top;
       }
       td {
         text-align: left;
