@@ -45,17 +45,8 @@ Route::root ('main');
 // $route['admin'] = "admin/main";
 Route::get ('admin', 'admin/main@index');
 
-Route::get ('admin/roles/(:any)/users', 'admin/roles@users($1)');
-Route::get ('admin/roles/(:any)/users/(:num)', 'admin/roles@users($1, $2)');
-Route::get ('admin/roles/(:any)/menus', 'admin/roles@menus($1)');
-Route::get ('admin/roles/(:any)/menus/(:num)', 'admin/roles@menus($1, $2)');
-
-Route::get ('admin/menus/(:num)', 'admin/menus@index($1)');
-Route::get ('admin/menus/(:num)/(:num)', 'admin/menus@index($1, $2)');
-
-Route::get ('admin/users/(:num)/roles', 'admin/users@roles($1)');
-Route::post ('admin/users/(:num)/set_roles', 'admin/users@set_roles($1)');
-Route::get ('admin/users/(:num)', 'admin/users@index($1)');
+Route::get ('admin/dintaos/(:num)/', 'admin/dintaos@index($1, 0)');
+Route::get ('admin/dintaos/(:num)/(:num)', 'admin/dintaos@index($1, $2)');
 
 Route::get ('admin/login', 'admin_login/main@login');
 Route::post ('admin/singin', 'admin_login/main@singin');
