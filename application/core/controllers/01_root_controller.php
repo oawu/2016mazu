@@ -86,7 +86,7 @@ class Root_controller extends CI_Controller {
   }
 
   public function add_param ($key, $value) {
-    $this->param = array_merge ($this->param, array($key => $value));
+    $this->param = array_merge ($this->param, array ($key => $value));
     return $this;
   }
 
