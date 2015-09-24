@@ -1,0 +1,1 @@
+<div id='footer'><div></div><div><div><?php echo Cfg::setting ('site', 'main', 'footer', 'title');?></div><div><?php echo Cfg::setting ('site', 'main', 'footer', 'description');?></div></div><div></div></div>

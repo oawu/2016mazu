@@ -1,0 +1,169 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@import "_oa";
+
+#container {
+  &.show {
+    > div {
+      > div:nth-child(1) {
+        left: 0;
+        @include box-shadow(0 0 5px 1px rgba(39, 40, 34, .3), 1px 0 1px rgba(39, 40, 34, .3));
+        @include opacity(1);
+      }
+    }
+  }
+
+  > div {
+    > div:nth-child(1) {
+      position: relative;
+      display: table-cell;
+      padding: 0;
+      width: $wrapperLeftWidth;
+      z-index: 990;
+      padding-bottom: 50px;
+
+      @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+        position: fixed;
+        left: 0 - $wrapperLeftMobileWidth - 2px;
+        top: 0;
+        display: inline-block;
+        height: 100%;
+        width: $wrapperLeftMobileWidth;
+        overflow-y: auto;
+        z-index: 999999;
+        border: 0;
+        -webkit-overflow-scrolling: touch;
+        background: $mainBackgroundColor $mainBackgroundImage;
+        @include transition(all .3s);
+      }
+
+      > div:first-child {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        color: rgba(255, 255, 255, 1);
+        font-weight: bolder;
+        background-color: rgba(74, 71, 70, 1);
+        overflow: hidden;
+        z-index: 1;
+        padding: 10px 5px;
+        background-color: rgba(255, 255, 255, 1);
+        @include text-shadow(0 0 5px rgba(173, 47, 41, 1));
+        @include background-image(linear-gradient(top, rgba(215, 20, 0, .8) 0%, rgba(215, 50, 50, 1) 100%));
+
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 100%));
+          background-repeat: no-repeat;
+          background-position: 50% 5px;
+          z-index: -1;
+        }
+        > div {
+          &:first-child {
+            text-align: left;
+            font-size: 40px;
+            letter-spacing: 5px;
+
+            > span {
+              padding-top: 10px;
+              margin-left: 5px;
+            }
+          }
+          &:last-child {
+            text-align: right;
+            font-size: 30px;
+            margin-top: 2px;
+            letter-spacing: 5px;
+
+            > span {
+              margin-right: 10px;
+              margin-top: -5px;
+            }
+          }
+
+            > span {
+              display: inline-block;
+              font-size: 20px;
+              letter-spacing: 0;
+              color: rgba(255, 255, 255, .8);
+            }
+        }
+
+        @media screen and (min-width: $mediaTabletWidth) {
+          display: none;
+        }
+      }
+      h4 {
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        padding: 5px;
+        margin-top: 10px;
+        height: 30px;
+        font-weight: bold;
+      }
+      > div:not(:first-child) {
+        position: relative;
+        background-color: rgba(255, 255, 255, 1);
+        border-top: 1px solid rgba(39, 40, 34, .15);
+        border-bottom: 1px solid rgba(39, 40, 34, .25);
+        padding: 5px 0;
+        @include box-shadow(0 1px 1px rgba(39, 40, 34, .1));
+
+        @media screen and (min-width: $mainWidth) {
+          border-left: 1px solid rgba(39, 40, 34, .15);
+          @include border-left-radius(3px);
+        }
+        + .g {
+          margin-top: 15px;
+        }
+        a {
+          @include a(0, false, rgba(36, 36, 36, .6), rgba(36, 36, 36, .8));
+          position: relative;
+          display: inline-block;
+          width: 100%;
+          text-align: left;
+          padding: 5px;
+          vertical-align: middle;
+          line-height: 28px;
+          padding-left: 15px;
+          font-size: 15px;
+
+          &.a {
+            font-weight: bold;
+            padding-left: 12px;
+            border-left: 3px solid rgba(219, 71, 67, 1);
+          }
+          &:before {
+            vertical-align: middle;
+            font-size: 20px;
+            margin-right: 10px;
+          }
+          &:not(:first-child) {
+            $paddingLeft: 40px;
+
+            &:after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: $paddingLeft;
+              display: inline-block;
+              width: calc(100% - #{$paddingLeft});
+              height: 1px;
+              background-color: rgba(39, 40, 34, .15);
+            }
+          }
+        }
+      }
+    }
+  }
+}
