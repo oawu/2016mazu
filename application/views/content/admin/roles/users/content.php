@@ -26,5 +26,5 @@
     </tbody>
   </table>
 
-<?php echo render_cell ('admin_cell', 'pagination', $pagination);?>
+<?php echo render_cell ('frame_cell', 'pagination', $pagination);?>
 
