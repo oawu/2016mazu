@@ -5,13 +5,13 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-class Ckeditors extends Admin_controller {
+class Tools extends Admin_controller {
 
   public function index () {
     $this->load_view ();
   }
 
-  public function upload_image () {
+  public function ckeditors_upload_image () {
     $funcNum = $_GET['CKEditorFuncNum'];
     $upload = OAInput::file ('upload');
 
@@ -19,5 +19,7 @@ class Ckeditors extends Admin_controller {
       echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction ($funcNum, '', '上傳失敗！');</script>";
     else
       echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction ($funcNum, '" . $img->name->url ('900w') . "', '上傳成功！');</script>";
+  }
+  public function scws () {
   }
 }
