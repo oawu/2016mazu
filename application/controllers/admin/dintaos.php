@@ -55,9 +55,42 @@ class Dintaos extends Admin_controller {
         'posts' => $posts
       ));
   }
+  public function sort () {
+    if (!(($id = trim (OAInput::post ('id'))) && ($sort = trim (OAInput::post ('sort'))) && in_array ($sort, array ('up', 'down')) && ($dintao = Dintao::find_by_id ($id))))
+      return $this->output_json (array ('status' => false));
+
+    Dintao::addConditions ($conditions, 'type = ?', $dintao->type);
+    $total = Dintao::count (array ('conditions' => $conditions));
+
+    switch ($sort) {
+      case 'up':
+        $sort = $dintao->sort;
+        $dintao->sort = $dintao->sort - 1 < 0 ? $total - 1 : $dintao->sort - 1;
+        break;
+
+      case 'down':
+        $sort = $dintao->sort;
+        $dintao->sort = $dintao->sort + 1 >= $total ? 0 : $dintao->sort + 1;
+        break;
+    }
+
+    Dintao::addConditions ($conditions, 'sort = ?', $dintao->sort);
+
+    $update = Dintao::transaction (function () use ($conditions, $dintao, $sort) {
+      if (($next = Dintao::find ('one', array ('conditions' => $conditions))) && (($next->sort = $sort) || true))
+        if (!$next->save ())
+          return false;
+
+      if (!$dintao->save ())
+          return false;
+
+      return true;
+    });
+    return $this->output_json (array ('status' => $update));
+  }
   public function create ($index = 1) {
     $index = isset (Dintao::$types[$index]) ? $index : Dintao::TYPE_OTHER;
-  
+
     if (!$this->has_post ())
       return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'

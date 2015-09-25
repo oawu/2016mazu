@@ -20,7 +20,7 @@
               <a href='<?php echo base_url ('admin', 'dintaos', 'edit', $dintao->id);?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'dintaos', 'destroy', $dintao->id);?>' class='icon-bin'></a>
             </td>
-            <td data-title='排序' width='70' class='sort'>
+            <td data-title='排序' width='60' class='sort'>
               <a data-id='<?php echo $dintao->id;?>' data-sort='up' class='icon-triangle-up'></a>
               <a data-id='<?php echo $dintao->id;?>' data-sort='down' class='icon-triangle-down'></a>
             </td>
