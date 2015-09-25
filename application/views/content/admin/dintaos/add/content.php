@@ -17,6 +17,14 @@
       </tr>
 
       <tr>
+        <th>關鍵字：</th>
+        <td class='k'>
+          <input type='text' name='keyword' value='<?php echo $posts['keyword'] ? $posts['keyword'] : '';?>' placeholder='請輸入關鍵字..' maxlength='200' pattern='.{1,200}' required title='輸入關鍵字!' />
+          <div class='icon-search'></div>
+        </td>
+      </tr>
+
+      <tr>
         <th>內 容：</th>
         <td>
           <textarea name='content' class='ckeditor' placeholder='請輸入內容..'><?php echo $posts['content'] ? $posts['content'] : '';?></textarea>

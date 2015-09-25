@@ -26,7 +26,8 @@ class Admin_controller extends Oa_controller {
          ->_add_meta ()
          ->_add_css ()
          ->_add_js ()
-         ->add_hidden (array ('id' => 'ckeditors_upload_image_url', 'value' => base_url ('admin', 'ckeditors', 'upload_image')))
+         ->add_hidden (array ('id' => 'tools_ckeditors_upload_image_url', 'value' => base_url ('admin', 'tools', 'ckeditors_upload_image')))
+         ->add_hidden (array ('id' => 'tools_scws_url', 'value' => base_url ('admin', 'tools', 'scws')))
          ;
   }
   private function _add_meta () {

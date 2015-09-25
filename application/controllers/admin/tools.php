@@ -20,6 +20,16 @@ class Tools extends Admin_controller {
     else
       echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction ($funcNum, '" . $img->name->url ('900w') . "', '上傳成功！');</script>";
   }
+  
   public function scws () {
+    if (!$this->has_post ())
+      return $this->output_json (array ('status' => false, 'words' => array ()));
+    
+    if (!($str = OAInput::post ('str')))
+      return $this->output_json (array ('status' => false, 'words' => array ()));
+    
+    $this->load->library ('Scws');
+
+    return $this->output_json (array ('status' => true, 'words' => Scws::explode ($str)));
   }
 }

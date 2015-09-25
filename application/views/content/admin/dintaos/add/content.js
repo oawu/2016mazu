@@ -7,7 +7,7 @@ $(function () {
   var $td = $('td.s');
   var $ma = $td.find ('.ma');
 
-  var $m = function (i, t, h) {
+  var $fm = function (i, t, h) {
     return $('<div />').addClass ('m').append (
       $('<div />').append ($('<a />').addClass ('icon-triangle-up2').click (function () {
         var $p = $(this).parents ('.m');
@@ -33,12 +33,22 @@ $(function () {
   var i = 0;
   if ($('td.s').data ('ms'))
     $('td.s').data ('ms').forEach (function (t, j) {
-      $m (i = j, t.title, t.href).insertBefore ($ma);
+      $fm (i = j, t.title, t.href).insertBefore ($ma);
     });
   $ma.find ('.icon-plus').click (function () {
-    $m (i = i ? ++i : $ma.index ()).insertBefore ($ma);
+    $fm (i = i ? ++i : $ma.index ()).insertBefore ($ma);
   }).click ();
 
+  $('td.k .icon-search').click (function () {
+    var str = $('input[name="name"]').val () + $('textarea[name="content"]').val ();
+    if (str.length) {
+      window.showLoading();
+      scws (str, function (w) {
+        $(this).prev ().val (w.join (' '));
+        window.hideLoading();
+      }.bind ($(this)));
+    }
+  });
   $('form').submit (function () {
     window.showLoading();
   });

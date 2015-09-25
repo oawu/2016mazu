@@ -21,7 +21,21 @@ $(function () {
   });
 
   $('textarea.ckeditor').ckeditor ({
-    filebrowserUploadUrl: $('#ckeditors_upload_image_url').val (),
+    filebrowserUploadUrl: $('#tools_ckeditors_upload_image_url').val (),
     height: 400,
   });
+
+  window.scws = function (str, callback, beforeSend) {
+    $.ajax ({
+      url: $('#tools_scws_url').val (),
+      data: { str: str },
+      async: true, cache: false, dataType: 'json', type: 'POST',
+      beforeSend: beforeSend ? beforeSend : function () {}
+    })
+    .done (function (result) {
+      callback (result.status ? result.words : []);
+    })
+    .fail (function (result) { callback ([]); })
+    .complete (function (result) {});
+  };
 });

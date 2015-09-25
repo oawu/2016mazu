@@ -4,7 +4,25 @@
  */
 
 @import "_oa";
-
+.k {
+  @include split-right(30px, 'input:first-child', 'div');
+  input:first-child {
+    width: calc(100% - 35px) !important;
+  }
+  div {
+    text-align: center;
+    float: right;
+    margin-top: 7px;
+    color: rgba(39, 40, 34, .5);
+    border-left: 1px solid rgba(39, 40, 34, .1);
+    cursor: pointer;
+    @include transition(all .3s);
+    
+    &:hover {
+      color: rgba(39, 40, 34, .8);
+    }
+  }
+}
 .ma, .m {
   + .ma, + .m {
     margin-top: 5px;
