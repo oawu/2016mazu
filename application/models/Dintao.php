@@ -13,6 +13,7 @@ class Dintao extends OaModel {
   );
 
   static $has_many = array (
+    array ('sources', 'class_name' => 'DintaoSource', 'order' => 'sort ASC')
   );
 
   static $belongs_to = array (
@@ -31,5 +32,11 @@ class Dintao extends OaModel {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
 
     OrmImageUploader::bind ('cover', 'DintaoCoverImageUploader');
+  }
+  public function destroy () {
+    foreach ($this->sources as $source)
+      $source->destroy ();
+
+    return $this->delete ();
   }
 }
