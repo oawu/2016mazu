@@ -238,6 +238,12 @@ form.search {
 table.table-list-rwd {
   @include material-table-list;
   margin-top: 20px;
+  .sort {
+    a {
+      display: block;
+      cursor: pointer;
+    }
+  }
   a {
     @include a;
     font-size: 13px;
