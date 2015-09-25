@@ -1,4 +1,4 @@
-<form action='<?php echo base_url (array ('admin', 'dintaos', 'create'));?>' method='post' enctype='multipart/form-data'>
+<form action='<?php echo base_url (array ('admin', 'dintaos', 'create', $tab_index));?>' method='post' enctype='multipart/form-data'>
   <table class='table-form'>
     <tbody>
 
@@ -12,14 +12,23 @@
       <tr>
         <th>封 面：</th>
         <td>
-          <input type='file' name='cover' value='' accept='image/gif, image/jpeg, image/jpg, image/png' required title='輸選擇圖片(gif、jpg、png)檔案!' />
+          <input type='file' name='cover' value='' accept='image/gif, image/jpeg, image/jpg, image/png' required title='請選擇圖片(gif、jpg、png)檔案!' />
         </td>
       </tr>
 
       <tr>
         <th>內 容：</th>
         <td>
-          <textarea name='contant' class='ckeditor' placeholder='請輸入內容..'><?php echo $posts['contant'] ? $posts['contant'] : '';?></textarea>
+          <textarea name='content' class='ckeditor' placeholder='請輸入內容..'><?php echo $posts['content'] ? $posts['content'] : '';?></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <th>參 考：</th>
+        <td>
+          <div class='ma'>
+            <button type='button' class='icon-plus'></button>
+          </div>
         </td>
       </tr>
 

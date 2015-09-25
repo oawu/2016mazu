@@ -55,4 +55,65 @@ class Dintaos extends Admin_controller {
         'posts' => $posts
       ));
   }
+  public function create ($index = 1) {
+    $index = isset (Dintao::$types[$index]) ? $index : Dintao::TYPE_OTHER;
+  
+    if (!$this->has_post ())
+      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
+        ));
+
+    $posts = OAInput::post ();
+    $posts['content'] = OAInput::post ('content', false);
+    $cover = OAInput::file ('cover');
+
+    if (!$cover)
+      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+          '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
+          'posts' => $posts
+        ));
+
+    if($msg = $this->_validation_posts ($posts, $index))
+      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+          '_flash_message' => $msg,
+          'posts' => $posts
+        ));
+
+    $create = Dintao::transaction (function () use ($posts, $cover) {
+      if (!(verifyCreateOrm ($dintao = Dintao::create (array_intersect_key ($posts, Dintao::table ()->columns))) && $dintao->cover->put ($cover)))
+        return false;
+
+      if ($posts['sources'])
+        foreach ($posts['sources'] as $source)
+          DintaoSource::create (array (
+              'dintao_id' => $dintao->id,
+              'title' => $source['title'],
+              'href' => $source['href'],
+              'sort' => $i = isset ($i) ? ++$i : 0
+            ));
+      return true;
+    });
+
+    if (!$create)
+      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+          '_flash_message' => '新增失敗！',
+          'posts' => $posts
+        ));
+    return redirect_message (array ('admin', 'dintaos', $index), array (
+        '_flash_message' => '新增成功！'
+      ));
+  }
+  private function _validation_posts (&$posts, $index) {
+    if (!(isset ($posts['name']) && ($posts['name'] = trim ($posts['name']))))
+      return '沒有填寫名稱！';
+    if (!(isset ($posts['content']) && ($posts['content'] = trim ($posts['content']))))
+      return '沒有填寫內容！';
+
+    $posts['user_id'] = User::current ()->id;
+    $posts['type'] = $index;
+    $posts['cover'] = '';
+    $posts['sort'] = Dintao::count (array ('conditions' => array ('type = ?', $index)));
+    $posts['sources'] = isset ($posts['sources']) && $posts['sources'] ? $posts['sources'] : array ();
+    return '';
+  }
 }
