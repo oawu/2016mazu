@@ -21,7 +21,7 @@ $(function () {
   });
 
   $('textarea.ckeditor').ckeditor ({
-    filebrowserUploadUrl: 'asd',
+    filebrowserUploadUrl: $('#ckeditors_upload_image_url').val (),
     height: 400,
   });
 });
