@@ -13,6 +13,7 @@ class Migration_Add_dintaos extends CI_Migration {
         `user_id` int(11) unsigned NOT NULL COMMENT 'User ID',
         `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '名稱',
         `cover` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '封面',
+        `keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SEO 關鍵字',
         
         `content` text  COMMENT '內容',
         `type` tinyint(1) unsigned NOT NULL DEFAULT 3 COMMENT '1 聖前, 2 地方, 3 其他',
