@@ -78,11 +78,8 @@ class Dintaos extends Admin_controller {
 
     $update = Dintao::transaction (function () use ($conditions, $dintao, $sort) {
       if (($next = Dintao::find ('one', array ('conditions' => $conditions))) && (($next->sort = $sort) || true))
-        if (!$next->save ())
-          return false;
-
-      if (!$dintao->save ())
-          return false;
+        if (!$next->save ()) return false;
+      if (!$dintao->save ()) return false;
 
       return true;
     });
