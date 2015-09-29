@@ -19,7 +19,7 @@
       <tr>
         <th>關鍵字：</th>
         <td class='k'>
-          <input type='text' name='keyword' value='<?php echo $posts['keyword'] ? $posts['keyword'] : '';?>' placeholder='請輸入關鍵字..' maxlength='200' pattern='.{1,200}' required title='輸入關鍵字!' />
+          <input type='text' name='keywords' value='<?php echo $posts['keywords'] ? $posts['keywords'] : '';?>' placeholder='請輸入關鍵字..' maxlength='200' pattern='.{1,200}' required title='輸入關鍵字!' />
           <div class='icon-search'></div>
         </td>
       </tr>

@@ -138,6 +138,8 @@ class Dintaos extends Admin_controller {
       return '沒有填寫名稱！';
     if (!(isset ($posts['content']) && ($posts['content'] = trim ($posts['content']))))
       return '沒有填寫內容！';
+    if (!(isset ($posts['keywords']) && ($posts['keywords'] = trim ($posts['keywords']))))
+      return '沒有填寫關鍵字！';
 
     $posts['user_id'] = User::current ()->id;
     $posts['type'] = $index;
