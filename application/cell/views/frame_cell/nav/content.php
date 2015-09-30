@@ -4,7 +4,7 @@
 
     <div>
       <div class='l icon-menu'></div>
-      <div><?php echo $subtitle;?></div>
+      <h1><?php echo $subtitle;?></h1>
     </div>
 
     <div>

@@ -118,7 +118,7 @@ nav {
         width: calc(100% - #{0 + $navRightWidth});
       }
 
-      > div {
+      > div, > h1 {
         position: relative;
         float: left;
         display: inline-block;
