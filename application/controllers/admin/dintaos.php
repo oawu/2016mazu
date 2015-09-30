@@ -17,7 +17,7 @@ class Dintaos extends Admin_controller {
   public function index ($index = 1, $offset = 0) {
     $index = isset (Dintao::$types[$index]) ? $index : Dintao::TYPE_OFFICIAL;
 
-    $columns = array ('id' => 'int', 'name' => 'string', 'content' => 'string');
+    $columns = array ('id' => 'int', 'title' => 'string', 'content' => 'string');
     $configs = array ('admin', $this->get_class (), $index, '%s');
 
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Dintao', OAInput::get ())));
@@ -134,8 +134,8 @@ class Dintaos extends Admin_controller {
       ));
   }
   private function _validation_posts (&$posts, $index) {
-    if (!(isset ($posts['name']) && ($posts['name'] = trim ($posts['name']))))
-      return '沒有填寫名稱！';
+    if (!(isset ($posts['title']) && ($posts['title'] = trim ($posts['title']))))
+      return '沒有填寫標題！';
     if (!(isset ($posts['content']) && ($posts['content'] = trim ($posts['content']))))
       return '沒有填寫內容！';
     if (!(isset ($posts['keywords']) && ($posts['keywords'] = trim ($posts['keywords']))))

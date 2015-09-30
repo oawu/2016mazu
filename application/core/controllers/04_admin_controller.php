@@ -11,8 +11,11 @@ class Admin_controller extends Oa_controller {
     parent::__construct ();
 
     if (!(User::current () && array_intersect (Cfg::setting ('admin', 'roles'), User::current ()->roles ()))) {
-      // Session::setData ('_flash_message', '請先登入，或者您沒有後台權限！', true);
-      return show_404();
+      Session::setData ('_flash_message', '', true);
+      return redirect_message (array (), array (
+          '_flash_message' => '請先登入，或者您沒有後台權限！'
+        ));
+      // return show_404();
     }
 
     $this

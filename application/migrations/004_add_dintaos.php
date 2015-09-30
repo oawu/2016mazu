@@ -11,7 +11,7 @@ class Migration_Add_dintaos extends CI_Migration {
       "CREATE TABLE `dintaos` (
         `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
         `user_id` int(11) unsigned NOT NULL COMMENT 'User ID',
-        `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '名稱',
+        `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
         `cover` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '封面',
         `keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SEO 關鍵字',
         
