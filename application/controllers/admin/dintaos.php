@@ -17,7 +17,7 @@ class Dintaos extends Admin_controller {
   public function index ($index = 1, $offset = 0) {
     $index = isset (Dintao::$types[$index]) ? $index : Dintao::TYPE_OFFICIAL;
 
-    $columns = array ('id' => 'int', 'title' => 'string', 'content' => 'string');
+    $columns = array ('title' => 'string', 'content' => 'string', 'keywords' => 'string');
     $configs = array ('admin', $this->get_class (), $index, '%s');
 
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Dintao', OAInput::get ())));
@@ -32,7 +32,7 @@ class Dintaos extends Admin_controller {
     $dintaos = Dintao::find ('all', array (
         'offset' => $offset,
         'limit' => $limit,
-        'order' => 'sort ASC',
+        'order' => 'sort DESC',
         'conditions' => $conditions
       ));
 
@@ -44,6 +44,19 @@ class Dintaos extends Admin_controller {
         'pagination' => $pagination,
         'has_search' => array_filter ($columns),
         'columns' => $columns
+      ));
+  }
+  public function edit ($id = 0) {
+    if (!($id && ($dintao = Dintao::find_by_id ($id))))
+      return redirect_message (array ('admin', 'dintaos'), array (
+          '_flash_message' => '找不到該筆資料。'
+        ));
+
+    $posts = Session::getData ('posts', true);
+    
+    $this->set_tab_index ($dintao->index)
+         ->load_view (array (
+        'posts' => $posts
       ));
   }
   public function add ($index = 1) {
