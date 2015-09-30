@@ -15,6 +15,9 @@ application/config/database.php
 application/config/setting/mail_gun.php
 application/config/setting/facebook.php
 
+application/config/system/orm_uploader.php
+application/config/system/s3.php
+
 temp/*
 
 upload/*
