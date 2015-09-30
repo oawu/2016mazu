@@ -22,8 +22,8 @@ class DintaoSource extends OaModel {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
   }
   public function destroy ($transaction = true) {
-    return self::transaction (function () {
+    return $transaction ? self::transaction (function () {
       return $this->delete ();
-    });
+    }) : $this->delete ();
   }
 }

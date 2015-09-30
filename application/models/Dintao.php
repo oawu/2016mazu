@@ -37,7 +37,9 @@ class Dintao extends OaModel {
     return self::transaction (function () {
       if ($this->sources)
         foreach ($this->sources as $source)
-          $source->delete ();
+          if (!$source->destroy (false))
+            return false;
+
       return $this->delete ();
     });
   }
