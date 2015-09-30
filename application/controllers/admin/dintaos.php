@@ -155,7 +155,7 @@ class Dintaos extends Admin_controller {
 
       if ($dintao->sources)
         foreach ($dintao->sources as $source)
-          if (!$source->destroy ())
+          if (!$source->delete ())
             return false;
 
       if ($posts['sources'])
