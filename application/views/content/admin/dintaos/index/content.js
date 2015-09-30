@@ -12,13 +12,23 @@ $(function () {
         sort: $(this).data ('sort')
       },
       async: true, cache: false, dataType: 'json', type: 'POST',
-      beforeSend: function () { }
+      beforeSend: function () {
+        window.showLoading();
+      }
     })
     .done (function (result) {
       if (result.status) location.reload ();
     })
     .fail (function (result) { ajaxError (result); })
-    .complete (function (result) {});
+    .complete (function (result) {
+      window.hideLoading();
+    });
+  });
+
+  $('a.destroy').click (function () {
+    if (!confirm ('確定要刪除？'))
+      return false;
+    window.showLoading();
   });
 
   window.hideLoading();

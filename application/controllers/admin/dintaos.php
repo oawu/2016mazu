@@ -37,13 +37,27 @@ class Dintaos extends Admin_controller {
       ));
 
     $this->set_tab_index ($index)
-         ->add_subtitle ('陣頭根列表')
+         ->add_subtitle ('陣頭列表')
          ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', $this->get_class (), 'sort')))
          ->load_view (array (
         'dintaos' => $dintaos,
         'pagination' => $pagination,
         'has_search' => array_filter ($columns),
         'columns' => $columns
+      ));
+  }
+  public function destroy ($id = 0) {
+    if (!($id && ($dintao = Dintao::find_by_id ($id))))
+      return redirect_message (array ('admin', 'dintaos', Dintao::TYPE_OFFICIAL), array (
+          '_flash_message' => '找不到該筆資料。'
+        ));
+    if (!$dintao->destroy ())
+      return redirect_message (array ('admin', 'dintaos', $dintao->type), array (
+          '_flash_message' => '刪除失敗！',
+          'posts' => $posts
+        ));
+    return redirect_message (array ('admin', 'dintaos', $dintao->type), array (
+        '_flash_message' => '刪除成功！'
       ));
   }
   public function edit ($id = 0) {
@@ -55,6 +69,7 @@ class Dintaos extends Admin_controller {
     $posts = Session::getData ('posts', true);
     
     $this->set_tab_index ($dintao->type)
+         ->add_subtitle ('編輯陣頭')
          ->load_view (array (
         'posts' => $posts,
         'dintao' => $dintao
@@ -65,6 +80,7 @@ class Dintaos extends Admin_controller {
     $posts = Session::getData ('posts', true);
     
     $this->set_tab_index ($index)
+         ->add_subtitle ('新增陣頭')
          ->load_view (array (
         'posts' => $posts
       ));
