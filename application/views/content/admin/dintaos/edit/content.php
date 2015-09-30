@@ -8,6 +8,16 @@
           <input type='text' name='title' value='<?php echo $posts['title'] ? $posts['title'] : $dintao->title;?>' placeholder='請輸入名稱..' maxlength='200' pattern='.{1,200}' required title='輸入標題!' />
         </td>
       </tr>
+      <tr>
+        <th>分 類：</th>
+        <td>
+          <select name='type'>
+      <?php foreach (Dintao::$types as $key => $type) { ?>
+              <option value='<?php echo $key;?>'<?php echo ($posts['type'] ? $posts['type'] : $dintao->type) == $key ? ' selected' : '';?>><?php echo $type;?></option>
+      <?php } ?>
+          </select>
+        </td>
+      </tr>
 
       <tr>
         <th>封 面：</th>
