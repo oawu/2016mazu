@@ -7,7 +7,7 @@
 
 class Dintao extends OaModel {
 
-  static $table_name = 'Dintaos';
+  static $table_name = 'dintaos';
 
   static $has_one = array (
   );
