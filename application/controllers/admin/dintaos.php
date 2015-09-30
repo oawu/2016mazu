@@ -48,15 +48,16 @@ class Dintaos extends Admin_controller {
   }
   public function edit ($id = 0) {
     if (!($id && ($dintao = Dintao::find_by_id ($id))))
-      return redirect_message (array ('admin', 'dintaos'), array (
+      return redirect_message (array ('admin', 'dintaos', Dintao::TYPE_OFFICIAL), array (
           '_flash_message' => '找不到該筆資料。'
         ));
 
     $posts = Session::getData ('posts', true);
     
-    $this->set_tab_index ($dintao->index)
+    $this->set_tab_index ($dintao->type)
          ->load_view (array (
-        'posts' => $posts
+        'posts' => $posts,
+        'dintao' => $dintao
       ));
   }
   public function add ($index = 1) {
@@ -78,12 +79,12 @@ class Dintaos extends Admin_controller {
     switch ($sort) {
       case 'up':
         $sort = $dintao->sort;
-        $dintao->sort = $dintao->sort - 1 < 0 ? $total - 1 : $dintao->sort - 1;
+        $dintao->sort = $dintao->sort + 1 >= $total ? 0 : $dintao->sort + 1;
         break;
 
       case 'down':
         $sort = $dintao->sort;
-        $dintao->sort = $dintao->sort + 1 >= $total ? 0 : $dintao->sort + 1;
+        $dintao->sort = $dintao->sort - 1 < 0 ? $total - 1 : $dintao->sort - 1;
         break;
     }
 
@@ -97,6 +98,70 @@ class Dintaos extends Admin_controller {
       return true;
     });
     return $this->output_json (array ('status' => $update));
+  }
+  public function update ($id = 0) {
+    if (!($id && ($dintao = Dintao::find_by_id ($id))))
+      return redirect_message (array ('admin', 'dintaos', Dintao::TYPE_OFFICIAL), array (
+          '_flash_message' => '找不到該筆資料。'
+        ));
+
+    if (!$this->has_post ())
+      return redirect_message (array ('admin', 'dintaos', 'edit', $dintao->id), array (
+          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
+        ));
+
+    $posts = OAInput::post ();
+    $posts['content'] = OAInput::post ('content', false);
+    $cover = OAInput::file ('cover');
+
+    if (!($cover || (string)$dintao->cover))
+      return redirect_message (array ('admin', 'dintaos', 'edit', $dintao->id), array (
+          '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
+          'posts' => $posts
+        ));
+
+    if($msg = $this->_validation_posts ($posts, $dintao->type))
+      return redirect_message (array ('admin', 'dintaos', 'edit', $dintao->id), array (
+          '_flash_message' => $msg,
+          'posts' => $posts
+        ));
+
+    if ($columns = array_intersect_key ($posts, $dintao->table ()->columns))
+      foreach ($columns as $column => $value)
+        $dintao->$column = $value;
+
+    $update = Dintao::transaction (function () use ($dintao, $posts, $cover) {
+      if (!$dintao->save ())
+        return false;
+
+      if ($cover && !$dintao->cover->put ($cover))
+        return false;
+
+      if ($dintao->sources)
+        foreach ($dintao->sources as $source)
+          if (!$source->destroy ())
+            return false;
+
+      if ($posts['sources'])
+        foreach ($posts['sources'] as $source)
+          DintaoSource::create (array (
+              'dintao_id' => $dintao->id,
+              'title' => $source['title'],
+              'href' => $source['href'],
+              'sort' => $i = isset ($i) ? ++$i : 0
+            ));
+
+      return true;
+    });
+
+    if (!$update)
+      return redirect_message (array ('admin', 'dintaos', 'edit', $dintao->id), array (
+          '_flash_message' => '更新失敗！',
+          'posts' => $posts
+        ));
+    return redirect_message (array ('admin', 'dintaos', $dintao->type), array (
+        '_flash_message' => '更新成功！'
+      ));
   }
   public function create ($index = 1) {
     $index = isset (Dintao::$types[$index]) ? $index : Dintao::TYPE_OTHER;
@@ -121,6 +186,8 @@ class Dintaos extends Admin_controller {
           '_flash_message' => $msg,
           'posts' => $posts
         ));
+    $posts['cover'] = '';
+    $posts['sort'] = Dintao::count (array ('conditions' => array ('type = ?', $index)));
 
     $create = Dintao::transaction (function () use ($posts, $cover) {
       if (!(verifyCreateOrm ($dintao = Dintao::create (array_intersect_key ($posts, Dintao::table ()->columns))) && $dintao->cover->put ($cover)))
@@ -156,9 +223,13 @@ class Dintaos extends Admin_controller {
 
     $posts['user_id'] = User::current ()->id;
     $posts['type'] = $index;
-    $posts['cover'] = '';
-    $posts['sort'] = Dintao::count (array ('conditions' => array ('type = ?', $index)));
-    $posts['sources'] = isset ($posts['sources']) && $posts['sources'] ? $posts['sources'] : array ();
+    $posts['sources'] = isset ($posts['sources']) && ($posts['sources'] = array_filter (array_map (function ($source) {
+          $return = array (
+              'title' => trim ($source['title']),
+              'href' => trim ($source['href'])
+            );
+          return $return['href'] ? $return : null;
+        }, $posts['sources']))) ? $posts['sources'] : array ();
     return '';
   }
 }
