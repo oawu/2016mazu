@@ -218,10 +218,13 @@ if ( !function_exists ('delay_job')) {
   }
 }
 
-if ( !function_exists ('make_click_able_links')) {
-  function make_click_able_links ($text, $is_new_page = true, $class = '', $link_text = '', $max_count_use_link_text = 0) {
-    $text = " " .  ($text);
-    return preg_replace ('/(((https?:\/\/)[~\S]+))/', '<a href="${1}"' . ($class ? ' class="' . $class . '"' : '') . ($is_new_page ? ' target="_blank"' : '') . '>' . ($link_text ? $link_text : '${1}') . '</a>', $text);
+if ( !function_exists ('make_click_enable_link')) {
+  function make_click_enable_link ($text, $maxLength = 0, $linkText = '', $attributes = 'target="_blank"') {
+    return preg_replace_callback ('/(https?:\/\/|\s+)[~\S]+/', function ($matches) use ($maxLength, $linkText, $attributes) {
+    $text = $linkText ? $linkText : $matches[0];
+      $text = $maxLength > 0 ? mb_strimwidth ($text, 0, $maxLength, '…','UTF-8') : $text;
+      return '<a href="' . $matches[0] . '"' . ($attributes ? ' ' . $attributes : '') . '>' . $text . '</a>';
+    }, $text);
   }
 }
 
