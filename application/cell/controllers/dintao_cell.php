@@ -33,9 +33,10 @@ class Dintao_cell extends Cell_Controller {
         'conditions' => $conditions
       ));
 
-    return array (
+    return $this->setUseCssList (true)
+                ->load_view (array (
         'dintaos' => $dintaos,
         'pagination' => $pagination,
-      );
+      ));
   }
 }
