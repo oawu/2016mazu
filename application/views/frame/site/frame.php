@@ -17,7 +17,7 @@
 
     <div id='container'>
       <div>
-        <?php echo render_cell ('frame_cell', 'wrapper_left', 'site');?>
+        <?php echo render_cell ('frame_cell', 'wrapper_left', 'site', isset ($class) && $class ? $class : null, isset ($method) && $method ? $method : null);?>
         <div>
           <?php echo render_cell ('frame_cell', 'tabs', 'admin', isset ($tabs) ? $tabs : array (), isset ($tab_index) ? $tab_index : null);?>
 
