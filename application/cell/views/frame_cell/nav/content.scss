@@ -34,9 +34,9 @@ nav {
     padding: 0 $mobileHorizontalPadding;
   }
   > div {
-    width: 100%;
+    width: $mainWidth;
     height: 100%;
-    max-width: $mainWidth;
+    max-width: 100%;
     display: inline-block;
     @include clearfix();
     
