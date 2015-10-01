@@ -33,6 +33,35 @@ class Dintao extends OaModel {
 
     OrmImageUploader::bind ('cover', 'DintaoCoverImageUploader');
   }
+  private function _to_hex ($n) {
+    if (!$n = intval ($n))
+      return '00';
+
+    $i1 = (int) ($n - ($n % 16)) / 16;
+    $i2 = (int) $n % 16;
+
+    return substr ('0123456789ABCDEF', $i1, 1) . substr ('0123456789ABCDEF', $i2, 1);
+  }
+  public function cover_color ($type = 'rgba', $alpha = 1) {
+    if (!(isset ($this->cover_color_r) && isset ($this->cover_color_r) && isset ($this->cover_color_g)))
+      return '';
+
+    $alpha = $alpha <= 1 ? $alpha >= 0 ? $alpha : 0 : 1;
+
+    switch ($type) {
+      default:
+      case 'rgba':
+        return 'rgba(' . $this->cover_color_r . ', ' . $this->cover_color_r . ', ' . $this->cover_color_g . ', ' . $alpha . ')';
+        break;
+      case 'rgb':
+        return 'rgb(' . $this->cover_color_r . ', ' . $this->cover_color_r . ', ' . $this->cover_color_g . ')';
+        break;
+      case 'hex':
+        return '#' . $this->_to_hex ($this->cover_color_r) . '' . $this->_to_hex ($this->cover_color_r) . '' . $this->_to_hex ($this->cover_color_g);
+        break;
+    }
+
+  }
   public function update_cover_color ($image_utility = null) {
     if (!(isset ($this->id) && isset ($this->cover) && isset ($this->cover_color_r) && isset ($this->cover_color_g) && isset ($this->cover_color_b)))
       return false;
@@ -68,9 +97,13 @@ class Dintao extends OaModel {
       $green += (round (($green - $average) / 10) * 1.125) * 10;
       $blue += (round (($blue - $average) / 10) * 1.125) * 10;
 
-      $this->cover_color_r = round ($red > 0 ? $red < 256 ? $red : 255 : 0);
-      $this->cover_color_g = round ($green > 0 ? $green < 256 ? $green : 255 : 0);
-      $this->cover_color_b = round ($blue > 0 ? $blue < 256 ? $blue : 255 : 0);
+      $red = round ($red > 0 ? $red < 256 ? $red : 255 : 0);
+      $green = round ($green > 0 ? $green < 256 ? $green : 255 : 0);
+      $blue = round ($blue > 0 ? $blue < 256 ? $blue : 255 : 0);
+      
+      $this->cover_color_r = max (0, min ($red, 255));
+      $this->cover_color_g = max (0, min ($green, 255));
+      $this->cover_color_b = max (0, min ($blue, 255));
 
       if (in_array (Cfg::system ('orm_uploader', 'uploader', 'driver'), array ('s3')))
         @unlink ($fileName);
