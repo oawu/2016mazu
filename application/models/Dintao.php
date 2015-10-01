@@ -125,4 +125,7 @@ class Dintao extends OaModel {
   public function mini_keywords ($length = 50) {
     return mb_strimwidth ($this->keywords, 0, $length, '…','UTF-8');
   }
+  public function keywords () {
+    return preg_split ("/\s+/", $this->keywords);
+  }
 }
