@@ -26,7 +26,33 @@ class Site_controller extends Oa_controller {
   }
 
   private function _add_meta () {
-    return $this->add_meta (array ('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui'));
+    return $this->add_meta (array ('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui'))
+                
+                ->add_meta (array ('name' => 'robots', 'content' => 'index,follow'))
+                ->add_meta (array ('name' => 'author', 'content' => '吳政賢(OA Wu)'))
+                
+                ->add_meta (array ('name' => 'keywords', 'content' => Cfg::setting ('site', 'main', 'keywords')))
+                ->add_meta (array ('name' => 'description', 'content' => Cfg::setting ('site', 'main', 'description')))
+
+                ->add_meta (array ('property' => 'og:site_name', 'content' => Cfg::setting ('site', 'main', 'title')))
+                ->add_meta (array ('property' => 'og:url', 'content' => current_url ()))
+                
+                ->add_meta (array ('property' => 'og:title', 'content' => ''))
+                ->add_meta (array ('property' => 'og:description', 'content' => ''))
+                
+                ->add_meta (array ('property' => 'fb:admins', 'content' => Cfg::setting ('facebook', 'admins')))
+                ->add_meta (array ('property' => 'fb:app_id', 'content' => Cfg::setting ('facebook', 'appId')))
+
+                ->add_meta (array ('property' => 'og:locale', 'content' => 'zh_TW'))
+                ->add_meta (array ('property' => 'og:locale:alternate', 'content' => 'en_US'))
+                ->add_meta (array ('property' => 'og:type', 'content' => 'city'))
+
+                ->add_meta (array ('property' => 'og:image', 'content' => '', 'alt' => Cfg::setting ('site', 'main', 'title')))
+                ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/jpeg'))
+                ->add_meta (array ('property' => 'og:image:width', 'content' => '1200'))
+                ->add_meta (array ('property' => 'og:image:height', 'content' => '630'))
+
+    ;
   }
 
   private function _add_css () {
