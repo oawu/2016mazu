@@ -34,14 +34,12 @@ class Dintao extends OaModel {
     OrmImageUploader::bind ('cover', 'DintaoCoverImageUploader');
   }
   public function destroy () {
-    return self::transaction (function () {
-      if ($this->sources)
-        foreach ($this->sources as $source)
-          if (!$source->destroy (false))
-            return false;
+    if ($this->sources)
+      foreach ($this->sources as $source)
+        if (!$source->destroy ())
+          return false;
 
-      return $this->delete ();
-    });
+    return $this->delete ();
   }
   public function mini_content ($length = 100) {
     return mb_strimwidth (remove_ckedit_tag ($this->content), 0, $length, '…','UTF-8');

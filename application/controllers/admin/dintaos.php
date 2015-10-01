@@ -51,7 +51,12 @@ class Dintaos extends Admin_controller {
       return redirect_message (array ('admin', 'dintaos', Dintao::TYPE_OFFICIAL), array (
           '_flash_message' => '找不到該筆資料。'
         ));
-    if (!$dintao->destroy ())
+
+    $delete = Dintao::transaction (function () use ($dintao) {
+      return $dintao->destroy ();
+    });
+
+    if (!$delete)
       return redirect_message (array ('admin', 'dintaos', $dintao->type), array (
           '_flash_message' => '刪除失敗！',
           'posts' => $posts
@@ -155,7 +160,7 @@ class Dintaos extends Admin_controller {
 
       if ($dintao->sources)
         foreach ($dintao->sources as $source)
-          if (!$source->destroy (false))
+          if (!$source->destroy ())
             return false;
 
       if ($posts['sources'])
