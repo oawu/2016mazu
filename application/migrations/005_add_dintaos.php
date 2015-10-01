@@ -19,6 +19,10 @@ class Migration_Add_dintaos extends CI_Migration {
         `type` tinyint(1) unsigned NOT NULL DEFAULT 3 COMMENT '1 聖前, 2 地方, 3 其他',
         `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排列順序，上至下 DESC',
 
+        `cover_color_r` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Red',
+        `cover_color_g` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Green',
+        `cover_color_b` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Blue',
+
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
         PRIMARY KEY (`id`),
