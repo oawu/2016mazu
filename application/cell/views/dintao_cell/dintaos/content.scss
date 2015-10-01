@@ -9,7 +9,7 @@
   section {
     position: relative;
     text-align: left;
-    @include split;
+    @include split('.i_t', '.r');
 
     @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
       $width: 80px;
@@ -26,10 +26,10 @@
           display: inline-block !important;
         }
       }
-      .l, .r {
+      .i_t, .r {
         height: $height;
       }
-      .l {
+      .i_t {
         width: $width;
       }
       .r {
@@ -41,15 +41,28 @@
           h2 {
             font-size: 15px;
             height: 22px;
+            @include overflow-docx3();
           }
         }
         div {
-          font-size: 10px;
-          padding: 5px;
-          height: calc(100% - 22px - 18px - 2px);
-          line-height: 16px;
+          &:nth-child(2) {
+            font-size: 10px;
+            padding: 5px;
+            height: calc(100% - 22px - 18px - 2px);
+            line-height: 16px;
+          }
+          &:nth-child(3) {
+            padding-left: 5px;
+            height: 20px;
+            font-size: 8px;
+            line-height: 19px;
+            width: calc(100% - 50px) !important;
+            letter-spacing: .5px;
+            @include overflow-docx3();
+          }
         }
         a:last-child {
+          width: 50px;
           font-size: 10px;
           height: 18px;
         }
@@ -69,10 +82,10 @@
           display: inline-block !important;
         }
       }
-      .l, .r {
+      .i_t, .r {
         height: $height;
       }
-      .l {
+      .i_t {
         width: $width;
       }
       .r {
@@ -84,16 +97,30 @@
           h2 {
             font-size: 18px;
             height: 25px;
+            @include overflow-docx3();
           }
         }
         div {
-          font-size: 12px;
-          padding: 5px 2px;
-          height: calc(100% - 25px - 18px - 5px);
-          line-height: 18px;
-          letter-spacing: .5px;
+          &:nth-child(2) {
+            font-size: 12px;
+            padding: 5px 2px;
+            height: calc(100% - 25px - 18px - 5px);
+            line-height: 18px;
+            letter-spacing: .5px;
+          }
+          &:nth-child(3) {
+            margin-top: 4px;
+            padding-left: 2px;
+            height: 20px;
+            font-size: 10px;
+            line-height: 19px;
+            width: calc(100% - 80px) !important;
+            letter-spacing: .5px;
+            @include overflow-docx3();
+          }
         }
         a:last-child {
+          width: 80px;
           font-size: 13px;
           height: 18px;
         }
@@ -113,10 +140,10 @@
           display: inline-block !important;
         }
       }
-      .l, .r {
+      .i_t, .r {
         height: $height;
       }
-      .l {
+      .i_t {
         width: $width;
       }
       .r {
@@ -128,14 +155,26 @@
           h2 {
             font-size: 19.5px;
             height: 27px;
+            @include overflow-docx3();
           }
         }
         div {
-          font-size: 12px;
-          padding: 5px 2px;
-          height: calc(100% - 27px - 18px - 5px);
-          line-height: 18px;
-          letter-spacing: .5px;
+          &:nth-child(2) {
+            font-size: 12px;
+            padding: 5px 2px;
+            height: calc(100% - 27px - 18px - 5px - 20px);
+            line-height: 18px;
+            letter-spacing: .5px;
+          }
+          &:nth-child(3) {
+            margin-top: 4px;
+            height: 20px;
+            font-size: 10px;
+            padding: 0 3px;
+            line-height: 19px;
+            letter-spacing: .5px;
+            @include overflow-docx3();
+          }
         }
         a:last-child {
           font-size: 13px;
@@ -157,10 +196,10 @@
           display: inline-block !important;
         }
       }
-      .l, .r {
+      .i_t, .r {
         height: $height;
       }
-      .l {
+      .i_t {
         width: $width;
       }
       .r {
@@ -169,18 +208,34 @@
         margin-right: 15px;
 
         a:first-child {
+          word-break: break-all;
+          overflow: hidden;
           h2 {
             font-size: 19.5px;
             height: 27px;
             padding-left: 5px;
+            word-break: break-all;
+            overflow: hidden;
           }
         }
         div {
-          font-size: 15px;
-          padding: 5px;
-          height: calc(100% - 27px - 18px - 5px);
-          line-height: 21px;
-          letter-spacing: .5px;
+          &:nth-child(2) {
+            font-size: 15px;
+            padding: 5px;
+            height: calc(100% - 27px - 18px - 5px - 20px - 3px);
+            line-height: 21px;
+            letter-spacing: .5px;
+          }
+          &:nth-child(3) {
+            margin-top: 5px;
+            height: 20px;
+            font-size: 11px;
+            line-height: 19px;
+            padding: 0 10px;
+            letter-spacing: .5px;
+            word-break: break-all;
+            overflow: hidden;
+          }
         }
         a:last-child {
           font-size: 13px;
@@ -198,7 +253,7 @@
       }
     }
 
-    .l {
+    .i_t {
       margin-top: 5px;
       border: 1px solid rgba(39, 40, 34, .25);
       @include border-radius(2px);
@@ -213,20 +268,28 @@
           color: rgba(50, 50, 50, 1);
         }
         h2 {
-              margin: 0;
-              @include overflow-docx3();
+          margin: 0;
         }
       }
       div {
-        word-break: break-all;
-        overflow: hidden;
-        color: rgba(50, 50, 50, 0.6);
+        &:nth-child(2) {
+          word-break: break-all;
+          overflow: hidden;
+          color: rgba(50, 50, 50, 0.6);
+        }
+        &:nth-child(3) {
+          display: inline-block;
+          width: 100%;
+          color: rgba(50, 50, 50, 0.4);
+          text-align: right;
+        }
       }
       a:last-child {
         @include a;
         position: absolute;
         right: 0;
         bottom: 0;
+        text-align: right;
       }
     }
   }
