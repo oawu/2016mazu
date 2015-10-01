@@ -4,10 +4,14 @@
  */
 
 @import "_oa";
-
+$mainWidth: 1400px;
 $mobileHorizontalPadding: 10px;
 $mobileVerticalPadding: 15px;
-
+nav {
+  > div {
+    width: $mainWidth !important;
+  }
+}
 #container {
   @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
     display: block;
