@@ -33,6 +33,51 @@ class Dintao extends OaModel {
 
     OrmImageUploader::bind ('cover', 'DintaoCoverImageUploader');
   }
+  public function update_cover_color ($image_utility = null) {
+    if (!(isset ($this->id) && isset ($this->cover) && isset ($this->cover_color_r) && isset ($this->cover_color_g) && isset ($this->cover_color_b)))
+      return false;
+
+    if (!$image_utility)
+      switch (Cfg::system ('orm_uploader', 'uploader', 'driver')) {
+        case 'local':
+          if (!file_exists ($fileName = FCPATH . implode ('/', $this->cover->path ())))
+            return false;
+
+          $image_utility = ImageUtility::create ($fileName);
+          break;
+
+        case 's3':
+          if (!(@S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $this->cover->path ()), FCPATH . implode (DIRECTORY_SEPARATOR, $fileName = array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$this->cover)))) && file_exists ($fileName = FCPATH . implode ('/', $fileName))))
+            return false;
+          $image_utility = ImageUtility::create ($fileName);
+          break;
+
+        default:
+          return false;
+          break;
+      }
+
+    if (($analysis_datas = $image_utility->resize (10, 10, 'w')->getAnalysisDatas (1)) && isset ($analysis_datas[0]['color']) && ($analysis_datas = $analysis_datas[0]['color']) && (isset ($analysis_datas['r']) && isset ($analysis_datas['g']) && isset ($analysis_datas['b']))) {
+      $average = 128;
+
+      $red = round ($analysis_datas['r'] / 10) * 10;
+      $green = round ($analysis_datas['g'] / 10) * 10;
+      $blue = round ($analysis_datas['b'] / 10) * 10;
+
+      $red += (round (($red - $average) / 10) * 1.125) * 10;
+      $green += (round (($green - $average) / 10) * 1.125) * 10;
+      $blue += (round (($blue - $average) / 10) * 1.125) * 10;
+
+      $this->cover_color_r = round ($red > 0 ? $red < 256 ? $red : 255 : 0);
+      $this->cover_color_g = round ($green > 0 ? $green < 256 ? $green : 255 : 0);
+      $this->cover_color_b = round ($blue > 0 ? $blue < 256 ? $blue : 255 : 0);
+
+      if (in_array (Cfg::system ('orm_uploader', 'uploader', 'driver'), array ('s3')))
+        @unlink ($fileName);
+
+      return $this->save ();
+    }
+  }
   public function destroy () {
     if ($this->sources)
       foreach ($this->sources as $source)
