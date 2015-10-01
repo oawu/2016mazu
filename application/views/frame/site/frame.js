@@ -4,6 +4,7 @@
  */
 
 $(function () {
-  $('.timeago').timeago ();
-  $('.imgLiquid_center').imgLiquid ({verticalAlign: 'center'});
+  $('.t_g').timeago ();
+  $('.i_c').imgLiquid ({verticalAlign: 'center'});
+  $('.i_t').imgLiquid ({verticalAlign: 'top'});
 });
