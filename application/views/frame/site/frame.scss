@@ -12,6 +12,7 @@ nav {
     width: $mainWidth !important;
   }
 }
+
 #container {
   @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
     display: block;
@@ -41,6 +42,15 @@ nav {
     }
 
     > div {
+      &:nth-child(1) {
+        > div:not(:first-child) {
+          @media screen and (min-width: $mainWidth) {
+            border-left: 1px solid rgba(39, 40, 34, .2);
+            @include border-left-radius(3px);
+            @include box-shadow(-1px 1px 5px rgba(39, 40, 34, .1));
+          }
+        }
+      }
       &:nth-child(2) {
         position: relative;
         background-color: rgba(255, 255, 255, 1);
