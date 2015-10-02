@@ -1,7 +1,7 @@
 <div>
   <div>
-    <div>北港<span>Mazu</span></div>
-    <div><span>Beigang</span>迎媽祖</div>
+    <div><span>北港</span><span>Mazu</span></div>
+    <div><span>Beigang</span><span>迎媽祖</span></div>
   </div>
 
 <?php
