@@ -16,6 +16,9 @@
       <?php } ?>
         </div>
       </div>
+<?php if ($type == 'site') { ?>
+        <div class='icon-share2 b'></div>
+<?php } ?>
     </div>
   </div>
 </nav>

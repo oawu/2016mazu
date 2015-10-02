@@ -6,7 +6,7 @@
 @import "_oa";
 
 $navLeftWidth: 250px;
-$navRightWidth: 110px;
+$navRightWidth: 100px;
 $mobileHorizontalPadding: 10px;
 
 html {
@@ -123,22 +123,18 @@ nav {
         float: left;
         display: inline-block;
         height: 40px;
-        margin-top: 3px;
         text-align: center;
-        font-weight: bold;
-        font-size: 30px;
         color: rgba(255, 255, 255, .9);
+        margin-top: 3px;
+        font-size: 30px;
         @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
-        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-          margin-top: 10px;
-          font-size: 25px;
-        }
+
         &[class*="icon-"] {
           width: 40px;
           margin-top: 5px;
           font-size: 35px;
           @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-            margin-top: 10px;
+            margin-top: 9px;
             font-size: 30px;
           }
         }
@@ -162,6 +158,27 @@ nav {
             padding-top: 7px;
             font-size: 20px;
           }
+        }
+      }
+      > h1 {
+        margin: 0;
+        @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+          margin-top: 6px;
+          margin-left: 5px;
+          font-size: 25px;
+        }
+        @media screen and (min-width: $mediaMiniMobileWidth) and (max-width: #{$mediaMobileWidth - 1px}) {
+          margin-top: 6px;
+          margin-left: 5px;
+          font-size: 25px;
+        }
+        @media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mediaTabletWidth - 1px}) {
+          margin-top: 6px;
+          margin-left: 5px;
+          font-size: 30px;
+        }
+        @media screen and (min-width: $mediaTabletWidth) {
+          color: rgba(255, 255, 255, .85);
         }
       }
     }
@@ -190,7 +207,7 @@ nav {
         @include transition(all .3s);
 
         + div {
-          margin-right: 5px;
+          margin-right: 3px;
         }
         &, &.w {
           color: rgba(255, 255, 255, .85);
@@ -201,10 +218,14 @@ nav {
           }
         }
         &.b {
-          color: rgba(0, 67, 60, 1);
-          @include text-shadow(0 -1px 2px rgba(255, 255, 255, .3));
+          color: rgba(130, 30, 25, .8);
+          @include text-shadow(0 0 1px rgba(239, 192, 190, .5));
+          @include transition(all .3s);
+          @media screen and (min-width: 0) and (max-width: #{$mediaTabletWidth - 1px}) {
+            color: rgba(130, 30, 25, 1);
+          }
           &:hover {
-            color: rgba(0, 45, 40, 1);
+            color: rgba(130, 30, 25, 1);
           }
         }
 

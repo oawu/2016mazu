@@ -51,6 +51,7 @@ class Frame_cell extends Cell_Controller {
     }
 
     return $this->load_view (array (
+        'type' => $type,
         'menus' => $menus,
         'subtitle' => $subtitle
       ));
