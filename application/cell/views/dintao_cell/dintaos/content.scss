@@ -49,7 +49,7 @@
             margin-top: 2px;
             font-size: 13px;
             padding: 5px 0;
-            height: calc(100% - 24px);
+            height: calc(100% - 27px);
             line-height: 18px;
           }
           &:nth-child(3) {
@@ -75,7 +75,7 @@
     @media screen and (min-width: $mediaMiniMobileWidth) and (max-width: #{$mediaMobileWidth - 1px}) {
       $width: 125px;
       $height: 100px;
-      $marginTop: 30px;
+      $marginTop: 34px;
 
       + section {
         margin-top: $marginTop;
@@ -107,14 +107,15 @@
         }
         div {
           &:nth-child(2) {
+            margin-top: 1px;
             font-size: 14px;
             padding: 5px 0;
-            height: calc(100% - 25px - 18px - 5px);
+            height: calc(100% - 25px - 18px - 7px);
             line-height: 19px;
             letter-spacing: .5px;
           }
           &:nth-child(3) {
-            margin-top: 4px;
+            margin-top: 5px;
             height: 20px;
             font-size: 13px;
             line-height: 20px;
@@ -167,12 +168,12 @@
           &:nth-child(2) {
             font-size: 15px;
             padding: 5px 0;
-            height: calc(100% - 27px - 18px - 8px);
+            height: calc(100% - 27px - 18px - 9px);
             line-height: 19px;
             letter-spacing: .8px;
           }
           &:nth-child(3) {
-            margin-top: 4px;
+            margin-top: 5px;
             height: 23px;
             font-size: 13px;
             line-height: 21px;
