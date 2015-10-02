@@ -110,7 +110,7 @@ html body {
   width: 100%;
   height: 100%;
   font-size: medium;
-  font-family: cwTeXHei, Monaco, OAEng, "微軟正黑體", "Microsoft JhengHei";
+  font-family: OAEng,  Monaco, "微軟正黑體", "Microsoft JhengHei";
   background: white url('/resource/image/bg/grunge.png');
   color: rgba(50, 50, 50, 0.8);
   -moz-osx-font-smoothing: antialiased;
