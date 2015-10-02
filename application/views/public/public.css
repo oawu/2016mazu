@@ -57,8 +57,12 @@
 }
 @font-face {
   font-family: "cwTeXHei";
-  src: url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.eot) format("embedded-opentype"), url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff2) format("woff2"), url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff) format("woff"), url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.ttf) format("truetype");
-  unicode-range: U+4E00-9FFF;
+  src: url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.eot) format('embedded-opentype'), url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff2) format('woff2'), url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff) format('woff'), url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.ttf) format('truetype');
+}
+@font-face {
+  font-family: OAEng;
+  unicode-range: U+00-024F;
+  src: local(Monaco), local("微軟正黑體"), local("Microsoft JhengHei");
 }
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
@@ -106,7 +110,7 @@ html body {
   width: 100%;
   height: 100%;
   font-size: medium;
-  font-family: cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
+  font-family: cwTeXHei, Monaco, OAEng, "微軟正黑體", "Microsoft JhengHei";
   background: white url('/resource/image/bg/grunge.png');
   color: rgba(50, 50, 50, 0.8);
   -moz-osx-font-smoothing: antialiased;
