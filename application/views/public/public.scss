@@ -60,6 +60,22 @@ html {
   display: none;
 }
 
+
+.icon-share2:before {
+  content: "\e633";
+}
+.icon-price-tag:before {
+  content: "\e627";
+}
+.icon-price-tags:before {
+  content: "\e628";
+}
+.icon-spoon-knife:before {
+  content: "\e629";
+}
+.icon-eye-blocked:before {
+  content: "\e62a";
+}
 .icon-map2:before {
   content: "\e631";
 }
@@ -68,6 +84,9 @@ html {
 }
 .icon-paperplane:before {
   content: "\e62f";
+}
+.icon-map:before {
+  content: "\e626";
 }
 .icon-pin_drop:before {
   content: "\e1f6";
@@ -204,6 +223,12 @@ html {
 .icon-more:before {
   content: "\f833";
 }
+.icon-mail-forward:before {
+  content: "\e632";
+}
+.icon-help:before {
+  content: "\e62b";
+}
 .icon-mail:before {
   content: "\e62d";
 }
@@ -225,15 +250,4 @@ html {
 .icon-triangle-down:before {
   content: "\e61b";
 }
-.icon-price-tag:before {
-  content: "\e627";
-}
-.icon-price-tags:before {
-  content: "\e628";
-}
-.icon-spoon-knife:before {
-  content: "\e629";
-}
-.icon-eye-blocked:before {
-  content: "\e62a";
-}
+
