@@ -257,7 +257,7 @@
         position: absolute;
         display: none;
         height: 1px;
-        background-color: rgba(39, 40, 34, .1);
+        background-color: rgba(233, 234, 233, 1);
       }
     }
 
@@ -268,7 +268,7 @@
     }
     .r {
       a:first-child {
-        color: rgba(50, 50, 50, 0.8);
+        color: rgba(91, 91, 91, 1);
         text-decoration: none;
         @include transition(all .3s);
         
@@ -283,12 +283,12 @@
         &:nth-child(2) {
           word-break: break-all;
           overflow: hidden;
-          color: rgba(50, 50, 50, 0.6);
+          color: rgba(115, 115, 115, 1);
         }
         &:nth-child(3) {
           display: inline-block;
           width: 100%;
-          color: rgba(50, 50, 50, 0.4);
+          color: rgba(150, 150, 150, 1);
           text-align: right;
         }
       }

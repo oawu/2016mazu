@@ -45,7 +45,7 @@
     font-size: 18px;
     line-height: $tabHeight + 5px;
     cursor: pointer;
-    color: rgba(91, 91, 91, .65);
+    color: rgba(148, 148, 148, 1);
     @include opacity(0);
     @include transition(all .3s);
     
@@ -53,7 +53,7 @@
       color: rgba(91, 91, 91, 1);
     }
     &.d {
-      color: rgba(91, 91, 91, .2);
+      color: rgba(222, 222, 222, 1);
       cursor: not-allowed;
     }
   }
@@ -90,14 +90,15 @@
         };
         text-decoration: none;
         border-bottom: 2px solid rgba(0, 0, 0, 0);
-        color: rgba(36, 36, 36, .6);
+        color: rgba(123, 123, 123, 1);
+        font-size: 15px;
         @include transition(all .3s);
-        
+
         &:hover {
-          color: rgba(36, 36, 36, .8);
+          color: rgba(79, 79, 79, 1);
         }
         &.a {
-          color: rgba(36, 36, 36, .8);
+          color: rgba(79, 79, 79, 1);
           font-weight: bold;
           border-bottom: 2px solid rgba(221, 58, 42, 1);
         }

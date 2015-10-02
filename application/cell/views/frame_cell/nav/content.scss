@@ -50,7 +50,7 @@ nav {
       position: relative;
       width: $navLeftWidth;
       height: 100%;
-      color: rgba(255, 255, 255, .9);
+      color: rgba(251, 236, 236, 1);
       font-weight: bolder;
       text-decoration: none;
       @include text-shadow(0 0 5px rgba(173, 47, 41, 1));
@@ -103,7 +103,7 @@ nav {
             &:last-child {
               font-size: 10px;
               margin-top: 2px;
-              color: rgba(255, 255, 255, .7);
+              color: rgba(244, 194, 194, 1);
               letter-spacing: 2px;
             }
           }
@@ -124,7 +124,7 @@ nav {
         display: inline-block;
         height: 40px;
         text-align: center;
-        color: rgba(255, 255, 255, .9);
+        color: rgba(251, 236, 235, 1);
         margin-top: 3px;
         font-size: 30px;
         @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
@@ -178,7 +178,7 @@ nav {
           font-size: 30px;
         }
         @media screen and (min-width: $mediaTabletWidth) {
-          color: rgba(255, 255, 255, .85);
+          color: rgba(250, 226, 225, 1);
         }
       }
     }
@@ -210,7 +210,7 @@ nav {
           margin-right: 3px;
         }
         &, &.w {
-          color: rgba(255, 255, 255, .85);
+          color: rgba(250, 226, 225, 1);
           @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
 
           &:hover {
@@ -218,7 +218,7 @@ nav {
           }
         }
         &.b {
-          color: rgba(130, 30, 25, .8);
+          color: rgba(148, 37, 30, 1);
           @include text-shadow(0 0 1px rgba(239, 192, 190, .5));
           @include transition(all .3s);
           @media screen and (min-width: 0) and (max-width: #{$mediaTabletWidth - 1px}) {

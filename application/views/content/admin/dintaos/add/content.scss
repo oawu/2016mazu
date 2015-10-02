@@ -13,13 +13,13 @@
     text-align: center;
     float: right;
     margin-top: 7px;
-    color: rgba(39, 40, 34, .5);
+    color: rgba(137, 138, 135, 1);
     border-left: 1px solid rgba(39, 40, 34, .1);
     cursor: pointer;
     @include transition(all .3s);
     
     &:hover {
-      color: rgba(39, 40, 34, .8);
+      color: rgba(97, 98, 95, 1);
     }
   }
 }

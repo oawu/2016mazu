@@ -55,6 +55,7 @@ html {
     font-family: Monaco, "微軟正黑體", "Microsoft JhengHei";
     background: $mainBackgroundColor $mainBackgroundImage;
     color: rgba(50, 50, 50, 0.8);
+    background-color: rgba(85, 85, 85, 1);
 
     @include font-smoothing(antialiased);
 
