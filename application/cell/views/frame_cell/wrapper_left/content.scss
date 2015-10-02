@@ -86,7 +86,7 @@
               &:last-child {
                 padding-top: 10px;
                 margin-left: 5px;
-                font-family: Monaco, "微軟正黑體", "Microsoft JhengHei";
+                font-family: "微軟正黑體", "Microsoft JhengHei", Monaco;
               }              
             }
           }
@@ -95,7 +95,7 @@
               &:first-child {
                 margin-right: 10px;
                 margin-top: -5px;
-                font-family: Monaco, "微軟正黑體", "Microsoft JhengHei";
+                font-family: "微軟正黑體", "Microsoft JhengHei", Monaco;
               }
               &:last-child {
                 font-size: 30px;

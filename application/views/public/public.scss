@@ -21,7 +21,7 @@
 
 [class^="icon-"], [class*=" icon-"] {
   // font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
-  font-family: 'icomoon', Monaco, "微軟正黑體", "Microsoft JhengHei";
+  font-family: 'icomoon', "微軟正黑體", "Microsoft JhengHei", Monaco;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -52,7 +52,7 @@ html {
     width: 100%;
     height: 100%;
     font-size: medium;
-    font-family: Monaco, "微軟正黑體", "Microsoft JhengHei";
+    font-family: "微軟正黑體", "Microsoft JhengHei", Monaco;
     background: $mainBackgroundColor $mainBackgroundImage;
     color: rgba(55, 55, 55, 1);
 
