@@ -11,7 +11,7 @@ class CkeditorImageNameImageUploader extends OrmImageUploader {
     return array (
         '' => array (),
         '50w' => array ('resize', 50, 50, 'width'),
-        '900w' => array ('resize', 900, 900, 'width'),
+        '400h' => array ('resize', 400, 400, 'height'),
       );
   }
 }
