@@ -4,3 +4,52 @@
  */
 
 @import "_oa";
+
+._c {
+  > h2 {
+    margin: 0;
+    text-align: left;
+    height: 38px;
+    line-height: 25px;    
+    font-size: 22px;
+    letter-spacing: 2px;
+    border-bottom: 4px solid rgba(227, 228, 239, 1);
+  }
+}
+article {
+  text-align: left;
+  padding: 5px 10px;
+
+  p {
+    margin: 10px auto;
+    font-size: 15px;
+    color: rgba(50, 50, 50, 0.7);
+    line-height: 21.5px;
+    
+    a {
+      @include a(1px);
+      padding-bottom: 0;
+    }
+    img {
+      width: auto !important;
+      height: auto !important;
+
+      max-width: 100% !important;
+      max-height: 350px !important;
+
+      @include border-radius(2px);
+      margin-bottom: 15px;
+    }
+  }
+  ul {
+    margin: 10px auto;
+    margin-bottom: 20px;
+    padding-left: 30px;
+
+    li {
+      + li {
+        margin-top: 5px;
+      }
+    }
+  }
+}
