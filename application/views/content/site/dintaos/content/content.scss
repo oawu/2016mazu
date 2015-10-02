@@ -5,15 +5,18 @@
 
 @import "_oa";
 
-._c {
+.t {
+  @include split-right(140px, '> h2', '> div');
+  padding: 0 10px;
+  border-bottom: 4px solid rgba(227, 228, 239, 1);
   > h2 {
     margin: 0;
     text-align: left;
-    height: 38px;
-    line-height: 25px;    
-    font-size: 22px;
-    letter-spacing: 2px;
-    border-bottom: 4px solid rgba(227, 228, 239, 1);
+  }
+  > div {
+    margin-top: 2px;
+    text-align: right;
+    height: 23px;
   }
 }
 article {
@@ -52,4 +55,161 @@ article {
       }
     }
   }
+}
+// .ts {
+//   @include clearfix();
+  
+//   > * {
+//     float: left;
+//     display: inline-block;
+//     color: rgba(50, 50, 50, 0.6);
+    
+//     + * {
+//       position: relative;
+//       margin-left: 5px;
+
+//       &:before {
+//         content: '.';
+//         display: inline-block;
+//         position: absolute;
+//         left: -6px;
+//         top: 0;
+//         color: rgba(50, 50, 50, 0.4);
+//       }
+//     }
+//   }
+// }
+.s {
+  border-top: 1px solid rgba(39, 40, 34, .1);
+  padding: 10px;
+  padding-top: 15px;
+  margin-top: 10px;
+  text-align: left;
+  position: relative;
+  color: rgba(50, 50, 50, 0.6);
+
+  div {
+    height: 15px;
+    line-height: 14px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  ul {
+    margin: 0;
+    margin-top: 5px;
+    padding-left: 30px;
+
+    li {
+      + li {
+        margin-top: 2px;
+      }
+      a {
+        @include a(1px);
+        font-size: 14px;
+        line-height: 16px;
+      }
+    }
+  }
+}
+@media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+
+  .t {
+    position: relative;
+    height: 38px;
+
+    > h2 {
+      float: none;
+      display: inline-block;
+      width: 100%;
+      font-size: 20px;
+      letter-spacing: 2px;
+      height: 30px;
+      line-height: 31px;
+      @include overflow-docx3();
+    }
+    > div {
+      position: absolute;
+      left: 0;
+      bottom: -33px;
+      float: none;
+      text-align: left;
+      display: inline-block;
+      width: 100%;
+      margin-top: 6px;
+    }
+  } 
+  article {
+    margin-top: 26px;
+  }
+}
+@media screen and (min-width: $mediaMiniMobileWidth) and (max-width: #{$mediaMobileWidth - 1px}) {
+  #container {
+    div {
+      div:nth-child(2) {
+        overflow: visible;
+      }
+    }
+  }
+  .t {
+    height: 38px;
+
+    > h2 {
+      font-size: 22px;
+      letter-spacing: 2px;
+      height: 30px;
+      line-height: 31px;
+      @include overflow-docx3();
+    }
+    > div {
+      margin-top: 6px;
+    }
+  } 
+}
+@media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mediaTabletWidth - 1px}) {
+  #container {
+    div {
+      div:nth-child(2) {
+        overflow: visible;
+      }
+    }
+  }
+  .t {
+    height: 38px;
+
+    > h2 {
+      font-size: 22px;
+      letter-spacing: 2px;
+      height: 30px;
+      line-height: 31px;
+      @include overflow-docx3();
+    }
+    > div {
+      margin-top: 6px;
+    }
+  } 
+}
+@media screen and (min-width: $mediaTabletWidth) {
+  #container {
+    div {
+      div:nth-child(2) {
+        overflow: visible;
+      }
+    }
+  }
+  .t {
+    height: 38px;
+
+    > h2 {
+      font-size: 22px;
+      letter-spacing: 2px;
+      height: 30px;
+      line-height: 31px;
+      overflow: hidden;
+    }
+    > div {
+      margin-top: 6px;
+    }
+  } 
 }
