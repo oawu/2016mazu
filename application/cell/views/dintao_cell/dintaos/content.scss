@@ -268,12 +268,13 @@
     }
     .r {
       a:first-child {
-        color: rgba(91, 91, 91, 1);
+        color: rgba(85, 85, 85, 1);
         text-decoration: none;
         @include transition(all .3s);
         
         &:hover {
-          color: rgba(50, 50, 50, 1);
+          color: rgba(40, 40, 40, 1);
+          font-weight: bold;
         }
         h2 {
           margin: 0;
@@ -283,12 +284,12 @@
         &:nth-child(2) {
           word-break: break-all;
           overflow: hidden;
-          color: rgba(115, 115, 115, 1);
+          color: rgba(100, 100, 100, 1);
         }
         &:nth-child(3) {
           display: inline-block;
           width: 100%;
-          color: rgba(150, 150, 150, 1);
+          color: rgba(130, 130, 130, 1);
           text-align: right;
         }
       }

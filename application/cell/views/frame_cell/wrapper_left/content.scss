@@ -135,7 +135,7 @@
           margin-top: 15px;
         }
         a {
-          @include a(0, false, rgba(36, 36, 36, .6), rgba(36, 36, 36, .8));
+          @include a(0, false, rgba(36, 36, 36, .7), rgba(45, 45, 45, 1));
           position: relative;
           display: inline-block;
           width: 100%;
@@ -149,7 +149,7 @@
           &.a {
             font-weight: bold;
             padding-left: 12px;
-            color: rgba(79, 79, 79, 1);
+            color: rgba(45, 45, 45, 1);
             border-left: 3px solid rgba(219, 71, 67, 1);
           }
           &:before {

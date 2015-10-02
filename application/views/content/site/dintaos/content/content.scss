@@ -9,11 +9,14 @@
   @include split-right(140px, '> h2', '> div');
   padding: 0 10px;
   border-bottom: 4px solid rgba(227, 228, 239, 1);
+
   > h2 {
     margin: 0;
     text-align: left;
+    color: rgba(85, 85, 85, 1);
   }
   > div {
+    background-color: rgba(0, 128, 0, 0.2);
     margin-top: 2px;
     text-align: right;
     height: 23px;
@@ -24,10 +27,8 @@ article {
   padding: 5px 10px;
 
   p {
-    margin: 10px auto;
-    font-size: 15px;
-    color: rgba(111, 111, 111, 1);
-    line-height: 21.5px;
+    margin: 15.5px auto;
+    color: rgba(100, 100, 100, 1);
     
     a {
       @include a(1px);
@@ -45,17 +46,20 @@ article {
     }
   }
   ul {
-    margin: 10px auto;
+    margin: 15.5px auto;
     margin-bottom: 20px;
     padding-left: 30px;
 
     li {
+      color: rgba(100, 100, 100, 1);
+
       + li {
         margin-top: 5px;
       }
     }
   }
 }
+
 // .ts {
 //   @include clearfix();
   
@@ -88,27 +92,19 @@ article {
   position: relative;
   color: rgba(132, 132, 132, 1);
 
-  div {
-    height: 15px;
-    line-height: 14px;
+  h2 {
     font-weight: bold;
-    letter-spacing: 3px;
-    font-size: 16px;
-    margin-bottom: 5px;
+    background-color: rgba(0, 0, 255, 0.2);
   }
   ul {
-    margin: 0;
-    margin-top: 5px;
     padding-left: 30px;
 
     li {
       + li {
-        margin-top: 2px;
+        margin-top: 3px;
       }
       a {
         @include a(1px);
-        font-size: 14px;
-        line-height: 16px;
       }
     }
   }
@@ -123,7 +119,7 @@ article {
       float: none;
       display: inline-block;
       width: 100%;
-      font-size: 20px;
+      font-size: 22px;
       letter-spacing: 2px;
       height: 30px;
       line-height: 31px;
@@ -142,6 +138,16 @@ article {
   } 
   article {
     margin-top: 26px;
+
+    p {
+      font-size: 15px;
+      line-height: 23px;
+    }
+    ul {
+      li {
+        font-size: 14px;
+      }
+    }
   }
 }
 @media screen and (min-width: $mediaMiniMobileWidth) and (max-width: #{$mediaMobileWidth - 1px}) {
@@ -166,6 +172,17 @@ article {
       margin-top: 6px;
     }
   } 
+  article {
+    p {
+      font-size: 15px;
+      line-height: 24px;
+    }
+    ul {
+      li {
+        font-size: 14px;
+      }
+    }
+  }
 }
 @media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mediaTabletWidth - 1px}) {
   #container {
@@ -179,16 +196,27 @@ article {
     height: 38px;
 
     > h2 {
-      font-size: 22px;
+      font-size: 25px;
       letter-spacing: 2px;
       height: 30px;
       line-height: 31px;
-      @include overflow-docx3();
+      overflow: hidden;
     }
     > div {
       margin-top: 6px;
     }
   } 
+  article {
+    p {
+      font-size: 15.5px;
+      line-height: 24.5px;
+    }
+    ul {
+      li {
+        font-size: 15px;
+      }
+    }
+  }
 }
 @media screen and (min-width: $mediaTabletWidth) {
   #container {
@@ -202,7 +230,7 @@ article {
     height: 38px;
 
     > h2 {
-      font-size: 22px;
+      font-size: 25px;
       letter-spacing: 2px;
       height: 30px;
       line-height: 31px;
@@ -212,4 +240,55 @@ article {
       margin-top: 6px;
     }
   } 
+  article {
+    p {
+      font-size: 15.5px;
+      line-height: 24.5px;
+    }
+    ul {
+      li {
+        font-size: 15px;
+      }
+    }
+  }
+}
+@media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
+  .s {
+    h2 {
+      letter-spacing: 3px;
+      font-size: 16px;
+      margin: 0;
+    }
+    ul {
+      margin: 0;
+      margin-top: 10px;
+
+      li {
+        a {
+          font-size: 14px;
+          line-height: 17px;
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: $mediaTabletWidth) {
+  .s {
+    h2 {
+      letter-spacing: 3px;
+      font-size: 17px;
+      margin: 0;
+    }
+    ul {
+      margin: 0;
+      margin-top: 10px;
+
+      li {
+        a {
+          font-size: 14px;
+          line-height: 17px;
+        }
+      }
+    }
+  }
 }
