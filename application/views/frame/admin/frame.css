@@ -1735,7 +1735,7 @@ table.table-form tbody tr td label input[type='checkbox'] + *:before {
   height: 18px;
   line-height: 16px;
   display: inline-block;
-  font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
+  font-family: 'icomoon', Monaco, "微軟正黑體", "Microsoft JhengHei";
   border: 1px solid rgba(39, 39, 34, 0.3);
   margin-right: 3px;
   text-align: center;
@@ -1775,7 +1775,7 @@ table.table-form tbody tr td label input[type='radio'] + *:before {
   height: 18px;
   line-height: 16px;
   display: inline-block;
-  font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
+  font-family: 'icomoon', Monaco, "微軟正黑體", "Microsoft JhengHei";
   border: 1px solid rgba(39, 39, 34, 0.5);
   margin-right: 3px;
   text-align: center;
