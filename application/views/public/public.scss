@@ -37,7 +37,7 @@
     vertical-align: top;
     @include box-sizing(border-box);
     @include selection(rgba(150, 200, 255, 1), rgba(255, 255, 255, 1));
-    @include font-smoothing(antialiased);
+    // @include font-smoothing(antialiased);
   }
 }
 
