@@ -69,11 +69,15 @@
         }
         > div {
           @include clearfix();
-          > span {
+          > div {
             float: left;
+            display: inline-block;
+            font-size: 20px;
+            letter-spacing: 0;
+            color: rgba(255, 255, 255, .8);
           }
           &:first-child {
-            > span {
+            > div {
               &:first-child {
                 margin-left: 10px;
                 font-size: 40px;
@@ -86,7 +90,7 @@
             }
           }
           &:last-child {
-            > span {
+            > div {
               &:first-child {
                 margin-right: 10px;
                 margin-top: -5px;
@@ -98,13 +102,6 @@
               }
             }
           }
-
-            > span {
-              display: inline-block;
-              font-size: 20px;
-              letter-spacing: 0;
-              color: rgba(255, 255, 255, .8);
-            }
         }
 
         @media screen and (min-width: $mediaTabletWidth) {
