@@ -22,7 +22,9 @@ class Oa_controller extends Root_controller {
 
   public function __construct () {
     parent::__construct ();
-    $this->add_meta (array ('http-equiv' => 'Content-type', 'content' => 'text/html; charset=utf-8'));
+    $this->add_meta (array ('http-equiv' => 'Content-type', 'content' => 'text/html; charset=utf-8'))
+         ->add_hidden (array ('id' => 'facebook_appId', 'value' => Cfg::setting ('facebook', 'appId')))
+         ->add_hidden (array ('id' => 'facebook_version', 'value' => Cfg::setting ('facebook', 'version')));
   }
 
   protected function set_componemt_path () {
