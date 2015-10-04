@@ -86,7 +86,6 @@ nav {
         overflow: hidden;
 
         &:first-child {
-          margin-top: 5px;
           font-size: 37px;
           text-align: left;
           letter-spacing: 10px;
@@ -94,7 +93,7 @@ nav {
         }
         &:last-child {
           padding-left: 2px;
-          margin-top: 6px;
+          margin-top: 1px;
           text-align: right;
           text-align: left;
           > div {
@@ -132,6 +131,10 @@ nav {
         margin-top: 5px;
         text-decoration: none;
         @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
+
+        @media screen and (min-width: $mediaTabletWidth) {
+          display: none;
+        }
       }
       > div {
         position: relative;
@@ -179,7 +182,6 @@ nav {
           font-size: 21px;
         }
         @media screen and (min-width: $mediaTabletWidth) {
-          margin-top: 3px;
           padding-top: 7px;
           font-size: 24px;
         }
