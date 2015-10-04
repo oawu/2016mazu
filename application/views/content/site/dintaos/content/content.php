@@ -9,12 +9,17 @@
   <?php echo $dintao->content;?>
 </article>
 
-<div class='s'>
-  <h2>相關參考：</h2>
-  <ul>
-    <li><a href='' target='_blank'>笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港笨港到北港</a></li>
-    <li><a href='' target='_blank'>asdadasdsad</a></li>
-    <li><a href='' target='_blank'>asdadsad</a></li>
-    <li><a href='' target='_blank'>asddaadsad</a></li>
-  </ul>
-</div>
+<?php
+  if ($dintao->sources) { ?>
+    <div class='s'>
+      <h2>相關參考：</h2>
+      <ul>
+  <?php foreach ($dintao->sources as $source) {
+          if ($source->href) { ?>
+            <li><a href='<?php echo $source->href;?>' target='_blank'><?php echo $source->title ? $source->title : $source->href;?></a></li>
+    <?php }
+        } ?>
+      </ul>
+    </div>
+<?php
+  }

@@ -8,7 +8,8 @@
 ul.pagination {
   margin: 0;
   padding: 0;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   list-style-type: none;
   @include clearfix();
 
@@ -56,6 +57,83 @@ ul.pagination {
           background-color: rgba(86, 86, 86, 0.5) !important;
         }
       }
+    }
+  }
+}
+
+@media screen and (min-width: 0) and (max-width: #{450px - 1px}) {
+  ul.pagination {
+    position: relative;
+    padding-top: 30px;
+
+    li {
+      &.p, &.n {
+        position: absolute;
+        top: 0;
+        color: rgba(42, 90, 149, 0.7);
+
+        &:before {
+          font-family: 'icomoon', "微軟正黑體", "Microsoft JhengHei", Monaco;
+          position: absolute;
+          top: 5px;
+          font-size: 16px;
+          width: 15px;
+          @include transition(all .3s);
+        }
+        &:hover {
+          color: rgba(12, 65, 109, .9);
+        }
+        a {
+          border: 0;
+          background-color: rgba(255, 255, 255, 0);
+          width: 100%;
+          @include border-radius(0);
+          @include box-shadow(none);
+          @include a(1px, true);
+          padding: 0 10px;
+
+          &:hover {
+            border: 0 !important;
+            border-bottom: 1px solid rgba(12, 65, 109, .9) !important;
+            background-color: rgba(255, 255, 255, 0) !important;
+          }
+        }
+      }
+      &.p {
+        left: 0;
+        text-align: left;
+        padding-left: 10px;
+
+        &:before {
+          content: "\e60b";
+          left: 0;
+        }
+      }
+      &.n {
+        right: 0;
+        text-align: right;
+        padding-right: 10px;
+
+        &:before {
+          content: "\e60a";
+          right: 0;
+        }
+      }
+      &:not(.p):not(.n) {
+        display: none;
+      }
+      a {
+        font-size: 15px;
+      }
+    } 
+  } 
+}
+@media screen and (min-width: 450px) and (max-width: #{590px - 1px}) {
+  ul.pagination {
+    li {
+      &.f, &.l {
+        display: none;
+      }      
     }
   }
 }
