@@ -81,6 +81,7 @@ nav {
         display: none;
       }
       @include split-left(95px, '> div:first-child', '> div:last-child');
+      
       > div {
         overflow: hidden;
 
@@ -117,68 +118,70 @@ nav {
       @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
         width: calc(100% - #{0 + $navRightWidth});
       }
-
-      > div, > h1 {
+      > a {
+        position: relative;
+        float: left;
+        display: inline-block;
+        text-align: center;
+        color: rgba(251, 236, 235, 1);
+        font-size: 35px;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        line-height: 41px;
+        margin-top: 5px;
+        text-decoration: none;
+        @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
+      }
+      > div {
         position: relative;
         float: left;
         display: inline-block;
         height: 40px;
+        width: 40px;
+        margin-top: 5px;
+        font-size: 35px;
         text-align: center;
         color: rgba(251, 236, 235, 1);
-        margin-top: 3px;
-        font-size: 30px;
         @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
 
-        &[class*="icon-"] {
-          width: 40px;
-          margin-top: 5px;
-          font-size: 35px;
-          @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-            margin-top: 9px;
-            font-size: 30px;
-          }
-        }
-        + div {
-          margin-left: 5px;
-        }
-
-        &:first-child {
-          @media screen and (min-width: $mediaTabletWidth) {
-            display: none;
-          }
-        }
-        &:last-child {
-          width: calc(100% - 40px - 5px);
-          text-align: left;
-          line-height: 37px;
-          font-size: 18px;
-          letter-spacing: 3px;
-          @include overflow-docx3();
-          @media screen and (min-width: $mediaTabletWidth) {
-            padding-top: 7px;
-            font-size: 20px;
-          }
-        }
-      }
-      > h1 {
-        margin: 0;
-        @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
-          margin-top: 7px;
-          margin-left: 5px;
-          font-size: 25px;
-        }
-        @media screen and (min-width: $mediaMiniMobileWidth) and (max-width: #{$mediaMobileWidth - 1px}) {
-          margin-top: 6px;
-          margin-left: 5px;
-          font-size: 25px;
-        }
-        @media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mediaTabletWidth - 1px}) {
-          margin-top: 6px;
-          margin-left: 5px;
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          margin-top: 9px;
           font-size: 30px;
         }
         @media screen and (min-width: $mediaTabletWidth) {
-          color: rgba(250, 226, 225, 1);
+          display: none;
+        }
+      }
+      > h1 {
+        position: relative;
+        float: left;
+        display: inline-block;
+        margin: 0;
+        height: 40px;
+        line-height: 37px;
+        text-align: left;
+        color: rgba(251, 236, 235, 1);
+        font-size: 18px;
+        width: calc(100% - 40px - 5px);
+        letter-spacing: 3px;
+        @include overflow-docx3();
+        @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
+
+        @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+          margin-top: 7px;
+          margin-left: 5px;
+          font-size: 18px;
+        }
+        @media screen and (min-width: $mediaMiniMobileWidth) and (max-width: #{$mediaTabletWidth - 1px}) {
+          margin-top: 6px;
+          margin-left: 5px;
+          font-size: 21px;
+        }
+        @media screen and (min-width: $mediaTabletWidth) {
+          margin-top: 3px;
+          padding-top: 7px;
+          font-size: 24px;
         }
       }
     }

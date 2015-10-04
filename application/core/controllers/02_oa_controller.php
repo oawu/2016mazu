@@ -53,6 +53,12 @@ class Oa_controller extends Root_controller {
     return $this;
   }
 
+  protected function set_back_link ($back_link) {
+    if (is_string ($back_link))
+      $this->add_param ('back_link', $back_link);
+    return $this;
+  }
+
   protected function add_subtitle ($subtitle) {
     if (is_string ($subtitle))
       $this->add_param ('subtitle', $subtitle);

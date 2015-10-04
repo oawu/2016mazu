@@ -3,7 +3,11 @@
     <a href='<?php echo base_url ();?>' class='o'><div>北港</div><div><div>迎媽祖</div><div>Beigang Mazu</div></div></a>
 
     <div>
-      <div class='l icon-menu'></div>
+<?php if ($back_link) { ?>
+        <a class='icon-arrow-left' href='<?php echo $back_link;?>'></a>
+<?php } else { ?>
+        <div class='l icon-menu'></div>
+<?php }?>
       <h1><?php echo $subtitle;?></h1>
     </div>
 

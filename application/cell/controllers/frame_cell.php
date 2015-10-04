@@ -27,10 +27,10 @@ class Frame_cell extends Cell_Controller {
   }
 
   /* render_cell ('frame_cell', 'nav', var1, ..); */
-  // public function _cache_nav ($type, $subtitle) {
+  // public function _cache_nav ($type, $subtitle = '', $back_link = '') {
   //   return array ('time' => 60 * 60, 'key' => $type . '_' . $subtitle);
   // }
-  public function nav ($type, $subtitle = '') {
+  public function nav ($type, $subtitle = '', $back_link = '') {
     $menus = array ();
     if ($type == 'admin') {
       array_push ($menus, array ('text' => '前台', 'class' => 'icon-home', 'href' => base_url ()));
@@ -53,7 +53,8 @@ class Frame_cell extends Cell_Controller {
     return $this->load_view (array (
         'type' => $type,
         'menus' => $menus,
-        'subtitle' => $subtitle
+        'subtitle' => $subtitle,
+        'back_link' => $back_link,
       ));
   }
 
