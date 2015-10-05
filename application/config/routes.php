@@ -51,6 +51,9 @@ Route::get ('admin/dintaos/(:num)/(:num)', 'admin/dintaos@index($1, $2)');
 Route::get ('dintao/(:num)', 'dintaos@content($1)');
 Route::get ('dintao/(:num)-(:any)', 'dintaos@content($1)');
 
+Route::get ('admin/picture_tags/(:num)/', 'admin/picture_tags@index($1)');
+
+
 Route::get ('admin/login', 'admin_login/main@login');
 Route::post ('admin/singin', 'admin_login/main@singin');
 
