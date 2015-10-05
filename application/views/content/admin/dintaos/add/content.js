@@ -42,7 +42,7 @@ $(function () {
   $('td.k .icon-search').click (function () {
     var str = $('input[name="title"]').val () + $('textarea[name="content"]').val ();
     if (str.length) {
-      window.showLoading();
+      window.showLoading ();
       scws (str, function (w) {
         $(this).prev ().val (w.join (' '));
         window.hideLoading();
@@ -50,7 +50,7 @@ $(function () {
     }
   });
   $('form').submit (function () {
-    window.showLoading();
+    window.showLoading ();
   });
-  window.hideLoading();
+  window.hideLoading ();
 });
