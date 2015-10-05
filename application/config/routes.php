@@ -68,7 +68,9 @@ Route::delete ('admin/picture_tags/(:num)/pictures/(:num)/destroy', 'admin/pictu
 Route::post ('admin/picture_tags/(:num)/pictures/sort', 'admin/picture_tags@sort_pictures($1)');
 
 Route::get ('admin/pictures/(:num)/', 'admin/pictures@index($1)');
-
+Route::get ('admin/pictures/(:num)/edit', 'admin/pictures@edit($1)');
+Route::post ('admin/pictures/(:num)/update', 'admin/pictures@update($1)');
+Route::delete ('admin/pictures/(:num)/destroy', 'admin/pictures@destroy($1)');
 
 Route::get ('admin/login', 'admin_login/main@login');
 Route::post ('admin/singin', 'admin_login/main@singin');
