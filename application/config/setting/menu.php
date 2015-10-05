@@ -46,8 +46,8 @@ $menu['site'] = array (
       ),
     '百年藝陣' => array (
         '駕前陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'official'), 'class' => 'dintaos', 'method' => 'official', 'target' => '_self', 'tags' => array ()),
-        '地方陣頭' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array ()),
-        '其他介紹' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array ()),
+        '地方陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'local'), 'class' => 'dintaos', 'method' => 'local', 'target' => '_self', 'tags' => array ()),
+        '其他介紹' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'other'), 'class' => 'dintaos', 'method' => 'other', 'target' => '_self', 'tags' => array ()),
       ),
     '文化交流' => array (
         '白沙屯 2015 路線' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array ()),

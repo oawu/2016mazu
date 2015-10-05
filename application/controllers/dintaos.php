@@ -42,9 +42,29 @@ class Dintaos extends Site_controller {
     $dintaos = render_cell ('dintao_cell', 'dintaos', $this->get_class (), $this->get_method (), $offset);
 
     return $this->set_method ('list')
-                ->add_subtitle ('朝天宮 駕前陣頭')
+                ->add_subtitle ('朝天宮駕前陣頭')
                 ->load_view (array (
                     'method' => 'official',
+                    'dintaos' => $dintaos
+                  ));
+  }
+  public function local ($offset = 0) {
+    $dintaos = render_cell ('dintao_cell', 'dintaos', $this->get_class (), $this->get_method (), $offset);
+
+    return $this->set_method ('list')
+                ->add_subtitle ('北港地方陣頭')
+                ->load_view (array (
+                    'method' => 'local',
+                    'dintaos' => $dintaos
+                  ));
+  }
+  public function other ($offset = 0) {
+    $dintaos = render_cell ('dintao_cell', 'dintaos', $this->get_class (), $this->get_method (), $offset);
+
+    return $this->set_method ('list')
+                ->add_subtitle ('陣頭文化')
+                ->load_view (array (
+                    'method' => 'other',
                     'dintaos' => $dintaos
                   ));
   }
