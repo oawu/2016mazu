@@ -60,7 +60,7 @@ class Dintaos extends Admin_controller {
     $index = isset (Dintao::$types[$index]) ? $index : Dintao::TYPE_OTHER;
 
     if (!$this->has_post ())
-      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+      return redirect_message (array ('admin', $this->get_class (), 'add', $index), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -69,13 +69,13 @@ class Dintaos extends Admin_controller {
     $cover = OAInput::file ('cover');
 
     if (!$cover)
-      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+      return redirect_message (array ('admin', $this->get_class (), 'add', $index), array (
           '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
         ));
 
     if($msg = $this->_validation_posts ($posts, $index))
-      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+      return redirect_message (array ('admin', $this->get_class (), 'add', $index), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -99,17 +99,17 @@ class Dintaos extends Admin_controller {
     });
 
     if (!$create)
-      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+      return redirect_message (array ('admin', $this->get_class (), 'add', $index), array (
           '_flash_message' => '新增失敗！',
           'posts' => $posts
         ));
-    return redirect_message (array ('admin', 'dintaos', $index), array (
+    return redirect_message (array ('admin', $this->get_class (), $index), array (
         '_flash_message' => '新增成功！'
       ));
   }
   public function edit ($id = 0) {
     if (!($id && ($dintao = Dintao::find_by_id ($id))))
-      return redirect_message (array ('admin', 'dintaos', Dintao::TYPE_OFFICIAL), array (
+      return redirect_message (array ('admin', $this->get_class (), Dintao::TYPE_OFFICIAL), array (
           '_flash_message' => '找不到該筆資料。'
         ));
 
@@ -124,12 +124,12 @@ class Dintaos extends Admin_controller {
   }
   public function update ($id = 0) {
     if (!($id && ($dintao = Dintao::find_by_id ($id))))
-      return redirect_message (array ('admin', 'dintaos', Dintao::TYPE_OFFICIAL), array (
+      return redirect_message (array ('admin', $this->get_class (), Dintao::TYPE_OFFICIAL), array (
           '_flash_message' => '找不到該筆資料。'
         ));
 
     if (!$this->has_post ())
-      return redirect_message (array ('admin', 'dintaos', 'edit', $dintao->id), array (
+      return redirect_message (array ('admin', $this->get_class (), 'edit', $dintao->id), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -138,13 +138,13 @@ class Dintaos extends Admin_controller {
     $cover = OAInput::file ('cover');
 
     if (!($cover || (string)$dintao->cover))
-      return redirect_message (array ('admin', 'dintaos', 'edit', $dintao->id), array (
+      return redirect_message (array ('admin', $this->get_class (), 'edit', $dintao->id), array (
           '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
         ));
 
     if($msg = $this->_validation_posts ($posts, $dintao->type))
-      return redirect_message (array ('admin', 'dintaos', 'edit', $dintao->id), array (
+      return redirect_message (array ('admin', $this->get_class (), 'edit', $dintao->id), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -180,17 +180,17 @@ class Dintaos extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', 'dintaos', 'edit', $dintao->id), array (
+      return redirect_message (array ('admin', $this->get_class (), 'edit', $dintao->id), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));
-    return redirect_message (array ('admin', 'dintaos', $dintao->type), array (
+    return redirect_message (array ('admin', $this->get_class (), $dintao->type), array (
         '_flash_message' => '更新成功！'
       ));
   }
   public function destroy ($id = 0) {
     if (!($id && ($dintao = Dintao::find_by_id ($id))))
-      return redirect_message (array ('admin', 'dintaos', Dintao::TYPE_OFFICIAL), array (
+      return redirect_message (array ('admin', $this->get_class (), Dintao::TYPE_OFFICIAL), array (
           '_flash_message' => '找不到該筆資料。'
         ));
 
@@ -199,11 +199,11 @@ class Dintaos extends Admin_controller {
     });
 
     if (!$delete)
-      return redirect_message (array ('admin', 'dintaos', $dintao->type), array (
+      return redirect_message (array ('admin', $this->get_class (), $dintao->type), array (
           '_flash_message' => '刪除失敗！',
           'posts' => $posts
         ));
-    return redirect_message (array ('admin', 'dintaos', $dintao->type), array (
+    return redirect_message (array ('admin', $this->get_class (), $dintao->type), array (
         '_flash_message' => '刪除成功！'
       ));
   }
