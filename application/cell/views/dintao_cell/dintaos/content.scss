@@ -7,7 +7,9 @@
 
 .ds {
   padding: 5px 0 20px 0;
-
+  > div {
+    font-size: 15px;
+  }
   section {
     position: relative;
     text-align: left;

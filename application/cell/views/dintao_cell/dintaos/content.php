@@ -16,7 +16,7 @@
 <?php
     }
   } else { ?>
-
+    <div>目前尚未有任何的資料。</div>
 <?php
   }?>
 </article>
