@@ -30,6 +30,7 @@ class Picture_tags extends Admin_controller {
         'offset' => $offset,
         'limit' => $limit,
         'order' => 'sort DESC',
+        'include' => array ('mappings'),
         'conditions' => $conditions
       ));
 
