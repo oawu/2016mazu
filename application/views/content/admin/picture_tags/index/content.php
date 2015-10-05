@@ -14,7 +14,7 @@
         foreach ($tags as $tag) { ?>
           <tr>
             <td data-title='名稱' width='120'><?php echo $tag->name;?></td>
-            <td data-title='封面' width='40'><?php echo img ($tag->cover->url ('40x40c'), false, 'class="cover"');?></td>
+            <td data-title='封面' width='40'><?php echo img ($tag->cover->url ('40x40c'));?></td>
             <td data-title='關鍵字' width='' class='left'><?php echo $tag->mini_keywords ();?></td>
             <td data-title='照片數量' width='80'><?php echo count ($tag->mappings);?></td>
             <td data-title='編輯' width='120'>
