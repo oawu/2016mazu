@@ -45,7 +45,7 @@ $(function () {
       window.showLoading ();
       scws (str, function (w) {
         $(this).prev ().val (w.join (' '));
-        window.hideLoading();
+        window.hideLoading ();
       }.bind ($(this)));
     }
   });

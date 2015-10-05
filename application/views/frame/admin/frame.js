@@ -56,7 +56,7 @@ $(function () {
     })
     .fail (function (result) { ajaxError (result); })
     .complete (function (result) {
-      window.hideLoading();
+      window.hideLoading ();
     });
   });
 
