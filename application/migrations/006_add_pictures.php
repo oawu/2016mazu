@@ -14,6 +14,7 @@ class Migration_Add_pictures extends CI_Migration {
         `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
         `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '名稱',
         `keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SEO 關鍵字',
+        `description` text  COMMENT '描述',
 
         `color_r` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Red',
         `color_g` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Green',
