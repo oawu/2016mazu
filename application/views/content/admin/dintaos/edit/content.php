@@ -1,11 +1,11 @@
-<form action='<?php echo base_url (array ('admin', 'dintaos', 'update', $dintao->id));?>' method='post' enctype='multipart/form-data'>
+<form action='<?php echo base_url (array ('admin', 'dintaos', $dintao->id, 'update'));?>' method='post' enctype='multipart/form-data'>
   <table class='table-form'>
     <tbody>
 
       <tr>
         <th>標 題：</th>
         <td>
-          <input type='text' name='title' value='<?php echo $posts['title'] ? $posts['title'] : $dintao->title;?>' placeholder='請輸入名稱..' maxlength='200' pattern='.{1,200}' required title='輸入標題!' />
+          <input type='text' name='title' value='<?php echo $posts['title'] ? $posts['title'] : $dintao->title;?>' placeholder='請輸入標題..' maxlength='200' pattern='.{1,200}' required title='輸入標題!' />
         </td>
       </tr>
       <tr>

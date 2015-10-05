@@ -1,0 +1,32 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@import "_oa";
+.k {
+  @include split-right(30px, 'input:first-child', 'div');
+  input:first-child {
+    width: calc(100% - 35px) !important;
+  }
+  div {
+    text-align: center;
+    float: right;
+    margin-top: 7px;
+    color: rgba(137, 138, 135, 1);
+    border-left: 1px solid rgba(39, 40, 34, .1);
+    cursor: pointer;
+    @include transition(all .3s);
+    
+    &:hover {
+      color: rgba(97, 98, 95, 1);
+    }
+  }
+}
+textarea.cke {
+  ~ [class*="cke"] {
+      &, &:after, &:before, *, *:after, *:before {
+          @include box-sizing(content-box);
+      }
+  }
+}

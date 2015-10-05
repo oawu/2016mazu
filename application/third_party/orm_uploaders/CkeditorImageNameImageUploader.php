@@ -10,7 +10,7 @@ class CkeditorImageNameImageUploader extends OrmImageUploader {
   public function getVersions () {
     return array (
         '' => array (),
-        '50w' => array ('resize', 50, 50, 'width'),
+        '50h' => array ('resize', 50, 50, 'height'),
         '400h' => array ('resize', 400, 400, 'height'),
       );
   }

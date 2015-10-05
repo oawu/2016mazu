@@ -33,15 +33,7 @@ class Dintao extends OaModel {
 
     OrmImageUploader::bind ('cover', 'DintaoCoverImageUploader');
   }
-  private function _to_hex ($n) {
-    if (!$n = intval ($n))
-      return '00';
 
-    $i1 = (int) ($n - ($n % 16)) / 16;
-    $i2 = (int) $n % 16;
-
-    return substr ('0123456789ABCDEF', $i1, 1) . substr ('0123456789ABCDEF', $i2, 1);
-  }
   public function cover_color ($type = 'rgba', $alpha = 1) {
     if (!(isset ($this->cover_color_r) && isset ($this->cover_color_r) && isset ($this->cover_color_g)))
       return '';
@@ -57,10 +49,9 @@ class Dintao extends OaModel {
         return 'rgb(' . $this->cover_color_r . ', ' . $this->cover_color_r . ', ' . $this->cover_color_g . ')';
         break;
       case 'hex':
-        return '#' . $this->_to_hex ($this->cover_color_r) . '' . $this->_to_hex ($this->cover_color_r) . '' . $this->_to_hex ($this->cover_color_g);
+        return '#' . color_hex ($this->cover_color_r) . '' . color_hex ($this->cover_color_r) . '' . color_hex ($this->cover_color_g);
         break;
     }
-
   }
   public function update_cover_color ($image_utility = null) {
     if (!(isset ($this->id) && isset ($this->cover) && isset ($this->cover_color_r) && isset ($this->cover_color_g) && isset ($this->cover_color_b)))

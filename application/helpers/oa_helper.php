@@ -5,6 +5,18 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
+if (!function_exists ('color_hex')) {
+  function color_hex ($n) {
+    if (!$n = intval ($n))
+      return '00';
+    $n = max (0, min ($n, 255));
+    $i1 = (int) ($n - ($n % 16)) / 16;
+    $i2 = (int) $n % 16;
+
+    return substr ('0123456789ABCDEF', $i1, 1) . substr ('0123456789ABCDEF', $i2, 1);
+  }
+}
+
 if (!function_exists ('remove_ckedit_tag')) {
   function remove_ckedit_tag ($text) {
     return preg_replace ("/\s+/", " ", preg_replace ("/&#?[a-z0-9]+;/i", "", (trim (strip_tags ($text)))));

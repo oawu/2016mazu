@@ -5,9 +5,9 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-class MainTag extends OaModel {
+class PictureTagMapping extends OaModel {
 
-  static $table_name = 'main_tags';
+  static $table_name = 'picture_tag_mappings';
 
   static $has_one = array (
   );
@@ -20,5 +20,8 @@ class MainTag extends OaModel {
 
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
+  }
+  public function destroy () {
+    return $this->delete ();
   }
 }

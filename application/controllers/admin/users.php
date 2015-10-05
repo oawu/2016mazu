@@ -29,7 +29,7 @@ class Users extends Admin_controller {
 
     $posts = OAInput::post ();
 
-    if($msg = $this->_validation_posts ($posts))
+    if ($msg = $this->_validation_posts ($posts))
       return redirect_message (array ('admin', 'users', $menu->id, 'roles'), array (
           '_flash_message' => $msg,
           'posts' => $posts

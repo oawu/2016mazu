@@ -10,7 +10,7 @@ class DintaoCoverImageUploader extends OrmImageUploader {
   public function getVersions () {
     return array (
         '' => array (),
-        '40x40c' => array ('adaptiveResizeQuadrant', 40, 40, 't'),
+        '30x30c' => array ('adaptiveResizeQuadrant', 30, 30, 't'),
         '180x130c' => array ('adaptiveResizeQuadrant', 180, 130, 't'),
         '1200x630c' => array ('adaptiveResizeQuadrant', 1200, 630, 't'),
       );

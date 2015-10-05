@@ -210,6 +210,7 @@ form.search {
     margin-left: 10px;
     display: none;
     height: 30px;
+    line-height: 17px;
     @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
       width: 100%;
       margin-left: 0;
@@ -241,6 +242,10 @@ table.table-list-rwd {
       display: block;
       cursor: pointer;
     }
+  }
+  .i_30 {
+    width: 30px;
+    @include border-radius(2px);
   }
   a {
     @include a;
@@ -315,7 +320,6 @@ table.table-form {
             + * {
               &:before {
                 color: rgba(203, 78, 64, 1);
-                @include text-shadow(0 0 1px rgba(161, 65, 55, 1));
               }
             }
           }
