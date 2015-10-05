@@ -18,8 +18,7 @@
             <td data-title='封面' width='40'><?php echo img ($dintao->cover->url ('40x40c'), false, 'class="cover"');?></td>
             <td data-title='內容' width='' class='left'><?php echo $dintao->mini_content ();?></td>
             <td data-title='關鍵字' width='150' class='left'><?php echo $dintao->mini_keywords ();?></td>
-            <td data-title='編輯' width='120'>
-              <a href='<?php echo base_url ('admin', 'dintaos', 'add', $dintao->type);?>' class='icon-plus'></a>
+            <td data-title='編輯' width='80'>
               <a href='<?php echo base_url ('admin', 'dintaos', 'edit', $dintao->id);?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'dintaos', 'destroy', $dintao->id);?>' class='icon-bin destroy'></a>
             </td>
