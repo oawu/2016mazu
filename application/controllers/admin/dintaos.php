@@ -201,7 +201,6 @@ class Dintaos extends Admin_controller {
     if (!$delete)
       return redirect_message (array ('admin', $this->get_class (), $dintao->type), array (
           '_flash_message' => '刪除失敗！',
-          'posts' => $posts
         ));
     return redirect_message (array ('admin', $this->get_class (), $dintao->type), array (
         '_flash_message' => '刪除成功！'

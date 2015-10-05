@@ -174,7 +174,6 @@ class Picture_tags extends Admin_controller {
     if (!$delete)
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '刪除失敗！',
-          'posts' => $posts
         ));
     return redirect_message (array ('admin', $this->get_class ()), array (
         '_flash_message' => '刪除成功！'
@@ -390,7 +389,6 @@ class Picture_tags extends Admin_controller {
     if (!$delete)
       return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures'), array (
           '_flash_message' => '刪除失敗！',
-          'posts' => $posts
         ));
     return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures'), array (
         '_flash_message' => '刪除成功！'
