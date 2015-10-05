@@ -13,6 +13,7 @@ class Picture extends OaModel {
   );
 
   static $has_many = array (
+    array ('mappings', 'class_name' => 'PictureTagMapping', 'order' => 'sort DESC')
   );
 
   static $belongs_to = array (
@@ -93,5 +94,8 @@ class Picture extends OaModel {
 
       return $this->save ();
     }
+  }
+  public function mini_description ($length = 100) {
+    return mb_strimwidth (remove_ckedit_tag ($this->description), 0, $length, '…','UTF-8');
   }
 }

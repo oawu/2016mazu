@@ -24,6 +24,13 @@
           <div class='icon-search'></div>
         </td>
       </tr>
+      
+      <tr>
+        <th>描 述：</th>
+        <td>
+          <textarea name='description' class='cke' placeholder='請輸入描述..'><?php echo $posts['description'] ? $posts['description'] : $picture->description;?></textarea>
+        </td>
+      </tr>
 
       <tr>
         <td colspan='2'>

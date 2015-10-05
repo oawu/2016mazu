@@ -23,3 +23,10 @@
     }
   }
 }
+textarea.cke {
+  ~ [class*="cke"] {
+      &, &:after, &:before, *, *:after, *:before {
+          @include box-sizing(content-box);
+      }
+  }
+}

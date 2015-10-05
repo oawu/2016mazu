@@ -440,6 +440,8 @@ class Picture_tags extends Admin_controller {
       return '沒有填寫標題！';
     if (!(isset ($posts['keywords']) && ($posts['keywords'] = trim ($posts['keywords']))))
       return '沒有填寫關鍵字！';
+    if (!(isset ($posts['description']) && ($posts['description'] = trim ($posts['description']))))
+      $posts['description'] = '';
 
     return '';
   }

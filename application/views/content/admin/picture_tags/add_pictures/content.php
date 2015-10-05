@@ -25,6 +25,13 @@
       </tr>
 
       <tr>
+        <th>描 述：</th>
+        <td>
+          <textarea name='description' class='cke' placeholder='請輸入描述..'><?php echo $posts['description'] ? $posts['description'] : '';?></textarea>
+        </td>
+      </tr>
+
+      <tr>
         <td colspan='2'>
           <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'pictures');?>'>回列表</a>
           <button type='reset' class='button'>重填</button>
