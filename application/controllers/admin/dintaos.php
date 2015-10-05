@@ -36,33 +36,75 @@ class Dintaos extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    $this->set_tab_index ($index)
-         ->add_subtitle ('陣頭列表')
-         ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', $this->get_class (), 'sort')))
-         ->load_view (array (
-        'dintaos' => $dintaos,
-        'pagination' => $pagination,
-        'has_search' => array_filter ($columns),
-        'columns' => $columns
-      ));
+    return $this->set_tab_index ($index)
+                ->add_subtitle ('陣頭列表')
+                ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', $this->get_class (), 'sort')))
+                ->load_view (array (
+                    'dintaos' => $dintaos,
+                    'pagination' => $pagination,
+                    'has_search' => array_filter ($columns),
+                    'columns' => $columns
+                  ));
   }
-  public function destroy ($id = 0) {
-    if (!($id && ($dintao = Dintao::find_by_id ($id))))
-      return redirect_message (array ('admin', 'dintaos', Dintao::TYPE_OFFICIAL), array (
-          '_flash_message' => '找不到該筆資料。'
+  public function add ($index = 1) {
+    $index = isset (Dintao::$types[$index]) ? $index : Dintao::TYPE_OTHER;
+    $posts = Session::getData ('posts', true);
+    
+    return $this->set_tab_index ($index)
+                ->add_subtitle ('新增陣頭')
+                ->load_view (array (
+                    'posts' => $posts
+                  ));
+  }
+  public function create ($index = 1) {
+    $index = isset (Dintao::$types[$index]) ? $index : Dintao::TYPE_OTHER;
+
+    if (!$this->has_post ())
+      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
-    $delete = Dintao::transaction (function () use ($dintao) {
-      return $dintao->destroy ();
-    });
+    $posts = OAInput::post ();
+    $posts['content'] = OAInput::post ('content', false);
+    $cover = OAInput::file ('cover');
 
-    if (!$delete)
-      return redirect_message (array ('admin', 'dintaos', $dintao->type), array (
-          '_flash_message' => '刪除失敗！',
+    if (!$cover)
+      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+          '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
         ));
-    return redirect_message (array ('admin', 'dintaos', $dintao->type), array (
-        '_flash_message' => '刪除成功！'
+
+    if($msg = $this->_validation_posts ($posts, $index))
+      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+          '_flash_message' => $msg,
+          'posts' => $posts
+        ));
+    $posts['cover'] = '';
+    $posts['sort'] = Dintao::count (array ('conditions' => array ('type = ?', $index)));
+
+    $create = Dintao::transaction (function () use ($posts, $cover) {
+      if (!(verifyCreateOrm ($dintao = Dintao::create (array_intersect_key ($posts, Dintao::table ()->columns))) && $dintao->cover->put ($cover)))
+        return false;
+
+      if ($posts['sources'])
+        foreach ($posts['sources'] as $source)
+          DintaoSource::create (array (
+              'dintao_id' => $dintao->id,
+              'title' => $source['title'],
+              'href' => $source['href'],
+              'sort' => $i = isset ($i) ? ++$i : 0
+            ));
+      delay_job ('dintaos', 'update_cover_color', array ('id' => $dintao->id));
+      return true;
+    });
+
+    if (!$create)
+      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
+          '_flash_message' => '新增失敗！',
+          'posts' => $posts
+        ));
+    return redirect_message (array ('admin', 'dintaos', $index), array (
+        '_flash_message' => '新增成功！'
       ));
   }
   public function edit ($id = 0) {
@@ -73,52 +115,12 @@ class Dintaos extends Admin_controller {
 
     $posts = Session::getData ('posts', true);
     
-    $this->set_tab_index ($dintao->type)
-         ->add_subtitle ('編輯陣頭')
-         ->load_view (array (
-        'posts' => $posts,
-        'dintao' => $dintao
-      ));
-  }
-  public function add ($index = 1) {
-    $index = isset (Dintao::$types[$index]) ? $index : Dintao::TYPE_OTHER;
-    $posts = Session::getData ('posts', true);
-    
-    $this->set_tab_index ($index)
-         ->add_subtitle ('新增陣頭')
-         ->load_view (array (
-        'posts' => $posts
-      ));
-  }
-  public function sort () {
-    if (!(($id = trim (OAInput::post ('id'))) && ($sort = trim (OAInput::post ('sort'))) && in_array ($sort, array ('up', 'down')) && ($dintao = Dintao::find_by_id ($id))))
-      return $this->output_json (array ('status' => false));
-
-    Dintao::addConditions ($conditions, 'type = ?', $dintao->type);
-    $total = Dintao::count (array ('conditions' => $conditions));
-
-    switch ($sort) {
-      case 'up':
-        $sort = $dintao->sort;
-        $dintao->sort = $dintao->sort + 1 >= $total ? 0 : $dintao->sort + 1;
-        break;
-
-      case 'down':
-        $sort = $dintao->sort;
-        $dintao->sort = $dintao->sort - 1 < 0 ? $total - 1 : $dintao->sort - 1;
-        break;
-    }
-
-    Dintao::addConditions ($conditions, 'sort = ?', $dintao->sort);
-
-    $update = Dintao::transaction (function () use ($conditions, $dintao, $sort) {
-      if (($next = Dintao::find ('one', array ('conditions' => $conditions))) && (($next->sort = $sort) || true))
-        if (!$next->save ()) return false;
-      if (!$dintao->save ()) return false;
-
-      return true;
-    });
-    return $this->output_json (array ('status' => $update));
+    return $this->set_tab_index ($dintao->type)
+                ->add_subtitle ('編輯陣頭')
+                ->load_view (array (
+                    'posts' => $posts,
+                    'dintao' => $dintao
+                  ));
   }
   public function update ($id = 0) {
     if (!($id && ($dintao = Dintao::find_by_id ($id))))
@@ -186,56 +188,54 @@ class Dintaos extends Admin_controller {
         '_flash_message' => '更新成功！'
       ));
   }
-  public function create ($index = 1) {
-    $index = isset (Dintao::$types[$index]) ? $index : Dintao::TYPE_OTHER;
-
-    if (!$this->has_post ())
-      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
-          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
+  public function destroy ($id = 0) {
+    if (!($id && ($dintao = Dintao::find_by_id ($id))))
+      return redirect_message (array ('admin', 'dintaos', Dintao::TYPE_OFFICIAL), array (
+          '_flash_message' => '找不到該筆資料。'
         ));
 
-    $posts = OAInput::post ();
-    $posts['content'] = OAInput::post ('content', false);
-    $cover = OAInput::file ('cover');
-
-    if (!$cover)
-      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
-          '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
-          'posts' => $posts
-        ));
-
-    if($msg = $this->_validation_posts ($posts, $index))
-      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
-          '_flash_message' => $msg,
-          'posts' => $posts
-        ));
-    $posts['cover'] = '';
-    $posts['sort'] = Dintao::count (array ('conditions' => array ('type = ?', $index)));
-
-    $create = Dintao::transaction (function () use ($posts, $cover) {
-      if (!(verifyCreateOrm ($dintao = Dintao::create (array_intersect_key ($posts, Dintao::table ()->columns))) && $dintao->cover->put ($cover)))
-        return false;
-
-      if ($posts['sources'])
-        foreach ($posts['sources'] as $source)
-          DintaoSource::create (array (
-              'dintao_id' => $dintao->id,
-              'title' => $source['title'],
-              'href' => $source['href'],
-              'sort' => $i = isset ($i) ? ++$i : 0
-            ));
-      delay_job ('dintaos', 'update_cover_color', array ('id' => $dintao->id));
-      return true;
+    $delete = Dintao::transaction (function () use ($dintao) {
+      return $dintao->destroy ();
     });
 
-    if (!$create)
-      return redirect_message (array ('admin', 'dintaos', 'add', $index), array (
-          '_flash_message' => '新增失敗！',
+    if (!$delete)
+      return redirect_message (array ('admin', 'dintaos', $dintao->type), array (
+          '_flash_message' => '刪除失敗！',
           'posts' => $posts
         ));
-    return redirect_message (array ('admin', 'dintaos', $index), array (
-        '_flash_message' => '新增成功！'
+    return redirect_message (array ('admin', 'dintaos', $dintao->type), array (
+        '_flash_message' => '刪除成功！'
       ));
+  }
+  public function sort () {
+    if (!(($id = trim (OAInput::post ('id'))) && ($sort = trim (OAInput::post ('sort'))) && in_array ($sort, array ('up', 'down')) && ($dintao = Dintao::find_by_id ($id))))
+      return $this->output_json (array ('status' => false));
+
+    Dintao::addConditions ($conditions, 'type = ?', $dintao->type);
+    $total = Dintao::count (array ('conditions' => $conditions));
+
+    switch ($sort) {
+      case 'up':
+        $sort = $dintao->sort;
+        $dintao->sort = $dintao->sort + 1 >= $total ? 0 : $dintao->sort + 1;
+        break;
+
+      case 'down':
+        $sort = $dintao->sort;
+        $dintao->sort = $dintao->sort - 1 < 0 ? $total - 1 : $dintao->sort - 1;
+        break;
+    }
+
+    Dintao::addConditions ($conditions, 'sort = ?', $dintao->sort);
+
+    $update = Dintao::transaction (function () use ($conditions, $dintao, $sort) {
+      if (($next = Dintao::find ('one', array ('conditions' => $conditions))) && (($next->sort = $sort) || true))
+        if (!$next->save ()) return false;
+      if (!$dintao->save ()) return false;
+
+      return true;
+    });
+    return $this->output_json (array ('status' => $update));
   }
   private function _validation_posts (&$posts, $index) {
     if (!(isset ($posts['title']) && ($posts['title'] = trim ($posts['title']))))
