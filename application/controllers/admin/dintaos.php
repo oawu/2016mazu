@@ -74,7 +74,7 @@ class Dintaos extends Admin_controller {
           'posts' => $posts
         ));
 
-    if($msg = $this->_validation_posts ($posts, $index))
+    if ($msg = $this->_validation_posts ($posts, $index))
       return redirect_message (array ('admin', $this->get_class (), 'add', $index), array (
           '_flash_message' => $msg,
           'posts' => $posts
@@ -143,7 +143,7 @@ class Dintaos extends Admin_controller {
           'posts' => $posts
         ));
 
-    if($msg = $this->_validation_posts ($posts, $dintao->type))
+    if ($msg = $this->_validation_posts ($posts, $dintao->type))
       return redirect_message (array ('admin', $this->get_class (), $dintao->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts

@@ -68,7 +68,7 @@ class Picture_tags extends Admin_controller {
           'posts' => $posts
         ));
 
-    if($msg = $this->_validation_posts ($posts))
+    if ($msg = $this->_validation_posts ($posts))
       return redirect_message (array ('admin', $this->get_class (), 'add'), array (
           '_flash_message' => $msg,
           'posts' => $posts
@@ -130,7 +130,7 @@ class Picture_tags extends Admin_controller {
           'posts' => $posts
         ));
 
-    if($msg = $this->_validation_posts ($posts))
+    if ($msg = $this->_validation_posts ($posts))
       return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
@@ -260,7 +260,7 @@ class Picture_tags extends Admin_controller {
           'posts' => $posts
         ));
 
-    if($msg = $this->_validation_pictures_posts ($posts))
+    if ($msg = $this->_validation_pictures_posts ($posts))
       return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), array (
           '_flash_message' => $msg,
           'posts' => $posts
@@ -341,7 +341,7 @@ class Picture_tags extends Admin_controller {
           'posts' => $posts
         ));
 
-    if($msg = $this->_validation_pictures_posts ($posts))
+    if ($msg = $this->_validation_pictures_posts ($posts))
       return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', $picture->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
