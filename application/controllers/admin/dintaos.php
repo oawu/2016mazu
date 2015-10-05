@@ -129,7 +129,7 @@ class Dintaos extends Admin_controller {
         ));
 
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->get_class (), 'edit', $dintao->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $dintao->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -138,13 +138,13 @@ class Dintaos extends Admin_controller {
     $cover = OAInput::file ('cover');
 
     if (!($cover || (string)$dintao->cover))
-      return redirect_message (array ('admin', $this->get_class (), 'edit', $dintao->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $dintao->id, 'edit'), array (
           '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
         ));
 
     if($msg = $this->_validation_posts ($posts, $dintao->type))
-      return redirect_message (array ('admin', $this->get_class (), 'edit', $dintao->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $dintao->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -180,7 +180,7 @@ class Dintaos extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', $this->get_class (), 'edit', $dintao->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $dintao->id, 'edit'), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));
