@@ -15,6 +15,10 @@ class Migration_Add_pictures extends CI_Migration {
         `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '名稱',
         `keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SEO 關鍵字',
 
+        `color_r` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Red',
+        `color_g` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Green',
+        `color_b` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Blue',
+
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
         PRIMARY KEY (`id`)
