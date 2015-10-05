@@ -15,7 +15,7 @@
         foreach ($dintaos as $dintao) { ?>
           <tr>
             <td data-title='標題' width='120'><?php echo $dintao->title;?></td>
-            <td data-title='封面' width='40'><?php echo img ($dintao->cover->url ('40x40c'), false, 'class="cover"');?></td>
+            <td data-title='封面' width='40'><?php echo img ($dintao->cover->url ('40x40c'));?></td>
             <td data-title='內容' width='' class='left'><?php echo $dintao->mini_content ();?></td>
             <td data-title='關鍵字' width='150' class='left'><?php echo $dintao->mini_keywords ();?></td>
             <td data-title='編輯' width='80'>

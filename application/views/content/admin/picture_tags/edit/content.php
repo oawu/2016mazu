@@ -27,7 +27,7 @@
 
       <tr>
         <td colspan='2'>
-          <a href='<?php echo base_url ('admin', 'picture_tags', $tab_index);?>'>回列表</a>
+          <a href='<?php echo base_url ('admin', 'picture_tags');?>'>回列表</a>
           <button type='reset' class='button'>重填</button>
           <button type='submit' class='button'>確定</button>
         </td>

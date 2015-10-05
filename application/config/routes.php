@@ -52,6 +52,13 @@ Route::get ('dintao/(:num)', 'dintaos@content($1)');
 Route::get ('dintao/(:num)-(:any)', 'dintaos@content($1)');
 
 Route::get ('admin/picture_tags/(:num)/', 'admin/picture_tags@index($1)');
+Route::get ('admin/picture_tags/(:num)/pictures/', 'admin/picture_tags@pictures($1)');
+Route::get ('admin/picture_tags/(:num)/pictures/(:num)', 'admin/picture_tags@pictures($1, $2)');
+Route::get ('admin/picture_tags/(:num)/add', 'admin/picture_tags@add_pictures($1)');
+Route::post ('admin/picture_tags/(:num)/create', 'admin/picture_tags@create_pictures($1)');
+Route::get ('admin/picture_tags/(:num)/edit/(:num)', 'admin/picture_tags@edit_pictures($1, $2)');
+Route::post ('admin/picture_tags/(:num)/update/(:num)', 'admin/picture_tags@update_pictures($1, $2)');
+Route::post ('admin/picture_tags/(:num)/sort', 'admin/picture_tags@sort_pictures($1)');
 
 
 Route::get ('admin/login', 'admin_login/main@login');
