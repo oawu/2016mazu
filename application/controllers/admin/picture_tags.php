@@ -245,6 +245,11 @@ class Picture_tags extends Admin_controller {
           '_flash_message' => '找不到該筆資料。'
         ));
 
+    if (!$this->has_post ())
+      return redirect_message (array ('admin', $this->get_class (), 'add', $index), array (
+          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
+        ));
+
     $posts = OAInput::post ();
     $posts['description'] = OAInput::post ('description', false);
     $name = OAInput::file ('name');
