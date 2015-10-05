@@ -25,6 +25,18 @@
         </td>
       </tr>
       
+<?php if ($tags = PictureTag::all ()) { ?>
+        <tr>
+          <th>標 籤：</th>
+          <td>
+      <?php $tag_ids = column_array ($picture->mappings, 'picture_tag_id');
+            foreach ($tags as $tag) { ?>
+              <label><input type='checkbox' name='tag_ids[]' value='<?php echo $tag->id;?>'<?php echo $tag_ids && in_array ($tag->id, $tag_ids) ? ' checked' : '';?>/><div><?php echo $tag->name;?></div></label>
+      <?php } ?>
+          </td>
+        </tr>
+<?php }?>
+
       <tr>
         <th>描 述：</th>
         <td>

@@ -30,6 +30,7 @@ class Pictures extends Admin_controller {
         'offset' => $offset,
         'limit' => $limit,
         'include' => array ('mappings'),
+        'order' => 'id DESC',
         'conditions' => $conditions
       ));
 
@@ -80,12 +81,14 @@ class Pictures extends Admin_controller {
       if (!(verifyCreateOrm ($picture = Picture::create (array_intersect_key ($posts, Picture::table ()->columns))) && $picture->name->put ($name)))
         return false;
 
-      // if (!verifyCreateOrm ($mapping = PictureTagMapping::create (array (
-      //     'picture_id' => $picture->id,
-      //     'picture_tag_id' => $tag->id,
-      //     'sort' => PictureTagMapping::count (array ('conditions' => array ('picture_tag_id = ?', $tag->id)))
-      //   ))))
-      //   return false;
+      if ($posts['tag_ids'] && ($tags = PictureTag::find ('all', array ('select' => 'id', 'conditions' => array ('id IN (?)', $posts['tag_ids'])))))
+        foreach ($tags as $tag)
+          if (!verifyCreateOrm ($mapping = PictureTagMapping::create (array (
+              'picture_id' => $picture->id,
+              'picture_tag_id' => $tag->id,
+              'sort' => PictureTagMapping::count (array ('conditions' => array ('picture_tag_id = ?', $tag->id)))
+            ))))
+            return false;
 
       delay_job ('pictures', 'update_color', array ('id' => $picture->id));
       return true;
@@ -148,6 +151,22 @@ class Pictures extends Admin_controller {
         $picture->$column = $value;
 
     $update = Picture::transaction (function () use ($picture, $posts, $name) {
+      $ori_ids = column_array ($picture->mappings, 'picture_tag_id');
+
+      if (($del_ids = array_diff ($ori_ids, $posts['tag_ids'])) && ($tags = PictureTag::find ('all', array ('select' => 'id', 'conditions' => array ('id IN (?)', $del_ids)))))
+        foreach ($tags as $tag)
+          if (!$tag->destroy ())
+            return false;
+
+      if (($add_ids = array_diff ($posts['tag_ids'], $ori_ids)) && ($tags = PictureTag::find ('all', array ('select' => 'id', 'conditions' => array ('id IN (?)', $add_ids)))))
+        foreach ($tags as $tag)
+          if (!verifyCreateOrm ($mapping = PictureTagMapping::create (array (
+              'picture_id' => $picture->id,
+              'picture_tag_id' => $tag->id,
+              'sort' => PictureTagMapping::count (array ('conditions' => array ('picture_tag_id = ?', $tag->id)))
+            ))))
+            return false;
+
       if (!$picture->save ())
         return false;
 
@@ -193,6 +212,8 @@ class Pictures extends Admin_controller {
       return '沒有填寫關鍵字！';
     if (!(isset ($posts['description']) && ($posts['description'] = trim ($posts['description']))))
       $posts['description'] = '';
+    if (!(isset ($posts['tag_ids']) && ($posts['tag_ids'] = array_filter (array_map ('trim', $posts['tag_ids'])))))
+      $posts['tag_ids'] = array ();
 
     return '';
   }

@@ -24,6 +24,17 @@
         </td>
       </tr>
 
+<?php if ($tags = PictureTag::all ()) { ?>
+        <tr>
+          <th>標 籤：</th>
+          <td>
+      <?php foreach ($tags as $tag) { ?>
+              <label><input type='checkbox' name='tag_ids[]' value='<?php echo $tag->id;?>' /><div><?php echo $tag->name;?></div></label>
+      <?php } ?>
+          </td>
+        </tr>
+<?php }?>
+
       <tr>
         <th>描 述：</th>
         <td>

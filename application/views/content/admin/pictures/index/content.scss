@@ -4,3 +4,13 @@
  */
 
 @import "_oa";
+
+.tag {
+  display: inline-block;
+  width: 100%;
+
+  + .tag {
+    margin-top: 3px;
+    @include overflow-docx3();
+  }
+}
