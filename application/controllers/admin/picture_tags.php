@@ -246,6 +246,7 @@ class Picture_tags extends Admin_controller {
         ));
 
     $posts = OAInput::post ();
+    $posts['description'] = OAInput::post ('description', false);
     $name = OAInput::file ('name');
 
     if (!$name)
@@ -326,6 +327,7 @@ class Picture_tags extends Admin_controller {
         ));
 
     $posts = OAInput::post ();
+    $posts['description'] = OAInput::post ('description', false);
     $name = OAInput::file ('name');
 
     if (!($name || (string)$picture->name))
