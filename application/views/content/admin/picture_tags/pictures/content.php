@@ -17,7 +17,7 @@
             <td data-title='照片' width='40'><?php echo img ($picture->name->url ('30x30c', false, 'class="i_30"'));?></td>
             <td data-title='內容' width='' class='left'><?php echo $picture->mini_description ();?></td>
             <td data-title='關鍵字' width='150' class='left'><?php echo $picture->mini_keywords ();?></td>
-            <td data-title='編輯' width='120'>
+            <td data-title='編輯' width='80'>
               <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'pictures', $picture->id, 'edit');?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'pictures', $picture->id, 'destroy');?>' data-method='delete' class='icon-bin destroy'></a>
             </td>
