@@ -1,6 +1,6 @@
 <form action='<?php echo base_url ('admin', 'picture_tags');?>' method='get' class="search<?php echo $has_search ? ' show' : '';?>">
   <div class='l i2 n1'>
-    <input type='text' name='title' value='<?php echo @$columns['title'];?>' placeholder='請輸入 標題..' />
+    <input type='text' name='name' value='<?php echo @$columns['name'];?>' placeholder='請輸入 名稱..' />
     <input type='text' name='keywords' value='<?php echo @$columns['keywords'];?>' placeholder='請輸入 關鍵字..' />
   </div>
   <button type='submit'>尋找</button>
