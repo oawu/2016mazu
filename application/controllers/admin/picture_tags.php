@@ -246,7 +246,7 @@ class Picture_tags extends Admin_controller {
         ));
 
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->get_class (), 'add', $index), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
