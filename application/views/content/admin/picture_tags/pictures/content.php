@@ -13,7 +13,7 @@
 <?php if ($pictures) {
         foreach ($pictures as $picture) { ?>
           <tr>
-            <td data-title='標題' width='120'><?php echo $picture->title;?></td>
+            <td data-title='標題' width='150'><?php echo $picture->title;?></td>
             <td data-title='照片' width='40'><?php echo img ($picture->name->url ('30x30c', false, 'class="i_30"'));?></td>
             <td data-title='內容' width='' class='left'><?php echo $picture->mini_description ();?></td>
             <td data-title='關鍵字' width='150' class='left'><?php echo $picture->mini_keywords ();?></td>
