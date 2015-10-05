@@ -174,7 +174,6 @@ class Dintaos extends Admin_controller {
 
       if ($cover)
         delay_job ('dintaos', 'update_cover_color', array ('id' => $dintao->id));
-      delay_job ('main_tags', 'add_tags', array ('str' => $dintao->keywords));
       return true;
     });
 
@@ -226,7 +225,6 @@ class Dintaos extends Admin_controller {
               'sort' => $i = isset ($i) ? ++$i : 0
             ));
       delay_job ('dintaos', 'update_cover_color', array ('id' => $dintao->id));
-      delay_job ('main_tags', 'add_tags', array ('str' => $dintao->keywords));
       return true;
     });
 
