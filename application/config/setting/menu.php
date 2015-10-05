@@ -13,7 +13,7 @@ $menu['admin'] = array (
       ),
     '照片系統' => array (
         '照片標籤' => array ('icon' => 'icon-price-tags', 'href' => base_url ('admin', 'picture_tags'), 'class' => 'picture_tags', 'method' => '', 'target' => '_self'),
-        '照片上傳' => array ('icon' => 'icon-images', 'href' => base_url ('admin', 'pictures'), 'class' => 'pictures', 'method' => '', 'target' => '_self'),
+        '照片管理' => array ('icon' => 'icon-images', 'href' => base_url ('admin', 'pictures'), 'class' => 'pictures', 'method' => '', 'target' => '_self'),
       ),
     '文章系統' => array (
         '陣頭上搞' => array ('icon' => 'icon-file-text2', 'href' => base_url ('admin', 'dintaos'), 'class' => 'dintaos', 'method' => '', 'target' => '_self'),
