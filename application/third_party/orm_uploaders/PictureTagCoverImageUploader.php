@@ -10,7 +10,7 @@ class PictureTagCoverImageUploader extends OrmImageUploader {
   public function getVersions () {
     return array (
         '' => array (),
-        '40x40c' => array ('adaptiveResizeQuadrant', 40, 40, 't'),
+        '30x30c' => array ('adaptiveResizeQuadrant', 40, 40, 't'),
       );
   }
 }

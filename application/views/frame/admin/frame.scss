@@ -242,6 +242,10 @@ table.table-list-rwd {
       cursor: pointer;
     }
   }
+  .i_30 {
+    width: 30px;
+    @include border-radius(2px);
+  }
   a {
     @include a;
     font-size: 13px;
