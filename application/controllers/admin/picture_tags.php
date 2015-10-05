@@ -365,6 +365,30 @@ class Picture_tags extends Admin_controller {
         '_flash_message' => '更新成功！'
       ));
   }
+  public function destroy_pictures ($tag_id, $picture_id) {
+    if (!($tag_id && ($tag = PictureTag::find_by_id ($tag_id))))
+      return redirect_message (array ('admin', $this->get_class ()), array (
+          '_flash_message' => '找不到該筆資料。'
+        ));
+
+    if (!($picture_id && ($picture = Picture::find_by_id ($picture_id))))
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures'), array (
+          '_flash_message' => '找不到該筆資料。'
+        ));
+
+    $delete = Picture::transaction (function () use ($picture) {
+      return $picture->destroy ();
+    });
+
+    if (!$delete)
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures'), array (
+          '_flash_message' => '刪除失敗！',
+          'posts' => $posts
+        ));
+    return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures'), array (
+        '_flash_message' => '刪除成功！'
+      ));
+  }
   public function sort () {
     if (!(($id = trim (OAInput::post ('id'))) && ($sort = trim (OAInput::post ('sort'))) && in_array ($sort, array ('up', 'down')) && ($tag = PictureTag::find_by_id ($id))))
       return $this->output_json (array ('status' => false));
