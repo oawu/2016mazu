@@ -38,34 +38,32 @@ class Dintaos extends Site_controller {
                     'dintao' => $dintao
                   ), false);
   }
-  public function official ($offset = 0) {
-    $dintaos = render_cell ('dintao_cell', 'dintaos', $this->get_class (), $this->get_method (), $offset);
 
-    return $this->set_method ('list')
-                ->add_subtitle ('朝天宮駕前陣頭')
-                ->load_view (array (
-                    'method' => 'official',
-                    'dintaos' => $dintaos
-                  ));
-  }
-  public function local ($offset = 0) {
-    $dintaos = render_cell ('dintao_cell', 'dintaos', $this->get_class (), $this->get_method (), $offset);
+  public function index ($index = Dintao::TYPE_OTHER, $offset = 0) {
+    $columns = array ('title' => 'string', 'content' => 'string', 'keywords' => 'string');
+    $configs = array ($this->get_class (), Dintao::$type_engs[$index], '%s');
 
-    return $this->set_method ('list')
-                ->add_subtitle ('北港地方陣頭')
-                ->load_view (array (
-                    'method' => 'local',
-                    'dintaos' => $dintaos
-                  ));
-  }
-  public function other ($offset = 0) {
-    $dintaos = render_cell ('dintao_cell', 'dintaos', $this->get_class (), $this->get_method (), $offset);
+    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Dintao', OAInput::get ())));
+    Dintao::addConditions ($conditions, 'type = ?', $index);
 
-    return $this->set_method ('list')
-                ->add_subtitle ('陣頭文化')
+    $limit = 10;
+    $total = Dintao::count (array ('conditions' => $conditions));
+    $offset = $offset < $total ? $offset : 0;
+
+    $this->load->library ('pagination');
+    $pagination = $this->pagination->initialize (array_merge (array ('total_rows' => $total, 'num_links' => 3, 'per_page' => $limit, 'uri_segment' => 0, 'base_url' => '', 'page_query_string' => false, 'first_link' => '第一頁', 'last_link' => '最後頁', 'prev_link' => '上一頁', 'next_link' => '下一頁', 'full_tag_open' => '<ul class="pagination">', 'full_tag_close' => '</ul>', 'first_tag_open' => '<li class="f">', 'first_tag_close' => '</li>', 'prev_tag_open' => '<li class="p">', 'prev_tag_close' => '</li>', 'num_tag_open' => '<li>', 'num_tag_close' => '</li>', 'cur_tag_open' => '<li class="active"><a href="#">', 'cur_tag_close' => '</a></li>', 'next_tag_open' => '<li class="n">', 'next_tag_close' => '</li>', 'last_tag_open' => '<li class="l">', 'last_tag_close' => '</li>'), $configs))->create_links ();
+    $dintaos = Dintao::find ('all', array (
+        'offset' => $offset,
+        'limit' => $limit,
+        'order' => 'sort DESC',
+        'conditions' => $conditions
+      ));
+
+    return $this->add_subtitle (Dintao::$types[$index])
                 ->load_view (array (
-                    'method' => 'other',
-                    'dintaos' => $dintaos
+                    'method' => Dintao::$type_engs[$index],
+                    'dintaos' => $dintaos,
+                    'pagination' => $pagination
                   ));
   }
 }

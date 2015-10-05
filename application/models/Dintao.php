@@ -27,6 +27,11 @@ class Dintao extends OaModel {
       self::TYPE_LOCAL => '地方陣頭',
       self::TYPE_OTHER => '其他介紹',
     );
+  static $type_engs = array (
+      self::TYPE_OFFICIAL => 'official',
+      self::TYPE_LOCAL => 'local',
+      self::TYPE_OTHER => 'other',
+    );
 
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);

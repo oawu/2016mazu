@@ -54,6 +54,11 @@ Route::delete ('admin/dintaos/(:num)/destroy', 'admin/dintaos@destroy($1)');
 Route::get ('dintao/(:num)', 'dintaos@content($1)');
 Route::get ('dintao/(:num)-(:any)', 'dintaos@content($1)');
 
+foreach (array (1 => 'official', 2 => 'local', 3 => 'other') as $key => $type_eng) {
+  Route::get ('dintaos/' . $type_eng . '', 'dintaos@index(' . $key . ', 0)');
+  Route::get ('dintaos/' . $type_eng . '/(:num)', 'dintaos@index(' . $key . ', $1)');
+}
+
 Route::get ('admin/picture_tags/(:num)/', 'admin/picture_tags@index($1)');
 Route::get ('admin/picture_tags/(:num)/edit', 'admin/picture_tags@edit($1)');
 Route::post ('admin/picture_tags/(:num)/update', 'admin/picture_tags@update($1)');
