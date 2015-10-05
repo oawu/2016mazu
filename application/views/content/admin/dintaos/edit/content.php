@@ -5,7 +5,7 @@
       <tr>
         <th>標 題：</th>
         <td>
-          <input type='text' name='title' value='<?php echo $posts['title'] ? $posts['title'] : $dintao->title;?>' placeholder='請輸入名稱..' maxlength='200' pattern='.{1,200}' required title='輸入標題!' />
+          <input type='text' name='title' value='<?php echo $posts['title'] ? $posts['title'] : $dintao->title;?>' placeholder='請輸入標題..' maxlength='200' pattern='.{1,200}' required title='輸入標題!' />
         </td>
       </tr>
       <tr>
