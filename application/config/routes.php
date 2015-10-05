@@ -47,6 +47,9 @@ Route::get ('admin', 'admin/main@index');
 
 Route::get ('admin/dintaos/(:num)/', 'admin/dintaos@index($1, 0)');
 Route::get ('admin/dintaos/(:num)/(:num)', 'admin/dintaos@index($1, $2)');
+Route::get ('admin/dintaos/(:num)/edit', 'admin/dintaos@edit($1)');
+Route::post ('admin/dintaos/(:num)/update', 'admin/dintaos@update($1)');
+Route::delete ('admin/dintaos/(:num)/destroy', 'admin/dintaos@destroy($1)');
 
 Route::get ('dintao/(:num)', 'dintaos@content($1)');
 Route::get ('dintao/(:num)-(:any)', 'dintaos@content($1)');
