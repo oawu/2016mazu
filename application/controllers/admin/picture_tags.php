@@ -117,7 +117,7 @@ class Picture_tags extends Admin_controller {
         ));
 
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->get_class (), 'edit', $tag->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -125,13 +125,13 @@ class Picture_tags extends Admin_controller {
     $cover = OAInput::file ('cover');
 
     if (!($cover || (string)$tag->cover))
-      return redirect_message (array ('admin', $this->get_class (), 'edit', $tag->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (
           '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
         ));
 
     if($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', $this->get_class (), 'edit', $tag->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -153,7 +153,7 @@ class Picture_tags extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', $this->get_class (), 'edit', $tag->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));
@@ -210,10 +210,10 @@ class Picture_tags extends Admin_controller {
       ));
 
     return $this->add_tab ('標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures'), 'index' => 3))
-                ->add_tab ('新增標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'add'), 'index' => 4))
+                ->add_tab ('新增標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), 'index' => 4))
                 ->set_tab_index (3)
                 ->add_subtitle ('標註 ' . $tag->name . ' 的照片')
-                ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', $this->get_class (), $tag->id, 'sort')))
+                ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', $this->get_class (), $tag->id, 'pictures', 'sort')))
                 ->load_view (array (
                     'tag' => $tag,
                     'pictures' => $pictures,
@@ -231,7 +231,7 @@ class Picture_tags extends Admin_controller {
     $posts = Session::getData ('posts', true);
     
     return $this->add_tab ('標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures'), 'index' => 3))
-                ->add_tab ('新增標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'add'), 'index' => 4))
+                ->add_tab ('新增標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), 'index' => 4))
                 ->set_tab_index (4)
                 ->add_subtitle ('新增標註 ' . $tag->name . ' 的照片')
                 ->load_view (array (
@@ -249,13 +249,13 @@ class Picture_tags extends Admin_controller {
     $name = OAInput::file ('name');
 
     if (!$name)
-      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'add'), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), array (
           '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
         ));
 
     if($msg = $this->_validation_pictures_posts ($posts))
-      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'add'), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -278,7 +278,7 @@ class Picture_tags extends Admin_controller {
     });
 
     if (!$create)
-      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'add'), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), array (
           '_flash_message' => '新增失敗！',
           'posts' => $posts
         ));
@@ -299,8 +299,8 @@ class Picture_tags extends Admin_controller {
     $posts = Session::getData ('posts', true);
     
     return $this->add_tab ('標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures'), 'index' => 3))
-                ->add_tab ('新增標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'add'), 'index' => 4))
-                ->add_tab ('編輯 ' . $picture->title . ' 照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'edit', $picture->id), 'index' => 5))
+                ->add_tab ('新增標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), 'index' => 4))
+                ->add_tab ('編輯 ' . $picture->title . ' 照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures', $picture->id, 'edit'), 'index' => 5))
                 ->set_tab_index (5)
                 ->add_subtitle ('編輯 ' . $picture->title . ' 照片')
                 ->load_view (array (
@@ -321,7 +321,7 @@ class Picture_tags extends Admin_controller {
         ));
 
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit', $picture->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', $picture->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -329,13 +329,13 @@ class Picture_tags extends Admin_controller {
     $name = OAInput::file ('name');
 
     if (!($name || (string)$picture->name))
-      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit', $picture->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', $picture->id, 'edit'), array (
           '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
         ));
 
     if($msg = $this->_validation_pictures_posts ($posts))
-      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit', $picture->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', $picture->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -357,7 +357,7 @@ class Picture_tags extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit', $picture->id), array (
+      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', $picture->id, 'edit'), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));

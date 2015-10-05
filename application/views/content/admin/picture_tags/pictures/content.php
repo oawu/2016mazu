@@ -4,7 +4,7 @@
     <input type='text' name='keywords' value='<?php echo @$columns['keywords'];?>' placeholder='請輸入 關鍵字..' />
   </div>
   <button type='submit'>尋找</button>
-  <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'add');?>'>新增</a>
+  <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'pictures', 'add');?>'>新增</a>
 </form>
 <button type='button' onClick="if (!$(this).prev ().is (':visible')) $(this).attr ('class', 'icon-chevron-left').prev ().addClass ('show'); else $(this).attr ('class', 'icon-chevron-right').prev ().removeClass ('show');" class='icon-chevron-<?php echo $has_search ? 'left' : 'right';?>'></button>
 
@@ -18,8 +18,8 @@
             <td data-title='內容' width='' class='left'><?php echo $picture->mini_description ();?></td>
             <td data-title='關鍵字' width='150' class='left'><?php echo $picture->mini_keywords ();?></td>
             <td data-title='編輯' width='120'>
-              <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'edit', $picture->id);?>' class='icon-pencil2'></a>
-              <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'destroy', $picture->id);?>' class='icon-bin destroy'></a>
+              <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'pictures', $picture->id, 'edit');?>' class='icon-pencil2'></a>
+              <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'pictures', $picture->id, 'destroy');?>' data-method='delete' class='icon-bin destroy'></a>
             </td>
             <td data-title='排序' width='60' class='sort'>
               <a data-id='<?php echo $picture->id;?>' data-sort='up' class='icon-triangle-up'></a>

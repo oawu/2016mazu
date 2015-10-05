@@ -1,4 +1,4 @@
-<form action='<?php echo base_url (array ('admin', 'picture_tags', $tag->id, 'update', $picture->id));?>' method='post' enctype='multipart/form-data'>
+<form action='<?php echo base_url (array ('admin', 'picture_tags', $tag->id, 'pictures', $picture->id, 'update'));?>' method='post' enctype='multipart/form-data'>
   <table class='table-form'>
     <tbody>
 

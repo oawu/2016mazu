@@ -55,14 +55,17 @@ Route::get ('dintao/(:num)', 'dintaos@content($1)');
 Route::get ('dintao/(:num)-(:any)', 'dintaos@content($1)');
 
 Route::get ('admin/picture_tags/(:num)/', 'admin/picture_tags@index($1)');
+Route::get ('admin/picture_tags/(:num)/edit', 'admin/picture_tags@edit($1)');
+Route::post ('admin/picture_tags/(:num)/update', 'admin/picture_tags@update($1)');
+Route::delete ('admin/picture_tags/(:num)/destroy', 'admin/picture_tags@destroy($1)');
 Route::get ('admin/picture_tags/(:num)/pictures/', 'admin/picture_tags@pictures($1)');
 Route::get ('admin/picture_tags/(:num)/pictures/(:num)', 'admin/picture_tags@pictures($1, $2)');
-Route::get ('admin/picture_tags/(:num)/add', 'admin/picture_tags@add_pictures($1)');
-Route::post ('admin/picture_tags/(:num)/create', 'admin/picture_tags@create_pictures($1)');
-Route::get ('admin/picture_tags/(:num)/edit/(:num)', 'admin/picture_tags@edit_pictures($1, $2)');
-Route::post ('admin/picture_tags/(:num)/update/(:num)', 'admin/picture_tags@update_pictures($1, $2)');
-Route::get ('admin/picture_tags/(:num)/destroy/(:num)', 'admin/picture_tags@destroy_pictures($1, $2)');
-Route::post ('admin/picture_tags/(:num)/sort', 'admin/picture_tags@sort_pictures($1)');
+Route::get ('admin/picture_tags/(:num)/pictures/add', 'admin/picture_tags@add_pictures($1)');
+Route::post ('admin/picture_tags/(:num)/pictures/create', 'admin/picture_tags@create_pictures($1)');
+Route::get ('admin/picture_tags/(:num)/pictures/(:num)/edit', 'admin/picture_tags@edit_pictures($1, $2)');
+Route::post ('admin/picture_tags/(:num)/pictures/(:num)/update', 'admin/picture_tags@update_pictures($1, $2)');
+Route::delete ('admin/picture_tags/(:num)/pictures/(:num)/destroy', 'admin/picture_tags@destroy_pictures($1, $2)');
+Route::post ('admin/picture_tags/(:num)/pictures/sort', 'admin/picture_tags@sort_pictures($1)');
 
 Route::get ('admin/pictures/(:num)/', 'admin/pictures@index($1)');
 
