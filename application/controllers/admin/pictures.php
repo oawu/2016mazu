@@ -7,6 +7,13 @@
 
 class Pictures extends Admin_controller {
 
+  public function __construct () {
+    parent::__construct ();
+
+    $this->add_tab ('照片列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
+         ->add_tab ('新增照片', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2));
+  }
+
   public function index ($offset = 0) {
     $columns = array ('title' => 'string', 'keywords' => 'string');
     $configs = array ('admin', $this->get_class (), '%s');
@@ -35,5 +42,158 @@ class Pictures extends Admin_controller {
                     'has_search' => array_filter ($columns),
                     'columns' => $columns
                   ));
+  }
+  public function add () {
+    $posts = Session::getData ('posts', true);
+    
+    return $this->set_tab_index (2)
+                ->add_subtitle ('新增照片')
+                ->load_view (array (
+                    'posts' => $posts
+                  ));
+  }
+  public function create () {
+    if (!$this->has_post ())
+      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
+        ));
+
+    $posts = OAInput::post ();
+    $posts['description'] = OAInput::post ('description', false);
+    $name = OAInput::file ('name');
+
+    if (!$name)
+      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+          '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
+          'posts' => $posts
+        ));
+
+    if ($msg = $this->_validation_posts ($posts))
+      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+          '_flash_message' => $msg,
+          'posts' => $posts
+        ));
+
+    $posts['name'] = '';
+
+    $create = Picture::transaction (function () use ($posts, $name) {
+      if (!(verifyCreateOrm ($picture = Picture::create (array_intersect_key ($posts, Picture::table ()->columns))) && $picture->name->put ($name)))
+        return false;
+
+      // if (!verifyCreateOrm ($mapping = PictureTagMapping::create (array (
+      //     'picture_id' => $picture->id,
+      //     'picture_tag_id' => $tag->id,
+      //     'sort' => PictureTagMapping::count (array ('conditions' => array ('picture_tag_id = ?', $tag->id)))
+      //   ))))
+      //   return false;
+
+      delay_job ('pictures', 'update_color', array ('id' => $picture->id));
+      return true;
+    });
+
+    if (!$create)
+      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+          '_flash_message' => '新增失敗！',
+          'posts' => $posts
+        ));
+      return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '新增成功！'
+      ));
+  }
+  public function edit ($id) {
+    if (!($id && ($picture = Picture::find_by_id ($id))))
+      return redirect_message (array ('admin', $this->get_class ()), array (
+          '_flash_message' => '找不到該筆資料。'
+        ));
+
+    $posts = Session::getData ('posts', true);
+    
+    return $this->add_tab ('編輯 ' . $picture->title . ' 照片', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 3))
+                ->set_tab_index (3)
+                ->add_subtitle ('編輯 ' . $picture->title . ' 照片')
+                ->load_view (array (
+                    'posts' => $posts,
+                    'picture' => $picture,
+                  ));
+  }
+  public function update ($id) {
+    if (!($id && ($picture = Picture::find_by_id ($id))))
+      return redirect_message (array ('admin', $this->get_class ()), array (
+          '_flash_message' => '找不到該筆資料。'
+        ));
+
+    if (!$this->has_post ())
+      return redirect_message (array ('admin', $this->get_class (), $picture->id, 'edit'), array (
+          '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
+        ));
+
+    $posts = OAInput::post ();
+    $posts['description'] = OAInput::post ('description', false);
+    $name = OAInput::file ('name');
+
+    if (!($name || (string)$picture->name))
+      return redirect_message (array ('admin', $this->get_class (), $picture->id, 'edit'), array (
+          '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
+          'posts' => $posts
+        ));
+
+    if ($msg = $this->_validation_posts ($posts))
+      return redirect_message (array ('admin', $this->get_class (), $picture->id, 'edit'), array (
+          '_flash_message' => $msg,
+          'posts' => $posts
+        ));
+
+    if ($columns = array_intersect_key ($posts, $picture->table ()->columns))
+      foreach ($columns as $column => $value)
+        $picture->$column = $value;
+
+    $update = Picture::transaction (function () use ($picture, $posts, $name) {
+      if (!$picture->save ())
+        return false;
+
+      if ($name && !$picture->name->put ($name))
+        return false;
+
+      if ($name)
+        delay_job ('pictures', 'update_color', array ('id' => $picture->id));
+      return true;
+    });
+
+    if (!$update)
+      return redirect_message (array ('admin', $this->get_class (), $picture->id, 'edit'), array (
+          '_flash_message' => '更新失敗！',
+          'posts' => $posts
+        ));
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '更新成功！'
+      ));
+  }
+  public function destroy ($id) {
+    if (!($id && ($picture = Picture::find_by_id ($id))))
+      return redirect_message (array ('admin', $this->get_class ()), array (
+          '_flash_message' => '找不到該筆資料。'
+        ));
+
+    $delete = Picture::transaction (function () use ($picture) {
+      return $picture->destroy ();
+    });
+
+    if (!$delete)
+      return redirect_message (array ('admin', $this->get_class ()), array (
+          '_flash_message' => '刪除失敗！',
+        ));
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '刪除成功！'
+      ));
+  }
+  private function _validation_posts (&$posts) {
+    if (!(isset ($posts['title']) && ($posts['title'] = trim ($posts['title']))))
+      return '沒有填寫標題！';
+    if (!(isset ($posts['keywords']) && ($posts['keywords'] = trim ($posts['keywords']))))
+      return '沒有填寫關鍵字！';
+    if (!(isset ($posts['description']) && ($posts['description'] = trim ($posts['description']))))
+      $posts['description'] = '';
+
+    return '';
   }
 }
