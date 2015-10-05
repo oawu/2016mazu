@@ -60,7 +60,7 @@ $(function () {
     });
   });
 
-  $('a.destroy').click (function () {
+  $('a.destroy, a[data-method="delete"]').click (function () {
     if (!confirm ('確定要刪除？'))
       return false;
     window.showLoading ();
