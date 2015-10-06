@@ -89,12 +89,13 @@ class Dintaos extends Admin_controller {
 
       if ($posts['sources'])
         foreach ($posts['sources'] as $source)
-          DintaoSource::create (array (
-              'dintao_id' => $dintao->id,
-              'title' => $source['title'],
-              'href' => $source['href'],
-              'sort' => $i = isset ($i) ? ++$i : 0
-            ));
+          if (!verifyCreateOrm (DintaoSource::create (array (
+                                  'dintao_id' => $dintao->id,
+                                  'title' => $source['title'],
+                                  'href' => $source['href'],
+                                  'sort' => $i = isset ($i) ? ++$i : 0
+                                ))))
+            return false;
       delay_job ('dintaos', 'update_cover_color', array ('id' => $dintao->id));
       return true;
     });
@@ -168,12 +169,13 @@ class Dintaos extends Admin_controller {
 
       if ($posts['sources'])
         foreach ($posts['sources'] as $source)
-          DintaoSource::create (array (
-              'dintao_id' => $dintao->id,
-              'title' => $source['title'],
-              'href' => $source['href'],
-              'sort' => $i = isset ($i) ? ++$i : 0
-            ));
+          if (!verifyCreateOrm (DintaoSource::create (array (
+                                  'dintao_id' => $dintao->id,
+                                  'title' => $source['title'],
+                                  'href' => $source['href'],
+                                  'sort' => $i = isset ($i) ? ++$i : 0
+                                ))))
+            return false;
 
       if ($cover)
         delay_job ('dintaos', 'update_cover_color', array ('id' => $dintao->id));
