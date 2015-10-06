@@ -30,22 +30,28 @@ $menu['admin'] = array (
   );
 
 $menu['site'] = array (
-    '朝天宮' => array (),
+    '朝天宮' => array (
+        '各殿簡介' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'palaces', 'method' => '', 'target' => '_self'),
+        '建築之美' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'builds', 'method' => '', 'target' => '_self'),
+      ),
+    '相簿紀錄' => array (
+        '三月十九' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self'),
+        '笨港舊照片' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self'),
+      ),
     '三月十九' => array (
-        '陣頭路關' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'main', 'method' => '', 'target' => '_self'),
-        '藝閣路關' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self'),
-        '陣頭遶境地圖' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array (
+        '路關' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self'),
+        '陣頭遶境地圖' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self', 'tags' => array (
             // '三月十九' => array ('href' => '', 'class' => '', 'method' => ''),
             // '三月二十' => array ('href' => '', 'class' => '', 'method' => ''),
           )),
-        '藝閣遶境地圖' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self', 'tags' => array (
+        '藝閣遶境地圖' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self', 'tags' => array (
             // '三月十九' => array ('href' => '', 'class' => '', 'method' => ''),
             // '三月二十' => array ('href' => '', 'class' => '', 'method' => ''),
             // '三月廿一' => array ('href' => '', 'class' => '', 'method' => ''),
             // '三月廿二' => array ('href' => '', 'class' => '', 'method' => ''),
             // '三月廿三' => array ('href' => '', 'class' => '', 'method' => ''),
           )),
-        '2015 回顧' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self'),
+        // '2015 回顧' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self'),
       ),
     '百年藝陣' => array (
         '駕前陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'official'), 'class' => 'dintaos', 'method' => 'official', 'target' => '_self'),
@@ -61,9 +67,9 @@ $menu['site'] = array (
         '名勝景點' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self'),
         '交通資訊' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self'),
       ),
-    '吾鄉笨港' => array (
-        '老照片說故事' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self'),
-        '耆老回憶' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self'),
-      ),
+    // '吾鄉笨港' => array (
+    //     '老照片說故事' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self'),
+    //     '耆老回憶' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self'),
+    //   ),
     '其他資源' => array (),
   );
