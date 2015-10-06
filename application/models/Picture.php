@@ -111,6 +111,6 @@ class Picture extends OaModel {
         if (!$source->destroy ())
           return false;
 
-    return $this->delete ();
+    return $this->name->cleanAllFiles () && $this->delete ();
   }
 }

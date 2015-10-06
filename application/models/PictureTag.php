@@ -102,6 +102,6 @@ class PictureTag extends OaModel {
         if (!$mapping->destroy ())
           return false;
 
-    return $this->delete ();
+    return $this->cover->cleanAllFiles () && $this->delete ();
   }
 }
