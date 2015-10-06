@@ -279,6 +279,16 @@ class Picture_tags extends Admin_controller {
         ))))
         return false;
 
+      if ($posts['sources'])
+        foreach ($posts['sources'] as $source)
+          if (!verifyCreateOrm (PictureSource::create (array (
+                                  'picture_id' => $picture->id,
+                                  'title' => $source['title'],
+                                  'href' => $source['href'],
+                                  'sort' => $i = isset ($i) ? ++$i : 0
+                                ))))
+            return false;
+
       delay_job ('pictures', 'update_color', array ('id' => $picture->id));
       return true;
     });
@@ -352,6 +362,21 @@ class Picture_tags extends Admin_controller {
         $picture->$column = $value;
 
     $update = Picture::transaction (function () use ($picture, $posts, $name) {
+      if ($picture->sources)
+        foreach ($picture->sources as $source)
+          if (!$source->destroy ())
+            return false;
+
+      if ($posts['sources'])
+        foreach ($posts['sources'] as $source)
+          if (!verifyCreateOrm (PictureSource::create (array (
+                                  'picture_id' => $picture->id,
+                                  'title' => $source['title'],
+                                  'href' => $source['href'],
+                                  'sort' => $i = isset ($i) ? ++$i : 0
+                                ))))
+            return false;
+      
       if (!$picture->save ())
         return false;
 
@@ -473,6 +498,13 @@ class Picture_tags extends Admin_controller {
     if (!(isset ($posts['description']) && ($posts['description'] = trim ($posts['description']))))
       $posts['description'] = '';
 
+    $posts['sources'] = isset ($posts['sources']) && ($posts['sources'] = array_filter (array_map (function ($source) {
+          $return = array (
+              'title' => trim ($source['title']),
+              'href' => trim ($source['href'])
+            );
+          return $return['href'] ? $return : null;
+        }, $posts['sources']))) ? $posts['sources'] : array ();
     return '';
   }
 }
