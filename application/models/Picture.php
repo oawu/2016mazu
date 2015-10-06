@@ -14,7 +14,8 @@ class Picture extends OaModel {
 
   static $has_many = array (
     array ('mappings', 'class_name' => 'PictureTagMapping', 'order' => 'sort DESC'),
-    array ('tags', 'class_name' => 'PictureTag', 'through' => 'mappings')
+    array ('tags', 'class_name' => 'PictureTag', 'through' => 'mappings'),
+    array ('sources', 'class_name' => 'PictureSource', 'order' => 'sort ASC')
   );
 
   static $belongs_to = array (
@@ -103,6 +104,11 @@ class Picture extends OaModel {
     if ($this->mappings)
       foreach ($this->mappings as $mapping)
         if (!$mapping->destroy ())
+          return false;
+    
+    if ($this->sources)
+      foreach ($this->sources as $source)
+        if (!$source->destroy ())
           return false;
 
     return $this->delete ();
