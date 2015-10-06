@@ -14,7 +14,7 @@
         foreach ($pictures as $picture) { ?>
           <tr>
             <td data-title='標題' width='150'><?php echo $picture->title;?></td>
-            <td data-title='封面' width='40'><?php echo img ($picture->name->url ('30x30c'), false, 'class="i_30"');?></td>
+            <td data-title='封面' width='50'><?php echo img ($picture->name->url ('30x30c'), false, 'class="i_30"');?></td>
             <td data-title='描述' width='' class='left'><?php echo $picture->mini_description ();?></td>
             <td data-title='關鍵字' width='200' class='left'><?php echo $picture->mini_keywords ();?></td>
             <td data-title='標籤' width='150'><?php echo implode ('', array_map (function ($tag) { return anchor (base_url ('admin', 'picture_tags', $tag->id, 'pictures'), $tag->name, 'class="tag"'); }, $picture->tags));?></td>
