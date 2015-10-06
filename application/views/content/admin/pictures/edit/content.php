@@ -45,6 +45,15 @@
       </tr>
 
       <tr>
+        <th>參 考：</th>
+        <td class='s' data-ms='<?php echo $posts['sources'] ? json_encode (array_slice ($posts['sources'], 0)) : ($picture->sources ? json_encode (array_map (function ($source) {return array ('title' => $source->title, 'href' => $source->href);}, $picture->sources)): json_encode (array ()));?>'>
+          <div class='ma'>
+            <button type='button' class='icon-plus'></button>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
         <td colspan='2'>
           <a href='<?php echo base_url ('admin', 'pictures');?>'>回列表</a>
           <button type='reset' class='button'>重填</button>
