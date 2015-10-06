@@ -25,7 +25,7 @@ class Tools extends Admin_controller {
     if (!$this->has_post ())
       return $this->output_json (array ('status' => false, 'words' => array ()));
     
-    if (!($str = OAInput::post ('str')))
+    if (!($str = OAInput::post ('str', false)))
       return $this->output_json (array ('status' => false, 'words' => array ()));
     
     $this->load->library ('Scws');
