@@ -91,6 +91,16 @@ class Pictures extends Admin_controller {
             ))))
             return false;
 
+      if ($posts['sources'])
+        foreach ($posts['sources'] as $source)
+          if (!verifyCreateOrm (PictureSource::create (array (
+                                  'picture_id' => $picture->id,
+                                  'title' => $source['title'],
+                                  'href' => $source['href'],
+                                  'sort' => $i = isset ($i) ? ++$i : 0
+                                ))))
+            return false;
+
       delay_job ('pictures', 'update_color', array ('id' => $picture->id));
       return true;
     });
@@ -168,6 +178,21 @@ class Pictures extends Admin_controller {
             ))))
             return false;
 
+      if ($picture->sources)
+        foreach ($picture->sources as $source)
+          if (!$source->destroy ())
+            return false;
+
+      if ($posts['sources'])
+        foreach ($posts['sources'] as $source)
+          if (!verifyCreateOrm (PictureSource::create (array (
+                                  'picture_id' => $picture->id,
+                                  'title' => $source['title'],
+                                  'href' => $source['href'],
+                                  'sort' => $i = isset ($i) ? ++$i : 0
+                                ))))
+            return false;
+
       if (!$picture->save ())
         return false;
 
@@ -215,7 +240,14 @@ class Pictures extends Admin_controller {
       $posts['description'] = '';
     if (!(isset ($posts['tag_ids']) && ($posts['tag_ids'] = array_filter (array_map ('trim', $posts['tag_ids'])))))
       $posts['tag_ids'] = array ();
-
+    
+    $posts['sources'] = isset ($posts['sources']) && ($posts['sources'] = array_filter (array_map (function ($source) {
+          $return = array (
+              'title' => trim ($source['title']),
+              'href' => trim ($source['href'])
+            );
+          return $return['href'] ? $return : null;
+        }, $posts['sources']))) ? $posts['sources'] : array ();
     return '';
   }
 }

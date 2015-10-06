@@ -30,3 +30,42 @@ textarea.cke {
       }
   }
 }
+.ma, .m {
+  + .ma, + .m {
+    margin-top: 5px;
+  }
+  @include clearfix();
+
+  input[type="text"] {
+    float: left;
+    &:nth-child(2) {
+      width: calc(((100% - 60px) / 10) * 3 - 5px - 15px);
+    }
+    &:nth-child(3) {
+      width: calc(((100% - 60px) / 10) * 7 - 5px - 15px);
+    }
+    margin-right: 10px;
+  }
+  div {
+    float: left;
+    width: 20px;
+    margin-right: 10px;
+
+    a {
+      @include a;
+      cursor: pointer;
+      display: block;
+      text-align: center;
+      width: 100%;
+      + a {
+        margin-top: 3px;
+      }
+    }
+  }
+  button {
+    float: right;
+    width: 50px;
+    @include button('mazu2');
+    font-weight: normal;
+  }
+}
