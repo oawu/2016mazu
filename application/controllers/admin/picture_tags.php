@@ -62,11 +62,11 @@ class Picture_tags extends Admin_controller {
     $posts = OAInput::post ();
     $cover = OAInput::file ('cover');
 
-    if (!$cover)
-      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
-          '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
-          'posts' => $posts
-        ));
+    // if (!$cover)
+    //   return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+    //       '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
+    //       'posts' => $posts
+    //     ));
 
     if ($msg = $this->_validation_posts ($posts))
       return redirect_message (array ('admin', $this->get_class (), 'add'), array (
@@ -78,10 +78,16 @@ class Picture_tags extends Admin_controller {
     $posts['sort'] = PictureTag::count ();
 
     $create = PictureTag::transaction (function () use ($posts, $cover) {
-      if (!(verifyCreateOrm ($tag = PictureTag::create (array_intersect_key ($posts, PictureTag::table ()->columns))) && $tag->cover->put ($cover)))
+      if (!(verifyCreateOrm ($tag = PictureTag::create (array_intersect_key ($posts, PictureTag::table ()->columns)))))
         return false;
+
+      if ($cover)
+        if (!$tag->cover->put ($cover))
+          return false;
       
-      delay_job ('picture_tags', 'update_cover_color', array ('id' => $tag->id));
+      if ($cover)
+        delay_job ('picture_tags', 'update_cover_color', array ('id' => $tag->id));
+
       return true;
     });
 
@@ -124,11 +130,11 @@ class Picture_tags extends Admin_controller {
     $posts = OAInput::post ();
     $cover = OAInput::file ('cover');
 
-    if (!($cover || (string)$tag->cover))
-      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (
-          '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
-          'posts' => $posts
-        ));
+    // if (!($cover || (string)$tag->cover))
+    //   return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (
+    //       '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
+    //       'posts' => $posts
+    //     ));
 
     if ($msg = $this->_validation_posts ($posts))
       return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (

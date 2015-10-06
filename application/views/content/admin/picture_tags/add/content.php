@@ -12,7 +12,7 @@
       <tr>
         <th>封 面：</th>
         <td>
-          <input type='file' name='cover' value='' accept='image/gif, image/jpeg, image/jpg, image/png' required title='請選擇圖片(gif、jpg、png)檔案!' />
+          <input type='file' name='cover' value='' />
         </td>
       </tr>
 
