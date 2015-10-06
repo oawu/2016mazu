@@ -79,6 +79,7 @@ class Dintaos extends Admin_controller {
           '_flash_message' => $msg,
           'posts' => $posts
         ));
+    $posts['pv'] = 0;
     $posts['cover'] = '';
     $posts['sort'] = Dintao::count (array ('conditions' => array ('type = ?', $index)));
 

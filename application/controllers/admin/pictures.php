@@ -75,6 +75,7 @@ class Pictures extends Admin_controller {
           'posts' => $posts
         ));
 
+    $posts['pv'] = 0;
     $posts['name'] = '';
 
     $create = Picture::transaction (function () use ($posts, $name) {
