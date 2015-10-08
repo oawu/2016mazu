@@ -116,7 +116,7 @@ class Dintao extends OaModel {
     return $this->cover->cleanAllFiles () && $this->delete ();
   }
   public function mini_content ($length = 100) {
-    return mb_strimwidth (remove_ckedit_tag ($this->content), 0, $length, '…','UTF-8');
+    return $length ? mb_strimwidth (remove_ckedit_tag ($this->content), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->content);
   }
   public function mini_keywords ($length = 50) {
     return mb_strimwidth ($this->keywords, 0, $length, '…','UTF-8');
