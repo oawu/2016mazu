@@ -35,8 +35,13 @@ $menu['site'] = array (
         '建築之美' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'builds', 'method' => '', 'target' => '_self'),
       ),
     '相簿紀錄' => array (
-        '三月十九' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self'),
-        '笨港舊照片' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self'),
+        '三月十九' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', 'march19_2015'), 'class' => 'pictures', 'method' => 'march19_2015', 'target' => '_self'),
+        '笨港舊照片' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', 'old'), 'class' => 'pictures', 'method' => 'old', 'target' => '_self'),
+      ),
+    '百年藝陣' => array (
+        '駕前陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'official'), 'class' => 'dintaos', 'method' => 'official', 'target' => '_self'),
+        '地方陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'local'), 'class' => 'dintaos', 'method' => 'local', 'target' => '_self'),
+        '其他介紹' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'other'), 'class' => 'dintaos', 'method' => 'other', 'target' => '_self'),
       ),
     '三月十九' => array (
         '路關' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self'),
@@ -52,11 +57,6 @@ $menu['site'] = array (
             // '三月廿三' => array ('href' => '', 'class' => '', 'method' => ''),
           )),
         // '2015 回顧' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self'),
-      ),
-    '百年藝陣' => array (
-        '駕前陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'official'), 'class' => 'dintaos', 'method' => 'official', 'target' => '_self'),
-        '地方陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'local'), 'class' => 'dintaos', 'method' => 'local', 'target' => '_self'),
-        '其他介紹' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'other'), 'class' => 'dintaos', 'method' => 'other', 'target' => '_self'),
       ),
     '文化交流' => array (
         '白沙屯 2015 路線' => array ('icon' => 'icon-github', 'href' => '', 'class' => '', 'method' => '', 'target' => '_self'),
