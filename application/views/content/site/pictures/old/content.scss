@@ -10,6 +10,9 @@
   padding: 0 0 20px 0;
   @include clearfix();
   
+  > div {
+    font-size: 15px;
+  }
   figure {
     float: left;
     position: relative;
