@@ -141,9 +141,9 @@
 				image    : '<img class="fancybox-image" src="{href}" alt="" />',
 				iframe   : '<iframe id="fancybox-frame{rnd}" name="fancybox-frame{rnd}" class="fancybox-iframe" frameborder="0" vspace="0" hspace="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen' + (IE ? ' allowtransparency="true"' : '') + '></iframe>',
 				error    : '<p class="fancybox-error">The requested content cannot be loaded.<br/>Please try again later.</p>',
-				closeBtn : '<a title="Close" class="fancybox-item fancybox-close" href="javascript:;"></a>',
-				next     : '<a title="Next" class="fancybox-nav fancybox-next" href="javascript:;"><span></span></a>',
-				prev     : '<a title="Previous" class="fancybox-nav fancybox-prev" href="javascript:;"><span></span></a>'
+				closeBtn : '<a title="關閉" class="fancybox-item fancybox-close" href="javascript:;"></a>',
+				next     : '<a title="下一張" class="fancybox-nav fancybox-next" href="javascript:;"><span></span></a>',
+				prev     : '<a title="上一張" class="fancybox-nav fancybox-prev" href="javascript:;"><span></span></a>'
 			},
 
 			// Properties for each animation type
@@ -1523,7 +1523,7 @@
 			}
 
 			if (isQuery(orig)) {
-				pos = orig.offset();
+				pos = $(current.element).offset();
 
 				if (orig.is('img')) {
 					width  = orig.outerWidth();
@@ -1921,6 +1921,7 @@
 			}
 
 			title[ (opts.position === 'top' ? 'prependTo'  : 'appendTo') ](target);
+			title.addClass ('show_title').addClass ('show_title_animation');
 		}
 	};
 
