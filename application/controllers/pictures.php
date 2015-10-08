@@ -7,8 +7,8 @@
 
 class Pictures extends Site_controller {
 
-  public function old ($offset = 0) {
-    $tag_id = 5;
+  public function index ($method = '', $offset = 0) {
+    $tag_id = $method == 'old' ? 5 : 6;
 
     $columns = array ('id' => 'int');
     $configs = array ($this->get_class (), 'old', '%s');
@@ -41,11 +41,15 @@ class Pictures extends Site_controller {
                 
                 ->add_subtitle ('')
                 ->load_view (array (
+                    'method' => $method,
                     'pictures' => $pictures,
                     'pagination' => $pagination
                   ));
   }
-  public function march19_2015 () {
+  // public function old ($offset = 0) {
+    
+  // }
+  // public function march19_2015 () {
 
-  }
+  // }
 }
