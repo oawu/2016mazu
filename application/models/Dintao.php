@@ -82,30 +82,31 @@ class Dintao extends OaModel {
           break;
       }
 
-    if (($analysis_datas = $image_utility->resize (10, 10, 'w')->getAnalysisDatas (1)) && isset ($analysis_datas[0]['color']) && ($analysis_datas = $analysis_datas[0]['color']) && (isset ($analysis_datas['r']) && isset ($analysis_datas['g']) && isset ($analysis_datas['b']))) {
-      $average = 128;
+    if (!(($analysis_datas = $image_utility->resize (10, 10, 'w')->getAnalysisDatas (1)) && isset ($analysis_datas[0]['color']) && ($analysis_datas = $analysis_datas[0]['color']) && (isset ($analysis_datas['r']) && isset ($analysis_datas['g']) && isset ($analysis_datas['b']))))
+      return false;
 
-      $red = round ($analysis_datas['r'] / 10) * 10;
-      $green = round ($analysis_datas['g'] / 10) * 10;
-      $blue = round ($analysis_datas['b'] / 10) * 10;
+    $average = 128;
 
-      $red += (round (($red - $average) / 10) * 1.125) * 10;
-      $green += (round (($green - $average) / 10) * 1.125) * 10;
-      $blue += (round (($blue - $average) / 10) * 1.125) * 10;
+    $red = round ($analysis_datas['r'] / 10) * 10;
+    $green = round ($analysis_datas['g'] / 10) * 10;
+    $blue = round ($analysis_datas['b'] / 10) * 10;
 
-      $red = round ($red > 0 ? $red < 256 ? $red : 255 : 0);
-      $green = round ($green > 0 ? $green < 256 ? $green : 255 : 0);
-      $blue = round ($blue > 0 ? $blue < 256 ? $blue : 255 : 0);
-      
-      $this->cover_color_r = max (0, min ($red, 255));
-      $this->cover_color_g = max (0, min ($green, 255));
-      $this->cover_color_b = max (0, min ($blue, 255));
+    $red += (round (($red - $average) / 10) * 1.125) * 10;
+    $green += (round (($green - $average) / 10) * 1.125) * 10;
+    $blue += (round (($blue - $average) / 10) * 1.125) * 10;
 
-      if (in_array (Cfg::system ('orm_uploader', 'uploader', 'driver'), array ('s3')))
-        @unlink ($fileName);
+    $red = round ($red > 0 ? $red < 256 ? $red : 255 : 0);
+    $green = round ($green > 0 ? $green < 256 ? $green : 255 : 0);
+    $blue = round ($blue > 0 ? $blue < 256 ? $blue : 255 : 0);
+    
+    $this->cover_color_r = max (0, min ($red, 255));
+    $this->cover_color_g = max (0, min ($green, 255));
+    $this->cover_color_b = max (0, min ($blue, 255));
 
-      return $this->save ();
-    }
+    if (in_array (Cfg::system ('orm_uploader', 'uploader', 'driver'), array ('s3')))
+      @unlink ($fileName);
+
+    return $this->save ();
   }
   public function destroy () {
     if ($this->sources)
