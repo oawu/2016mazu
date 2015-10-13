@@ -79,11 +79,11 @@ var PhotoSwipeUI_Default =
 			clickToCloseNonZoomable: true,
 
 			shareButtons: [
-				{id:'facebook', label:'Share on Facebook', url:'https://www.facebook.com/sharer/sharer.php?u={{url}}'},
-				{id:'twitter', label:'Tweet', url:'https://twitter.com/intent/tweet?text={{text}}&url={{url}}'},
-				{id:'pinterest', label:'Pin it', url:'http://www.pinterest.com/pin/create/button/'+
+				{id:'facebook', label:'分享到 Facebook', url:'https://www.facebook.com/sharer/sharer.php?u={{url}}'},
+				{id:'twitter', label:'分享到 Tweet', url:'https://twitter.com/intent/tweet?text={{text}}&url={{url}}'},
+				{id:'pinterest', label:'分享到 Pinterest', url:'http://www.pinterest.com/pin/create/button/'+
 													'?url={{url}}&media={{image_url}}&description={{text}}'},
-				{id:'download', label:'Download image', url:'{{raw_image_url}}', download:true}
+				/*{id:'download', label:'下載圖片', url:'{{raw_image_url}}', download:true}*/
 			],
 			getPageHref: function( /* shareButtonData */ ) {
 				return pswp.currItem.href || '';
@@ -92,7 +92,7 @@ var PhotoSwipeUI_Default =
 				return pswp.currItem.src || '';
 			},
 			getPageURLForShare: function( /* shareButtonData */ ) {
-				return window.location.href;
+				return pswp.currItem.href || window.location.href;
 			},
 			getTextForShare: function( /* shareButtonData */ ) {
 				return pswp.currItem.title || '';
