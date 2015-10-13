@@ -2,10 +2,11 @@
 <?php
   if ($pictures) {
     foreach ($pictures as $picture) { ?>
-      <figure class='i_c' title='<?php echo $picture->title;?>' data-description='<?php echo $picture->mini_description (0);?>' href='<?php echo $picture->name->url ();?>' data-50x50c='<?php echo $picture->name->url ('50x50c');?>' data-fancybox-group='i'>
-        <img src='<?php echo $picture->name->url ('300w');?>' alt='<?php echo $picture->title;?>' />
-        <figcaption><?php echo $picture->title;?></figcaption>
-        <a href='<?php echo base_url ('pictures', $picture->id . '-' . urlencode ($picture->title));?>' target='_blank'><?php echo $picture->title;?></a>
+      <figure>
+        <a href='<?php echo base_url ('picture', $picture->id . '-' . urlencode ($picture->title));?>' data-size="<?php echo $picture->width;?>x<?php echo $picture->height;?>" src="<?php echo $picture->name->url ();?>" class='i_c'>
+          <img alt="<?php echo $picture->title;?>" src="<?php echo $picture->name->url ('300w');?>" />
+        </a>
+        <figcaption data-description='<?php echo $picture->mini_description (0);?>'><?php echo $picture->title;?></figcaption>
       </figure>
 <?php
     }

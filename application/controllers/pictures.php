@@ -7,15 +7,19 @@
 
 class Pictures extends Site_controller {
 
+  public function update () {
+    foreach (Picture::all () as $pic)
+      $pic->update_color_dimension ();
+  }
   public function index ($method = '', $offset = 0) {
     $tag_id = $method == 'old' ? 5 : 6;
 
     $columns = array ('id' => 'int');
-    $configs = array ($this->get_class (), 'old', '%s');
+    $configs = array ($this->get_class (), $method, '%s');
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Picture', OAInput::get ())));
     PictureTagMapping::addConditions ($conditions, 'picture_tag_id = ?', $tag_id);
 
-    $limit = 25;
+    $limit = 12;
     $total = PictureTagMapping::count (array ('conditions' => $conditions));
     $offset = $offset < $total ? $offset : 0;
 
@@ -30,26 +34,18 @@ class Pictures extends Site_controller {
 
     $pictures = $picture_ids ? Picture::find ('all', array ('conditions' => array ('id IN (?)', $picture_ids))) : array ();
 
-    return $this->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox.css'))
-                ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.css'))
-                ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.css'))
-                ->add_css (base_url ('resource', 'css', 'fancyBox_v2.1.5', 'pictures.css'))
-                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox.js'))
-                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.js'))
-                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.js'))
-                ->add_js (base_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-media.js'))
-                
+    return $this
+                ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'photoswipe.css'))
+                ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'default-skin.css'))
+                ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe.min.js'))
+                ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe-ui-default.min.js'))
+
                 ->add_subtitle ('')
                 ->load_view (array (
+                    'has_photoswipe' => true,
                     'method' => $method,
                     'pictures' => $pictures,
                     'pagination' => $pagination
                   ));
   }
-  // public function old ($offset = 0) {
-    
-  // }
-  // public function march19_2015 () {
-
-  // }
 }
