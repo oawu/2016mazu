@@ -14,7 +14,7 @@ class Ajax extends Site_controller {
       return show_404 ();
   }
 
-  public function platform () {
+  public function navbar () {
     $type = ($type = OAInput::get ('type')) && in_array ($type, array ('site', 'admin')) ? $type : 'site';
 
     $menus = array ();

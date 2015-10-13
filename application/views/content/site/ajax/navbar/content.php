@@ -6,7 +6,7 @@
       <?php } ?>
         </div>
       </div>
-        
+
 <?php if ($type == 'site') { ?>
-        <div class='icon-share2 b'></div>
+        <a class='icon-share2 b share'></a>
 <?php } ?>

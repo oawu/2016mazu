@@ -38,7 +38,7 @@ class Admin_controller extends Oa_controller {
   }
 
   private function _add_css () {
-    return $this->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'nav', 'content.css'))
+    return $this->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'navbar', 'content.css'))
                 ->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'wrapper_left', 'content.css'))
                 ->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'tabs', 'content.css'))
                 ->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'footer', 'content.css'))
@@ -52,7 +52,7 @@ class Admin_controller extends Oa_controller {
                 ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'jquery.timeago.js'))
                 ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'))
                 ->add_js (base_url ('resource', 'javascript', 'autosize_v3.0.8', 'autosize.min.js'))
-                ->append_js (base_url ('application', 'cell', 'views', 'frame_cell', 'nav', 'content.js'))
+                ->append_js (base_url ('application', 'cell', 'views', 'frame_cell', 'navbar', 'content.js'))
                 ->append_js (base_url ('application', 'cell', 'views', 'frame_cell', 'wrapper_left', 'content.js'))
                 ->append_js (base_url ('application', 'cell', 'views', 'frame_cell', 'tabs', 'content.js'))
                 ->add_js (base_url ('resource', 'javascript', 'ckeditor_d2015_05_18', 'ckeditor.js'), false)

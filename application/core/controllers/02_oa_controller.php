@@ -24,7 +24,8 @@ class Oa_controller extends Root_controller {
     parent::__construct ();
     $this->add_meta (array ('http-equiv' => 'Content-type', 'content' => 'text/html; charset=utf-8'))
          ->add_hidden (array ('id' => 'facebook_appId', 'value' => Cfg::setting ('facebook', 'appId')))
-         ->add_hidden (array ('id' => 'facebook_version', 'value' => Cfg::setting ('facebook', 'version')));
+         ->add_hidden (array ('id' => 'facebook_version', 'value' => Cfg::setting ('facebook', 'version')))
+         ->add_hidden (array ('id' => 'ajax_navbar_url', 'value' => base_url ('ajax', 'navbar')));
   }
 
   protected function set_componemt_path () {

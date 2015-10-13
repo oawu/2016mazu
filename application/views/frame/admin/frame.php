@@ -13,7 +13,7 @@
   <body lang="zh-tw">
     <?php echo isset ($hidden_list) ? $hidden_list : ''; ?>
 
-    <?php echo render_cell ('frame_cell', 'nav', 'admin', isset ($subtitle) ? $subtitle : '', isset ($back_link) ? $back_link : '');?>
+    <?php echo render_cell ('frame_cell', 'navbar', 'admin', isset ($subtitle) ? $subtitle : '', isset ($back_link) ? $back_link : '');?>
 
     <div id='container'>
       <div>
