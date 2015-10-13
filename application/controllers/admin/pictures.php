@@ -101,7 +101,7 @@ class Pictures extends Admin_controller {
                                 ))))
             return false;
 
-      delay_job ('pictures', 'update_color', array ('id' => $picture->id));
+      delay_job ('pictures', 'update_color_dimension', array ('id' => $picture->id));
       return true;
     });
 
@@ -200,7 +200,7 @@ class Pictures extends Admin_controller {
         return false;
 
       if ($name)
-        delay_job ('pictures', 'update_color', array ('id' => $picture->id));
+        delay_job ('pictures', 'update_color_dimension', array ('id' => $picture->id));
       return true;
     });
 

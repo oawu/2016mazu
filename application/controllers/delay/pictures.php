@@ -6,10 +6,10 @@
  */
 class Pictures extends Delay_controller {
 
-  public function update_color () {
+  public function update_color_dimension () {
     if (!(($id = OAInput::post ('id')) && ($picture = Picture::find_by_id ($id, array ('select' => 'id, name, color_r, color_g, color_b')))))
       return ;
 
-    $picture->update_color ();
+    $picture->update_color_dimension ();
   }
 }
