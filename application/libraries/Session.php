@@ -37,4 +37,8 @@ class Session {
   public static function getData ($key, $is_flashdata = false) {
     return !$is_flashdata ? self::session ()->userdata ($key) : self::session ()->flashdata ($key);
   }
+
+  public function all_userdata () {
+    return self::session ()->all_userdata ();
+  }
 }
