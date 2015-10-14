@@ -34,9 +34,12 @@ class Pictures extends Site_controller {
 
     $pictures = $picture_ids ? Picture::find ('all', array ('conditions' => array ('id IN (?)', $picture_ids))) : array ();
 
+
     return $this
                 ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'photoswipe.css'))
-                ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'default-skin.css'))
+                ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'oa-skin.css'))
+                // ->add_css (base_url ('application/views/public/b.css'))
+                // ->add_css (base_url ('application/views/public/a.css'))
                 ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe.min.js'))
                 ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe-ui-default.min.js'))
 
