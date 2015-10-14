@@ -61,7 +61,7 @@ class Users extends Admin_controller {
     $posts = Session::getData ('posts', true);
     $roles = Cfg::setting ('role');
 
-    $this->add_subtitle ('修改 ' . $user->name . ' 角色')
+    $this->set_subtitle ('修改 ' . $user->name . ' 角色')
          ->load_view (array (
         'user' => $user,
         'posts' => $posts,
@@ -87,7 +87,7 @@ class Users extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    $this->add_subtitle ('使用者列表')
+    $this->set_subtitle ('使用者列表')
          ->load_view (array (
         'users' => $users,
         'pagination' => $pagination,

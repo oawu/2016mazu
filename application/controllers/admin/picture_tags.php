@@ -35,7 +35,7 @@ class Picture_tags extends Admin_controller {
       ));
 
     return $this->set_tab_index (1)
-                ->add_subtitle ('照片標籤列表')
+                ->set_subtitle ('照片標籤列表')
                 ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', $this->get_class (), 'sort')))
                 ->load_view (array (
                     'tags' => $tags,
@@ -48,7 +48,7 @@ class Picture_tags extends Admin_controller {
     $posts = Session::getData ('posts', true);
     
     return $this->set_tab_index (2)
-                ->add_subtitle ('新增照片標籤')
+                ->set_subtitle ('新增照片標籤')
                 ->load_view (array (
                     'posts' => $posts
                   ));
@@ -110,7 +110,7 @@ class Picture_tags extends Admin_controller {
     
     return $this->add_tab ('編輯標籤', array ('href' => base_url ('admin', $this->get_class (), 'edit', $tag->id), 'index' => 3))
                 ->set_tab_index (3)
-                ->add_subtitle ('編輯照片標籤')
+                ->set_subtitle ('編輯照片標籤')
                 ->load_view (array (
                     'posts' => $posts,
                     'tag' => $tag
@@ -217,7 +217,7 @@ class Picture_tags extends Admin_controller {
     return $this->add_tab ('標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures'), 'index' => 3))
                 ->add_tab ('新增標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), 'index' => 4))
                 ->set_tab_index (3)
-                ->add_subtitle ('標註 ' . $tag->name . ' 的照片')
+                ->set_subtitle ('標註 ' . $tag->name . ' 的照片')
                 ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', $this->get_class (), $tag->id, 'pictures', 'sort')))
                 ->load_view (array (
                     'tag' => $tag,
@@ -238,7 +238,7 @@ class Picture_tags extends Admin_controller {
     return $this->add_tab ('標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures'), 'index' => 3))
                 ->add_tab ('新增標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), 'index' => 4))
                 ->set_tab_index (4)
-                ->add_subtitle ('新增標註 ' . $tag->name . ' 的照片')
+                ->set_subtitle ('新增標註 ' . $tag->name . ' 的照片')
                 ->load_view (array (
                     'tag' => $tag,
                     'posts' => $posts
@@ -324,7 +324,7 @@ class Picture_tags extends Admin_controller {
                 ->add_tab ('新增標註 ' . $tag->name . ' 的照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), 'index' => 4))
                 ->add_tab ('編輯 ' . $picture->title . ' 照片', array ('href' => base_url ('admin', $this->get_class (), $tag->id, 'pictures', $picture->id, 'edit'), 'index' => 5))
                 ->set_tab_index (5)
-                ->add_subtitle ('編輯 ' . $picture->title . ' 照片')
+                ->set_subtitle ('編輯 ' . $picture->title . ' 照片')
                 ->load_view (array (
                     'posts' => $posts,
                     'tag' => $tag,

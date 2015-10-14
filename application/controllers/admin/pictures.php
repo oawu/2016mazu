@@ -35,7 +35,7 @@ class Pictures extends Admin_controller {
       ));
 
     return $this->set_tab_index (1)
-                ->add_subtitle ('照片列表')
+                ->set_subtitle ('照片列表')
                 ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', $this->get_class (), 'sort')))
                 ->load_view (array (
                     'pictures' => $pictures,
@@ -48,7 +48,7 @@ class Pictures extends Admin_controller {
     $posts = Session::getData ('posts', true);
     
     return $this->set_tab_index (2)
-                ->add_subtitle ('新增照片')
+                ->set_subtitle ('新增照片')
                 ->load_view (array (
                     'posts' => $posts
                   ));
@@ -124,7 +124,7 @@ class Pictures extends Admin_controller {
     
     return $this->add_tab ('編輯 ' . $picture->title . ' 照片', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 3))
                 ->set_tab_index (3)
-                ->add_subtitle ('編輯 ' . $picture->title . ' 照片')
+                ->set_subtitle ('編輯 ' . $picture->title . ' 照片')
                 ->load_view (array (
                     'posts' => $posts,
                     'picture' => $picture,

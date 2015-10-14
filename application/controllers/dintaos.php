@@ -31,7 +31,7 @@ class Dintaos extends Site_controller {
         'conditions' => $conditions
       ));
 
-    return $this->add_subtitle (Dintao::$types[$index])
+    return $this->set_subtitle (Dintao::$types[$index])
                 ->load_view (array (
                     'method' => Dintao::$type_engs[$index],
                     'dintaos' => $dintaos,
@@ -54,7 +54,7 @@ class Dintaos extends Site_controller {
            ->add_meta (array ('property' => 'og:image:height', 'content' => '630'));
 
     return $this->set_title ($dintao->title . ' - ' . Cfg::setting ('site', 'main', 'title'))
-                ->add_subtitle ($dintao->title)
+                ->set_subtitle ($dintao->title)
                 ->set_back_link (base_url ($this->get_class (), $method))
                 ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $dintao->keywords ())))
                 ->add_meta (array ('name' => 'description', 'content' => $dintao->mini_content ()))

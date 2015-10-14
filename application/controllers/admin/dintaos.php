@@ -37,7 +37,7 @@ class Dintaos extends Admin_controller {
       ));
 
     return $this->set_tab_index ($index)
-                ->add_subtitle ('陣頭列表')
+                ->set_subtitle ('陣頭列表')
                 ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', $this->get_class (), 'sort')))
                 ->load_view (array (
                     'dintaos' => $dintaos,
@@ -51,7 +51,7 @@ class Dintaos extends Admin_controller {
     $posts = Session::getData ('posts', true);
     
     return $this->set_tab_index ($index)
-                ->add_subtitle ('新增陣頭')
+                ->set_subtitle ('新增陣頭')
                 ->load_view (array (
                     'posts' => $posts
                   ));
@@ -118,7 +118,7 @@ class Dintaos extends Admin_controller {
     $posts = Session::getData ('posts', true);
     
     return $this->set_tab_index ($dintao->type)
-                ->add_subtitle ('編輯陣頭')
+                ->set_subtitle ('編輯陣頭')
                 ->load_view (array (
                     'posts' => $posts,
                     'dintao' => $dintao

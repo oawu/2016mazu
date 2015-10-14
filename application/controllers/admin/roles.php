@@ -14,7 +14,7 @@ class Roles extends Admin_controller {
                       ));
         }, Cfg::setting ('role'), array_keys (Cfg::setting ('role'))));
 
-    $this->add_subtitle ('角色列表')
+    $this->set_subtitle ('角色列表')
          ->load_view (array (
         'roles' => $roles
       ));
@@ -48,7 +48,7 @@ class Roles extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    $this->add_subtitle ('屬於 ' . $roles[$role]['name'] . ' 的選項列表')
+    $this->set_subtitle ('屬於 ' . $roles[$role]['name'] . ' 的選項列表')
          ->load_view (array (
         'role' => $role,
         'menus' => $menus,
@@ -85,7 +85,7 @@ class Roles extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    $this->add_subtitle ('屬於 ' . $roles[$role]['name'] . ' 的使用者列表')
+    $this->set_subtitle ('屬於 ' . $roles[$role]['name'] . ' 的使用者列表')
          ->load_view (array (
         'role' => $role,
         'users' => $users,

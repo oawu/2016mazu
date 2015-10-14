@@ -60,7 +60,7 @@ class Oa_controller extends Root_controller {
     return $this;
   }
 
-  protected function add_subtitle ($subtitle) {
+  protected function set_subtitle ($subtitle) {
     if (is_string ($subtitle))
       $this->add_param ('subtitle', $subtitle);
     return $this;

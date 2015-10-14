@@ -39,7 +39,7 @@ class Pictures extends Site_controller {
                 ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe.min.js'))
                 ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe-ui-default.min.js'))
 
-                ->add_subtitle ('')
+                ->set_subtitle ('')
                 ->load_view (array (
                     'has_photoswipe' => true,
                     'method' => $method,
