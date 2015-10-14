@@ -14,6 +14,7 @@
         <td>
           <?php echo img ($picture->name->url (), false, 'class="name"');?>
           <input type='file' name='name' value='' />
+          <input type='text' name='url' value='<?php echo $posts['url'] ? $posts['url'] : '';?>' placeholder='請輸入照片網址..' title='輸入照片網址!' />
         </td>
       </tr>
 

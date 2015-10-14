@@ -259,9 +259,9 @@ class Picture_tags extends Admin_controller {
     $posts['description'] = OAInput::post ('description', false);
     $name = OAInput::file ('name');
 
-    if (!$name)
+    if (!($name || $posts['url']))
       return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', 'add'), array (
-          '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
+          '_flash_message' => '請選擇照片(gif、jpg、png)檔案，或提供照片網址!',
           'posts' => $posts
         ));
 
@@ -275,7 +275,7 @@ class Picture_tags extends Admin_controller {
     $posts['name'] = '';
 
     $create = Picture::transaction (function () use ($posts, $name, $tag) {
-      if (!(verifyCreateOrm ($picture = Picture::create (array_intersect_key ($posts, Picture::table ()->columns))) && $picture->name->put ($name)))
+      if (!(verifyCreateOrm ($picture = Picture::create (array_intersect_key ($posts, Picture::table ()->columns))) && (($name && $picture->name->put ($name)) || ($posts['url'] && $picture->name->put_url ($posts['url'])))))
         return false;
 
       if (!verifyCreateOrm ($mapping = PictureTagMapping::create (array (
@@ -351,7 +351,7 @@ class Picture_tags extends Admin_controller {
     $posts['description'] = OAInput::post ('description', false);
     $name = OAInput::file ('name');
 
-    if (!($name || (string)$picture->name))
+    if (!((string)$picture->name || $name || $posts['url']))
       return redirect_message (array ('admin', $this->get_class (), $tag->id, 'pictures', $picture->id, 'edit'), array (
           '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
@@ -389,7 +389,10 @@ class Picture_tags extends Admin_controller {
       if ($name && !$picture->name->put ($name))
         return false;
 
-      if ($name)
+      if ($posts['url'] && !$picture->name->put_url ($posts['url']))
+        return false;
+
+      if ($name || $posts['url'])
         delay_job ('pictures', 'update_color_dimension', array ('id' => $picture->id));
       return true;
     });

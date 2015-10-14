@@ -12,7 +12,8 @@
       <tr>
         <th>照 片：</th>
         <td>
-          <input type='file' name='name' value='' accept='image/gif, image/jpeg, image/jpg, image/png' required title='請選擇圖片(gif、jpg、png)檔案!' />
+          <input type='file' name='name' value='' />
+          <input type='text' name='url' value='<?php echo $posts['url'] ? $posts['url'] : '';?>' placeholder='請輸入照片網址..' title='輸入照片網址!' />
         </td>
       </tr>
 
