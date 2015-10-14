@@ -6,16 +6,6 @@
 @import "_oa";
 
 #container {
-  &.show {
-    > div {
-      > div:nth-child(1) {
-        left: 0;
-        @include box-shadow(0 0 5px 1px rgba(39, 40, 34, .3), 1px 0 1px rgba(39, 40, 34, .3));
-        @include opacity(1);
-      }
-    }
-  }
-
   > div {
     > div:nth-child(1) {
       position: relative;
@@ -172,6 +162,15 @@
             }
           }
         }
+      }
+    }
+  }
+  &.show {
+    > div {
+      > div:nth-child(1) {
+        left: 0;
+        @include box-shadow(0 0 5px 1px rgba(39, 40, 34, .3), 1px 0 1px rgba(39, 40, 34, .3));
+        @include opacity(1);
       }
     }
   }
