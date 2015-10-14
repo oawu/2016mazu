@@ -56,8 +56,8 @@ class Site_controller extends Oa_controller {
   }
 
   private function _add_css () {
-    return $this->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'navbar', 'content.css'))
-                ->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'wrapper_left', 'content.css'))
+    return $this->add_css (base_url ('application', 'cell', 'views', 'frame_cell', 'wrapper_left', 'content.css'))
+                ->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'navbar', 'content.css'))
                 ->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'tabs', 'content.css'))
                 ->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'footer', 'content.css'))
                 ;
@@ -70,8 +70,8 @@ class Site_controller extends Oa_controller {
                 ->add_js (base_url ('resource', 'javascript', 'imgLiquid_v0.9.944', 'imgLiquid-min.js'))
                 ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'jquery.timeago.js'))
                 ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'))
+                ->add_js (base_url ('application', 'cell', 'views', 'frame_cell', 'wrapper_left', 'content.js'))
                 ->append_js (base_url ('application', 'cell', 'views', 'frame_cell', 'navbar', 'content.js'))
-                ->append_js (base_url ('application', 'cell', 'views', 'frame_cell', 'wrapper_left', 'content.js'))
                 ->append_js (base_url ('application', 'cell', 'views', 'frame_cell', 'tabs', 'content.js'))
                 ;
   }
