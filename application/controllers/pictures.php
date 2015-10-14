@@ -7,10 +7,6 @@
 
 class Pictures extends Site_controller {
 
-  public function update () {
-    foreach (Picture::all () as $pic)
-      $pic->update_color_dimension ();
-  }
   public function index ($method = '', $offset = 0) {
     $tag_id = $method == 'old' ? 5 : 6;
 
