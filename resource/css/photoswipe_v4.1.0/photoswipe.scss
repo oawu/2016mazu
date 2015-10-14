@@ -92,7 +92,7 @@
   position: absolute;
   width: 100%;
   @include transform-origin(left, top);
-  // @include transition(transform 333ms cubic-bezier(0.4, 0, 0.22, 1));
+  @include transition(transform 333ms cubic-bezier(0.4, 0, 0.22, 1));
 }
 
 .pswp__bg {
@@ -100,10 +100,8 @@
   @include transition(opacity 333ms cubic-bezier(0.4, 0, 0.22, 1));
 }
 
-.pswp--animated-in {
-  .pswp__bg, .pswp__zoom-wra {
-    @include transition(none);
-  }
+.pswp--animated-in .pswp__bg, .pswp--animated-in .pswp__zoom-wrap {
+  @include transition(none);
 }
 
 .pswp__container, .pswp__zoom-wrap {
