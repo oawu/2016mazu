@@ -449,7 +449,8 @@ class CI_Output {
 		}
 		else
 		{
-			echo ENVIRONMENT !== 'production' ? $output : preg_replace (array ('/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s'), array ('>', '<', '\\1'), $output);  // Send it to the browser!
+			echo $output;
+			// echo ENVIRONMENT !== 'production' ? $output : preg_replace (array ('/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s'), array ('>', '<', '\\1'), $output);  // Send it to the browser!
 		}
 
 		log_message('debug', "Final output sent to browser");
@@ -503,6 +504,7 @@ class CI_Output {
 
 		if (flock($fp, LOCK_EX))
 		{
+			$output = ENVIRONMENT !== 'production' ? $output : preg_replace (array ('/\>[^\S ]+/s', '/[^\S ]+\</s', '/(\s)+/s'), array ('>', '<', '\\1'), $output);
 			fwrite($fp, $expire.'TS--->'.$output);
 			flock($fp, LOCK_UN);
 		}
