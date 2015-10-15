@@ -77,6 +77,9 @@ Route::get ('admin/pictures/(:num)/edit', 'admin/pictures@edit($1)');
 Route::post ('admin/pictures/(:num)/update', 'admin/pictures@update($1)');
 Route::delete ('admin/pictures/(:num)/destroy', 'admin/pictures@destroy($1)');
 
+Route::get ('picture/(:any)/(:num)', 'pictures@content($1, $2)');
+Route::get ('picture/(:any)/(:num)-(:any)', 'pictures@content($1, $2)');
+
 Route::get ('pictures/old/', 'pictures@index(old, 0)');
 Route::get ('pictures/old/(:num)', 'pictures@index(old, $1)');
 

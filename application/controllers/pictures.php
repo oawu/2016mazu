@@ -7,6 +7,32 @@
 
 class Pictures extends Site_controller {
 
+  public function content ($method, $id = 0) {
+    if (!($id && ($picture = Picture::find_by_id ($id))))
+      return redirect_message (array ('pictures', 'official'), array (
+          '_flash_message' => '無此照片！'
+        ));
+
+    if (!preg_match ('/^data:/', $og_img = $picture->name->url ('1200x630c')))
+      $this->add_meta (array ('property' => 'og:image', 'content' => $og_img, 'alt' => $picture->title . ' - ' . Cfg::setting ('site', 'main', 'title')))
+           ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/' . pathinfo ($og_img, PATHINFO_EXTENSION)))
+           ->add_meta (array ('property' => 'og:image:width', 'content' => '1200'))
+           ->add_meta (array ('property' => 'og:image:height', 'content' => '630'));
+
+    return $this->set_title ($picture->title . ' - ' . Cfg::setting ('site', 'main', 'title'))
+                ->set_subtitle ($picture->title)
+                ->set_back_link (isset ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : base_url ($this->get_class (), $method))
+                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $picture->keywords ())))
+                ->add_meta (array ('name' => 'description', 'content' => $picture->mini_description ()))
+                ->add_meta (array ('property' => 'og:title', 'content' => $picture->title))
+                ->add_meta (array ('property' => 'og:description', 'content' => $picture->mini_description ()))
+
+                ->load_view (array (
+                    'method' => $method,
+                    'picture' => $picture
+                  ), false);
+
+  }
   public function index ($method = '', $offset = 0) {
     $tag_id = $method == 'old' ? 5 : 6;
 
@@ -34,8 +60,6 @@ class Pictures extends Site_controller {
     return $this
                 ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'photoswipe.css'))
                 ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'oa-skin.css'))
-                // ->add_css (base_url ('application/views/public/b.css'))
-                // ->add_css (base_url ('application/views/public/a.css'))
                 ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe.min.js'))
                 ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe-ui-default.min.js'))
 

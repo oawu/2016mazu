@@ -168,6 +168,9 @@ class Picture extends OaModel {
   public function mini_description ($length = 100) {
     return $length ? mb_strimwidth (remove_ckedit_tag ($this->description), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->description);
   }
+  public function keywords () {
+    return preg_split ("/\s+/", $this->keywords);
+  }
   public function destroy () {
     if ($this->mappings)
       foreach ($this->mappings as $mapping)
