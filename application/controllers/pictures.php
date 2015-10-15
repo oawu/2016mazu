@@ -26,7 +26,7 @@ class Pictures extends Site_controller {
                 ->add_meta (array ('name' => 'description', 'content' => $picture->mini_description ()))
                 ->add_meta (array ('property' => 'og:title', 'content' => $picture->title))
                 ->add_meta (array ('property' => 'og:description', 'content' => $picture->mini_description ()))
-
+                ->add_hidden (array ('id' => 'id', 'value' => $picture->id))
                 ->load_view (array (
                     'method' => $method,
                     'picture' => $picture

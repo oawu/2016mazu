@@ -60,7 +60,7 @@ class Dintaos extends Site_controller {
                 ->add_meta (array ('name' => 'description', 'content' => $dintao->mini_content ()))
                 ->add_meta (array ('property' => 'og:title', 'content' => $dintao->title))
                 ->add_meta (array ('property' => 'og:description', 'content' => $dintao->mini_content ()))
-
+                ->add_hidden (array ('id' => 'id', 'value' => $dintao->id))
                 ->load_view (array (
                     'method' => $method,
                     'dintao' => $dintao

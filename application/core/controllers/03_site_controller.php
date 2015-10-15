@@ -21,7 +21,7 @@ class Site_controller extends Oa_controller {
          ->_add_meta ()
          ->_add_css ()
          ->_add_js ()
-
+         ->add_hidden (array ('id' => 'ajax_pv_url', 'value' => base_url ('ajax', 'pv')))
          ;
   }
 

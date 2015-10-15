@@ -4,5 +4,6 @@
  */
 
 $(function () {
+  addPv ('Dintao', $('#id').val ());
   window.hideLoading ();
 });

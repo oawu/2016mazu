@@ -4,5 +4,6 @@
  */
 
 $(function () {
+  addPv ('Picture', $('#id').val ());
   window.hideLoading ();
 });

@@ -58,7 +58,7 @@ class Ajax extends Site_controller {
     });
 
     if (!$update)
-      return $this->output_json (array ('status' => false));
+      return $this->output_json (array ('status' => true, 'pv' => $obj->pv - 1));
 
     return $this->output_json (array ('status' => true, 'pv' => $obj->pv));
   }
