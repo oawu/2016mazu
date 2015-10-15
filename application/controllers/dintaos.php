@@ -55,7 +55,7 @@ class Dintaos extends Site_controller {
 
     return $this->set_title ($dintao->title . ' - ' . Cfg::setting ('site', 'main', 'title'))
                 ->set_subtitle ($dintao->title)
-                ->set_back_link (base_url ($this->get_class (), $method))
+                ->set_back_link (isset ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : base_url ($this->get_class (), $method))
                 ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $dintao->keywords ())))
                 ->add_meta (array ('name' => 'description', 'content' => $dintao->mini_content ()))
                 ->add_meta (array ('property' => 'og:title', 'content' => $dintao->title))

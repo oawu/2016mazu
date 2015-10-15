@@ -8,6 +8,7 @@
 .t {
   @include split-right(140px, '> h2', '> div');
   padding: 0 10px;
+  padding-bottom: 7px;
   border-bottom: 4px solid rgba(227, 228, 239, 1);
 
   > h2 {
@@ -132,6 +133,7 @@ article {
       display: inline-block;
       width: 100%;
       margin-top: 6px;
+      padding-left: 10px;
     }
   } 
   article {
