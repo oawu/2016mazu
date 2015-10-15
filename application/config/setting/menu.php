@@ -35,6 +35,7 @@ $menu['site'] = array (
         '建築之美' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'builds', 'method' => '', 'target' => '_self'),
       ),
     '相簿紀錄' => array (
+        '所有照片' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', 'all'), 'class' => 'pictures', 'method' => 'all', 'target' => '_self'),
         '三月十九' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', 'march19_2015'), 'class' => 'pictures', 'method' => 'march19_2015', 'target' => '_self'),
         '笨港舊照片' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', 'old'), 'class' => 'pictures', 'method' => 'old', 'target' => '_self'),
       ),
