@@ -44,6 +44,12 @@ class Dintaos extends Site_controller {
       return redirect_message (array ('dintaos', 'official'), array (
           '_flash_message' => '無此文章！'
         ));
+    
+    if (!($next = Dintao::find ('one', array ('order' => 'sort DESC', 'conditions' => array ('id != ? AND sort <= ? AND type = ?', $dintao->id, $dintao->sort, $dintao->type)))))
+      $next = Dintao::find ('one', array ('order' => 'sort DESC', 'conditions' => array ('id != ? AND type = ?', $dintao->id, $dintao->type)));
+    
+    if (!($prev = Dintao::find ('one', array ('order' => 'sort ASC', 'conditions' => array ('id != ? AND sort >= ? AND type = ?', $dintao->id, $dintao->sort, $dintao->type)))))
+      $prev = Dintao::find ('one', array ('order' => 'sort ASC', 'conditions' => array ('id != ? AND type = ?', $dintao->id, $dintao->type)));
 
     $method = $dintao->type != Dintao::TYPE_OTHER ? $dintao->type != Dintao::TYPE_LOCAL ? 'official' : 'local' : 'other';
     
@@ -55,7 +61,7 @@ class Dintaos extends Site_controller {
 
     return $this->set_title ($dintao->title . ' - ' . Cfg::setting ('site', 'main', 'title'))
                 ->set_subtitle ($dintao->title)
-                ->set_back_link (isset ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : base_url ($this->get_class (), $method))
+                ->set_back_link (base_url ($this->get_class (), $method))
                 ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $dintao->keywords ())))
                 ->add_meta (array ('name' => 'description', 'content' => $dintao->mini_content ()))
                 ->add_meta (array ('property' => 'og:title', 'content' => $dintao->title))
@@ -63,7 +69,9 @@ class Dintaos extends Site_controller {
                 ->add_hidden (array ('id' => 'id', 'value' => $dintao->id))
                 ->load_view (array (
                     'method' => $method,
-                    'dintao' => $dintao
-                  ), false);
+                    'dintao' => $dintao,
+                    'next' => $next,
+                    'prev' => $prev,
+                  ));
   }
 }
