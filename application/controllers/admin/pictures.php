@@ -77,6 +77,7 @@ class Pictures extends Admin_controller {
 
     $posts['pv'] = 0;
     $posts['name'] = '';
+    $posts['user_id'] = User::current ()->id;
 
     $create = Picture::transaction (function () use ($posts, $name) {
       if (!(verifyCreateOrm ($picture = Picture::create (array_intersect_key ($posts, Picture::table ()->columns))) && (($name && $picture->name->put ($name)) || ($posts['url'] && $picture->name->put_url ($posts['url'])))))

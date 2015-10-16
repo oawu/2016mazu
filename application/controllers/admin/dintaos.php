@@ -82,6 +82,7 @@ class Dintaos extends Admin_controller {
     $posts['pv'] = 0;
     $posts['cover'] = '';
     $posts['sort'] = Dintao::count (array ('conditions' => array ('type = ?', $index)));
+    $posts['user_id'] = User::current ()->id;
 
     $create = Dintao::transaction (function () use ($posts, $cover) {
       if (!(verifyCreateOrm ($dintao = Dintao::create (array_intersect_key ($posts, Dintao::table ()->columns))) && $dintao->cover->put ($cover)))
@@ -247,7 +248,6 @@ class Dintaos extends Admin_controller {
     if (!(isset ($posts['keywords']) && ($posts['keywords'] = trim ($posts['keywords']))))
       return '沒有填寫關鍵字！';
 
-    $posts['user_id'] = User::current ()->id;
     $posts['type'] = $index;
     $posts['sources'] = isset ($posts['sources']) && ($posts['sources'] = array_filter (array_map (function ($source) {
           $return = array (
