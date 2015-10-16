@@ -25,7 +25,7 @@ $(function () {
 
         if (figureEl.children.length > 1) {
           item.title = figureEl.children[1].innerHTML;
-          item.content = figureEl.children[1].getAttribute ('data-description') || '';
+          item.content = figureEl.children[1].getAttribute ('data-description') + '<a href="' + linkEl.getAttribute ('href') + '">閱讀更多 »</a>' || '';
         }
 
         if (linkEl.children.length > 0) item.msrc = linkEl.children[0].getAttribute ('src');
