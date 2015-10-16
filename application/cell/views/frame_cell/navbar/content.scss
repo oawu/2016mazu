@@ -185,6 +185,17 @@ nav {
           padding-top: 7px;
           font-size: 24px;
         }
+        span {
+          display: inline-block;
+          margin-top: 6px;
+          @include opacity(.7);
+          @include transition(opacity .3s);
+        }
+        &:hover {
+          span {
+            @include opacity(.9);
+          }
+        }
       }
     }
     > div:nth-child(3) {
