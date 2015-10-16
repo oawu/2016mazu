@@ -67,12 +67,19 @@ class Pictures extends Site_controller {
                   ));
   }
   public function index ($method = '', $offset = 0) {
-    $tag_id = $method == 'old' ? 5 : 6;
+    if (!($tag = PictureTag::find_by_name ($method, array ('select' => 'id'))))
+      return $this->set_subtitle ($method)
+                  ->load_view (array (
+                      'has_photoswipe' => false,
+                      'method' => $method,
+                      'pictures' => array (),
+                      'pagination' => ''
+                    ));
 
     $columns = array ('id' => 'int');
     $configs = array ($this->get_class (), $method, '%s');
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'PictureTagMapping', OAInput::get ())));
-    PictureTagMapping::addConditions ($conditions, 'picture_tag_id = ?', $tag_id);
+    PictureTagMapping::addConditions ($conditions, 'picture_tag_id = ?', $tag->id);
 
     $limit = 12;
     $total = PictureTagMapping::count (array ('conditions' => $conditions));
