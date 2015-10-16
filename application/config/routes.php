@@ -89,10 +89,10 @@ Route::get ('pictures/all/(:num)', 'pictures@all($1)');
 Route::get ('pictures/all/(:num)/(:any)', 'pictures@all($1, $2)');
 Route::get ('pictures/all/(:any)', 'pictures@all(0, $1)');
 
-Route::get ('pictures/old/', 'pictures@index(old, 0)');
-Route::get ('pictures/old/(:num)', 'pictures@index(old, $1)');
-Route::get ('pictures/march19_2015/', 'pictures@index(march19_2015, 0)');
-Route::get ('pictures/march19_2015/(:num)', 'pictures@index(march19_2015, $1)');
+Route::get ('pictures/北港舊照片/', 'pictures@index(北港舊照片, 0)');
+Route::get ('pictures/北港舊照片/(:num)', 'pictures@index(北港舊照片, $1)');
+Route::get ('pictures/2015三月十九/', 'pictures@index(2015三月十九, 0)');
+Route::get ('pictures/2015三月十九/(:num)', 'pictures@index(2015三月十九, $1)');
 
 
 Route::get ('admin/login', 'admin_login/main@login');
