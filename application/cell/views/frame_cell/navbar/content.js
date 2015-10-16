@@ -33,15 +33,16 @@ $(function () {
       })
       .done (function (result) {
         if (!result.status) $(this).remove ();
+
         $(this).parent ().empty ().html (result.content).find ('.r').addClass ('show').click (function () {
           $(this).toggleClass ('show');
         });
       }.bind ($(this)))
       .fail (function (result) {
         $(this).remove ();
-      }.bind ($(this)))
-      .complete (function (result) {});
-    }.bind ($(this)), 300);
+      }.bind ($(this)));
+
+    }.bind ($(this)), 500);
   }).find ('.admin, .login, .logout').click (function () {
     window.showLoading ();
   });

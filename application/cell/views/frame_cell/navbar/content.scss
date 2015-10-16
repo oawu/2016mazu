@@ -268,7 +268,9 @@ nav {
                 }
                 &.l {
                   height: 80px;
-                  padding-top: 30px;
+                  > div {
+                    @include loading(35px, 5px, rgba(255, 255, 255, 1));
+                  }
                 }
               }
             }
@@ -282,7 +284,7 @@ nav {
               height: 100%;
               display: none;
               z-index: 9995;
-              background-color: rgba(39, 40, 34, .1);
+              background-color: rgba(39, 40, 34, .5);
               cursor: auto;
             }
             &:last-child {
