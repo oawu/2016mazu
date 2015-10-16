@@ -40,10 +40,10 @@ $menu['site'] = array (
         '笨港舊照片' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', '北港舊照片'), 'class' => 'pictures', 'method' => '北港舊照片', 'target' => '_self'),
       ),
     '百年藝陣' => array (
-        '所有陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'all'), 'class' => 'dintaos', 'method' => 'all', 'target' => '_self'),
-        '駕前陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'official'), 'class' => 'dintaos', 'method' => 'official', 'target' => '_self'),
-        '地方陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'local'), 'class' => 'dintaos', 'method' => 'local', 'target' => '_self'),
-        '其他介紹' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'other'), 'class' => 'dintaos', 'method' => 'other', 'target' => '_self'),
+        '所有陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '所有陣頭'), 'class' => 'dintaos', 'method' => '所有陣頭', 'target' => '_self'),
+        '駕前陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '駕前陣頭'), 'class' => 'dintaos', 'method' => '駕前陣頭', 'target' => '_self'),
+        '地方陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '地方陣頭'), 'class' => 'dintaos', 'method' => '地方陣頭', 'target' => '_self'),
+        '其他介紹' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '其他介紹'), 'class' => 'dintaos', 'method' => '其他介紹', 'target' => '_self'),
       ),
     '三月十九' => array (
         '路關' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self'),

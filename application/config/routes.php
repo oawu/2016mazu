@@ -54,11 +54,11 @@ Route::delete ('admin/dintaos/(:num)/destroy', 'admin/dintaos@destroy($1)');
 Route::get ('dintao/(:num)', 'dintaos@content($1)');
 Route::get ('dintao/(:num)-(:any)', 'dintaos@content($1)');
 
-foreach (array (-1 => 'all', 1 => 'official', 2 => 'local', 3 => 'other') as $key => $type_eng) {
-  Route::get ('dintaos/' . $type_eng . '', 'dintaos@index(' . $key . ', 0)');
-  Route::get ('dintaos/' . $type_eng . '/(:num)', 'dintaos@index(' . $key . ', $1)');
-  Route::get ('dintaos/' . $type_eng . '/(:num)/(:any)', 'dintaos@index(' . $key . ', $1, $2)');
-  Route::get ('dintaos/' . $type_eng . '/(:any)', 'dintaos@index(' . $key . ', 0, $1)');
+foreach (array (-1 => '所有陣頭', 1 => '駕前陣頭', 2 => '地方陣頭', 3 => '其他介紹') as $key => $text) {
+  Route::get ('dintaos/' . $text . '', 'dintaos@index(' . $text . ', ' . $key . ', 0)');
+  Route::get ('dintaos/' . $text . '/(:num)', 'dintaos@index(' . $text . ', ' . $key . ', $1)');
+  Route::get ('dintaos/' . $text . '/(:num)/(:any)', 'dintaos@index(' . $text . ', ' . $key . ', $1, $2)');
+  Route::get ('dintaos/' . $text . '/(:any)', 'dintaos@index(' . $text . ', ' . $key . ', 0, $1)');
 }
 
 Route::get ('admin/picture_tags/(:num)/', 'admin/picture_tags@index($1)');

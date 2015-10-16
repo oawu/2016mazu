@@ -11,11 +11,10 @@ class Dintaos extends Site_controller {
     parent::__construct ();
   }
 
-  public function index ($index = Dintao::TYPE_OTHER, $offset = 0, $keyword = '') {
+  public function index ($method, $index = Dintao::TYPE_OTHER, $offset = 0, $keyword = '') {
     $keyword = trim (urldecode ($keyword));
 
     $columns = array ('title' => 'string', 'content' => 'string', 'keywords' => 'string');
-    $method = $index > 0 ? Dintao::$type_engs[$index] : 'all';
     $configs = array ($this->get_class (), $method, '%s', $keyword);
 
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Dintao', OAInput::get ())));
