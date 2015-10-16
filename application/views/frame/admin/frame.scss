@@ -129,6 +129,7 @@ $mobileVerticalPadding: 15px;
   left: 0;
 
   @include loading();
+  display: none;
 }
 
 form.search {

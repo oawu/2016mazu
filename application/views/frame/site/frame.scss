@@ -143,6 +143,7 @@ nav {
   left: 0;
 
   @include loading();
+  display: none;
 }
 
 form.search {

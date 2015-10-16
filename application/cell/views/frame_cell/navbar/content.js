@@ -36,15 +36,15 @@ $(function () {
 
         $(this).parent ().empty ().html (result.content).find ('.r').addClass ('show').click (function () {
           $(this).toggleClass ('show');
+        }).find ('.admin, .login, .logout').click (function () {
+          window.showLoading ();
         });
       }.bind ($(this)))
       .fail (function (result) {
         $(this).remove ();
       }.bind ($(this)));
 
-    }.bind ($(this)), 500);
-  }).find ('.admin, .login, .logout').click (function () {
-    window.showLoading ();
+    }.bind ($(this)), 300);
   });
 
   $('nav>div>div:nth-child(3)').on ('click', '>a.share', function () {
