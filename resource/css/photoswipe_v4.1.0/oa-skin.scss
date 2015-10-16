@@ -288,6 +288,12 @@ a.pswp__share--download:hover {
       padding: 0 5px;
       padding-top: 5px;
       word-break: break-all;
+
+      a {
+        @include a(1px, true, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+        font-size: 14px;
+        margin-left: 5px;
+      }
     }
   }
 }
