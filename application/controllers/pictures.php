@@ -55,8 +55,7 @@ class Pictures extends Site_controller {
 
     return $this->set_method ('index')
                 ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'photoswipe.css'))
-                // ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'oa-skin.css'))
-                ->add_css (base_url ('application', 'views', 'public', 'a.css'))
+                ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'oa-skin.css'))
                 ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe.min.js'))
                 ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe-ui-default.min.js'))
                 ->set_subtitle ($keyword ? '<span class="icon-search"></span>' . $keyword : '所有照片')
