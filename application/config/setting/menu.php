@@ -40,6 +40,7 @@ $menu['site'] = array (
         '笨港舊照片' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', 'old'), 'class' => 'pictures', 'method' => 'old', 'target' => '_self'),
       ),
     '百年藝陣' => array (
+        '所有陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'all'), 'class' => 'dintaos', 'method' => 'all', 'target' => '_self'),
         '駕前陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'official'), 'class' => 'dintaos', 'method' => 'official', 'target' => '_self'),
         '地方陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'local'), 'class' => 'dintaos', 'method' => 'local', 'target' => '_self'),
         '其他介紹' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'other'), 'class' => 'dintaos', 'method' => 'other', 'target' => '_self'),
