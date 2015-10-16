@@ -102,7 +102,7 @@ class Pictures extends Site_controller {
                 ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'oa-skin.css'))
                 ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe.min.js'))
                 ->add_js (base_url ('resource', 'javascript', 'photoswipe_v4.1.0', 'photoswipe-ui-default.min.js'))
-                ->set_subtitle ('')
+                ->set_subtitle ($method)
                 ->load_view (array (
                     'has_photoswipe' => true,
                     'method' => $method,
