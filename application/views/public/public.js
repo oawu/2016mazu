@@ -40,7 +40,6 @@ $(function () {
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 
-
   window.mainLoading = $('#loading');
   window.showLoading = function (callback) {
     this.mainLoading.fadeIn (function () {
@@ -51,6 +50,8 @@ $(function () {
   };
 
   window.hideLoading = function (callback) {
+    clearTimeout (window.showLoadingTimer);
+
     this.mainLoading.addClass ('hide').fadeOut (function () {
       $(this).hide (function () {
         if (callback)
@@ -66,4 +67,9 @@ $(function () {
         window.mainLoading.remove ();
     });
   };
+
+  window.showLoadingTimer = setTimeout (function () {
+    window.showLoading ();
+  }, 100);
+
 });
