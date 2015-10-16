@@ -11,13 +11,14 @@ class Migration_Add_dintaos extends CI_Migration {
       "CREATE TABLE `dintaos` (
         `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
         `user_id` int(11) unsigned NOT NULL COMMENT 'User ID',
+        
         `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
         `cover` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '封面',
         `keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SEO 關鍵字',
-        
         `content` text  COMMENT '內容',
         `type` tinyint(1) unsigned NOT NULL DEFAULT 3 COMMENT '1 聖前, 2 地方, 3 其他',
         `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排列順序，上至下 DESC',
+        `pv` int(11) unsigned NOT NULL DEFAULT 0 COMMENT 'Page View',
 
         `cover_color_r` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Red',
         `cover_color_g` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Green',
