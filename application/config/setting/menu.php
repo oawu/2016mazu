@@ -15,6 +15,10 @@ $menu['admin'] = array (
         '照片標籤' => array ('icon' => 'icon-price-tags', 'href' => base_url ('admin', 'picture_tags'), 'class' => 'picture_tags', 'method' => '', 'target' => '_self'),
         '照片管理' => array ('icon' => 'icon-images', 'href' => base_url ('admin', 'pictures'), 'class' => 'pictures', 'method' => '', 'target' => '_self'),
       ),
+    '影片系統' => array (
+        '影片標籤' => array ('icon' => 'icon-tags', 'href' => base_url ('admin', 'youtube_tags'), 'class' => 'youtube_tags', 'method' => '', 'target' => '_self'),
+        '影片管理' => array ('icon' => 'icon-youtube', 'href' => base_url ('admin', 'youtubes'), 'class' => 'youtubes', 'method' => '', 'target' => '_self'),
+      ),
     '文章系統' => array (
         '陣頭上搞' => array ('icon' => 'icon-file-text2', 'href' => base_url ('admin', 'dintaos'), 'class' => 'dintaos', 'method' => '', 'target' => '_self'),
         '美食上搞' => array ('icon' => 'icon-spoon-knife', 'href' => base_url ('admin'), 'class' => '', 'method' => '', 'target' => '_self'),
@@ -38,6 +42,10 @@ $menu['site'] = array (
         '所有照片' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', 'all'), 'class' => 'pictures', 'method' => 'all', 'target' => '_self'),
         '三月十九' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', '2015三月十九'), 'class' => 'pictures', 'method' => '2015三月十九', 'target' => '_self'),
         '笨港舊照片' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', '北港舊照片'), 'class' => 'pictures', 'method' => '北港舊照片', 'target' => '_self'),
+      ),
+    '影音欣賞' => array (
+        '所有影片' => array ('icon' => 'icon-github', 'href' => base_url ('youtubes', 'all'), 'class' => 'youtubes', 'method' => 'all', 'target' => '_self'),
+        '記錄北港' => array ('icon' => 'icon-github', 'href' => base_url ('youtubes', '紀錄片'), 'class' => 'youtubes', 'method' => '紀錄片', 'target' => '_self'),
       ),
     '百年藝陣' => array (
         '所有陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '所有陣頭'), 'class' => 'dintaos', 'method' => '所有陣頭', 'target' => '_self'),

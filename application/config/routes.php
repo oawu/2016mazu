@@ -45,6 +45,8 @@ Route::root ('main');
 // $route['admin'] = "admin/main";
 Route::get ('admin', 'admin/main@index');
 
+// ================================================================================================
+
 Route::get ('admin/dintaos/(:num)/', 'admin/dintaos@index($1, 0)');
 Route::get ('admin/dintaos/(:num)/(:num)', 'admin/dintaos@index($1, $2)');
 Route::get ('admin/dintaos/(:num)/edit', 'admin/dintaos@edit($1)');
@@ -60,6 +62,8 @@ foreach (array (-1 => '所有陣頭', 1 => '駕前陣頭', 2 => '地方陣頭', 
   Route::get ('dintaos/' . $text . '/(:num)/(:any)', 'dintaos@index(' . $text . ', ' . $key . ', $1, $2)');
   Route::get ('dintaos/' . $text . '/(:any)', 'dintaos@index(' . $text . ', ' . $key . ', 0, $1)');
 }
+
+// ================================================================================================
 
 Route::get ('admin/picture_tags/(:num)/', 'admin/picture_tags@index($1)');
 Route::get ('admin/picture_tags/(:num)/edit', 'admin/picture_tags@edit($1)');
@@ -93,6 +97,28 @@ Route::get ('pictures/北港舊照片/', 'pictures@index(北港舊照片, 0)');
 Route::get ('pictures/北港舊照片/(:num)', 'pictures@index(北港舊照片, $1)');
 Route::get ('pictures/2015三月十九/', 'pictures@index(2015三月十九, 0)');
 Route::get ('pictures/2015三月十九/(:num)', 'pictures@index(2015三月十九, $1)');
+
+// ================================================================================================
+
+Route::get ('admin/youtube_tags/(:num)/', 'admin/youtube_tags@index($1)');
+Route::get ('admin/youtube_tags/(:num)/edit', 'admin/youtube_tags@edit($1)');
+Route::post ('admin/youtube_tags/(:num)/update', 'admin/youtube_tags@update($1)');
+Route::delete ('admin/youtube_tags/(:num)/destroy', 'admin/youtube_tags@destroy($1)');
+Route::get ('admin/youtube_tags/(:num)/youtubes/', 'admin/youtube_tags@youtubes($1)');
+Route::get ('admin/youtube_tags/(:num)/youtubes/(:num)', 'admin/youtube_tags@youtubes($1, $2)');
+Route::get ('admin/youtube_tags/(:num)/youtubes/add', 'admin/youtube_tags@add_youtubes($1)');
+Route::post ('admin/youtube_tags/(:num)/youtubes/create', 'admin/youtube_tags@create_youtubes($1)');
+Route::get ('admin/youtube_tags/(:num)/youtubes/(:num)/edit', 'admin/youtube_tags@edit_youtubes($1, $2)');
+Route::post ('admin/youtube_tags/(:num)/youtubes/(:num)/update', 'admin/youtube_tags@update_youtubes($1, $2)');
+Route::delete ('admin/youtube_tags/(:num)/youtubes/(:num)/destroy', 'admin/youtube_tags@destroy_youtubes($1, $2)');
+Route::post ('admin/youtube_tags/(:num)/youtubes/sort', 'admin/youtube_tags@sort_youtubes($1)');
+
+Route::get ('admin/youtubes/(:num)/', 'admin/youtubes@index($1)');
+Route::get ('admin/youtubes/(:num)/edit', 'admin/youtubes@edit($1)');
+Route::post ('admin/youtubes/(:num)/update', 'admin/youtubes@update($1)');
+Route::delete ('admin/youtubes/(:num)/destroy', 'admin/youtubes@destroy($1)');
+
+// ================================================================================================
 
 
 Route::get ('admin/login', 'admin_login/main@login');
