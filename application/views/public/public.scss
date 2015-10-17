@@ -71,6 +71,9 @@ html {
 }
 
 
+.icon-play:before {
+  content: "\e800";
+}
 .icon-share2:before {
   content: "\e633";
 }
@@ -83,17 +86,26 @@ html {
 .icon-spoon-knife:before {
   content: "\e629";
 }
+.icon-eye:before {
+  content: "\e803";
+}
 .icon-eye-blocked:before {
   content: "\e62a";
 }
 .icon-map2:before {
   content: "\e631";
 }
+.icon-tags:before {
+  content: "\e801";
+}
 .icon-clipboard:before {
   content: "\e62c";
 }
 .icon-paperplane:before {
   content: "\e62f";
+}
+.icon-arrow-right2:before {
+  content: "\e804";
 }
 .icon-arrow-left:before {
   content: "\e634";
@@ -241,6 +253,9 @@ html {
 }
 .icon-help:before {
   content: "\e62b";
+}
+.icon-youtube:before {
+  content: "\e802";
 }
 .icon-location:before {
   content: "\e630";
