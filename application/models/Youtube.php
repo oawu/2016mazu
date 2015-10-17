@@ -21,11 +21,41 @@ class Youtube extends OaModel {
   static $belongs_to = array (
   );
 
+  private $youtube_image_urls = null;
+  private $youtube_image_url = null;
+
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
 
     OrmImageUploader::bind ('cover', 'YoutubeCoverImageUploader');
   }
+
+  public function bigger_youtube_image_urls () {
+    if ($this->youtube_image_url !== null)
+      return $this->youtube_image_url;
+
+    if (!($youtube_image_urls = $this->youtube_image_urls ()))
+      return $this->youtube_image_url = '';
+
+    usort ($youtube_image_urls, function ($a, $b) {
+      return $a['width'] * $a['height'] < $b['width'] * $b['height'];
+    });
+
+    $image_url = array_shift ($youtube_image_urls);
+
+    return $this->youtube_image_url = $image_url['url'];
+  }
+  public function youtube_image_urls () {
+    if ($this->youtube_image_urls !== null)
+      return $this->youtube_image_urls;
+
+    $data = file_get_contents ('https://www.googleapis.com/youtube/v3/videos?id=' . $this->vid . '&key=' . Cfg::setting ('google', ENVIRONMENT, 'server_key') . '&part=snippet');
+    $json = json_decode ($data, true);
+    return $this->youtube_image_urls = array_filter (isset ($json['items'][0]['snippet']['thumbnails']) ? $json['items'][0]['snippet']['thumbnails'] : array (), function ($image) {
+      return isset ($image['url']) && isset ($image['width']) && isset ($image['height']);
+    });
+  }
+
   public function mini_keywords ($length = 50) {
     return mb_strimwidth ($this->keywords, 0, $length, '…','UTF-8');
   }
