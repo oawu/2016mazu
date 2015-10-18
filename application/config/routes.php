@@ -118,6 +118,19 @@ Route::get ('admin/youtubes/(:num)/edit', 'admin/youtubes@edit($1)');
 Route::post ('admin/youtubes/(:num)/update', 'admin/youtubes@update($1)');
 Route::delete ('admin/youtubes/(:num)/destroy', 'admin/youtubes@destroy($1)');
 
+Route::get ('youtube/(:num)', 'youtubes@content(all, $1)');
+Route::get ('youtube/(:num)-(:any)', 'youtubes@content(all, $1)');
+Route::get ('youtube/(:any)/(:num)', 'youtubes@content($1, $2)');
+Route::get ('youtube/(:any)/(:num)-(:any)', 'youtubes@content($1, $2)');
+
+Route::get ('youtubes/all/', 'youtubes@all(0)');
+Route::get ('youtubes/all/(:num)', 'youtubes@all($1)');
+Route::get ('youtubes/all/(:num)/(:any)', 'youtubes@all($1, $2)');
+Route::get ('youtubes/all/(:any)', 'youtubes@all(0, $1)');
+
+Route::get ('youtubes/紀錄片/', 'youtubes@index(紀錄片, 0)');
+Route::get ('youtubes/紀錄片/(:num)', 'youtubes@index(紀錄片, $1)');
+
 // ================================================================================================
 
 

@@ -45,7 +45,7 @@ class Ajax extends Site_controller {
   }
 
   public function pv () {
-    if (!(($id = OAInput::post ('id')) && ($class = OAInput::post ('class')) && class_exists ($class) && in_array ($class, array ('Dintao', 'Picture'))))
+    if (!(($id = OAInput::post ('id')) && ($class = OAInput::post ('class')) && class_exists ($class) && in_array ($class, array ('Dintao', 'Picture', 'Youtube'))))
       return show_404 ();
 
     if (!($obj = $class::find_by_id ($id, array ('select' => 'id, pv'))))
