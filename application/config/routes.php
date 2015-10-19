@@ -53,15 +53,21 @@ Route::get ('admin/dintaos/(:num)/edit', 'admin/dintaos@edit($1)');
 Route::post ('admin/dintaos/(:num)/update', 'admin/dintaos@update($1)');
 Route::delete ('admin/dintaos/(:num)/destroy', 'admin/dintaos@destroy($1)');
 
-Route::get ('dintao/(:num)', 'dintaos@content($1)');
-Route::get ('dintao/(:num)-(:any)', 'dintaos@content($1)');
+Route::get ('dintao/(:num)', 'dintaos@content(all, $1)');
+Route::get ('dintao/(:num)-(:any)', 'dintaos@content(all, $1)');
+Route::get ('dintao/(:any)/(:num)', 'dintaos@content($1, $2)');
+Route::get ('dintao/(:any)/(:num)-(:any)', 'dintaos@content($1, $2)');
 
-foreach (array (-1 => '所有陣頭', 1 => '駕前陣頭', 2 => '地方陣頭', 3 => '其他介紹') as $key => $text) {
+foreach (array ( -1 => '所有陣頭', 1 => '駕前陣頭', 2 => '地方陣頭', 3 => '其他介紹') as $key => $text) {
   Route::get ('dintaos/' . $text . '', 'dintaos@index(' . $text . ', ' . $key . ', 0)');
   Route::get ('dintaos/' . $text . '/(:num)', 'dintaos@index(' . $text . ', ' . $key . ', $1)');
   Route::get ('dintaos/' . $text . '/(:num)/(:any)', 'dintaos@index(' . $text . ', ' . $key . ', $1, $2)');
   Route::get ('dintaos/' . $text . '/(:any)', 'dintaos@index(' . $text . ', ' . $key . ', 0, $1)');
 }
+Route::get ('dintaos/', 'dintaos@index(所有陣頭, -1, 0)');
+Route::get ('dintaos/(:num)', 'dintaos@index(所有陣頭, -1, $1)');
+Route::get ('dintaos/(:num)/(:any)', 'dintaos@index(所有陣頭, -1, $1, $2)');
+Route::get ('dintaos/(:any)', 'dintaos@index(所有陣頭, -1, 0, $1)');
 
 // ================================================================================================
 
@@ -88,6 +94,7 @@ Route::get ('picture/(:num)-(:any)', 'pictures@content(all, $1)');
 Route::get ('picture/(:any)/(:num)', 'pictures@content($1, $2)');
 Route::get ('picture/(:any)/(:num)-(:any)', 'pictures@content($1, $2)');
 
+Route::get ('pictures/', 'pictures@all(0)');
 Route::get ('pictures/all/', 'pictures@all(0)');
 Route::get ('pictures/all/(:num)', 'pictures@all($1)');
 Route::get ('pictures/all/(:num)/(:any)', 'pictures@all($1, $2)');
@@ -123,6 +130,7 @@ Route::get ('youtube/(:num)-(:any)', 'youtubes@content(all, $1)');
 Route::get ('youtube/(:any)/(:num)', 'youtubes@content($1, $2)');
 Route::get ('youtube/(:any)/(:num)-(:any)', 'youtubes@content($1, $2)');
 
+Route::get ('youtubes/', 'youtubes@all(0)');
 Route::get ('youtubes/all/', 'youtubes@all(0)');
 Route::get ('youtubes/all/(:num)', 'youtubes@all($1)');
 Route::get ('youtubes/all/(:num)/(:any)', 'youtubes@all($1, $2)');
