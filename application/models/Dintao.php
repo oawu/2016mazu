@@ -33,6 +33,9 @@ class Dintao extends OaModel {
       self::TYPE_OTHER => 'other',
     );
 
+  private $next = '';
+  private $prev = '';
+
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
 
@@ -124,5 +127,31 @@ class Dintao extends OaModel {
   }
   public function keywords () {
     return preg_split ("/\s+/", $this->keywords);
+  }
+  public function next ($is_all = true) {
+    if ($this->next !== '') return $this->next;
+    
+    if ($is_all) {
+      if (!($next = Dintao::find ('one', array ('order' => 'id DESC', 'conditions' => array ('id != ? AND id <= ?', $this->id, $this->id)))))
+        $next = Dintao::find ('one', array ('order' => 'id DESC', 'conditions' => array ('id != ?', $this->id)));
+    } else {
+      if (!($next = Dintao::find ('one', array ('order' => 'sort DESC', 'conditions' => array ('id != ? AND sort <= ? AND type = ?', $this->id, $this->sort, $this->type)))))
+        $next = Dintao::find ('one', array ('order' => 'sort DESC', 'conditions' => array ('id != ? AND type = ?', $this->id, $this->type)));
+    }
+
+    return $this->next = $next;
+  }
+  public function prev ($is_all = true) {
+    if ($this->prev !== '') return $this->prev;
+
+    if ($is_all) {
+      if (!($prev = Dintao::find ('one', array ('order' => 'id ASC', 'conditions' => array ('id != ? AND id >= ?', $this->id, $this->id)))))
+        $prev = Dintao::find ('one', array ('order' => 'id ASC', 'conditions' => array ('id != ?', $this->id)));
+    } else {
+      if (!($prev = Dintao::find ('one', array ('order' => 'sort ASC', 'conditions' => array ('id != ? AND sort >= ? AND type = ?', $this->id, $this->sort, $this->type)))))
+        $prev = Dintao::find ('one', array ('order' => 'sort ASC', 'conditions' => array ('id != ? AND type = ?', $this->id, $this->type)));
+    }
+
+    return $this->prev = $prev;
   }
 }

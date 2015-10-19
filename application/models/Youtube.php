@@ -24,6 +24,9 @@ class Youtube extends OaModel {
   private $youtube_image_urls = null;
   private $youtube_image_url = null;
 
+  private $next = '';
+  private $prev = '';
+
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
 
@@ -147,5 +150,43 @@ class Youtube extends OaModel {
           return false;
 
     return $this->cover->cleanAllFiles () && $this->delete ();
+  }
+  public function next ($tag_name = '') {
+    if ($this->next !== '') return $this->next;
+    
+    if (!$tag_name) {
+      if (!($next = Youtube::find ('one', array ('order' => 'id DESC', 'conditions' => array ('id != ? AND id <= ?', $this->id, $this->id)))))
+        $next = Youtube::find ('one', array ('order' => 'id DESC', 'conditions' => array ('id != ?', $this->id)));
+    } else {
+      if (!(($tag = YoutubeTag::find_by_name ($tag_name, array ('select' => 'id'))) && ($mapping = YoutubeTagMapping::find ('one', array ('conditions' => array ('youtube_id = ? AND youtube_tag_id = ?', $this->id, $tag->id))))))
+        return $this->next = null;
+
+      if (!($next = YoutubeTagMapping::find ('one', array ('order' => 'sort DESC', 'conditions' => array ('youtube_id != ? AND sort <= ? AND youtube_tag_id = ?', $mapping->youtube_id, $mapping->sort, $mapping->youtube_tag_id)))))
+        $next = YoutubeTagMapping::find ('one', array ('order' => 'sort DESC', 'conditions' => array ('youtube_id != ? AND youtube_tag_id = ?', $mapping->youtube_id, $mapping->youtube_tag_id)));
+      
+      if (!($next && ($next = Youtube::find ('one', array ('conditions' => array ('id = ?', $next->youtube_id))))))
+        return $this->next = null;
+    }
+
+    return $this->next = $next;
+  }
+  public function prev ($tag_name = '') {
+    if ($this->prev !== '') return $this->prev;
+
+    if (!$tag_name) {
+      if (!($prev = Youtube::find ('one', array ('order' => 'id ASC', 'conditions' => array ('id != ? AND id >= ?', $this->id, $this->id)))))
+        $prev = Youtube::find ('one', array ('order' => 'id ASC', 'conditions' => array ('id != ?', $this->id)));
+    } else {
+      if (!(($tag = YoutubeTag::find_by_name ($tag_name, array ('select' => 'id'))) && ($mapping = YoutubeTagMapping::find ('one', array ('conditions' => array ('youtube_id = ? AND youtube_tag_id = ?', $this->id, $tag->id))))))
+        return $this->prev = null;
+
+      if (!($prev = YoutubeTagMapping::find ('one', array ('order' => 'sort ASC', 'conditions' => array ('youtube_id != ? AND sort >= ? AND youtube_tag_id = ?', $mapping->youtube_id, $mapping->sort, $mapping->youtube_tag_id)))))
+        $prev = YoutubeTagMapping::find ('one', array ('order' => 'sort ASC', 'conditions' => array ('youtube_id != ? AND youtube_tag_id = ?', $mapping->youtube_id, $mapping->youtube_tag_id)));
+
+      if (!($prev && ($prev = Youtube::find ('one', array ('conditions' => array ('id = ?', $prev->youtube_id))))))
+        return $this->prev = null;
+    }
+
+    return $this->prev = $prev;
   }
 }
