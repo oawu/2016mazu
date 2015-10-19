@@ -23,6 +23,7 @@ class Youtube extends OaModel {
 
   private $youtube_image_urls = null;
   private $youtube_image_url = null;
+  private $youtube_info = null;
 
   private $next = '';
   private $prev = '';
@@ -33,12 +34,89 @@ class Youtube extends OaModel {
     OrmImageUploader::bind ('cover', 'YoutubeCoverImageUploader');
   }
 
+  public static function google_SearchResultSnippet_format ($item) {
+    $sizes = array ('getDefault', 'getHigh', 'getMaxres', 'getMedium', 'getStandard');
+    $id = is_a ($item, 'Google_Service_YouTube_SearchResult') ? $item->id->videoId : (is_a ($item, 'Google_Service_YouTube_Video') ? $item->id : '');
+
+    return $id && isset ($item->snippet) ? array (
+          'id' => $id,
+          'description' => isset ($item->snippet->description) ? $item->snippet->description : '',
+          'title' => isset ($item->snippet->title) ? $item->snippet->title : '',
+          'tags' => isset ($item->snippet->tags) ? $item->snippet->tags : array (),
+          'publishedAt' => isset ($item->snippet->publishedAt) ? $item->snippet->publishedAt : '',
+          'thumbnails' => isset ($item->snippet->thumbnails) ? array_filter (array_map (function ($size) use ($item) {
+              if (!method_exists ($item->snippet->thumbnails, $size))
+                return null;
+      
+              $thumbnail = call_user_func_array (array ($item->snippet->thumbnails, $size), array ());
+      
+              if (!isset ($thumbnail->url))
+                return null;
+
+              return array_merge (array ('url' => $thumbnail->url), isset ($thumbnail->width) && isset ($thumbnail->height) ? array (
+                    'width' => $thumbnail->width,
+                    'height' => $thumbnail->height
+                  ) : array ());
+            }, $sizes)) : array (),
+        ) : array ();
+  }
+  public static function search_youtube ($options = array ()) {
+    $CI  =& get_instance ();
+    $CI->load->library ('Google');
+    $client = new Google_Client ();
+    $client->setDeveloperKey (Cfg::setting ('google', ENVIRONMENT, 'server_key'));
+    $youtube = new Google_Service_YouTube ($client);
+
+    try {
+      return array_map (function ($item) {
+        return Youtube::google_SearchResultSnippet_format ($item);
+      }, $youtube->search->listSearch ('id, snippet', array_merge (array (
+                      'type' => 'video'
+                    ), $options))->items);
+    } catch (Exception $e) {
+      return array ();
+    }
+  }
+  public function youtube_info () {
+    if ($this->youtube_info !== null) return $this->youtube_info;
+
+    $this->CI->load->library ('Google');
+    $client = new Google_Client ();
+    $client->setDeveloperKey (Cfg::setting ('google', ENVIRONMENT, 'server_key'));
+    $youtube = new Google_Service_YouTube ($client);
+
+    try {
+      $searchResponse = $youtube->videos->listVideos ('id, snippet',
+            array ('id' => $this->vid
+          ));
+
+      if (!isset ($searchResponse->items[0]))
+        return $this->youtube_info = array ();
+      
+      return $this->youtube_info = Youtube::google_SearchResultSnippet_format ($searchResponse->items[0]);
+    } catch (Exception $e) {
+      return $this->youtube_info = array ();
+    }
+  }
+  public function youtube_image_urls () {
+    if ($this->youtube_image_urls !== null)
+      return $this->youtube_image_urls;
+
+    $youtube_info = $this->youtube_info ();
+    return $this->youtube_image_urls = isset ($youtube_info['thumbnails']) && ($thumbnails = $youtube_info['thumbnails']) ? $youtube_info['thumbnails'] : array ();
+  }
+
   public function bigger_youtube_image_urls () {
     if ($this->youtube_image_url !== null)
       return $this->youtube_image_url;
 
     if (!($youtube_image_urls = $this->youtube_image_urls ()))
       return $this->youtube_image_url = '';
+    else
+      $this->youtube_image_url = $youtube_image_urls[0]['url'];
+
+    if (!($youtube_image_urls = array_filter ($youtube_image_urls, function ($image) { return isset ($image['width']) && isset ($image['height']); })))
+      return $this->youtube_image_url;
 
     usort ($youtube_image_urls, function ($a, $b) {
       return $a['width'] * $a['height'] < $b['width'] * $b['height'];
@@ -47,16 +125,6 @@ class Youtube extends OaModel {
     $image_url = array_shift ($youtube_image_urls);
 
     return $this->youtube_image_url = $image_url['url'];
-  }
-  public function youtube_image_urls () {
-    if ($this->youtube_image_urls !== null)
-      return $this->youtube_image_urls;
-
-    $data = file_get_contents ('https://www.googleapis.com/youtube/v3/videos?id=' . $this->vid . '&key=' . Cfg::setting ('google', ENVIRONMENT, 'server_key') . '&part=snippet');
-    $json = json_decode ($data, true);
-    return $this->youtube_image_urls = array_filter (isset ($json['items'][0]['snippet']['thumbnails']) ? $json['items'][0]['snippet']['thumbnails'] : array (), function ($image) {
-      return isset ($image['url']) && isset ($image['width']) && isset ($image['height']);
-    });
   }
 
   public function mini_keywords ($length = 50) {
