@@ -35,7 +35,7 @@ class Dintaos extends Site_controller {
         'conditions' => $conditions
       ));
 
-    return $this->set_subtitle ($index > 0 ? Dintao::$types[$index] : ($keyword ? '<span class="icon-search"></span>' . $keyword : '所有照片'))
+    return $this->set_subtitle ($index > 0 ? Dintao::$types[$index] : ($keyword ? '<span class="icon-search"></span>' . $keyword : '所有陣頭'))
                 ->load_view (array (
                     'method' => $method,
                     'dintaos' => $dintaos,
@@ -43,20 +43,15 @@ class Dintaos extends Site_controller {
                   ));
   }
 
-  public function content ($id = 0) {
+  public function content ($method = '所有陣頭', $id = 0) {
     if (!($id && ($dintao = Dintao::find_by_id ($id))))
-      return redirect_message (array ('dintaos', 'official'), array (
+      return redirect_message (array ('dintaos'), array (
           '_flash_message' => '無此文章！'
         ));
     
-    if (!($next = Dintao::find ('one', array ('order' => 'sort DESC', 'conditions' => array ('id != ? AND sort <= ? AND type = ?', $dintao->id, $dintao->sort, $dintao->type)))))
-      $next = Dintao::find ('one', array ('order' => 'sort DESC', 'conditions' => array ('id != ? AND type = ?', $dintao->id, $dintao->type)));
-    
-    if (!($prev = Dintao::find ('one', array ('order' => 'sort ASC', 'conditions' => array ('id != ? AND sort >= ? AND type = ?', $dintao->id, $dintao->sort, $dintao->type)))))
-      $prev = Dintao::find ('one', array ('order' => 'sort ASC', 'conditions' => array ('id != ? AND type = ?', $dintao->id, $dintao->type)));
+    $next = $dintao->next ($method == '所有陣頭');
+    $prev = $dintao->prev ($method == '所有陣頭');
 
-    $method = $dintao->type != Dintao::TYPE_OTHER ? $dintao->type != Dintao::TYPE_LOCAL ? 'official' : 'local' : 'other';
-    
     if (!preg_match ('/^data:/', $og_img = $dintao->cover->url ('1200x630c')))
       $this->add_meta (array ('property' => 'og:image', 'content' => $og_img, 'alt' => $dintao->title . ' - ' . Cfg::setting ('site', 'main', 'title')))
            ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/' . pathinfo ($og_img, PATHINFO_EXTENSION)))

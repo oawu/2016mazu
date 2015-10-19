@@ -9,9 +9,12 @@ class Youtubes extends Site_controller {
 
   public function content ($method = 'all', $id = 0) {
     if (!($id && ($youtube = Youtube::find_by_id ($id))))
-      return redirect_message (array (''), array (
+      return redirect_message (array ('youtubes'), array (
           '_flash_message' => '無此照片！'
         ));
+
+    $next = $youtube->next ($method == 'all' ? '' : $method);
+    $prev = $youtube->prev ($method == 'all' ? '' : $method);
 
     if (!preg_match ('/^data:/', $og_img = $youtube->cover->url ('1200x630c')))
       $this->add_meta (array ('property' => 'og:image', 'content' => $og_img, 'alt' => $youtube->title . ' - ' . Cfg::setting ('site', 'main', 'title')))
@@ -29,7 +32,9 @@ class Youtubes extends Site_controller {
                 ->add_hidden (array ('id' => 'id', 'value' => $youtube->id))
                 ->load_view (array (
                     'method' => $method,
-                    'youtube' => $youtube
+                    'youtube' => $youtube,
+                    'next' => $next,
+                    'prev' => $prev
                   ), false);
   }
   public function all ($offset = 0, $keyword = '') {
@@ -63,7 +68,7 @@ class Youtubes extends Site_controller {
                   ));
   }
   public function index ($method = '', $offset = 0) {
-    if (!($tag = YoutubeTag::find_by_name ($method, array ('select' => 'id'))))
+    if (!($tag = YoutubeTag::find_by_name ($method = urldecode ($method), array ('select' => 'id'))))
       return $this->set_subtitle ($method)
                   ->load_view (array (
                       'has_photoswipe' => false,
@@ -90,7 +95,7 @@ class Youtubes extends Site_controller {
       'order' => 'sort DESC',
       'conditions' => $conditions)), 'youtube_id');
 
-    $youtubes = $youtube_ids ? Youtube::find ('all', array ('conditions' => array ('id IN (?)', $youtube_ids))) : array ();
+    $youtubes = $youtube_ids ? Youtube::find ('all', array ('order' => 'FIELD(id, ' . implode (', ', $youtube_ids) . ')', 'conditions' => array ('id IN (?)', $youtube_ids))) : array ();
 
     return $this
                 ->set_subtitle ($method)

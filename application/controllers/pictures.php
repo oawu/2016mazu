@@ -9,9 +9,12 @@ class Pictures extends Site_controller {
 
   public function content ($method = 'all', $id = 0) {
     if (!($id && ($picture = Picture::find_by_id ($id))))
-      return redirect_message (array (''), array (
+      return redirect_message (array ('pictures'), array (
           '_flash_message' => '無此照片！'
         ));
+
+    $next = $picture->next ($method == 'all' ? '' : $method);
+    $prev = $picture->prev ($method == 'all' ? '' : $method);
 
     if (!preg_match ('/^data:/', $og_img = $picture->name->url ('1200x630c')))
       $this->add_meta (array ('property' => 'og:image', 'content' => $og_img, 'alt' => $picture->title . ' - ' . Cfg::setting ('site', 'main', 'title')))
@@ -29,7 +32,9 @@ class Pictures extends Site_controller {
                 ->add_hidden (array ('id' => 'id', 'value' => $picture->id))
                 ->load_view (array (
                     'method' => $method,
-                    'picture' => $picture
+                    'picture' => $picture,
+                    'next' => $next,
+                    'prev' => $prev,
                   ), false);
   }
   public function all ($offset = 0, $keyword = '') {
@@ -67,7 +72,7 @@ class Pictures extends Site_controller {
                   ));
   }
   public function index ($method = '', $offset = 0) {
-    if (!($tag = PictureTag::find_by_name ($method, array ('select' => 'id'))))
+    if (!($tag = PictureTag::find_by_name ($method = urldecode ($method), array ('select' => 'id'))))
       return $this->set_subtitle ($method)
                   ->load_view (array (
                       'has_photoswipe' => false,
@@ -94,8 +99,7 @@ class Pictures extends Site_controller {
       'order' => 'sort DESC',
       'conditions' => $conditions)), 'picture_id');
 
-    $pictures = $picture_ids ? Picture::find ('all', array ('conditions' => array ('id IN (?)', $picture_ids))) : array ();
-
+    $pictures = $picture_ids ? Picture::find ('all', array ('order' => 'FIELD(id, ' . implode (', ', $picture_ids) . ')', 'conditions' => array ('id IN (?)', $picture_ids))) : array ();
 
     return $this
                 ->add_css (base_url ('resource', 'css', 'photoswipe_v4.1.0', 'photoswipe.css'))
