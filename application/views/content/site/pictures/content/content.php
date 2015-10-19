@@ -28,3 +28,15 @@
     </div>
 <?php
   }
+
+  if ($next && $prev) { ?>
+    <div class='np'>
+<?php if ($prev) { ?>
+        <a href='<?php echo base_url ('picture', $method, $prev->id . '-' . rawurlencode ($prev->title));?>'><?php echo $prev->title;?></a>
+<?php }
+      if ($next) { ?>
+        <a href='<?php echo base_url ('picture', $method, $next->id . '-' . rawurlencode ($next->title));?>'><?php echo $next->title;?></a>
+<?php } ?>
+    </div>
+<?php 
+  }
