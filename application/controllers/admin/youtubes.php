@@ -95,7 +95,7 @@ class Youtubes extends Admin_controller {
                                 ))))
             return false;
 
-      delay_job ('youtubes', 'update_color_dimension', array ('id' => $youtube->id));
+      delay_job ('youtubes', 'update_cover_color', array ('id' => $youtube->id));
       return true;
     });
 
@@ -189,7 +189,7 @@ class Youtubes extends Admin_controller {
         return false;
 
       if ($is_update)
-        delay_job ('youtubes', 'update_color_dimension', array ('id' => $youtube->id));
+        delay_job ('youtubes', 'update_cover_color', array ('id' => $youtube->id));
       return true;
     });
 
