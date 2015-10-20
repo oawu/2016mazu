@@ -20,6 +20,21 @@ class Demo extends Site_controller {
     }
   }
 
+  public function all () {
+    $this->load->library ('migration');
+    $a = $this->config->load('migration', TRUE);;
+    $m = new CI_Migration ($this->config->item('migration'));
+    $m->version (2);
+    $m = new CI_Migration ($this->config->item('migration'));
+    $m->latest ();
+
+    echo "\nPicture Start!\n\n";
+    $this->picture ();
+    echo "\nYoutube Start!\n\n";
+    $this->youtube ();
+    echo "\nDintao Start!\n\n";
+    $this->dintao ();
+  }
   public function picture () {
     $this->load->library ('CreateDemo');
 
@@ -168,8 +183,8 @@ class Demo extends Site_controller {
                 ))));
 
           delay_job ('youtubes', 'update_cover_color', array ('id' => $youtube->id));
-          return true;
           echo " OK\n";
+          return true;
         });
   }
 
