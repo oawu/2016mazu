@@ -51,7 +51,7 @@ $menu['site'] = array (
         '記錄北港' => array ('icon' => 'icon-github', 'href' => base_url ('youtubes', '紀錄片'), 'class' => 'youtubes', 'method' => '紀錄片', 'target' => '_self'),
       ),
     '百年藝陣' => array (
-        '所有陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '所有陣頭'), 'class' => 'dintaos', 'method' => '所有陣頭', 'target' => '_self'),
+        '所有陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'all'), 'class' => 'dintaos', 'method' => 'all', 'target' => '_self'),
         '駕前陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '駕前陣頭'), 'class' => 'dintaos', 'method' => '駕前陣頭', 'target' => '_self'),
         '地方陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '地方陣頭'), 'class' => 'dintaos', 'method' => '地方陣頭', 'target' => '_self'),
         '其他介紹' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '其他介紹'), 'class' => 'dintaos', 'method' => '其他介紹', 'target' => '_self'),
