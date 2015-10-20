@@ -5,6 +5,11 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
+if (!function_exists ('oa_url_encode')) {
+  function oa_url_encode ($str) {
+    return rawurlencode (preg_replace ('/[\/%]/', ' ', $str));
+  }
+}
 if (!function_exists ('color_hex')) {
   function color_hex ($n) {
     if (!$n = intval ($n))

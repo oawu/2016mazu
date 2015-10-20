@@ -2,7 +2,7 @@
 <?php
   if ($youtubes) {
     foreach ($youtubes as $youtube) { ?>
-      <a href='<?php echo base_url ('youtube', $method, $youtube->id . '-' . rawurlencode ($youtube->title));?>'>
+      <a href='<?php echo base_url ('youtube', $method, $youtube->site_content_page_last_uri ());?>'>
         <figure>
           <img alt="<?php echo $youtube->title;?>" src="<?php echo $youtube->cover->url ('300w');?>" />
           <figcaption><?php echo $youtube->title;?></figcaption>

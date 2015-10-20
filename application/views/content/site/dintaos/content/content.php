@@ -27,10 +27,10 @@
   if ($next && $prev) { ?>
     <div class='np'>
 <?php if ($prev) { ?>
-        <a href='<?php echo base_url ('dintao', $method, $prev->id . '-' . rawurlencode ($prev->title));?>'><?php echo $prev->title;?></a>
+        <a href='<?php echo base_url ('dintao', $method, $prev->site_content_page_last_uri ());?>'><?php echo $prev->title;?></a>
 <?php }
       if ($next) { ?>
-        <a href='<?php echo base_url ('dintao', $method, $next->id . '-' . rawurlencode ($next->title));?>'><?php echo $next->title;?></a>
+        <a href='<?php echo base_url ('dintao', $method, $next->site_content_page_last_uri ());?>'><?php echo $next->title;?></a>
 <?php } ?>
     </div>
 <?php 

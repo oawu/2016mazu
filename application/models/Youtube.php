@@ -257,4 +257,7 @@ class Youtube extends OaModel {
 
     return $this->prev = $prev;
   }
+  public function site_content_page_last_uri () {
+    return $this->id . '-' . oa_url_encode ($this->title);
+  }
 }
