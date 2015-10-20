@@ -8,7 +8,7 @@
         </a>
         <div class='r'>
           <a href='<?php echo base_url ('dintao', $method, $dintao->site_content_page_last_uri ());?>'><h2><?php echo $dintao->title;?></h2></a>
-          <div><?php echo $dintao->mini_content (300);?></div>
+          <div><?php echo $dintao->mini_description (300);?></div>
           <div><?php echo implode ('.', $dintao->keywords ());?></div>
           <a href='<?php echo base_url ('dintao', $method, $dintao->site_content_page_last_uri ());?>'>更多內容..</a>
         </div>
