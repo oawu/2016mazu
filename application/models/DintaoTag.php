@@ -5,31 +5,26 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-class Dintao extends OaModel {
+class DintaoTag extends OaModel {
 
-  static $table_name = 'dintaos';
+  static $table_name = 'dintao_tags';
 
   static $has_one = array (
   );
 
   static $has_many = array (
     array ('mappings', 'class_name' => 'DintaoTagMapping', 'order' => 'sort DESC'),
-    array ('tags', 'class_name' => 'DintaoTag', 'through' => 'mappings'),
-    array ('sources', 'class_name' => 'DintaoSource', 'order' => 'sort ASC')
+    array ('dintaos', 'class_name' => 'Dintao', 'through' => 'mappings', 'order' => 'dintao_tag_mappings.sort DESC')
   );
 
   static $belongs_to = array (
   );
 
-  private $next = '';
-  private $prev = '';
-
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
 
-    OrmImageUploader::bind ('cover', 'DintaoCoverImageUploader');
+    OrmImageUploader::bind ('cover', 'DintaoTagCoverImageUploader');
   }
-
   public function mini_keywords ($length = 50) {
     return mb_strimwidth ($this->keywords, 0, $length, '…','UTF-8');
   }
@@ -48,11 +43,10 @@ class Dintao extends OaModel {
         return 'rgb(' . $this->cover_color_r . ', ' . $this->cover_color_r . ', ' . $this->cover_color_g . ')';
         break;
       case 'hex':
-        return '#' . cover_color_hex ($this->cover_color_r) . '' . cover_color_hex ($this->cover_color_r) . '' . cover_color_hex ($this->cover_color_g);
+        return '#' . color_hex ($this->cover_color_r) . '' . color_hex ($this->cover_color_r) . '' . color_hex ($this->cover_color_g);
         break;
     }
   }
-
   public function update_cover_color ($image_utility = null) {
     if (!(isset ($this->id) && isset ($this->cover) && isset ($this->cover_color_r) && isset ($this->cover_color_g) && isset ($this->cover_color_b)))
       return false;
@@ -79,7 +73,6 @@ class Dintao extends OaModel {
 
     if (!(($analysis_datas = $image_utility->resize (10, 10, 'w')->getAnalysisDatas (1)) && isset ($analysis_datas[0]['color']) && ($analysis_datas = $analysis_datas[0]['color']) && (isset ($analysis_datas['r']) && isset ($analysis_datas['g']) && isset ($analysis_datas['b']))))
       return false;
-
     $average = 128;
 
     $red = round ($analysis_datas['r'] / 10) * 10;
@@ -103,64 +96,12 @@ class Dintao extends OaModel {
 
     return $this->save ();
   }
-  public function mini_description ($length = 100) {
-    return $length ? mb_strimwidth (remove_ckedit_tag ($this->description), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->description);
-  }
-  public function keywords () {
-    return preg_split ("/\s+/", $this->keywords);
-  }
   public function destroy () {
     if ($this->mappings)
       foreach ($this->mappings as $mapping)
         if (!$mapping->destroy ())
           return false;
-    
-    if ($this->sources)
-      foreach ($this->sources as $source)
-        if (!$source->destroy ())
-          return false;
 
     return $this->cover->cleanAllFiles () && $this->delete ();
-  }
-  public function next ($tag_name = '') {
-    if ($this->next !== '') return $this->next;
-    
-    if (!$tag_name) {
-      if (!($next = Dintao::find ('one', array ('order' => 'id DESC', 'conditions' => array ('id != ? AND id <= ?', $this->id, $this->id)))))
-        $next = Dintao::find ('one', array ('order' => 'id DESC', 'conditions' => array ('id != ?', $this->id)));
-    } else {
-      if (!(($tag = DintaoTag::find_by_name ($tag_name, array ('select' => 'id'))) && ($mapping = DintaoTagMapping::find ('one', array ('conditions' => array ('dintao_id = ? AND dintao_tag_id = ?', $this->id, $tag->id))))))
-        return $this->next = null;
-
-      if (!($next = DintaoTagMapping::find ('one', array ('order' => 'sort DESC', 'conditions' => array ('dintao_id != ? AND sort <= ? AND dintao_tag_id = ?', $mapping->dintao_id, $mapping->sort, $mapping->dintao_tag_id)))))
-        $next = DintaoTagMapping::find ('one', array ('order' => 'sort DESC', 'conditions' => array ('dintao_id != ? AND dintao_tag_id = ?', $mapping->dintao_id, $mapping->dintao_tag_id)));
-      
-      if (!($next && ($next = Dintao::find ('one', array ('conditions' => array ('id = ?', $next->dintao_id))))))
-        return $this->next = null;
-    }
-
-    return $this->next = $next;
-  }
-  public function prev ($tag_name = '') {
-    if ($this->prev !== '') return $this->prev;
-
-    if (!$tag_name) {
-      if (!($prev = Dintao::find ('one', array ('order' => 'id ASC', 'conditions' => array ('id != ? AND id >= ?', $this->id, $this->id)))))
-        $prev = Dintao::find ('one', array ('order' => 'id ASC', 'conditions' => array ('id != ?', $this->id)));
-    } else {
-      if (!(($tag = DintaoTag::find_by_name ($tag_name, array ('select' => 'id'))) && ($mapping = DintaoTagMapping::find ('one', array ('conditions' => array ('dintao_id = ? AND dintao_tag_id = ?', $this->id, $tag->id))))))
-        return $this->prev = null;
-
-      if (!($prev = DintaoTagMapping::find ('one', array ('order' => 'sort ASC', 'conditions' => array ('dintao_id != ? AND sort >= ? AND dintao_tag_id = ?', $mapping->dintao_id, $mapping->sort, $mapping->dintao_tag_id)))))
-        $prev = DintaoTagMapping::find ('one', array ('order' => 'sort ASC', 'conditions' => array ('dintao_id != ? AND dintao_tag_id = ?', $mapping->dintao_id, $mapping->dintao_tag_id)));
-
-      if (!($prev && ($prev = Dintao::find ('one', array ('conditions' => array ('id = ?', $prev->dintao_id))))))
-        return $this->prev = null;
-    }
-
-    return $this->prev = $prev;
-  }
-  public function site_content_page_last_uri () {
-    return $this->id . '-' . oa_url_encode ($this->title);
   }
 }
