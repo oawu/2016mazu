@@ -28,7 +28,8 @@ class Migration_Add_youtubes extends CI_Migration {
 
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
-        PRIMARY KEY (`id`)
+        PRIMARY KEY (`id`),
+        FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
     );
   }

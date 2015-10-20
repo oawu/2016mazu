@@ -15,7 +15,7 @@ class Migration_Add_dintaos extends CI_Migration {
         `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
         `cover` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '封面',
         `keywords` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SEO 關鍵字',
-        `content` text  COMMENT '內容',
+        `description` text  COMMENT '描述',
         `pv` int(11) unsigned NOT NULL DEFAULT 0 COMMENT 'Page View',
 
         `cover_color_r` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT 'RGB Red',
@@ -25,8 +25,6 @@ class Migration_Add_dintaos extends CI_Migration {
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
         PRIMARY KEY (`id`),
-        KEY `type_index` (`type`),
-        KEY `user_id_index` (`user_id`),
         FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
     );
