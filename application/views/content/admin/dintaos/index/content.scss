@@ -5,7 +5,12 @@
 
 @import "_oa";
 
-.cover {
-  @include box-shadow(0 0 3px rgba(39, 40, 34, .2));
-  @include border-radius(2px);
+.tag {
+  display: inline-block;
+  width: 100%;
+
+  + .tag {
+    margin-top: 3px;
+    @include overflow-docx3();
+  }
 }

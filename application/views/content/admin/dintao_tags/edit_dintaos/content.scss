@@ -4,6 +4,10 @@
  */
 
 @import "_oa";
+.cover {
+  max-height: 100px;
+  display: block;
+}
 .k {
   @include split-right(30px, 'input:first-child', 'div');
   input:first-child {
@@ -21,13 +25,6 @@
     &:hover {
       color: rgba(97, 98, 95, 1);
     }
-  }
-}
-textarea.cke {
-  ~ [class*="cke"] {
-      &, &:after, &:before, *, *:after, *:before {
-          @include box-sizing(content-box);
-      }
   }
 }
 .ma, .m {
