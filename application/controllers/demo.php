@@ -14,6 +14,10 @@ class Demo extends Site_controller {
       echo '密碼錯誤！';
       exit ();
     }
+    if (!$this->input->is_cli_request ()) {
+      echo 'Request 錯誤！';
+      exit ();
+    }
   }
 
   public function picture () {
