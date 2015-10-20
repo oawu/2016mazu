@@ -172,39 +172,73 @@ class Demo extends Site_controller {
   public function dintao () {
     $this->load->library ('CreateDemo');
 
-    foreach ($pics = CreateDemo::pics (30, 50) as $i => $pic)
-      Dintao::transaction (function () use ($pic) {
-        if (!verifyCreateOrm ($dintao = Dintao::create (array (
-            'user_id' => 1,
-            'title' => $pic['title'],
+    foreach (array_merge (array (array ('title' => '駕前陣頭', 'url' => ''), array ('title' => '地方陣頭', 'url' => ''), array ('title' => '其他介紹', 'url' => '')), CreateDemo::pics (0, 10)) as $pic) 
+      DintaoTag::transaction (function () use ($pic) {
+        if (!verifyCreateOrm ($tag = DintaoTag::create (array (
+            'name' => $pic['title'],
             'cover' => '',
-            'keywords' => $pic['title'],
-            'content' => CreateDemo::text (200, 500),
-            'type' => $index = array_rand (array_keys (Dintao::$types)),
-            'sort' => Dintao::count (array ('conditions' => array ('type = ?', $index))),
-            'pv' => rand (0, 100),
+            'keywords' => CreateDemo::text (2, 5),
+            'sort' => DintaoTag::count (),
             'cover_color_r' => 0,
             'cover_color_g' => 0,
-            'cover_color_b' => 0,
+            'cover_color_b' => 0
           ))))
           return false;
+        
+        echo "Tag ID: " . $tag->id;
 
-        echo "ID: " . $dintao->id;
-
-        if (!$dintao->cover->put_url ($pic['url']))
+        if ($pic['url'] && !$tag->cover->put_url ($pic['url']))
           return false;
+        
+        if ($pic['url'])
+          delay_job ('dintao_tags', 'update_cover_color', array ('id' => $tag->id));
 
-        foreach (range (0, rand (0, 4)) as $key => $value)
-          if (!($source = DintaoSource::create (array (
-                                  'dintao_id' => $dintao->id,
-                                  'title' => CreateDemo::text (),
-                                  'href' => CreateDemo::password (20),
-                                ))))
-            return false;
-
-        delay_job ('dintaos', 'update_cover_color', array ('id' => $dintao->id));
         echo " OK\n";
         return true;
       });
+
+    echo " ---------------\n";
+
+    if ($tag_total = DintaoTag::count ())
+      foreach (CreateDemo::pics (20, 40) as $pic)
+        Dintao::transaction (function () use ($pic, $tag_total) {
+          if (!verifyCreateOrm ($dintao = Dintao::create (array (
+              'user_id' => 1,
+              'title' => $pic['title'],
+              'keywords' => CreateDemo::text (),
+              'description' => CreateDemo::text (200, 500),
+              'cover' => '',
+              'pv' => rand (0, 100),
+              'cover_color_r' => 0,
+              'cover_color_g' => 0,
+              'cover_color_b' => 0
+            ))))
+            return false;
+
+          echo "ID: " . $dintao->id;
+
+          if (!$dintao->cover->put_url ($pic['url']))
+            return false;
+
+          foreach (range (0, rand (0, 4)) as $key => $value)
+            if (!($source = DintaoSource::create (array (
+                                    'dintao_id' => $dintao->id,
+                                    'title' => CreateDemo::text (),
+                                    'href' => CreateDemo::password (20),
+                                  ))))
+              return false;
+
+          if ($tags = DintaoTag::find ('all', array ('order' => 'RAND()', 'offset' => 0, 'limit' => rand (1, $tag_total))))
+            foreach ($tags as $tag)
+              if (!verifyCreateOrm ($mapping = DintaoTagMapping::create (array (
+                  'dintao_id' => $dintao->id,
+                  'dintao_tag_id' => $tag->id,
+                  'sort' => DintaoTagMapping::count (array ('conditions' => array ('dintao_tag_id = ?', $tag->id)))
+                ))));
+
+          delay_job ('dintaos', 'update_cover_color', array ('id' => $dintao->id));
+          echo " OK\n";
+          return true;
+        });
   }
 }

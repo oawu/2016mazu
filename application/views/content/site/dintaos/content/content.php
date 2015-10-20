@@ -6,7 +6,7 @@
 </div>
 
 <article>
-  <?php echo $dintao->content;?>
+  <?php echo $dintao->description;?>
 </article>
 
 <?php

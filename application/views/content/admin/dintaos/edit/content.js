@@ -40,7 +40,7 @@ $(function () {
   }).click ();
 
   $('td.k .icon-search').click (function () {
-    var str = $('input[name="title"]').val () + $('textarea[name="content"]').text ();
+    var str = $('input[name="title"]').val () + $('textarea[name="description"]').val ();
     if (str.length) {
       window.showLoading ();
       scws (str, function (w) {
@@ -51,6 +51,10 @@ $(function () {
   });
   $('form').submit (function () {
     window.showLoading ();
+  });
+  $('textarea.cke').ckeditor ({
+    height: 400,
+    removeButtons: 'Subscript,Superscript,Save,NewPage,Print,Preview,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Find,Replace,SelectAll,Scayt,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Form,RemoveFormat,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,Flash,PageBreak,Iframe,About,Styles,Image'
   });
   window.hideLoading ();
 });

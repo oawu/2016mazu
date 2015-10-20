@@ -1,4 +1,4 @@
-<form action='<?php echo base_url (array ('admin', 'dintaos', $dintao->id, 'update'));?>' method='post' enctype='multipart/form-data'>
+<form action='<?php echo base_url (array ('admin', 'dintao_tags', $tag->id, 'dintaos', $dintao->id, 'update'));?>' method='post' enctype='multipart/form-data'>
   <table class='table-form'>
     <tbody>
 
@@ -26,18 +26,6 @@
         </td>
       </tr>
       
-<?php if ($tags = DintaoTag::all ()) { ?>
-        <tr>
-          <th>標 籤：</th>
-          <td>
-      <?php $tag_ids = column_array ($dintao->mappings, 'dintao_tag_id');
-            foreach ($tags as $tag) { ?>
-              <label><input type='checkbox' name='tag_ids[]' value='<?php echo $tag->id;?>'<?php echo $tag_ids && in_array ($tag->id, $tag_ids) ? ' checked' : '';?>/><div><?php echo $tag->name;?></div></label>
-      <?php } ?>
-          </td>
-        </tr>
-<?php }?>
-
       <tr>
         <th>描 述：</th>
         <td>
@@ -53,10 +41,10 @@
           </div>
         </td>
       </tr>
-
+      
       <tr>
         <td colspan='2'>
-          <a href='<?php echo base_url ('admin', 'dintaos');?>'>回列表</a>
+          <a href='<?php echo base_url ('admin', 'dintao_tags', $tag->id, 'dintao');?>'>回列表</a>
           <button type='reset' class='button'>重填</button>
           <button type='submit' class='button'>確定</button>
         </td>
