@@ -157,8 +157,10 @@ class CI_Migration {
 					return FALSE;
 				}
 
-				include $f[0];
 				$class = 'Migration_' . ucfirst($match[1]);
+
+				if (!class_exists ($class))
+					include $f[0];
 
 				if ( ! class_exists($class))
 				{
