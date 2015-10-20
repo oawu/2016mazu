@@ -65,27 +65,23 @@ Route::get ('admin/dintaos/(:num)/edit', 'admin/dintaos@edit($1)');
 Route::post ('admin/dintaos/(:num)/update', 'admin/dintaos@update($1)');
 Route::delete ('admin/dintaos/(:num)/destroy', 'admin/dintaos@destroy($1)');
 
-// Route::get ('admin/dintaos/(:num)/', 'admin/dintaos@index($1, 0)');
-// Route::get ('admin/dintaos/(:num)/(:num)', 'admin/dintaos@index($1, $2)');
-// Route::get ('admin/dintaos/(:num)/edit', 'admin/dintaos@edit($1)');
-// Route::post ('admin/dintaos/(:num)/update', 'admin/dintaos@update($1)');
-// Route::delete ('admin/dintaos/(:num)/destroy', 'admin/dintaos@destroy($1)');
+Route::get ('dintao/(:num)', 'dintaos@content(all, $1)');
+Route::get ('dintao/(:num)-(:any)', 'dintaos@content(all, $1)');
+Route::get ('dintao/(:any)/(:num)', 'dintaos@content($1, $2)');
+Route::get ('dintao/(:any)/(:num)-(:any)', 'dintaos@content($1, $2)');
 
-// Route::get ('dintao/(:num)', 'dintaos@content(all, $1)');
-// Route::get ('dintao/(:num)-(:any)', 'dintaos@content(all, $1)');
-// Route::get ('dintao/(:any)/(:num)', 'dintaos@content($1, $2)');
-// Route::get ('dintao/(:any)/(:num)-(:any)', 'dintaos@content($1, $2)');
+Route::get ('dintaos/', 'dintaos@all(0)');
+Route::get ('dintaos/all/', 'dintaos@all(0)');
+Route::get ('dintaos/all/(:num)', 'dintaos@all($1)');
+Route::get ('dintaos/all/(:num)/(:any)', 'dintaos@all($1, $2)');
+Route::get ('dintaos/all/(:any)', 'dintaos@all(0, $1)');
 
-// foreach (array ( -1 => '所有陣頭', 1 => '駕前陣頭', 2 => '地方陣頭', 3 => '其他介紹') as $key => $text) {
-//   Route::get ('dintaos/' . $text . '', 'dintaos@index(' . $text . ', ' . $key . ', 0)');
-//   Route::get ('dintaos/' . $text . '/(:num)', 'dintaos@index(' . $text . ', ' . $key . ', $1)');
-//   Route::get ('dintaos/' . $text . '/(:num)/(:any)', 'dintaos@index(' . $text . ', ' . $key . ', $1, $2)');
-//   Route::get ('dintaos/' . $text . '/(:any)', 'dintaos@index(' . $text . ', ' . $key . ', 0, $1)');
-// }
-// Route::get ('dintaos/', 'dintaos@index(所有陣頭, -1, 0)');
-// Route::get ('dintaos/(:num)', 'dintaos@index(所有陣頭, -1, $1)');
-// Route::get ('dintaos/(:num)/(:any)', 'dintaos@index(所有陣頭, -1, $1, $2)');
-// Route::get ('dintaos/(:any)', 'dintaos@index(所有陣頭, -1, 0, $1)');
+Route::get ('dintaos/駕前陣頭/', 'dintaos@index(駕前陣頭, 0)');
+Route::get ('dintaos/駕前陣頭/(:num)', 'dintaos@index(駕前陣頭, $1)');
+Route::get ('dintaos/地方陣頭/', 'dintaos@index(地方陣頭, 0)');
+Route::get ('dintaos/地方陣頭/(:num)', 'dintaos@index(地方陣頭, $1)');
+Route::get ('dintaos/其他介紹/', 'dintaos@index(其他介紹, 0)');
+Route::get ('dintaos/其他介紹/(:num)', 'dintaos@index(其他介紹, $1)');
 
 // ================================================================================================
 
