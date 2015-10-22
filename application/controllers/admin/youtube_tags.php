@@ -185,7 +185,7 @@ class Youtube_tags extends Admin_controller {
         '_flash_message' => '刪除成功！'
       ));
   }
-  public function youtubes ($id, $offset = 0) {
+  public function youtubes_index ($id, $offset = 0) {
     if (!($id && ($tag = YoutubeTag::find_by_id ($id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -227,7 +227,7 @@ class Youtube_tags extends Admin_controller {
                     'columns' => $columns
                   ));
   }
-  public function add_youtubes ($id) {
+  public function youtubes_add ($id) {
     if (!($id && ($tag = YoutubeTag::find_by_id ($id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -244,7 +244,7 @@ class Youtube_tags extends Admin_controller {
                     'posts' => $posts
                   ));
   }
-  public function create_youtubes ($id) {
+  public function youtubes_create ($id) {
     if (!($id && ($tag = YoutubeTag::find_by_id ($id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -302,7 +302,7 @@ class Youtube_tags extends Admin_controller {
         '_flash_message' => '新增成功！'
       ));
   }
-  public function edit_youtubes ($tag_id, $youtube_id) {
+  public function youtubes_edit ($tag_id, $youtube_id) {
     if (!($tag_id && ($tag = YoutubeTag::find_by_id ($tag_id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -325,7 +325,7 @@ class Youtube_tags extends Admin_controller {
                     'youtube' => $youtube,
                   ));
   }
-  public function update_youtubes ($tag_id, $youtube_id) {
+  public function youtubes_updates ($tag_id, $youtube_id) {
     if (!($tag_id && ($tag = YoutubeTag::find_by_id ($tag_id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -392,7 +392,7 @@ class Youtube_tags extends Admin_controller {
         '_flash_message' => '更新成功！'
       ));
   }
-  public function destroy_youtubes ($tag_id, $youtube_id) {
+  public function youtubes_destroy ($tag_id, $youtube_id) {
     if (!($tag_id && ($tag = YoutubeTag::find_by_id ($tag_id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -416,6 +416,9 @@ class Youtube_tags extends Admin_controller {
       ));
   }
   public function sort () {
+    if (!$this->input->is_ajax_request ())
+      return show_404 ();
+    
     if (!(($id = trim (OAInput::post ('id'))) && ($sort = trim (OAInput::post ('sort'))) && in_array ($sort, array ('up', 'down')) && ($tag = YoutubeTag::find_by_id ($id))))
       return $this->output_json (array ('status' => false));
 
@@ -444,7 +447,10 @@ class Youtube_tags extends Admin_controller {
     });
     return $this->output_json (array ('status' => $update));
   }
-  public function sort_youtubes ($id) {
+  public function youtubes_sort ($id) {
+    if (!$this->input->is_ajax_request ())
+      return show_404 ();
+    
     if (!($id && ($tag = YoutubeTag::find_by_id ($id))))
       return $this->output_json (array ('status' => false));
 

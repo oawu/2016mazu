@@ -185,7 +185,7 @@ class Picture_tags extends Admin_controller {
         '_flash_message' => '刪除成功！'
       ));
   }
-  public function pictures ($id, $offset = 0) {
+  public function pictures_index ($id, $offset = 0) {
     if (!($id && ($tag = PictureTag::find_by_id ($id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -227,7 +227,7 @@ class Picture_tags extends Admin_controller {
                     'columns' => $columns
                   ));
   }
-  public function add_pictures ($id) {
+  public function pictures_add ($id) {
     if (!($id && ($tag = PictureTag::find_by_id ($id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -244,7 +244,7 @@ class Picture_tags extends Admin_controller {
                     'posts' => $posts
                   ));
   }
-  public function create_pictures ($id) {
+  public function pictures_create ($id) {
     if (!($id && ($tag = PictureTag::find_by_id ($id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -309,7 +309,7 @@ class Picture_tags extends Admin_controller {
         '_flash_message' => '新增成功！'
       ));
   }
-  public function edit_pictures ($tag_id, $picture_id) {
+  public function pictures_edit ($tag_id, $picture_id) {
     if (!($tag_id && ($tag = PictureTag::find_by_id ($tag_id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -332,7 +332,7 @@ class Picture_tags extends Admin_controller {
                     'picture' => $picture,
                   ));
   }
-  public function update_pictures ($tag_id, $picture_id) {
+  public function pictures_update ($tag_id, $picture_id) {
     if (!($tag_id && ($tag = PictureTag::find_by_id ($tag_id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -407,7 +407,7 @@ class Picture_tags extends Admin_controller {
         '_flash_message' => '更新成功！'
       ));
   }
-  public function destroy_pictures ($tag_id, $picture_id) {
+  public function pictures_destroy ($tag_id, $picture_id) {
     if (!($tag_id && ($tag = PictureTag::find_by_id ($tag_id))))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '找不到該筆資料。'
@@ -431,6 +431,9 @@ class Picture_tags extends Admin_controller {
       ));
   }
   public function sort () {
+    if (!$this->input->is_ajax_request ())
+      return show_404 ();
+    
     if (!(($id = trim (OAInput::post ('id'))) && ($sort = trim (OAInput::post ('sort'))) && in_array ($sort, array ('up', 'down')) && ($tag = PictureTag::find_by_id ($id))))
       return $this->output_json (array ('status' => false));
 
@@ -459,7 +462,10 @@ class Picture_tags extends Admin_controller {
     });
     return $this->output_json (array ('status' => $update));
   }
-  public function sort_pictures ($id) {
+  public function pictures_sort ($id) {
+    if (!$this->input->is_ajax_request ())
+      return show_404 ();
+    
     if (!($id && ($tag = PictureTag::find_by_id ($id))))
       return $this->output_json (array ('status' => false));
 
