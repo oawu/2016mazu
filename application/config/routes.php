@@ -47,23 +47,48 @@ Route::get ('admin', 'admin/main@index');
 
 // ================================================================================================
 
-Route::get ('admin/dintao_tags/(:num)/', 'admin/dintao_tags@index($1)');
-Route::get ('admin/dintao_tags/(:num)/edit', 'admin/dintao_tags@edit($1)');
-Route::post ('admin/dintao_tags/(:num)/update', 'admin/dintao_tags@update($1)');
-Route::delete ('admin/dintao_tags/(:num)/destroy', 'admin/dintao_tags@destroy($1)');
-Route::get ('admin/dintao_tags/(:num)/dintaos/', 'admin/dintao_tags@dintaos($1)');
-Route::get ('admin/dintao_tags/(:num)/dintaos/(:num)', 'admin/dintao_tags@dintaos($1, $2)');
-Route::get ('admin/dintao_tags/(:num)/dintaos/add', 'admin/dintao_tags@add_dintaos($1)');
-Route::post ('admin/dintao_tags/(:num)/dintaos/create', 'admin/dintao_tags@create_dintaos($1)');
-Route::get ('admin/dintao_tags/(:num)/dintaos/(:num)/edit', 'admin/dintao_tags@edit_dintaos($1, $2)');
-Route::post ('admin/dintao_tags/(:num)/dintaos/(:num)/update', 'admin/dintao_tags@update_dintaos($1, $2)');
-Route::delete ('admin/dintao_tags/(:num)/dintaos/(:num)/destroy', 'admin/dintao_tags@destroy_dintaos($1, $2)');
-Route::post ('admin/dintao_tags/(:num)/dintaos/sort', 'admin/dintao_tags@sort_dintaos($1)');
+function nested_restful ($names, $count = 1) {
+  $name = array_shift ($names);
+  if ($names)
+    $returns = nested_restful ($names, $count + 1);
+  else
+    $returns = array ();
 
-Route::get ('admin/dintaos/(:num)/', 'admin/dintaos@index($1)');
-Route::get ('admin/dintaos/(:num)/edit', 'admin/dintaos@edit($1)');
-Route::post ('admin/dintaos/(:num)/update', 'admin/dintaos@update($1)');
-Route::delete ('admin/dintaos/(:num)/destroy', 'admin/dintaos@destroy($1)');
+  $routes = array (
+    array ('m' => 'get',    'p' => $name . '/'               , 'f' => array ('index'),   'v' => array ()),
+    array ('m' => 'get',    'p' => $name . '/(:num)/'        , 'f' => array ('index'),   'v' => array ('$' . $count)),
+    array ('m' => 'get',    'p' => $name . '/add/'           , 'f' => array ('add'),     'v' => array ()),
+    array ('m' => 'post',   'p' => $name . '/create/'        , 'f' => array ('create'),  'v' => array ()),
+    array ('m' => 'get',    'p' => $name . '/(:num)/edit/'   , 'f' => array ('edit'),    'v' => array ('$' . $count)),
+    array ('m' => 'post',   'p' => $name . '/(:num)/update/' , 'f' => array ('update'),  'v' => array ('$' . $count)),
+    array ('m' => 'delete', 'p' => $name . '/(:num)/destroy/', 'f' => array ('destroy'), 'v' => array ('$' . $count)),
+    array ('m' => 'post',   'p' => $name . '/sort/'          , 'f' => array ('sort'),    'v' => array ()),
+  );
+  
+  foreach ($returns as $i => &$return) {
+    $return['p'] = $name . '/(:num)/' . $return['p'];
+    if ($names)
+      array_unshift ($return['f'], $names[0]);
+    array_unshift ($return['v'], '$' . $count);
+  }
+
+  return array_merge ($routes, $returns);
+}
+function restful_generator ($nested_restfuls, $b = '') {
+  foreach ($nested_restfuls as $nested_restful)
+    foreach (nested_restful ($nested_restful = is_string ($nested_restful) ? array ($nested_restful) : $nested_restful) as $restful)
+      Route::$restful['m'] ($b . $restful['p'], $b . $nested_restful[0] . '@' . implode ('_', $restful['f']) . '(' . implode ($restful['v'], ', ') .')');
+}
+$nested_restfuls = array (
+    array ('dintao_tags', 'dintaos'),
+    array ('picture_tags', 'pictures'),
+    array ('youtube_tags', 'youtubes'),
+    array ('dintaos'),
+    array ('pictures'),
+    array ('youtubes')
+);
+
+restful_generator ($nested_restfuls, 'admin/');
 
 Route::get ('dintao/(:num)', 'dintaos@content(all, $1)');
 Route::get ('dintao/(:num)-(:any)', 'dintaos@content(all, $1)');
@@ -85,24 +110,6 @@ Route::get ('dintaos/其他介紹/(:num)', 'dintaos@index(其他介紹, $1)');
 
 // ================================================================================================
 
-Route::get ('admin/picture_tags/(:num)/', 'admin/picture_tags@index($1)');
-Route::get ('admin/picture_tags/(:num)/edit', 'admin/picture_tags@edit($1)');
-Route::post ('admin/picture_tags/(:num)/update', 'admin/picture_tags@update($1)');
-Route::delete ('admin/picture_tags/(:num)/destroy', 'admin/picture_tags@destroy($1)');
-Route::get ('admin/picture_tags/(:num)/pictures/', 'admin/picture_tags@pictures($1)');
-Route::get ('admin/picture_tags/(:num)/pictures/(:num)', 'admin/picture_tags@pictures($1, $2)');
-Route::get ('admin/picture_tags/(:num)/pictures/add', 'admin/picture_tags@add_pictures($1)');
-Route::post ('admin/picture_tags/(:num)/pictures/create', 'admin/picture_tags@create_pictures($1)');
-Route::get ('admin/picture_tags/(:num)/pictures/(:num)/edit', 'admin/picture_tags@edit_pictures($1, $2)');
-Route::post ('admin/picture_tags/(:num)/pictures/(:num)/update', 'admin/picture_tags@update_pictures($1, $2)');
-Route::delete ('admin/picture_tags/(:num)/pictures/(:num)/destroy', 'admin/picture_tags@destroy_pictures($1, $2)');
-Route::post ('admin/picture_tags/(:num)/pictures/sort', 'admin/picture_tags@sort_pictures($1)');
-
-Route::get ('admin/pictures/(:num)/', 'admin/pictures@index($1)');
-Route::get ('admin/pictures/(:num)/edit', 'admin/pictures@edit($1)');
-Route::post ('admin/pictures/(:num)/update', 'admin/pictures@update($1)');
-Route::delete ('admin/pictures/(:num)/destroy', 'admin/pictures@destroy($1)');
-
 Route::get ('picture/(:num)', 'pictures@content(all, $1)');
 Route::get ('picture/(:num)-(:any)', 'pictures@content(all, $1)');
 Route::get ('picture/(:any)/(:num)', 'pictures@content($1, $2)');
@@ -120,24 +127,6 @@ Route::get ('pictures/2015三月十九/', 'pictures@index(2015三月十九, 0)')
 Route::get ('pictures/2015三月十九/(:num)', 'pictures@index(2015三月十九, $1)');
 
 // ================================================================================================
-
-Route::get ('admin/youtube_tags/(:num)/', 'admin/youtube_tags@index($1)');
-Route::get ('admin/youtube_tags/(:num)/edit', 'admin/youtube_tags@edit($1)');
-Route::post ('admin/youtube_tags/(:num)/update', 'admin/youtube_tags@update($1)');
-Route::delete ('admin/youtube_tags/(:num)/destroy', 'admin/youtube_tags@destroy($1)');
-Route::get ('admin/youtube_tags/(:num)/youtubes/', 'admin/youtube_tags@youtubes($1)');
-Route::get ('admin/youtube_tags/(:num)/youtubes/(:num)', 'admin/youtube_tags@youtubes($1, $2)');
-Route::get ('admin/youtube_tags/(:num)/youtubes/add', 'admin/youtube_tags@add_youtubes($1)');
-Route::post ('admin/youtube_tags/(:num)/youtubes/create', 'admin/youtube_tags@create_youtubes($1)');
-Route::get ('admin/youtube_tags/(:num)/youtubes/(:num)/edit', 'admin/youtube_tags@edit_youtubes($1, $2)');
-Route::post ('admin/youtube_tags/(:num)/youtubes/(:num)/update', 'admin/youtube_tags@update_youtubes($1, $2)');
-Route::delete ('admin/youtube_tags/(:num)/youtubes/(:num)/destroy', 'admin/youtube_tags@destroy_youtubes($1, $2)');
-Route::post ('admin/youtube_tags/(:num)/youtubes/sort', 'admin/youtube_tags@sort_youtubes($1)');
-
-Route::get ('admin/youtubes/(:num)/', 'admin/youtubes@index($1)');
-Route::get ('admin/youtubes/(:num)/edit', 'admin/youtubes@edit($1)');
-Route::post ('admin/youtubes/(:num)/update', 'admin/youtubes@update($1)');
-Route::delete ('admin/youtubes/(:num)/destroy', 'admin/youtubes@destroy($1)');
 
 Route::get ('youtube/(:num)', 'youtubes@content(all, $1)');
 Route::get ('youtube/(:num)-(:any)', 'youtubes@content(all, $1)');
