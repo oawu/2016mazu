@@ -172,13 +172,6 @@
  * ------------------------------------------------------
  */
 	$RTR =& load_class('Router', 'core');
-	$RTR->_set_routing();
-
-	// Set any routing overrides that may exist in the main index file
-	if (isset($routing))
-	{
-		$RTR->_set_overrides($routing);
-	}
 
 /*
  * ------------------------------------------------------
@@ -272,31 +265,8 @@
 	$class  = $RTR->fetch_class();
 	$method = $RTR->fetch_method();
 
-	if ( ! class_exists($class)
-		OR strncmp($method, '_', 1) == 0
-		OR in_array(strtolower($method), array_map('strtolower', get_class_methods('CI_Controller')))
-		)
-	{
-		if ( ! empty($RTR->routes['404_override']))
-		{
-			$x = explode('/', $RTR->routes['404_override']);
-			$class = $x[0];
-			$method = (isset($x[1]) ? $x[1] : 'index');
-			if ( ! class_exists($class))
-			{
-				if ( ! file_exists(APPPATH.'controllers/'.$class.'.php'))
-				{
-					show_404("{$class}/{$method}");
-				}
-
-				include_once(APPPATH.'controllers/'.$class.'.php');
-			}
-		}
-		else
-		{
-			show_404("{$class}/{$method}");
-		}
-	}
+	if (!class_exists ($class) || (strncmp ($method, '_', 1) == 0) || in_array (strtolower ($method), array_map ('strtolower', get_class_methods ('CI_Controller'))))
+		show_404 ();
 
 /*
  * ------------------------------------------------------
@@ -328,42 +298,12 @@
  * ------------------------------------------------------
  */
 	// Is there a "remap" function? If so, we call it instead
-	if (method_exists($CI, '_remap'))
-	{
-		$CI->_remap($method, array_slice($URI->rsegments, 2));
-	}
-	else
-	{
-		// is_callable() returns TRUE on some versions of PHP 5 for private and protected
-		// methods, so we'll use this workaround for consistent behavior
-		if ( ! in_array(strtolower($method), array_map('strtolower', get_class_methods($CI))))
-		{
-			// Check and see if we are using a 404 override and use it.
-			if ( ! empty($RTR->routes['404_override']))
-			{
-				$x = explode('/', $RTR->routes['404_override']);
-				$class = $x[0];
-				$method = (isset($x[1]) ? $x[1] : 'index');
-				if ( ! class_exists($class))
-				{
-					if ( ! file_exists(APPPATH.'controllers/'.$class.'.php'))
-					{
-						show_404("{$class}/{$method}");
-					}
+	if (method_exists ($CI, '_remap'))
+		$CI->_remap ($method, array_slice ($URI->rsegments, 2));
+	else {
+		if (!in_array (strtolower ($method), array_map ('strtolower', get_class_methods ($CI))))
+			show_404();
 
-					include_once(APPPATH.'controllers/'.$class.'.php');
-					unset($CI);
-					$CI = new $class();
-				}
-			}
-			else
-			{
-				show_404("{$class}/{$method}");
-			}
-		}
-
-		// Call the requested method.
-		// Any URI segments present (besides the class/function) will be passed to the method for convenience
 		call_user_func_array(array(&$CI, $method), array_slice($URI->rsegments, 2));
 	}
 
