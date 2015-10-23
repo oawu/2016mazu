@@ -28,6 +28,19 @@ class Route {
 		}
 	}
 
+	public static function resource ($uris, $controller, $prefix = '') {
+		$uris = is_string ($uris) ? array ($uris) : $uris;
+		$c = count ($uris);
+		$prefix = trim ($prefix, '/') . '/';
+
+		self::get ($prefix . implode ('/(:id)/', $uris) . '/', $prefix . $controller . '@index');
+		self::get ($prefix . implode ('/(:id)/', $uris) . '/(:id)', $prefix . $controller . '@show($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
+		self::get ($prefix . implode ('/(:id)/', $uris) . '/add', $prefix . $controller . '@add(' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (1, $c - 1))) : '') . ')');
+		self::post ($prefix . implode ('/(:id)/', $uris) . '/', $prefix . $controller . '@create(' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (1, $c - 1))) : '') . ')');
+		self::get ($prefix . implode ('/(:id)/', $uris) . '/(:id)' .  '/edit', $prefix . $controller . '@edit($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
+		self::put ($prefix . implode ('/(:id)/', $uris) . '/(:id)', $prefix . $controller . '@update($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
+		self::delete ($prefix . implode ('/(:id)/', $uris) . '/(:id)', $prefix . $controller . '@destroy($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
+	}
 	public static function getRoute () {
 		return self::$route;
 	}
@@ -169,7 +182,7 @@ class CI_Router {
 			return $this->_set_request (explode ('/', $this->routes[$request_method . ':' . $uri]));
 
 		foreach ($this->routes as $key => $val) {
-			$key = str_replace (':any', '.+', str_replace (':num', '[0-9]+', $key));
+			$key = str_replace (':any', '.+', str_replace (':num', '[0-9]+', str_replace (':id', '[0-9]+', $key)));
 
 			if (preg_match ('#^'.$key.'$#', $request_method . ':' . $uri)) {
 				if ((strpos ($val, '$') !== false) && (strpos ($key, '(') !== false))
