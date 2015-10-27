@@ -20,7 +20,7 @@
             <td data-title='標籤' width='150'><?php echo implode ('', array_map (function ($tag) { return anchor (base_url ('admin', 'dintao_tags', $tag->id, 'dintaos'), $tag->name, 'class="tag"'); }, $dintao->tags));?></td>
             <td data-title='編輯' width='80'>
               <a href='<?php echo base_url ('admin', 'dintaos', $dintao->id, 'edit');?>' class='icon-pencil2'></a>
-              <a href='<?php echo base_url ('admin', 'dintaos', $dintao->id, 'destroy');?>' data-method='delete' class='icon-bin destroy'></a>
+              <a href='<?php echo base_url ('admin', 'dintaos', $dintao->id);?>' data-method='delete' class='icon-bin destroy'></a>
             </td>
           </tr>
   <?php }

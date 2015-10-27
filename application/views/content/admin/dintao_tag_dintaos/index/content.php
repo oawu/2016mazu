@@ -19,7 +19,7 @@
             <td data-title='關鍵字' width='150' class='left'><?php echo $dintao->mini_keywords ();?></td>
             <td data-title='編輯' width='80'>
               <a href='<?php echo base_url ('admin', 'dintao_tags', $tag->id, 'dintaos', $dintao->id, 'edit');?>' class='icon-pencil2'></a>
-              <a href='<?php echo base_url ('admin', 'dintao_tags', $tag->id, 'dintaos', $dintao->id, 'destroy');?>' data-method='delete' class='icon-bin destroy'></a>
+              <a href='<?php echo base_url ('admin', 'dintao_tags', $tag->id, 'dintaos', $dintao->id);?>' data-method='delete' class='icon-bin destroy'></a>
             </td>
             <td data-title='排序' width='60' class='sort'>
               <a data-id='<?php echo $dintao->id;?>' data-sort='up' class='icon-triangle-up'></a>

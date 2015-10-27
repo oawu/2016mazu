@@ -19,7 +19,7 @@
             <td data-title='關鍵字' width='150' class='left'><?php echo $youtube->mini_keywords ();?></td>
             <td data-title='編輯' width='80'>
               <a href='<?php echo base_url ('admin', 'youtube_tags', $tag->id, 'youtubes', $youtube->id, 'edit');?>' class='icon-pencil2'></a>
-              <a href='<?php echo base_url ('admin', 'youtube_tags', $tag->id, 'youtubes', $youtube->id, 'destroy');?>' data-method='delete' class='icon-bin destroy'></a>
+              <a href='<?php echo base_url ('admin', 'youtube_tags', $tag->id, 'youtubes', $youtube->id);?>' data-method='delete' class='icon-bin destroy'></a>
             </td>
             <td data-title='排序' width='60' class='sort'>
               <a data-id='<?php echo $youtube->id;?>' data-sort='up' class='icon-triangle-up'></a>

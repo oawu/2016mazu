@@ -20,7 +20,7 @@
             <td data-title='編輯' width='120'>
               <a href='<?php echo base_url ('admin', 'dintao_tags', $tag->id, 'dintaos');?>' class='icon-images'></a>
               <a href='<?php echo base_url ('admin', 'dintao_tags', $tag->id, 'edit');?>' class='icon-pencil2'></a>
-              <a href='<?php echo base_url ('admin', 'dintao_tags', $tag->id, 'destroy');?>' data-method='delete' class='icon-bin destroy'></a>
+              <a href='<?php echo base_url ('admin', 'dintao_tags', $tag->id);?>' data-method='delete' class='icon-bin destroy'></a>
             </td>
             <td data-title='排序' width='60' class='sort'>
               <a data-id='<?php echo $tag->id;?>' data-sort='up' class='icon-triangle-up'></a>

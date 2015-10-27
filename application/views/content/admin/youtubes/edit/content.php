@@ -1,4 +1,5 @@
 <form action='<?php echo base_url (array ('admin', 'youtubes', $youtube->id, 'update'));?>' method='post' enctype='multipart/form-data'>
+  <input type='hidden' name='_method' value='put' />
   <table class='table-form'>
     <tbody>
 
