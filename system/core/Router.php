@@ -16,13 +16,20 @@ class Route {
 
 	public static function __callStatic ($name, $arguments) {
 		if (in_array (strtolower ($name), self::$methods) && (count ($arguments) == 2)) {
+	    if (($group = array_filter (array_map (function ($trace) {
+	                	return isset ($trace['class']) && ($trace['class'] == 'Route') && isset ($trace['function']) && ($trace['function'] == 'group') && isset ($trace['type']) && ($trace['type'] == '::') && isset ($trace['args'][0]) ? $trace['args'][0] : null;
+	                }, debug_backtrace (DEBUG_BACKTRACE_PROVIDE_OBJECT)))) && ($group = array_shift ($group)))
+	    	$group = trim ($group, '/') . '/';
+	  	else
+	    	$group = '';
+
 			$path = array_filter (explode ('/', $arguments[0]));
 			$controller = array_filter (preg_split ('/[@,\(\)\s]+/', $arguments[1]), function ($t) { return $t || $t === '0'; });
 
 			if (count ($controller) < 2)
 				array_push ($controller, 'index');
 
-			self::$route[$name . ':' . implode ('/', $path) . '/'] = implode ('/', $controller);
+			self::$route[$name . ':' . trim ($group . implode ('/', $path), '/') . '/'] = $group . implode ('/', $controller);
 		} else {
 			show_error ("Route 使用方法錯誤!<br/>尚未定義: Route::" . $name . " 的方法!");
 		}
@@ -43,9 +50,16 @@ class Route {
 	}
 
 	public static function resourcePagination ($uris, $controller, $prefix = '') {
+    if (($group = array_filter (array_map (function ($trace) {
+                	return isset ($trace['class']) && ($trace['class'] == 'Route') && isset ($trace['function']) && ($trace['function'] == 'group') && isset ($trace['type']) && ($trace['type'] == '::') && isset ($trace['args'][0]) ? $trace['args'][0] : null;
+                }, debug_backtrace (DEBUG_BACKTRACE_PROVIDE_OBJECT)))) && ($group = array_shift ($group)))
+    	$group = trim ($group, '/') . '/';
+  	else
+    	$group = '';
+
 		$uris = is_string ($uris) ? array ($uris) : $uris;
 		$c = count ($uris);
-		$prefix = trim ($prefix, '/') . '/';
+		$prefix = trim ($group . trim ($prefix, '/'), '/') . '/';
 
 		self::get ($prefix . implode ('/(:id)/', $uris) . '/', $prefix . $controller . '@index(' . ($c > 1 ? implode (', ', array_map (function ($a) { return '$' . $a; }, range (1, $c - 1))) . ', ' : '') . '0)');
 		self::get ($prefix . implode ('/(:id)/', $uris) . '/(:num)', $prefix . $controller . '@index($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
@@ -56,6 +70,9 @@ class Route {
 		self::put ($prefix . implode ('/(:id)/', $uris) . '/(:id)', $prefix . $controller . '@update($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
 		self::delete ($prefix . implode ('/(:id)/', $uris) . '/(:id)', $prefix . $controller . '@destroy($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
 		self::post ($prefix . implode ('/(:id)/', $uris) . '/(:id)' .  '/sort', $prefix . $controller . '@sort($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
+	}
+	public static function group ($prefix, $callback) {
+		$callback ();
 	}
 	public static function getRoute () {
 		return self::$route;
