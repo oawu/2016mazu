@@ -212,11 +212,11 @@ class CI_Router {
 			return $this->_set_request (explode ('/', $this->routes[$request_method . ':' . $uri]));
 
 		foreach ($this->routes as $key => $val) {
-			$key = str_replace (':any', '.+', str_replace (':num', '[0-9]+', str_replace (':id', '[0-9]+', $key)));
+			$key = str_replace (':any', '[^/]+', str_replace (':num', '[0-9]+', str_replace (':id', '[0-9]+', $key)));
 
-			if (preg_match ('#^'.$key.'$#', $request_method . ':' . $uri)) {
+			if (preg_match ('#^' . $key . '$#', $request_method . ':' . $uri)) {
 				if ((strpos ($val, '$') !== false) && (strpos ($key, '(') !== false))
-					$val = preg_replace('#^'.$key.'$#', $val, $request_method . ':' . $uri);
+					$val = preg_replace ('#^' . $key . '$#', $val, $request_method . ':' . $uri);
 
 				return $this->_set_request (explode ('/', $val));
 			}
