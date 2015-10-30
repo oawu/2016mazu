@@ -6,42 +6,13 @@
  */
 
 class Pictures extends Site_controller {
+  private $all = '所有照片';
 
-  public function content ($method = 'all', $id = 0) {
-    if (!($id && ($picture = Picture::find_by_id ($id))))
-      return redirect_message (array ('pictures'), array (
-          '_flash_message' => '無此照片！'
-        ));
-
-    $next = $picture->next ($method == 'all' ? '' : $method);
-    $prev = $picture->prev ($method == 'all' ? '' : $method);
-
-    if (!preg_match ('/^data:/', $og_img = $picture->name->url ('1200x630c')))
-      $this->add_meta (array ('property' => 'og:image', 'content' => $og_img, 'alt' => $picture->title . ' - ' . Cfg::setting ('site', 'main', 'title')))
-           ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/' . pathinfo ($og_img, PATHINFO_EXTENSION)))
-           ->add_meta (array ('property' => 'og:image:width', 'content' => '1200'))
-           ->add_meta (array ('property' => 'og:image:height', 'content' => '630'));
-
-    return $this->set_title ($picture->title . ' - ' . Cfg::setting ('site', 'main', 'title'))
-                ->set_subtitle ($picture->title)
-                ->set_back_link (base_url ($this->get_class (), $method))
-                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $picture->keywords ())))
-                ->add_meta (array ('name' => 'description', 'content' => $picture->mini_description ()))
-                ->add_meta (array ('property' => 'og:title', 'content' => $picture->title))
-                ->add_meta (array ('property' => 'og:description', 'content' => $picture->mini_description ()))
-                ->add_hidden (array ('id' => 'id', 'value' => $picture->id))
-                ->load_view (array (
-                    'method' => $method,
-                    'picture' => $picture,
-                    'next' => $next,
-                    'prev' => $prev,
-                  ), false);
-  }
   public function all ($offset = 0, $keyword = '') {
     $keyword = trim (urldecode ($keyword));
 
     $columns = array ('id' => 'int');
-    $configs = array ($this->get_class (), 'all', '%s', $keyword);
+    $configs = array ($this->get_class (), $keyword ? $keyword : $this->all, '%s');
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Picture', OAInput::get ())));
     if ($keyword) Picture::addConditions ($conditions, '(title LIKE ?) OR (description LIKE ?) OR (keywords LIKE ?)', '%' . $keyword . '%', '%' . $keyword . '%', '%' . $keyword . '%');
 
@@ -66,7 +37,8 @@ class Pictures extends Site_controller {
                 ->set_subtitle ($keyword ? '<span class="icon-search"></span>' . $keyword : '所有照片')
                 ->load_view (array (
                     'has_photoswipe' => true,
-                    'method' => 'all',
+                    'method' => $this->all,
+                    'keyword' => $keyword,
                     'pictures' => $pictures,
                     'pagination' => $pagination
                   ));
@@ -110,8 +82,41 @@ class Pictures extends Site_controller {
                 ->load_view (array (
                     'has_photoswipe' => true,
                     'method' => $method,
+                    'keyword' => $method,
                     'pictures' => $pictures,
                     'pagination' => $pagination
                   ));
+  }
+
+  public function content ($method = null, $id = 0) {
+    if (!($id && ($picture = Picture::find_by_id ($id))))
+      return redirect_message (array ('pictures'), array (
+          '_flash_message' => '無此照片！'
+        ));
+
+    $method = $method === null ? $method : $method;
+    $next = $picture->next ($method == $this->all ? '' : $method);
+    $prev = $picture->prev ($method == $this->all ? '' : $method);
+
+    if (!preg_match ('/^data:/', $og_img = $picture->name->url ('1200x630c')))
+      $this->add_meta (array ('property' => 'og:image', 'content' => $og_img, 'alt' => $picture->title . ' - ' . Cfg::setting ('site', 'main', 'title')))
+           ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/' . pathinfo ($og_img, PATHINFO_EXTENSION)))
+           ->add_meta (array ('property' => 'og:image:width', 'content' => '1200'))
+           ->add_meta (array ('property' => 'og:image:height', 'content' => '630'));
+
+    return $this->set_title ($picture->title . ' - ' . Cfg::setting ('site', 'main', 'title'))
+                ->set_subtitle ($picture->title)
+                ->set_back_link (base_url ($this->get_class (), $method))
+                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $picture->keywords ())))
+                ->add_meta (array ('name' => 'description', 'content' => $picture->mini_description ()))
+                ->add_meta (array ('property' => 'og:title', 'content' => $picture->title))
+                ->add_meta (array ('property' => 'og:description', 'content' => $picture->mini_description ()))
+                ->add_hidden (array ('id' => 'id', 'value' => $picture->id))
+                ->load_view (array (
+                    'method' => $method,
+                    'picture' => $picture,
+                    'next' => $next,
+                    'prev' => $prev,
+                  ), false);
   }
 }

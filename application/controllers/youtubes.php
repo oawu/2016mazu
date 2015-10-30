@@ -6,42 +6,13 @@
  */
 
 class Youtubes extends Site_controller {
+  private $all = '所有影片';
 
-  public function content ($method = 'all', $id = 0) {
-    if (!($id && ($youtube = Youtube::find_by_id ($id))))
-      return redirect_message (array ('youtubes'), array (
-          '_flash_message' => '無此照片！'
-        ));
-
-    $next = $youtube->next ($method == 'all' ? '' : $method);
-    $prev = $youtube->prev ($method == 'all' ? '' : $method);
-
-    if (!preg_match ('/^data:/', $og_img = $youtube->cover->url ('1200x630c')))
-      $this->add_meta (array ('property' => 'og:image', 'content' => $og_img, 'alt' => $youtube->title . ' - ' . Cfg::setting ('site', 'main', 'title')))
-           ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/' . pathinfo ($og_img, PATHINFO_EXTENSION)))
-           ->add_meta (array ('property' => 'og:image:width', 'content' => '1200'))
-           ->add_meta (array ('property' => 'og:image:height', 'content' => '630'));
-
-    return $this->set_title ($youtube->title . ' - ' . Cfg::setting ('site', 'main', 'title'))
-                ->set_subtitle ($youtube->title)
-                ->set_back_link (base_url ($this->get_class (), $method))
-                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $youtube->keywords ())))
-                ->add_meta (array ('name' => 'description', 'content' => $youtube->mini_description ()))
-                ->add_meta (array ('property' => 'og:title', 'content' => $youtube->title))
-                ->add_meta (array ('property' => 'og:description', 'content' => $youtube->mini_description ()))
-                ->add_hidden (array ('id' => 'id', 'value' => $youtube->id))
-                ->load_view (array (
-                    'method' => $method,
-                    'youtube' => $youtube,
-                    'next' => $next,
-                    'prev' => $prev
-                  ), false);
-  }
   public function all ($offset = 0, $keyword = '') {
     $keyword = trim (urldecode ($keyword));
 
     $columns = array ('id' => 'int');
-    $configs = array ($this->get_class (), 'all', '%s', $keyword);
+    $configs = array ($this->get_class (), $keyword ? $keyword : $this->all, '%s');
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Youtube', OAInput::get ())));
     if ($keyword) Youtube::addConditions ($conditions, '(title LIKE ?) OR (description LIKE ?) OR (keywords LIKE ?)', '%' . $keyword . '%', '%' . $keyword . '%', '%' . $keyword . '%');
 
@@ -62,11 +33,13 @@ class Youtubes extends Site_controller {
                 ->set_subtitle ($keyword ? '<span class="icon-search"></span>' . $keyword : '所有照片')
                 ->load_view (array (
                     'has_photoswipe' => true,
-                    'method' => 'all',
+                    'method' => $this->all,
+                    'keyword' => $keyword,
                     'youtubes' => $youtubes,
                     'pagination' => $pagination
                   ));
   }
+
   public function index ($method = '', $offset = 0) {
     if (!($tag = YoutubeTag::find_by_name ($method = urldecode ($method), array ('select' => 'id'))))
       return $this->set_subtitle ($method)
@@ -102,8 +75,40 @@ class Youtubes extends Site_controller {
                 ->load_view (array (
                     'has_photoswipe' => true,
                     'method' => $method,
+                    'keyword' => $method,
                     'youtubes' => $youtubes,
                     'pagination' => $pagination
                   ));
+  }
+  public function content ($method = null, $id = 0) {
+    if (!($id && ($youtube = Youtube::find_by_id ($id))))
+      return redirect_message (array ('youtubes'), array (
+          '_flash_message' => '無此照片！'
+        ));
+
+    $method = $method === null ? $method : $method;
+    $next = $youtube->next ($method == $this->all ? '' : $method);
+    $prev = $youtube->prev ($method == $this->all ? '' : $method);
+
+    if (!preg_match ('/^data:/', $og_img = $youtube->cover->url ('1200x630c')))
+      $this->add_meta (array ('property' => 'og:image', 'content' => $og_img, 'alt' => $youtube->title . ' - ' . Cfg::setting ('site', 'main', 'title')))
+           ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/' . pathinfo ($og_img, PATHINFO_EXTENSION)))
+           ->add_meta (array ('property' => 'og:image:width', 'content' => '1200'))
+           ->add_meta (array ('property' => 'og:image:height', 'content' => '630'));
+
+    return $this->set_title ($youtube->title . ' - ' . Cfg::setting ('site', 'main', 'title'))
+                ->set_subtitle ($youtube->title)
+                ->set_back_link (base_url ($this->get_class (), $method))
+                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $youtube->keywords ())))
+                ->add_meta (array ('name' => 'description', 'content' => $youtube->mini_description ()))
+                ->add_meta (array ('property' => 'og:title', 'content' => $youtube->title))
+                ->add_meta (array ('property' => 'og:description', 'content' => $youtube->mini_description ()))
+                ->add_hidden (array ('id' => 'id', 'value' => $youtube->id))
+                ->load_view (array (
+                    'method' => $method,
+                    'youtube' => $youtube,
+                    'next' => $next,
+                    'prev' => $prev
+                  ), false);
   }
 }

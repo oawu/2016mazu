@@ -3,14 +3,14 @@
   if ($dintaos) {
     foreach ($dintaos as $dintao) { ?>
       <section>
-        <a href='<?php echo base_url ('dintao', $method, $dintao->site_content_page_last_uri ());?>' class='i_t'<?php echo ($color = $dintao->cover_color ('rgba', 0.8)) ? ' style="border-color: ' . $color . ';"' : '' ;?>>
+        <a href='<?php echo base_url ('dintao', $keyword ? $keyword : $method, $dintao->site_content_page_last_uri ());?>' class='i_t'<?php echo ($color = $dintao->cover_color ('rgba', 0.8)) ? ' style="border-color: ' . $color . ';"' : '' ;?>>
           <?php echo img ($dintao->cover->url ('180x130c'));?>
         </a>
         <div class='r'>
-          <a href='<?php echo base_url ('dintao', $method, $dintao->site_content_page_last_uri ());?>'><h2><?php echo $dintao->title;?></h2></a>
+          <a href='<?php echo base_url ('dintao', $keyword ? $keyword : $method, $dintao->site_content_page_last_uri ());?>'><h2><?php echo $dintao->title;?></h2></a>
           <div><?php echo $dintao->mini_description (300);?></div>
           <div><?php echo implode ('.', $dintao->keywords ());?></div>
-          <a href='<?php echo base_url ('dintao', $method, $dintao->site_content_page_last_uri ());?>'>更多內容..</a>
+          <a href='<?php echo base_url ('dintao', $keyword ? $keyword : $method, $dintao->site_content_page_last_uri ());?>'>更多內容..</a>
         </div>
       </section>
 <?php
