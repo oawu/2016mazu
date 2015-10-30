@@ -42,16 +42,16 @@ $menu['site'] = array (
         '建築之美' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'builds', 'method' => '', 'target' => '_self'),
       ),
     '相簿紀錄' => array (
-        '所有照片' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', 'all'), 'class' => 'pictures', 'method' => 'all', 'target' => '_self'),
+        '所有照片' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', '所有照片'), 'class' => 'pictures', 'method' => '所有照片', 'target' => '_self'),
         '三月十九' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', '2015三月十九'), 'class' => 'pictures', 'method' => '2015三月十九', 'target' => '_self'),
         '笨港舊照片' => array ('icon' => 'icon-github', 'href' => base_url ('pictures', '北港舊照片'), 'class' => 'pictures', 'method' => '北港舊照片', 'target' => '_self'),
       ),
     '影音欣賞' => array (
-        '所有影片' => array ('icon' => 'icon-github', 'href' => base_url ('youtubes', 'all'), 'class' => 'youtubes', 'method' => 'all', 'target' => '_self'),
+        '所有影片' => array ('icon' => 'icon-github', 'href' => base_url ('youtubes', '所有影片'), 'class' => 'youtubes', 'method' => '所有影片', 'target' => '_self'),
         '記錄北港' => array ('icon' => 'icon-github', 'href' => base_url ('youtubes', '紀錄片'), 'class' => 'youtubes', 'method' => '紀錄片', 'target' => '_self'),
       ),
     '百年藝陣' => array (
-        '所有陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', 'all'), 'class' => 'dintaos', 'method' => 'all', 'target' => '_self'),
+        '所有陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '所有陣頭'), 'class' => 'dintaos', 'method' => '所有陣頭', 'target' => '_self'),
         '駕前陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '駕前陣頭'), 'class' => 'dintaos', 'method' => '駕前陣頭', 'target' => '_self'),
         '地方陣頭' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '地方陣頭'), 'class' => 'dintaos', 'method' => '地方陣頭', 'target' => '_self'),
         '其他介紹' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '其他介紹'), 'class' => 'dintaos', 'method' => '其他介紹', 'target' => '_self'),
