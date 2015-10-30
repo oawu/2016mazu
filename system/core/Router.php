@@ -15,13 +15,10 @@ class Route {
 	}
 
 	public static function __callStatic ($name, $arguments) {
+		$trace = debug_backtrace (DEBUG_BACKTRACE_PROVIDE_OBJECT);
+
 		if (in_array (strtolower ($name), self::$methods) && (count ($arguments) == 2)) {
-	    if (($group = array_filter (array_map (function ($trace) {
-	                	return isset ($trace['class']) && ($trace['class'] == 'Route') && isset ($trace['function']) && ($trace['function'] == 'group') && isset ($trace['type']) && ($trace['type'] == '::') && isset ($trace['args'][0]) ? $trace['args'][0] : null;
-	                }, debug_backtrace (DEBUG_BACKTRACE_PROVIDE_OBJECT)))) && ($group = array_shift ($group)))
-	    	$group = trim ($group, '/') . '/';
-	  	else
-	    	$group = '';
+			$group = isset ($trace[3]['class']) && ($trace[3]['class'] == 'Route') && isset ($trace[3]['function']) && ($trace[3]['function'] == 'group') && isset ($trace[3]['type']) && ($trace[3]['type'] == '::') && isset ($trace[3]['args'][0]) ? trim ($trace[3]['args'][0], '/') . '/' : '';
 
 			$path = array_filter (explode ('/', $arguments[0]));
 			$controller = array_filter (preg_split ('/[@,\(\)\s]+/', $arguments[1]), function ($t) { return $t || $t === '0'; });
