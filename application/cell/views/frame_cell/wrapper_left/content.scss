@@ -135,7 +135,15 @@
           line-height: 28px;
           padding-left: 15px;
           font-size: 15px;
-
+          &.l {
+            display: none;
+            + a {
+              &:after {
+                left: 0;
+                width: 100%;
+              }
+            }
+          }
           &.a {
             font-weight: bold;
             padding-left: 12px;
@@ -154,9 +162,9 @@
               content: '';
               position: absolute;
               top: 0;
-              left: $paddingLeft;
+              left: $paddingLeft + 3px;
               display: inline-block;
-              width: calc(100% - #{$paddingLeft});
+              width: calc(100% - #{$paddingLeft + 3px});
               height: 1px;
               background-color: rgba(39, 40, 34, .15);
             }
