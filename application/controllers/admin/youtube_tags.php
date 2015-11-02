@@ -6,9 +6,16 @@
  */
 
 class Youtube_tags extends Admin_controller {
+  private $tag = null;
 
   public function __construct () {
     parent::__construct ();
+
+    if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy', 'sort')))
+      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->tag = YoutubeTag::find_by_id ($id))))
+        return redirect_message (array ('admin', $this->get_class ()), array (
+            '_flash_message' => '找不到該筆資料。'
+          ));
 
     $this->add_tab ('標籤列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
          ->add_tab ('新增標籤', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2));
@@ -36,7 +43,6 @@ class Youtube_tags extends Admin_controller {
 
     return $this->set_tab_index (1)
                 ->set_subtitle ('影片標籤列表')
-                ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', $this->get_class (), 'sort')))
                 ->load_view (array (
                     'tags' => $tags,
                     'pagination' => $pagination,
@@ -53,7 +59,7 @@ class Youtube_tags extends Admin_controller {
                     'posts' => $posts
                   ));
   }
-  public function create ($index = 1) {
+  public function create () {
     if (!$this->has_post ())
       return redirect_message (array ('admin', $this->get_class (), 'add'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -100,52 +106,43 @@ class Youtube_tags extends Admin_controller {
         '_flash_message' => '新增成功！'
       ));
   }
-  public function edit ($id = 0) {
-    if (!($id && ($tag = YoutubeTag::find_by_id ($id))))
-      return redirect_message (array ('admin', $this->get_class ()), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
+  public function edit () {
     $posts = Session::getData ('posts', true);
     
-    return $this->add_tab ('編輯標籤', array ('href' => base_url ('admin', $this->get_class (), 'edit', $tag->id), 'index' => 3))
+    return $this->add_tab ('編輯標籤', array ('href' => base_url ('admin', $this->get_class (), 'edit', $this->tag->id), 'index' => 3))
                 ->set_tab_index (3)
                 ->set_subtitle ('編輯影片標籤')
                 ->load_view (array (
                     'posts' => $posts,
-                    'tag' => $tag
+                    'tag' => $this->tag
                   ));
   }
   public function update ($id = 0) {
-    if (!($id && ($tag = YoutubeTag::find_by_id ($id))))
-      return redirect_message (array ('admin', $this->get_class ()), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (
+      return redirect_message (array ('admin', $this->get_class (), $this->tag->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
     $posts = OAInput::post ();
     $cover = OAInput::file ('cover');
 
-    // if (!($cover || (string)$tag->cover))
-    //   return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (
+    // if (!($cover || (string)$this->tag->cover))
+    //   return redirect_message (array ('admin', $this->get_class (), $this->tag->id, 'edit'), array (
     //       '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
     //       'posts' => $posts
     //     ));
 
     if ($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (
+      return redirect_message (array ('admin', $this->get_class (), $this->tag->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
 
-    if ($columns = array_intersect_key ($posts, $tag->table ()->columns))
+    if ($columns = array_intersect_key ($posts, $this->tag->table ()->columns))
       foreach ($columns as $column => $value)
-        $tag->$column = $value;
+        $this->tag->$column = $value;
 
+    $tag = $this->tag;
     $update = YoutubeTag::transaction (function () use ($tag, $posts, $cover) {
       if (!$tag->save ())
         return false;
@@ -159,7 +156,7 @@ class Youtube_tags extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', $this->get_class (), $tag->id, 'edit'), array (
+      return redirect_message (array ('admin', $this->get_class (), $this->tag->id, 'edit'), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));
@@ -167,11 +164,9 @@ class Youtube_tags extends Admin_controller {
         '_flash_message' => '更新成功！'
       ));
   }
-  public function destroy ($id = 0) {
-    if (!($id && ($tag = YoutubeTag::find_by_id ($id))))
-      return redirect_message (array ('admin', $this->get_class ()), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
+  public function destroy () {
+
+    $tag = $this->tag;
 
     $delete = YoutubeTag::transaction (function () use ($tag) {
       return $tag->destroy ();
@@ -185,29 +180,29 @@ class Youtube_tags extends Admin_controller {
         '_flash_message' => '刪除成功！'
       ));
   }
-  public function sort () {
-    if (!$this->input->is_ajax_request ())
-      return show_404 ();
-    
-    if (!(($id = trim (OAInput::post ('id'))) && ($sort = trim (OAInput::post ('sort'))) && in_array ($sort, array ('up', 'down')) && ($tag = YoutubeTag::find_by_id ($id))))
-      return $this->output_json (array ('status' => false));
+  public function sort ($id, $sort) {
+    if (!in_array ($sort, array ('up', 'down')))
+      return redirect_message (array ('admin', $this->get_class ()), array (
+          '_flash_message' => '排序失敗！'
+        ));
 
     $total = YoutubeTag::count ();
 
     switch ($sort) {
       case 'up':
-        $sort = $tag->sort;
-        $tag->sort = $tag->sort + 1 >= $total ? 0 : $tag->sort + 1;
+        $sort = $this->tag->sort;
+        $this->tag->sort = $this->tag->sort + 1 >= $total ? 0 : $this->tag->sort + 1;
         break;
 
       case 'down':
-        $sort = $tag->sort;
-        $tag->sort = $tag->sort - 1 < 0 ? $total - 1 : $tag->sort - 1;
+        $sort = $this->tag->sort;
+        $this->tag->sort = $this->tag->sort - 1 < 0 ? $total - 1 : $this->tag->sort - 1;
         break;
     }
 
-    YoutubeTag::addConditions ($conditions, 'sort = ?', $tag->sort);
+    YoutubeTag::addConditions ($conditions, 'sort = ?', $this->tag->sort);
 
+    $tag = $this->tag;
     $update = YoutubeTag::transaction (function () use ($conditions, $tag, $sort) {
       if (($next = YoutubeTag::find ('one', array ('conditions' => $conditions))) && (($next->sort = $sort) || true))
         if (!$next->save ()) return false;
@@ -215,7 +210,15 @@ class Youtube_tags extends Admin_controller {
 
       return true;
     });
-    return $this->output_json (array ('status' => $update));
+    
+    if (!$update)
+      return redirect_message (array ('admin', $this->get_class ()), array (
+          '_flash_message' => '排序失敗！',
+          'posts' => $posts
+        ));
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '排序成功！'
+      ));
   }
   private function _validation_posts (&$posts) {
     if (!(isset ($posts['name']) && ($posts['name'] = trim ($posts['name']))))

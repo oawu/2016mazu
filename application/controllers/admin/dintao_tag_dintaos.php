@@ -6,27 +6,38 @@
  */
 
 class Dintao_tag_dintaos extends Admin_controller {
+  private $tag = null;
+  private $dintao = null;
 
   public function __construct () {
     parent::__construct ();
 
-    $this->add_param ('class', 'dintao_tags')
-         ->add_tab ('標籤列表', array ('href' => base_url ('admin', 'dintao_tags'), 'index' => 1))
-         ->add_tab ('新增標籤', array ('href' => base_url ('admin', 'dintao_tags', 'add'), 'index' => 2));
-  }
-
-  public function index ($id, $offset = 0) {
-    if (!($id && ($tag = DintaoTag::find_by_id ($id))))
+    if (!(($id = $this->uri->rsegments (3, 0)) && ($this->tag = DintaoTag::find_by_id ($id))))
       return redirect_message (array ('admin', 'dintao_tags'), array (
           '_flash_message' => '找不到該筆資料。'
         ));
 
+    if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy', 'sort')))
+      if (!(($id = $this->uri->rsegments (4, 0)) && ($this->dintao = Dintao::find_by_id ($id))))
+        return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos'), array (
+            '_flash_message' => '找不到該筆資料。'
+          ));
+
+    $this->add_param ('class', 'dintao_tags')
+         ->add_tab ('標籤列表', array ('href' => base_url ('admin', 'dintao_tags'), 'index' => 1))
+         ->add_tab ('新增標籤', array ('href' => base_url ('admin', 'dintao_tags', 'add'), 'index' => 2))
+         ->add_tab ('標註 ' . $this->tag->name . ' 的陣頭', array ('href' => base_url ('admin', 'dintao_tags', $this->tag->id, 'dintaos'), 'index' => 3))
+         ->add_tab ('新增標註 ' . $this->tag->name . ' 的陣頭', array ('href' => base_url ('admin', 'dintao_tags', $this->tag->id, 'dintaos', 'add'), 'index' => 4))
+         ;
+  }
+
+  public function index ($id, $offset = 0) {
     $columns = array ('title' => 'string', 'keywords' => 'string');
-    $configs = array ('admin', 'dintao_tags', $tag->id, 'dintaos', '%s');
+    $configs = array ('admin', 'dintao_tags', $this->tag->id, 'dintaos', '%s');
 
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Dintao', OAInput::get ())));
     
-    if ($dintao_ids = column_array (DintaoTagMapping::find ('all', array ('select' => 'dintao_id', 'order' => 'sort DESC', 'conditions' => array ('dintao_tag_id = ?', $tag->id))), 'dintao_id'))
+    if ($dintao_ids = column_array (DintaoTagMapping::find ('all', array ('select' => 'dintao_id', 'order' => 'sort DESC', 'conditions' => array ('dintao_tag_id = ?', $this->tag->id))), 'dintao_id'))
       Dintao::addConditions ($conditions, 'id IN (?)', $dintao_ids);
     else
       Dintao::addConditions ($conditions, 'id = ?', -1);
@@ -44,44 +55,29 @@ class Dintao_tag_dintaos extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    return $this->add_tab ('標註 ' . $tag->name . ' 的陣頭', array ('href' => base_url ('admin', 'dintao_tags', $tag->id, 'dintaos'), 'index' => 3))
-                ->add_tab ('新增標註 ' . $tag->name . ' 的陣頭', array ('href' => base_url ('admin', 'dintao_tags', $tag->id, 'dintaos', 'add'), 'index' => 4))
-                ->set_tab_index (3)
-                ->set_subtitle ('標註 ' . $tag->name . ' 的陣頭')
-                ->add_hidden (array ('id' => 'sort', 'value' => base_url ('admin', 'dintao_tags', $tag->id, 'dintaos', 'sort')))
+    return $this->set_tab_index (3)
+                ->set_subtitle ('標註 ' . $this->tag->name . ' 的陣頭')
                 ->load_view (array (
-                    'tag' => $tag,
+                    'tag' => $this->tag,
                     'dintaos' => $dintaos,
                     'pagination' => $pagination,
                     'has_search' => array_filter ($columns),
                     'columns' => $columns
                   ));
   }
-  public function add ($id) {
-    if (!($id && ($tag = DintaoTag::find_by_id ($id))))
-      return redirect_message (array ('admin', 'dintao_tags'), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
+  public function add () {
     $posts = Session::getData ('posts', true);
     
-    return $this->add_tab ('標註 ' . $tag->name . ' 的陣頭', array ('href' => base_url ('admin', 'dintao_tags', $tag->id, 'dintaos'), 'index' => 3))
-                ->add_tab ('新增標註 ' . $tag->name . ' 的陣頭', array ('href' => base_url ('admin', 'dintao_tags', $tag->id, 'dintaos', 'add'), 'index' => 4))
-                ->set_tab_index (4)
-                ->set_subtitle ('新增標註 ' . $tag->name . ' 的陣頭')
+    return $this->set_tab_index (4)
+                ->set_subtitle ('新增標註 ' . $this->tag->name . ' 的陣頭')
                 ->load_view (array (
-                    'tag' => $tag,
+                    'tag' => $this->tag,
                     'posts' => $posts
                   ));
   }
-  public function create ($id) {
-    if (!($id && ($tag = DintaoTag::find_by_id ($id))))
-      return redirect_message (array ('admin', 'dintao_tags'), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
+  public function create () {
     if (!$this->has_post ())
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos', 'add'), array (
+      return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos', 'add'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -90,13 +86,13 @@ class Dintao_tag_dintaos extends Admin_controller {
     $cover = OAInput::file ('cover');
 
     if (!($cover || $posts['url']))
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos', 'add'), array (
+      return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos', 'add'), array (
           '_flash_message' => '請選擇陣頭(gif、jpg、png)檔案，或提供陣頭網址!',
           'posts' => $posts
         ));
 
     if ($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos', 'add'), array (
+      return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos', 'add'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -105,6 +101,7 @@ class Dintao_tag_dintaos extends Admin_controller {
     $posts['cover'] = '';
     $posts['user_id'] = User::current ()->id;
 
+    $tag = $this->tag;
     $create = Dintao::transaction (function () use ($posts, $cover, $tag) {
       if (!(verifyCreateOrm ($dintao = Dintao::create (array_intersect_key ($posts, Dintao::table ()->columns))) && (($cover && $dintao->cover->put ($cover)) || ($posts['url'] && $dintao->cover->put_url ($posts['url'])))))
         return false;
@@ -131,50 +128,29 @@ class Dintao_tag_dintaos extends Admin_controller {
     });
 
     if (!$create)
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos', 'add'), array (
+      return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos', 'add'), array (
           '_flash_message' => '新增失敗！',
           'posts' => $posts
         ));
-    return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos'), array (
+    return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos'), array (
         '_flash_message' => '新增成功！'
       ));
   }
-  public function edit ($tag_id, $dintao_id) {
-    if (!($tag_id && ($tag = DintaoTag::find_by_id ($tag_id))))
-      return redirect_message (array ('admin', 'dintao_tags'), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-    if (!($dintao_id && ($dintao = Dintao::find_by_id ($dintao_id))))
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos'), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
+  public function edit () {
     $posts = Session::getData ('posts', true);
     
-    return $this->add_tab ('標註 ' . $tag->name . ' 的陣頭', array ('href' => base_url ('admin', 'dintao_tags', $tag->id, 'dintaos'), 'index' => 3))
-                ->add_tab ('新增標註 ' . $tag->name . ' 的陣頭', array ('href' => base_url ('admin', 'dintao_tags', $tag->id, 'dintaos', 'add'), 'index' => 4))
-                ->add_tab ('編輯 ' . $dintao->title . ' 陣頭', array ('href' => base_url ('admin', 'dintao_tags', $tag->id, 'dintaos', $dintao->id, 'edit'), 'index' => 5))
+    return $this->add_tab ('編輯 ' . $this->dintao->title . ' 陣頭', array ('href' => base_url ('admin', 'dintao_tags', $this->tag->id, 'dintaos', $this->dintao->id, 'edit'), 'index' => 5))
                 ->set_tab_index (5)
-                ->set_subtitle ('編輯 ' . $dintao->title . ' 陣頭')
+                ->set_subtitle ('編輯 ' . $this->dintao->title . ' 陣頭')
                 ->load_view (array (
                     'posts' => $posts,
-                    'tag' => $tag,
-                    'dintao' => $dintao,
+                    'tag' => $this->tag,
+                    'dintao' => $this->dintao,
                   ));
   }
-  public function update ($tag_id, $dintao_id) {
-    if (!($tag_id && ($tag = DintaoTag::find_by_id ($tag_id))))
-      return redirect_message (array ('admin', 'dintao_tags'), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
-    if (!($dintao_id && ($dintao = Dintao::find_by_id ($dintao_id))))
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos'), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
+  public function update () {
     if (!$this->has_post ())
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos', $dintao->id, 'edit'), array (
+      return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos', $this->dintao->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -182,22 +158,23 @@ class Dintao_tag_dintaos extends Admin_controller {
     $posts['description'] = OAInput::post ('description', false);
     $cover = OAInput::file ('cover');
 
-    if (!((string)$dintao->cover || $cover || $posts['url']))
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos', $dintao->id, 'edit'), array (
+    if (!((string)$this->dintao->cover || $cover || $posts['url']))
+      return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos', $this->dintao->id, 'edit'), array (
           '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
         ));
 
     if ($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos', $dintao->id, 'edit'), array (
+      return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos', $this->dintao->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
 
-    if ($columns = array_intersect_key ($posts, $dintao->table ()->columns))
+    if ($columns = array_intersect_key ($posts, $this->dintao->table ()->columns))
       foreach ($columns as $column => $value)
-        $dintao->$column = $value;
+        $this->dintao->$column = $value;
 
+    $dintao = $this->dintao;
     $update = Dintao::transaction (function () use ($dintao, $posts, $cover) {
       if ($dintao->sources)
         foreach ($dintao->sources as $source)
@@ -229,48 +206,37 @@ class Dintao_tag_dintaos extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos', $dintao->id, 'edit'), array (
+      return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos', $this->dintao->id, 'edit'), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));
-    return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos'), array (
+    return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos'), array (
         '_flash_message' => '更新成功！'
       ));
   }
-  public function destroy ($tag_id, $dintao_id) {
-    if (!($tag_id && ($tag = DintaoTag::find_by_id ($tag_id))))
-      return redirect_message (array ('admin', 'dintao_tags'), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
-    if (!($dintao_id && ($dintao = Dintao::find_by_id ($dintao_id))))
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos'), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
+  public function destroy () {
+    
+    $dintao = $this->dintao;
 
     $delete = Dintao::transaction (function () use ($dintao) {
       return $dintao->destroy ();
     });
 
     if (!$delete)
-      return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos'), array (
+      return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos'), array (
           '_flash_message' => '刪除失敗！',
         ));
-    return redirect_message (array ('admin', 'dintao_tags', $tag->id, 'dintaos'), array (
+    return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos'), array (
         '_flash_message' => '刪除成功！'
       ));
   }
-  public function sort ($id) {
-    if (!$this->input->is_ajax_request ())
-      return show_404 ();
+  public function sort ($id, $dintao_id, $sort) {
+    if (!(in_array ($sort, array ('up', 'down')) && ($mapping = DintaoTagMapping::find_by_dintao_id_and_dintao_tag_id ($this->dintao->id, $this->tag->id))))
+      return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos'), array (
+          '_flash_message' => '排序失敗！'
+        ));
 
-    if (!($id && ($tag = DintaoTag::find_by_id ($id))))
-      return $this->output_json (array ('status' => false));
-
-    if (!(($id = trim (OAInput::post ('id'))) && ($sort = trim (OAInput::post ('sort'))) && in_array ($sort, array ('up', 'down')) && ($mapping = DintaoTagMapping::find_by_dintao_id ($id))))
-      return $this->output_json (array ('status' => false));
-
-    DintaoTagMapping::addConditions ($conditions, 'dintao_tag_id = ?', $tag->id);
+    DintaoTagMapping::addConditions ($conditions, 'dintao_tag_id = ?', $this->tag->id);
     $total = DintaoTagMapping::count (array ('conditions' => $conditions));
 
     switch ($sort) {
@@ -294,7 +260,14 @@ class Dintao_tag_dintaos extends Admin_controller {
 
       return true;
     });
-    return $this->output_json (array ('status' => $update));
+
+    if (!$update)
+      return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos'), array (
+          '_flash_message' => '排序失敗！',
+        ));
+    return redirect_message (array ('admin', 'dintao_tags', $this->tag->id, 'dintaos'), array (
+        '_flash_message' => '排序成功！'
+      ));
   }
   private function _validation_posts (&$posts) {
     if (!(isset ($posts['title']) && ($posts['title'] = trim ($posts['title']))))

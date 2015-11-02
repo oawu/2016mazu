@@ -22,8 +22,8 @@
               <a href='<?php echo base_url ('admin', 'youtube_tags', $tag->id, 'youtubes', $youtube->id);?>' data-method='delete' class='icon-bin destroy'></a>
             </td>
             <td data-title='排序' width='60' class='sort'>
-              <a data-id='<?php echo $youtube->id;?>' data-sort='up' class='icon-triangle-up'></a>
-              <a data-id='<?php echo $youtube->id;?>' data-sort='down' class='icon-triangle-down'></a>
+              <a href='<?php echo base_url ('admin', 'youtube_tags', $tag->id, 'youtubes', $youtube->id, 'sort', 'up');?>' data-method='post' class='icon-triangle-up'></a>
+              <a href='<?php echo base_url ('admin', 'youtube_tags', $tag->id, 'youtubes', $youtube->id, 'sort', 'down');?>' data-method='post' class='icon-triangle-down'></a>
             </td>
           </tr>
   <?php }

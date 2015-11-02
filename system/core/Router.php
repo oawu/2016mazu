@@ -66,7 +66,7 @@ class Route {
 		self::get ($prefix . implode ('/(:id)/', $uris) . '/(:id)' .  '/edit', $prefix . $controller . '@edit($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
 		self::put ($prefix . implode ('/(:id)/', $uris) . '/(:id)', $prefix . $controller . '@update($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
 		self::delete ($prefix . implode ('/(:id)/', $uris) . '/(:id)', $prefix . $controller . '@destroy($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
-		self::post ($prefix . implode ('/(:id)/', $uris) . '/(:id)' .  '/sort', $prefix . $controller . '@sort($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
+		self::post ($prefix . implode ('/(:id)/', $uris) . '/(:id)' .  '/sort/(:any)', $prefix . $controller . '@sort($1' . (', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c + 1)))) . ')');
 	}
 	public static function group ($prefix, $callback) {
 		$callback ();

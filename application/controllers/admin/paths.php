@@ -13,7 +13,7 @@ class Paths extends Admin_controller {
 
     if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy')))
       if (!(($id = $this->uri->rsegments (3, 0)) && ($this->path = Path::find_by_id ($id))))
-        return redirect_message (array ('admin', 'paths'), array (
+        return redirect_message (array ('admin', $this->get_class ()), array (
             '_flash_message' => '找不到該筆資料。'
           ));
 
