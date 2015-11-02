@@ -22,8 +22,8 @@
               <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'pictures', $picture->id);?>' data-method='delete' class='icon-bin destroy'></a>
             </td>
             <td data-title='排序' width='60' class='sort'>
-              <a data-id='<?php echo $picture->id;?>' data-sort='up' class='icon-triangle-up'></a>
-              <a data-id='<?php echo $picture->id;?>' data-sort='down' class='icon-triangle-down'></a>
+              <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'pictures', $picture->id, 'sort', 'up');?>' data-method='post' class='icon-triangle-up'></a>
+              <a href='<?php echo base_url ('admin', 'picture_tags', $tag->id, 'pictures', $picture->id, 'sort', 'down');?>' data-method='post' class='icon-triangle-down'></a>
             </td>
           </tr>
   <?php }

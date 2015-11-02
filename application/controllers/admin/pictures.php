@@ -6,9 +6,16 @@
  */
 
 class Pictures extends Admin_controller {
+  private $picture = null;
 
   public function __construct () {
     parent::__construct ();
+
+    if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy')))
+      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->picture = Picture::find_by_id ($id))))
+        return redirect_message (array ('admin', $this->get_class ()), array (
+            '_flash_message' => '找不到該筆資料。'
+          ));
 
     $this->add_tab ('照片列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
          ->add_tab ('新增照片', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2));
@@ -115,30 +122,20 @@ class Pictures extends Admin_controller {
         '_flash_message' => '新增成功！'
       ));
   }
-  public function edit ($id) {
-    if (!($id && ($picture = Picture::find_by_id ($id))))
-      return redirect_message (array ('admin', $this->get_class ()), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
+  public function edit () {
     $posts = Session::getData ('posts', true);
     
-    return $this->add_tab ('編輯 ' . $picture->title . ' 照片', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 3))
+    return $this->add_tab ('編輯 ' . $this->picture->title . ' 照片', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 3))
                 ->set_tab_index (3)
-                ->set_subtitle ('編輯 ' . $picture->title . ' 照片')
+                ->set_subtitle ('編輯 ' . $this->picture->title . ' 照片')
                 ->load_view (array (
                     'posts' => $posts,
-                    'picture' => $picture,
+                    'picture' => $this->picture,
                   ));
   }
-  public function update ($id) {
-    if (!($id && ($picture = Picture::find_by_id ($id))))
-      return redirect_message (array ('admin', $this->get_class ()), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
+  public function update () {
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->get_class (), $picture->id, 'edit'), array (
+      return redirect_message (array ('admin', $this->get_class (), $this->picture->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -146,22 +143,23 @@ class Pictures extends Admin_controller {
     $posts['description'] = OAInput::post ('description', false);
     $name = OAInput::file ('name');
 
-    if (!((string)$picture->name || $name || $posts['url']))
-      return redirect_message (array ('admin', $this->get_class (), $picture->id, 'edit'), array (
+    if (!((string)$this->picture->name || $name || $posts['url']))
+      return redirect_message (array ('admin', $this->get_class (), $this->picture->id, 'edit'), array (
           '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
         ));
 
     if ($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', $this->get_class (), $picture->id, 'edit'), array (
+      return redirect_message (array ('admin', $this->get_class (), $this->picture->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
 
-    if ($columns = array_intersect_key ($posts, $picture->table ()->columns))
+    if ($columns = array_intersect_key ($posts, $this->picture->table ()->columns))
       foreach ($columns as $column => $value)
-        $picture->$column = $value;
+        $this->picture->$column = $value;
 
+    $picture = $this->picture;
     $update = Picture::transaction (function () use ($picture, $posts, $name) {
       $ori_ids = column_array ($picture->mappings, 'picture_tag_id');
 
@@ -209,7 +207,7 @@ class Pictures extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', $this->get_class (), $picture->id, 'edit'), array (
+      return redirect_message (array ('admin', $this->get_class (), $this->picture->id, 'edit'), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));
@@ -217,11 +215,9 @@ class Pictures extends Admin_controller {
         '_flash_message' => '更新成功！'
       ));
   }
-  public function destroy ($id) {
-    if (!($id && ($picture = Picture::find_by_id ($id))))
-      return redirect_message (array ('admin', $this->get_class ()), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
+  public function destroy () {
+    
+    $picture = $this->picture;
 
     $delete = Picture::transaction (function () use ($picture) {
       return $picture->destroy ();

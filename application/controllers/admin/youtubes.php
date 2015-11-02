@@ -6,9 +6,16 @@
  */
 
 class Youtubes extends Admin_controller {
+  private $youtube = null;
 
   public function __construct () {
     parent::__construct ();
+
+    if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy')))
+      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->youtube = Youtube::find_by_id ($id))))
+        return redirect_message (array ('admin', $this->get_class ()), array (
+            '_flash_message' => '找不到該筆資料。'
+          ));
 
     $this->add_tab ('影片列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
          ->add_tab ('新增影片', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2));
@@ -108,30 +115,20 @@ class Youtubes extends Admin_controller {
         '_flash_message' => '新增成功！'
       ));
   }
-  public function edit ($id) {
-    if (!($id && ($youtube = Youtube::find_by_id ($id))))
-      return redirect_message (array ('admin', $this->get_class ()), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
+  public function edit () {
     $posts = Session::getData ('posts', true);
     
-    return $this->add_tab ('編輯 ' . $youtube->title . ' 影片', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 3))
+    return $this->add_tab ('編輯 ' . $this->youtube->title . ' 影片', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 3))
                 ->set_tab_index (3)
-                ->set_subtitle ('編輯 ' . $youtube->title . ' 影片')
+                ->set_subtitle ('編輯 ' . $this->youtube->title . ' 影片')
                 ->load_view (array (
                     'posts' => $posts,
-                    'youtube' => $youtube,
+                    'youtube' => $this->youtube,
                   ));
   }
-  public function update ($id) {
-    if (!($id && ($youtube = Youtube::find_by_id ($id))))
-      return redirect_message (array ('admin', $this->get_class ()), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
+  public function update () {
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->get_class (), $youtube->id, 'edit'), array (
+      return redirect_message (array ('admin', $this->get_class (), $this->youtube->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -139,17 +136,18 @@ class Youtubes extends Admin_controller {
     $posts['description'] = OAInput::post ('description', false);
 
     if ($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', $this->get_class (), $youtube->id, 'edit'), array (
+      return redirect_message (array ('admin', $this->get_class (), $this->youtube->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
 
-    $is_update = $youtube->vid != $posts['vid'];
+    $is_update = $this->youtube->vid != $posts['vid'];
 
-    if ($columns = array_intersect_key ($posts, $youtube->table ()->columns))
+    if ($columns = array_intersect_key ($posts, $this->youtube->table ()->columns))
       foreach ($columns as $column => $value)
-        $youtube->$column = $value;
-
+        $this->youtube->$column = $value;
+    
+    $youtube = $this->youtube;
     $update = Youtube::transaction (function () use ($youtube, $posts, $is_update) {
       $ori_ids = column_array ($youtube->mappings, 'youtube_tag_id');
 
@@ -194,7 +192,7 @@ class Youtubes extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', $this->get_class (), $youtube->id, 'edit'), array (
+      return redirect_message (array ('admin', $this->get_class (), $this->youtube->id, 'edit'), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));
@@ -202,12 +200,10 @@ class Youtubes extends Admin_controller {
         '_flash_message' => '更新成功！'
       ));
   }
-  public function destroy ($id) {
-    if (!($id && ($youtube = Youtube::find_by_id ($id))))
-      return redirect_message (array ('admin', $this->get_class ()), array (
-          '_flash_message' => '找不到該筆資料。'
-        ));
-
+  public function destroy () {
+    
+    $youtube = $this->youtube;
+    
     $delete = Youtube::transaction (function () use ($youtube) {
       return $youtube->destroy ();
     });
