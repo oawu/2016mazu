@@ -11,6 +11,9 @@ $menu['admin'] = array (
         '角色設定' => array ('icon' => 'icon-user', 'href' => base_url ('admin', 'roles'), 'class' => 'roles', 'method' => '', 'target' => '_self'),
         '使用者設定' => array ('icon' => 'icon-user2', 'href' => base_url ('admin', 'users'), 'class' => 'users', 'method' => '', 'target' => '_self'),
       ),
+    '路線系統' => array (
+        '路線' => array ('icon' => 'icon-map2', 'href' => base_url ('admin', 'paths'), 'class' => 'paths', 'method' => '', 'target' => '_self'),
+      ),
     '陣頭系統' => array (
         '陣頭標籤' => array ('icon' => 'icon-price-tags', 'href' => base_url ('admin', 'dintao_tags'), 'class' => 'dintao_tags', 'method' => '', 'target' => '_self'),
         '陣頭管理' => array ('icon' => 'icon-file-text2', 'href' => base_url ('admin', 'dintaos'), 'class' => 'dintaos', 'method' => '', 'target' => '_self'),
@@ -23,6 +26,8 @@ $menu['admin'] = array (
         '影片標籤' => array ('icon' => 'icon-price-tags', 'href' => base_url ('admin', 'youtube_tags'), 'class' => 'youtube_tags', 'method' => '', 'target' => '_self'),
         '影片管理' => array ('icon' => 'icon-youtube', 'href' => base_url ('admin', 'youtubes'), 'class' => 'youtubes', 'method' => '', 'target' => '_self'),
       ),
+
+
     '文章系統' => array (
         '美食上搞' => array ('icon' => 'icon-spoon-knife', 'href' => base_url ('admin'), 'class' => '', 'method' => '', 'target' => '_self'),
       ),

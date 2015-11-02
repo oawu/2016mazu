@@ -14,6 +14,9 @@ Route::group ('admin', function () {
   Route::resourcePagination (array ('dintao_tags', 'dintaos'), 'dintao_tag_dintaos');
   Route::resourcePagination (array ('picture_tags', 'pictures'), 'picture_tag_pictures');
   Route::resourcePagination (array ('youtube_tags', 'youtubes'), 'youtube_tag_youtubes');
+
+  Route::resourcePagination (array ('paths'), 'paths');
+  Route::resourcePagination (array ('paths', 'infos'), 'path_infos');
 });
 
 $site = array (
