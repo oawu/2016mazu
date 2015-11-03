@@ -18,6 +18,30 @@ class PathInfo extends OaModel {
   static $belongs_to = array (
   );
 
+  const TYPE_RED    = 1;
+  const TYPE_PURPLE = 2;
+  const TYPE_YELLOW = 3;
+  const TYPE_BLUE   = 4;
+  const TYPE_GRAY   = 5;
+  const TYPE_GREEN  = 6;
+
+  public static $type_names = array (
+      self::TYPE_RED    => '紅色',
+      self::TYPE_PURPLE => '紫色',
+      self::TYPE_YELLOW => '黃色',
+      self::TYPE_BLUE   => '藍色',
+      self::TYPE_GRAY   => '灰色',
+      self::TYPE_GREEN  => '綠色',
+    );
+  public static $type_en_names = array (
+      self::TYPE_RED    => 'red',
+      self::TYPE_PURPLE => 'purple',
+      self::TYPE_YELLOW => 'yellow',
+      self::TYPE_BLUE   => 'blue',
+      self::TYPE_GRAY   => 'gray',
+      self::TYPE_GREEN  => 'green',
+    );
+
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
 
@@ -98,12 +122,26 @@ class PathInfo extends OaModel {
     return $this->save ();
   }
   
+  public function mini_description ($length = 100) {
+    return $length ? mb_strimwidth (remove_ckedit_tag ($this->description), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->description);
+  }
+  
   public function put_image () {
-    return $this->image->put_url ($this->picture ('300x300', 'server_key'));
+    return $this->image->put_url ($this->picture ('100x100', 'server_key'));
   }
 
   public function picture ($size = '60x60', $type = 'client_key', $zoom = 13, $marker_size = 'normal') {
     $marker_size = in_array ($marker_size, array ('normal', 'tiny', 'mid', 'small')) ? $marker_size : 'normal';
-    return "http://maps.googleapis.com/maps/api/staticmap?center=" . $this->latitude . "," . $this->longitude . "&zoom=" . $zoom . "&size=" . $size . "&markers=size:" . $marker_size . "|color:red|" . $this->latitude . "," . $this->longitude . "&key=" . Cfg::setting ('google', ENVIRONMENT, $type);
+    return "http://maps.googleapis.com/maps/api/staticmap?center=" . $this->latitude . "," . $this->longitude . "&zoom=" . $zoom . "&size=" . $size . "&markers=size:" . $marker_size . "|color:" . PathInfo::$type_en_names[$this->type] . "|" . $this->latitude . "," . $this->longitude . "&key=" . Cfg::setting ('google', ENVIRONMENT, $type);
+  }
+
+  public function icon_url () {
+    return base_url ('resource', 'image', 'map', 'spotlight-' . $this->type . '.png');
+  }
+  public static function icon_urls () {
+    $icon_urls = array ();
+    foreach (self::$type_names as $key => $value)
+      $icon_urls[$key] = base_url ('resource', 'image', 'map', 'spotlight-' . $key . '.png');
+    return $icon_urls;
   }
 }
