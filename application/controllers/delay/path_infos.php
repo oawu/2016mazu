@@ -7,7 +7,7 @@
 class Path_infos extends Delay_controller {
 
   public function update_image_cover_color () {
-    if (!(($id = OAInput::post ('id')) && ($info = PathInfo::find_by_id ($id, array ('select' => 'id, image, latitude, longitude, cover, cover_color_r, cover_color_g, cover_color_b')))))
+    if (!(($id = OAInput::post ('id')) && ($info = PathInfo::find_by_id ($id, array ('select' => 'id, image, type, latitude, longitude, cover, cover_color_r, cover_color_g, cover_color_b')))))
       return ;
 
     $info->put_image ();
@@ -15,7 +15,7 @@ class Path_infos extends Delay_controller {
   }
 
   public function update_image () {
-    if (!(($id = OAInput::post ('id')) && ($info = PathInfo::find_by_id ($id, array ('select' => 'id, image, latitude, longitude')))))
+    if (!(($id = OAInput::post ('id')) && ($info = PathInfo::find_by_id ($id, array ('select' => 'id, image, type, latitude, longitude')))))
       return ;
 
     $info->put_image ();

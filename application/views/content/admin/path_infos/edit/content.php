@@ -43,6 +43,20 @@
       </tr>
 
       <tr>
+        <th>類 型：</th>
+        <td>
+          <div class='types'>
+        <?php foreach (PathInfo::icon_urls () as $i => $url) { ?>
+                <label for='type_<?php echo $i;?>'>
+                  <input type='radio' id='type_<?php echo $i;?>' name='type' value='<?php echo $i;?>'<?php echo $posts['type'] ? $posts['type'] == $i : ($info->type == $i) ? ' checked' : '';?>/>
+                  <img src='<?php echo $url;?>' />
+                </label>  
+        <?php } ?>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
         <th>地 點：</th>
         <td class='map'>
           <i></i><i></i><i></i><i></i>

@@ -13,9 +13,10 @@
 <?php if ($infos) {
         foreach ($infos as $info) { ?>
           <tr>
+            <td data-title='封面' width='80'><?php echo (string)$info->cover ? img ($info->cover->url ('30x30c'), false, 'class="i_30"') : '-';?></td>
+            <td data-title='描述' width='' class='left'><?php echo $info->mini_description ();?></td>
             <td data-title='標題' width=''><?php echo $info->title;?></td>
             <td data-title='截圖' width='80'><?php echo (string)$info->image ? img ($info->image->url ('30x30c'), false, 'class="i_30"') : '-';?></td>
-            <td data-title='封面' width='80'><?php echo (string)$info->cover ? img ($info->cover->url ('30x30c'), false, 'class="i_30"') : '-';?></td>
             <td data-title='編輯' width='80'>
               <a href='<?php echo base_url ('admin', 'paths', $path->id, 'infos', $info->id, 'edit');?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'paths', $path->id, 'infos', $info->id);?>' data-method='delete' class='icon-bin destroy'></a>

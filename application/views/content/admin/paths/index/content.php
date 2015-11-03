@@ -12,9 +12,10 @@
 <?php if ($paths) {
         foreach ($paths as $path) { ?>
           <tr>
-            <td data-title='標題' width=''><?php echo $path->title;?></td>
             <td data-title='截圖' width='80'><?php echo (string)$path->image ? img ($path->image->url ('30x30c'), false, 'class="i_30"') : '-';?></td>
+            <td data-title='標題' width=''><?php echo $path->title;?></td>
             <td data-title='長度' width='150'><?php echo number_format ($path->length, 2);?>(m)</td>
+            <td data-title='資訊' width='150'><?php echo implode ('', array_map (function ($info) use ($path) { return anchor (base_url ('admin', 'paths', $path->id, 'infos'), $info->title, 'class="info"'); }, $path->infos));?></td>
             <td data-title='編輯' width='120'>
               <a href='<?php echo base_url ('admin', 'paths', $path->id, 'infos');?>' class='icon-pin_drop'></a>
               <a href='<?php echo base_url ('admin', 'paths', $path->id, 'edit');?>' class='icon-pencil2'></a>

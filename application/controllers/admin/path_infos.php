@@ -160,7 +160,10 @@ class Path_infos extends Admin_controller {
       if ($cover && !$info->cover->put ($cover))
         return false;
 
-      if ($cover)
+      if ($posts['url'] && !$info->cover->put_url ($posts['url']))
+        return false;
+
+      if ($cover || $posts['url'])
         delay_job ('path_infos', 'update_image_cover_color', array ('id' => $info->id));
       else
         delay_job ('path_infos', 'update_image', array ('id' => $info->id));
@@ -194,6 +197,8 @@ class Path_infos extends Admin_controller {
       return '沒有填寫標題！';
     if (!(isset ($posts['description']) && ($posts['description'] = trim ($posts['description']))))
       return '沒有填寫描述！';
+    if (!(isset ($posts['type']) && ($posts['type'] = trim ($posts['type'])) && in_array ($posts['type'], array_keys (PathInfo::$type_names))))
+      return '沒有選則類型！';
     if (!(isset ($posts['latitude']) && ($posts['latitude'] = trim ($posts['latitude']))))
       return '沒有緯度，請點選地圖決定地點！';
     if (!(isset ($posts['longitude']) && ($posts['longitude'] = trim ($posts['longitude']))))

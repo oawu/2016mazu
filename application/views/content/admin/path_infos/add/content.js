@@ -6,6 +6,7 @@
 $(function () {
   var $map = $('#map');
   var $fm = $('form#fm');
+  var $types = $fm.find ('input[type="radio"]');
   var _map = null;
   var _marker = null;
   var _polyline = null;
@@ -36,24 +37,23 @@ $(function () {
         })
     });
 
+    _marker = new google.maps.Marker ({
+        map: _map,
+        draggable: true,
+        icon: $types.filter (':checked').next ().attr ('src')
+      });
+
     var $latitude = $fm.find ('input.ori_latitude');
     var $longitude = $fm.find ('input.ori_longitude');
     if ($latitude.length && $longitude.length)
-        _marker = new google.maps.Marker ({
-            map: _map,
-            draggable: true,
-            position: new google.maps.LatLng ($latitude.val (), $longitude.val ()),
-          });
+      _marker.setPosition (new google.maps.LatLng ($latitude.val (), $longitude.val ()));
 
     google.maps.event.addListener (_map, 'click', function (e) {
-      if (_marker)
-        _marker.setPosition (e.latLng);
-      else
-        _marker = new google.maps.Marker ({
-            map: _map,
-            draggable: true,
-            position: e.latLng,
-          });
+      _marker.setPosition (e.latLng);
+    });
+    
+    $types.change (function () {
+      _marker.setIcon ($(this).next ().attr ('src'));
     });
 
     $fm.submit (function () {

@@ -5,6 +5,27 @@
 
 @import "_oa";
 
+.types {
+  @include clearfix();
+  
+  label {
+    float: left;
+    display: inline-block;
+    margin: 5px;
+    input[type='radio'] {
+      &:checked {
+        & ~ img {
+          @include opacity(1);
+        }
+      }
+    }
+    img {
+      @include opacity(.3);
+      width: 22px;
+      height: auto !important;
+    }
+  }
+}
 .cover {
   max-height: 100px;
   display: block;
