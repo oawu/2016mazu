@@ -32,27 +32,24 @@ $(function () {
     $that.get (0).clickCount = $tabDivDiv.find ('> a.a').index () + 1;
 
     var $firstArrow = $arrow.first ().click (function () {
-      if (units[$that.get (0).clickCount - 1])
-        $tabDivDiv.css ({'left': (--$that.get (0).clickCount < 1 ? 0 : (0 - units.slice (0, $that.get (0).clickCount).reduce (function (a, b) { return a + b; }))) + 'px'});
+      if (units[$that.get (0).clickCount - 1]) $tabDivDiv.css ({'left': (--$that.get (0).clickCount < 1 ? 0 : (0 - units.slice (0, $that.get (0).clickCount).reduce (function (a, b) { return a + b; }))) + 'px'});
     });
 
     var $lastArrow = $arrow.last ().click (function () {
-      if (units[$that.get (0).clickCount + 1])
-        $tabDivDiv.css ({'left': 0 - units.slice (0, $that.get (0).clickCount+++1).reduce (function (a, b) { return a + b; }) + 'px'});
+      if (units[$that.get (0).clickCount + 1]) $tabDivDiv.css ({'left': 0 - units.slice (0, $that.get (0).clickCount+++1).reduce (function (a, b) { return a + b; }) + 'px'});
     });
 
     $arrow.click (function () {
-      if (units[$that.get (0).clickCount - 1])
-        $firstArrow.removeClass ('d');
-      else
-        $firstArrow.addClass ('d');
-
-      if (units[$that.get (0).clickCount + 1])
-        $lastArrow.removeClass ('d');
-      else
-        $lastArrow.addClass ('d');
+      if (units[$that.get (0).clickCount - 1]) $firstArrow.removeClass ('d');
+      else $firstArrow.addClass ('d');
+      if (units[$that.get (0).clickCount + 1]) $lastArrow.removeClass ('d');
+      else $lastArrow.addClass ('d');
     });
-    if ($(this).hasClass ('o'))
-      $arrow.first ().click ();
+    if ($that.hasClass ('o') && $that.get (0).clickCount--) $arrow.first ().click ();
+
+    if ($that.get (0).tTimer) clearTimeout ($that.get (0).tTimer);
+      $that.get (0).tTimer = setTimeout (function () {
+        $that.addClass ('t');
+      }, 500);
   });
 });

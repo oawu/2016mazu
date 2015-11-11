@@ -17,6 +17,7 @@
   height: $tabHeight;
   background-color: rgba(255, 255, 255, 1);
   border-bottom: 1px solid rgba(201, 202, 200, 1);
+  overflow: hidden;
   @include clearfix();
   @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
     left: 0;
@@ -37,6 +38,16 @@
     display: inline-block;
     height: 100%;
   }
+  &.t {
+    > a {
+      @include transition(all .3s);
+    }
+    > div {
+      > div {
+        @include transition(all .3s);
+      }
+    }
+  }
   > a {
     display: inline-block;
     width: 0;
@@ -47,7 +58,6 @@
     cursor: pointer;
     color: rgba(148, 148, 148, 1);
     @include opacity(0);
-    @include transition(all .3s);
     
     &:hover {
       color: rgba(91, 91, 91, 1);
@@ -74,7 +84,6 @@
       height: 100%;
       width: 100%;
       padding: 0;
-      @include transition(all .3s);
       @include clearfix();
       
       a {
