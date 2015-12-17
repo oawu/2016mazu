@@ -16,7 +16,8 @@
   z-index: 9998;
   height: $tabHeight;
   background-color: rgba(255, 255, 255, 1);
-  border-bottom: 1px solid rgba(201, 202, 200, 1);
+  // border-bottom: 1px solid rgba(201, 202, 200, 1);
+  @include box-shadow(0 1px 1px rgba(201, 202, 200, 1));
   overflow: hidden;
   @include clearfix();
   @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {

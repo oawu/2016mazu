@@ -165,10 +165,11 @@ class Oa_controller extends Root_controller {
     $version = 0;
     $file_name = implode (Cfg::system ('static', 'separate'), array (Cfg::system ('static', 'file_prefix'), get_parent_class ($this), $this->get_class (), $this->get_method (), Cfg::system ('static', 'name'), $i));
     $file_name = (Cfg::system ('static', 'is_md5') ? md5 ($file_name) : $file_name) . '.' .  $format . ($version ? '?v=' . $version : '');
+    $bom = pack ('H*','EFBBBF');
 
     if (!is_readable ($folder_path . $file_name) && !($data = '')) {
       foreach ($temp as $key => $value)
-        $data .= (($file = read_file ($path = FCPATH . preg_replace ("|^(" . preg_quote (base_url ('')) . ")|", '', $value))) ? Cfg::system ('static', 'minify') ? $this->minify->$format->min ($file) : $file : '') . "\n";
+        $data .= (($file = preg_replace("/^$bom/", '', read_file ($path = FCPATH . preg_replace ("|^(" . preg_quote (base_url ('')) . ")|", '', $value)))) ? Cfg::system ('static', 'minify') ? $this->minify->$format->min ($file) : $file : '') . "\n";
       write_file ($folder_path . $file_name, $data, 'w+');
     }
     return base_url (array_merge (Cfg::system ('static', 'assets_folder'), array ($file_name)));

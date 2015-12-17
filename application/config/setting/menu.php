@@ -62,7 +62,7 @@ $menu['site'] = array (
         '其他介紹' => array ('icon' => 'icon-github', 'href' => base_url ('dintaos', '其他介紹'), 'class' => 'dintaos', 'method' => '其他介紹', 'target' => '_self'),
       ),
     '三月十九' => array (
-        '路關' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self'),
+        '關於三月十九' => array ('icon' => 'icon-github', 'href' => base_url ('march19', 'about'), 'class' => 'march19', 'method' => 'about', 'target' => '_self'),
         '陣頭遶境地圖' => array ('icon' => 'icon-github', 'href' => '', 'class' => 'paths', 'method' => '', 'target' => '_self', 'tags' => array (
             // '三月十九' => array ('href' => '', 'class' => '', 'method' => ''),
             // '三月二十' => array ('href' => '', 'class' => '', 'method' => ''),
