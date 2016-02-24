@@ -12,7 +12,7 @@
 })(this, function () {
 
 	'use strict';
-	var PhotoSwipe = function(template, UiClass, items, options){
+	var PhotoSwipe = function(template, UiClass, items, options, ids){
 
 /*>>framework-bridge*/
 /**
@@ -800,12 +800,13 @@ var publicMethods = {
 		_applyCurrentZoomPan( allowRenderResolution );
 	},
 
-	init: function() {
+	init: function(pvCallback) {
 
 		if(_isOpen || _isDestroying) {
 			return;
 		}
 
+    _listen ('pvCallback', pvCallback);
 		var i;
 
 		self.framework = framework; // basic functionality
@@ -2679,7 +2680,7 @@ var _showOrHideTimeout,
 * 
 */
 
-var _items,
+var _items, _ids,
 	_tempPanAreaSize = {},
 	_imagesToAppendPool = [],
 	_initialContentSet,
@@ -2696,6 +2697,7 @@ var _items,
 
 
 var _getItemAt,
+	_getIdsAt,
 	_getNumItems,
 	_initialIsLoop,
 	_getZeroBounds = function() {
@@ -2923,7 +2925,9 @@ _registerModule('Controller', {
 		initController: function() {
 			framework.extend(_options, _controllerDefaultOptions, true);
 			self.items = _items = items;
+			self.ids = _ids = ids;
 			_getItemAt = self.getItemAt;
+			_getIdsAt = self.getIdsAt;
 			_getNumItems = _options.getNumItemsFn; //self.getNumItems;
 
 
@@ -2988,6 +2992,12 @@ _registerModule('Controller', {
 		getItemAt: function(index) {
 			if (index >= 0) {
 				return _items[index] !== undefined ? _items[index] : false;
+			}
+			return false;
+		},
+		getIdsAt: function(index) {
+			if (index >= 0) {
+				return _ids[index] !== undefined ? _ids[index] : false;
 			}
 			return false;
 		},
@@ -3536,14 +3546,16 @@ var _historyUpdateTimeout,
 			_hashChangedByScript = true;
 		}
 
-
 		var pid = (_currentItemIndex + 1);
 		var item = _getItemAt( _currentItemIndex );
 		if(item.hasOwnProperty('pid')) {
-			// carry forward any custom pid assigned to the item
 			pid = item.pid;
 		}
-		var newHash = _initialHash + '&'  +  'gid=' + _options.galleryUID + '&' + 'pid=' + pid;
+
+		var id = _getIdsAt( _currentItemIndex );
+		_shout ('pvCallback', id);
+
+		var newHash = _initialHash + '&'  +  'gid=' + _options.galleryUID + '&' + 'pid=' + pid + '&id=' + id;
 
 		if(!_historyChanged) {
 			if(_windowLoc.hash.indexOf(newHash) === -1) {

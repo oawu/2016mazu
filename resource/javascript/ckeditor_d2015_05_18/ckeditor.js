@@ -243,6 +243,7 @@ this.focusManager=new CKEDITOR.focusManager(this);this.keystrokeHandler=new CKED
     config.allowedContent = true;
     config.removeDialogTabs = 'image:advanced;link:advanced;image:Link;link:upload;';
     config.DefaultLinkTarget = '_self' ;
+    config.baseFloatZIndex = 999999;
     config.toolbarGroups = [
         { name: 'document', groups: [ 'mode', 'doctools', 'document' ] },
         { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
