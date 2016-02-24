@@ -2,7 +2,7 @@
 
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 include_once 'ImageBaseUtility.php';
@@ -120,7 +120,7 @@ class ImageGdUtility extends ImageBaseUtility {
       throw new ImageUtilityException ('ImageGdUtility 錯誤！', '色碼錯誤！', '請確認色碼格式，目前只支援 字串HEX、陣列RGB 格式！');
 
     if (($width < $this->dimension['width']) || ($height < $this->dimension['height']))
-      return $this->resize ($width, $height);
+      $this->resize ($width, $height);
 
     $newImage = function_exists ('imagecreatetruecolor') ? imagecreatetruecolor ($width, $height) : imagecreate ($width, $height);
     imagefill ($newImage, 0, 0, imagecolorallocate ($newImage, $color[0], $color[1], $color[2]));

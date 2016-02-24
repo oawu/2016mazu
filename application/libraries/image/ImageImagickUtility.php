@@ -2,7 +2,7 @@
 
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 include_once 'ImageBaseUtility.php';
@@ -14,7 +14,7 @@ class ImageImagickUtility extends ImageBaseUtility {
   public function __construct ($fileName, $options = array ()) {
     parent::__construct ($fileName);
 
-    $this->configs = Cfg::system ('image_gd_utility');
+    $this->configs = Cfg::system ('image_imgk_utility');
 
     $this->_init ()
          ->_setOptions ($options);
@@ -65,12 +65,10 @@ class ImageImagickUtility extends ImageBaseUtility {
 
     if ($this->format == 'gif')
       do {
-        $newImage->resizeImage ($newDimension['width'], $newDimension['height'], Imagick::FILTER_LANCZOS, 0.8, true);
-        // $newImage->thumbnailImage ($newDimension['width'], $newDimension['height'], false);
+        $newImage->thumbnailImage ($newDimension['width'], $newDimension['height'], false);
       } while ($newImage->nextImage () || !$newImage = $newImage->deconstructImages ());
     else
-      $newImage->resizeImage ($newDimension['width'], $newDimension['height'], Imagick::FILTER_LANCZOS, 0.8, true);
-      // $newImage->thumbnailImage ($newDimension['width'], $newDimension['height'], false);
+      $newImage->thumbnailImage ($newDimension['width'], $newDimension['height'], false);
 
     return $newImage;
   }
@@ -179,7 +177,7 @@ class ImageImagickUtility extends ImageBaseUtility {
       throw new ImageUtilityException ('ImageImagickUtility 錯誤！', '色碼錯誤！', '請確認色碼格式，目前只支援 字串HEX 格式！');
 
     if (($width < $this->dimension['width']) || ($height < $this->dimension['height']))
-      return $this->resize ($width, $height);
+      $this->resize ($width, $height);
 
     $newImage = new Imagick ();
     $newImage->setFormat ($this->format);
