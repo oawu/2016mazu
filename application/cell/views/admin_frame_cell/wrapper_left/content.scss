@@ -1,6 +1,6 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 @import "_oa";
@@ -11,6 +11,7 @@
       position: relative;
       display: table-cell;
       padding: 0;
+      padding-top: $navHeight;
       width: $wrapperLeftWidth;
       z-index: 990;
       padding-bottom: 50px;
@@ -25,6 +26,7 @@
         overflow-y: auto;
         z-index: 999999;
         border: 0;
+        padding-top: 0;
         -webkit-overflow-scrolling: touch;
         background: $mainBackgroundColor $mainBackgroundImage;
         @include transition(all .3s);

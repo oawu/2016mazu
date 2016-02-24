@@ -1,0 +1,356 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+$navLeftWidth: 250px;
+$navRightWidth: 100px;
+$mobileHorizontalPadding: 10px;
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 100%;
+  border-top: 5px solid rgba(39, 40, 34, .25);
+  z-index: 9999;
+  @include box-shadow(0 1px 4px 1px rgba(39, 40, 34, .4));
+  background-color: rgba(255, 255, 255, 1);
+  @include background-image(linear-gradient(
+    top, rgba(215, 20, 0, .8) 0%, rgba(215, 50, 50, 1) 100%));
+  @include transition(all .3s);
+  
+  @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    padding: 0 $mobileHorizontalPadding;
+    height: $navMobileHeight;
+
+    &.h {
+      top: -$navMobileHeight;
+    }
+  }
+  @media screen and (min-width: #{$mediaTabletWidth}) {
+    height: $navHeight;
+    
+    &.h {
+      top: -$navHeight;
+    }
+  }
+
+  > div {
+    width: $mainWidth;
+    height: 100%;
+    max-width: 100%;
+    display: inline-block;
+    @include clearfix();
+    
+
+    > a, > div {
+      float: left;
+      display: inline-block;
+      height: 100%;
+    }
+    > a {
+      position: relative;
+      width: $navLeftWidth;
+      height: 100%;
+      color: rgba(251, 236, 236, 1);
+      font-weight: bolder;
+      text-decoration: none;
+      @include text-shadow(0 0 5px rgba(173, 47, 41, 1));
+      @include transition(all .3s);
+      padding: 0;
+      padding-left: 5px;
+      @media screen and (min-width: #{$mainWidth + 20px}) {
+        padding: 0;
+      }
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        @include background-image(radial-gradient(50% 50%, rgba(230, 230, 230, .2) 0px, rgba(255, 255, 255, 0) 100%));
+        background-repeat: no-repeat;
+        background-position: 50% 5px;
+        z-index: -1;
+      }
+      &:hover {
+        color: rgba(255, 255, 255, 1);
+      }
+      @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+        width: 0;
+        display: none;
+      }
+      @include split-left(95px, '> div:first-child', '> div:last-child');
+      
+      > div {
+        overflow: hidden;
+
+        &:first-child {
+          font-size: 37px;
+          text-align: left;
+          letter-spacing: 10px;
+          white-space: nowrap;
+        }
+        &:last-child {
+          padding-left: 2px;
+          margin-top: 1px;
+          text-align: right;
+          text-align: left;
+          > div {
+            font-size: 20px;
+            letter-spacing: 12px;
+
+            &:last-child {
+              font-size: 10px;
+              margin-top: 2px;
+              color: rgba(244, 194, 194, 1);
+              letter-spacing: 2px;
+            }
+          }
+        }
+      }
+    }
+    > div:nth-child(2) {
+      text-align: left;
+      width: calc(100% - #{$navLeftWidth + $navRightWidth});
+
+      @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+        width: calc(100% - #{0 + $navRightWidth});
+      }
+      > a {
+        position: relative;
+        float: left;
+        display: inline-block;
+        text-align: center;
+        color: rgba(251, 236, 235, 1);
+        font-size: 35px;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        line-height: 41px;
+        margin-top: 5px;
+        text-decoration: none;
+        @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
+
+        @media screen and (min-width: $mediaTabletWidth) {
+          display: none;
+        }
+      }
+      > div {
+        position: relative;
+        float: left;
+        display: inline-block;
+        height: 40px;
+        width: 40px;
+        margin-top: 5px;
+        font-size: 35px;
+        text-align: center;
+        color: rgba(251, 236, 235, 1);
+        @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
+
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          margin-top: 9px;
+          font-size: 30px;
+        }
+        @media screen and (min-width: $mediaTabletWidth) {
+          display: none;
+        }
+      }
+      > h1 {
+        position: relative;
+        float: left;
+        display: inline-block;
+        margin: 0;
+        height: 40px;
+        line-height: 37px;
+        text-align: left;
+        color: rgba(251, 236, 235, 1);
+        font-size: 18px;
+        width: calc(100% - 40px - 5px);
+        letter-spacing: 3px;
+        @include overflow-docx3();
+        @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
+
+        @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+          margin-top: 7px;
+          margin-left: 5px;
+          font-size: 18px;
+        }
+        @media screen and (min-width: $mediaMiniMobileWidth) and (max-width: #{$mediaTabletWidth - 1px}) {
+          margin-top: 6px;
+          margin-left: 5px;
+          font-size: 21px;
+        }
+        @media screen and (min-width: $mediaTabletWidth) {
+          padding-top: 7px;
+          font-size: 24px;
+        }
+        span {
+          display: inline-block;
+          margin-top: 6px;
+          @include opacity(.7);
+          @include transition(opacity .3s);
+        }
+        &:hover {
+          span {
+            @include opacity(.9);
+          }
+        }
+      }
+    }
+    > div:nth-child(3) {
+      position: relative;
+      float: right;
+      width: $navRightWidth;
+
+      @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+        width: $navRightWidth;
+      }
+      > *[class*="fi-"] {
+        position: relative;
+        float: right;
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        margin-top: 5px;
+        line-height: 38px;
+        font-size: 25px;
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          margin-top: 6px;
+          font-size: 23px;
+        }
+        cursor: pointer;
+        text-decoration: none;
+        @include transition(all .3s);
+
+        + * {
+          margin-right: 3px;
+        }
+        &, &.w {
+          color: rgba(250, 226, 225, 1);
+          @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
+
+          &:hover {
+            color: rgba(255, 255, 255, 1);
+          }
+        }
+        &.b {
+          color: rgba(148, 37, 30, 1);
+          @include text-shadow(0 0 1px rgba(239, 192, 190, .5));
+          @include transition(all .3s);
+          @media screen and (min-width: 0) and (max-width: #{$mediaTabletWidth - 1px}) {
+            color: rgba(130, 30, 25, 1);
+          }
+          &:hover {
+            color: rgba(130, 30, 25, 1);
+          }
+        }
+
+        &.r {
+          $menuCount: 5;
+          $menuPadding: 0;
+          $menuWidth: 170px;
+          $menuHeight: 40px;
+
+          &:before {
+            display: inline-block;
+            @include transition(all .5s);
+            @include transform(rotate(90deg) scale(1));
+          }
+          &.show {
+            &:before {
+              @include transform(rotate(270deg) scale(0));
+              @include opacity(0);
+            }
+            > div {
+              &:first-child {
+                display: inline-block;
+              }
+              &:last-child {
+                width: $menuWidth;
+                height: $menuHeight * $menuCount + $menuPadding * 2 + 2px;
+                padding: $menuPadding 10px;
+                @include opacity(1);
+
+                @for $i from 1 through 10 {
+                  &.i#{$i} {
+                    height: $menuHeight * $i + $menuPadding * 2;
+                  }
+                }
+                &.l {
+                  height: 80px;
+                  > div {
+                    @include loading(35px, 5px, rgba(255, 255, 255, 1));
+                  }
+                }
+              }
+            }
+          }
+          > div {
+            &:first-child {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              display: none;
+              z-index: 9995;
+              background-color: rgba(39, 40, 34, .5);
+              cursor: auto;
+            }
+            &:last-child {
+              position: absolute;
+              right: 5px;
+              top: 0;
+              display: inline-block;
+              width: 0;
+              height: 0;
+              padding: 0;
+              overflow: hidden;
+
+              background-color: rgba(255, 255, 255, 1);
+              @include border-radius(2px);
+              @include box-shadow(0 1px 2px rgba(39, 40, 34, .2));
+
+              z-index: 9999;
+
+              @include transition(all .3s);
+              @include opacity(0);
+              
+              a {
+                @include a(0, false, rgba(36, 36, 36, .6), rgba(36, 36, 36, .9));
+                display: block;
+                width: 100%;
+                font-size: 14px;
+                margin: 0;
+                text-align: left;
+                @include text-shadow(none);
+                height: $menuHeight;
+                line-height: $menuHeight - 5px;
+                padding: 0 10px;
+
+                &.tl {
+                  border-top: 1px solid rgba(39, 40, 34, .15);
+                }
+                &:before {
+                  display: inline-block;
+                  width: 20px;
+                  text-align: center;
+                  font-size: 20px;
+                  padding-top: 2px;
+                  margin-right: 5px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

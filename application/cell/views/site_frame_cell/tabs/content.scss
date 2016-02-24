@@ -1,0 +1,157 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+._t {
+  $arrowWidth: 30px;
+
+  position: fixed;
+  left: $wrapperLeftWidth;
+  display: inline-block;
+  width: calc(100% - #{$wrapperLeftWidth});
+  z-index: 9998;
+  height: $tabHeight;
+  @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    height: $tabMobileHeight;
+  }
+
+  background-color: rgba(255, 255, 255, 1);
+  @media screen and (min-width: $mainWidth) {
+    left: calc(((100% - #{$mainWidth}) / 2) + #{$wrapperLeftWidth} + 1px);
+    width: $mainWidth - $wrapperLeftWidth - 1px * 2;
+  }
+  // border-bottom: 1px solid rgba(201, 202, 200, 1);
+  @include box-shadow(0 0 1px rgba(100, 100, 100, .5));
+  @include clearfix();
+  @include transition(all .3s);
+  top: $navHeight;
+  @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    top: $navMobileHeight;
+    left: 0;
+    width: 100%;
+  }
+  &.h {
+    top: 0;
+  }
+  &.o {
+    > a {
+      width: $arrowWidth;
+      display: inline-block;
+      @include opacity(1);
+    }
+    > div {
+      width: calc(100% - #{$arrowWidth * 2});
+    }
+  }
+  > div, > a {
+    float: left;
+    display: inline-block;
+    height: 100%;
+  }
+  > a {
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+    text-align: center;
+    font-size: 18px;
+    line-height: $tabHeight + 5px;
+
+    @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+      line-height: $tabMobileHeight + 5px;
+    }
+    cursor: pointer;
+    color: rgba(148, 148, 148, 1);
+    @include opacity(0);
+    @include transition(all .3s);
+    
+    &:hover {
+      color: rgba(91, 91, 91, 1);
+    }
+    &.d {
+      color: rgba(222, 222, 222, 1);
+      cursor: not-allowed;
+    }
+  }
+  > div {
+    position: relative;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+    padding-top: 5px;
+    overflow: hidden;
+    @include transition(all .3s);
+
+    > div {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      @include transition(all .3s);
+      @include clearfix();
+      
+      a {
+        float: left;
+        display: inline-block;
+        height: 100%;
+        line-height: $tabHeight + 2px;
+        @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+          line-height: $tabMobileHeight + 2px;
+        }
+        padding: {
+          top: auto;
+          bottom: auto;
+          left: 20px;
+          right: 20px;
+        };
+        text-decoration: none;
+        border-bottom: 2px solid rgba(0, 0, 0, 0);
+        color: rgba(123, 123, 123, 1);
+        font-size: 15px;
+        @include transition(all .3s);
+
+        &:hover {
+          color: rgba(79, 79, 79, 1);
+        }
+        &.a {
+          color: rgba(79, 79, 79, 1);
+          font-weight: bold;
+          border-bottom: 2px solid rgba(221, 58, 42, 1);
+        }
+      }
+    }
+  }
+  ~ ._c {
+    margin-top: $tabHeight;
+    @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+      margin-top: $tabMobileHeight;
+    }
+  }
+  ~ ._m {
+    @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+      @include animation(_m2_m_s 5s);
+      @include keyframes(_m2_m_s){
+        0% { top: -$msgMobileHeight; @include opacity(0); }
+        5% { top: -$msgMobileHeight; @include opacity(0); }
+        15% { top: $navMobileHeight + $tabMobileHeight - 1px; @include opacity(1); }
+        90% { top: $navMobileHeight + $tabMobileHeight - 1px; @include opacity(1); }
+        100% { top: -$msgMobileHeight; @include opacity(0); }
+      }
+    }
+    @media screen and (min-width: #{$mediaTabletWidth}) {
+      @include animation(_m2_t_s 5s);
+      @include keyframes(_m2_t_s){
+        0% { top: -$msgHeight; @include opacity(0); }
+        5% { top: -$msgHeight; @include opacity(0); }
+        15% { top: $navHeight + $tabHeight - 1px; @include opacity(1); }
+        90% { top: $navHeight + $tabHeight - 1px; @include opacity(1); }
+        100% { top: -$msgHeight; @include opacity(0); }
+      }
+    }
+  }
+}

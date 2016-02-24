@@ -1,6 +1,6 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 @import "_oa";
@@ -9,30 +9,36 @@ $navLeftWidth: 250px;
 $navRightWidth: 100px;
 $mobileHorizontalPadding: 10px;
 
-html {
-  body {
-    padding-top: $navHeight;
-  }
-}
-
 nav {
   position: fixed;
   top: 0;
   left: 0;
   display: inline-block;
   width: 100%;
-  height: $navHeight;
   border-top: 5px solid rgba(39, 40, 34, .25);
   z-index: 9999;
   @include box-shadow(0 1px 4px 1px rgba(39, 40, 34, .4));
   background-color: rgba(255, 255, 255, 1);
   @include background-image(linear-gradient(
     top, rgba(215, 20, 0, .8) 0%, rgba(215, 50, 50, 1) 100%));
-
-
+  @include transition(all .3s);
+  
   @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
     padding: 0 $mobileHorizontalPadding;
+    height: $navMobileHeight;
+
+    &.h {
+      top: -$navMobileHeight;
+    }
   }
+  @media screen and (min-width: #{$mediaTabletWidth}) {
+    height: $navHeight;
+    
+    &.h {
+      top: -$navHeight;
+    }
+  }
+
   > div {
     width: $mainWidth;
     height: 100%;
@@ -206,7 +212,7 @@ nav {
       @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
         width: $navRightWidth;
       }
-      > *[class*="icon-"] {
+      > *[class*="fi-"] {
         position: relative;
         float: right;
         display: inline-block;
@@ -269,12 +275,12 @@ nav {
               &:last-child {
                 width: $menuWidth;
                 height: $menuHeight * $menuCount + $menuPadding * 2 + 2px;
-                padding: $menuPadding;
+                padding: $menuPadding 10px;
                 @include opacity(1);
 
                 @for $i from 1 through 10 {
                   &.i#{$i} {
-                    height: $menuHeight * $i + $menuPadding * 2 + 5px;
+                    height: $menuHeight * $i + $menuPadding * 2;
                   }
                 }
                 &.l {
@@ -316,7 +322,7 @@ nav {
 
               @include transition(all .3s);
               @include opacity(0);
-
+              
               a {
                 @include a(0, false, rgba(36, 36, 36, .6), rgba(36, 36, 36, .9));
                 display: block;
@@ -329,8 +335,7 @@ nav {
                 line-height: $menuHeight - 5px;
                 padding: 0 10px;
 
-                &.top_line {
-                  margin-top: 3px;
+                &.tl {
                   border-top: 1px solid rgba(39, 40, 34, .15);
                 }
                 &:before {

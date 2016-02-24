@@ -1,6 +1,6 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 @import "_oa";
@@ -10,17 +10,31 @@
 
   position: fixed;
   left: $wrapperLeftWidth;
-  top: $navHeight;
   display: inline-block;
   width: calc(100% - #{$wrapperLeftWidth});
   z-index: 9998;
   height: $tabHeight;
-  background-color: rgba(255, 255, 255, 1);
-  border-bottom: 1px solid rgba(201, 202, 200, 1);
-  @include clearfix();
   @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    height: $tabMobileHeight;
+  }
+
+  background-color: rgba(255, 255, 255, 1);
+  @media screen and (min-width: $mainWidth) {
+    left: calc(((100% - #{$mainWidth}) / 2) + #{$wrapperLeftWidth} + 1px);
+    width: $mainWidth - $wrapperLeftWidth - 1px * 2;
+  }
+  // border-bottom: 1px solid rgba(201, 202, 200, 1);
+  @include box-shadow(0 0 1px rgba(100, 100, 100, .5));
+  @include clearfix();
+  @include transition(all .3s);
+  top: $navHeight;
+  @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    top: $navMobileHeight;
     left: 0;
     width: 100%;
+  }
+  &.h {
+    top: 0;
   }
   &.o {
     > a {
@@ -44,6 +58,10 @@
     text-align: center;
     font-size: 18px;
     line-height: $tabHeight + 5px;
+
+    @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+      line-height: $tabMobileHeight + 5px;
+    }
     cursor: pointer;
     color: rgba(148, 148, 148, 1);
     @include opacity(0);
@@ -81,7 +99,10 @@
         float: left;
         display: inline-block;
         height: 100%;
-        line-height: 50px;
+        line-height: $tabHeight + 2px;
+        @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+          line-height: $tabMobileHeight + 2px;
+        }
         padding: {
           top: auto;
           bottom: auto;
@@ -107,15 +128,30 @@
   }
   ~ ._c {
     margin-top: $tabHeight;
+    @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+      margin-top: $tabMobileHeight;
+    }
   }
   ~ ._m {
-    @include animation(_m2_s 5s);
-    @include keyframes(_m2_s){
-      0% { top: -$msgHeight; @include opacity(0); }
-      5% { top: -$msgHeight; @include opacity(0); }
-      15% { top: $tabHeight - 1px; @include opacity(1); }
-      90% { top: $tabHeight - 1px; @include opacity(1); }
-      100% { top: -$msgHeight; @include opacity(0); }
+    @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+      @include animation(_m2_m_s 5s);
+      @include keyframes(_m2_m_s){
+        0% { top: -$msgMobileHeight; @include opacity(0); }
+        5% { top: -$msgMobileHeight; @include opacity(0); }
+        15% { top: $navMobileHeight + $tabMobileHeight - 1px; @include opacity(1); }
+        90% { top: $navMobileHeight + $tabMobileHeight - 1px; @include opacity(1); }
+        100% { top: -$msgMobileHeight; @include opacity(0); }
+      }
+    }
+    @media screen and (min-width: #{$mediaTabletWidth}) {
+      @include animation(_m2_t_s 5s);
+      @include keyframes(_m2_t_s){
+        0% { top: -$msgHeight; @include opacity(0); }
+        5% { top: -$msgHeight; @include opacity(0); }
+        15% { top: $navHeight + $tabHeight - 1px; @include opacity(1); }
+        90% { top: $navHeight + $tabHeight - 1px; @include opacity(1); }
+        100% { top: -$msgHeight; @include opacity(0); }
+      }
     }
   }
 }

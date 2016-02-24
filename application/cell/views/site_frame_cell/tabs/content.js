@@ -1,6 +1,6 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 $(function () {
@@ -19,7 +19,7 @@ $(function () {
           return $(this).width () + parseFloat ($(this).css ('padding-left')) + parseFloat ($(this).css ('padding-right'));
         }));
 
-    var sum = units.reduce (function (a, b) { return a + b; }) + 2;
+    var sum = units.reduce (function (a, b) { return a + b + 4; });
     $tabDivDiv.width (sum);
 
     $(window).resize (function () {

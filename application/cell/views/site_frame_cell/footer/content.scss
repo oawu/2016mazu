@@ -1,0 +1,67 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+#footer {
+  margin: 0 auto;
+  padding: 50px 0;
+  @include clearfix();
+
+  @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+    padding-top: 50px;
+    $footerWidth: 220px;
+    > div {
+      &:first-child, &:last-child {
+        width: calc(50% - #{$footerWidth / 2});
+      }
+      &:not(:first-child):not(:last-child) {
+        font-size: 14px;
+        width: $footerWidth;
+      }
+    }
+  }
+  @media screen and (min-width: $mediaMiniMobileWidth) {
+    padding-top: 100px;
+    $footerWidth: 250px;
+    > div {
+      &:first-child, &:last-child {
+        width: calc(50% - #{$footerWidth / 2});
+      }
+      &:not(:first-child):not(:last-child) {
+        width: $footerWidth;
+      }
+    }
+  }
+
+  > div {
+    float: left;
+    height: 100%;
+
+    &:first-child, &:last-child {
+      display: inline-block;
+      background-color: rgba(202, 200, 199, 1);
+      height: 1px;
+      margin-top: 20px;
+    }
+    &:not(:first-child):not(:last-child) {
+      display: inline-block;
+
+      > div {
+        &:first-child {
+          color: rgba(120, 120, 120, 1);
+          font-weight: bold;
+        }
+        &:last-child {
+          margin-top: 5px;
+          color: rgba(105, 105, 105, 1);
+          a {
+            @include a();
+          }
+        }
+      }
+    }
+  }
+}
