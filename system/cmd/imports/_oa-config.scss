@@ -3,17 +3,20 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-$mainWidth: 2600px !global;
+$mainWidth: 1400px !global;
 
 $mediaMiniMobileWidth: 384px !global;
 $mediaMobileWidth: 640px !global;
 $mediaTabletWidth: 960px !global;
 
-$navHeight: 55px !global;
+$navHeight: 60px !global;
+$navMobileHeight: 50px !global;
 $wrapperLeftWidth: 230px !global;
 $wrapperLeftMobileWidth: 230px !global;
-$msgHeight: 40px !global;
+$msgHeight: 45px !global;
+$msgMobileHeight: 40px !global;
 $tabHeight: 45px !global;
+$tabMobileHeight: 40px !global;
 
 $mainBackgroundColor: rgba(255, 255, 255, 1) !global;
 $mainBackgroundImage: image-url('bg/grunge.png', false, false) !global;
