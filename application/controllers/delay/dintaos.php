@@ -2,14 +2,14 @@
 
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 class Dintaos extends Delay_controller {
 
-  public function update_cover_color () {
-    if (!(($id = OAInput::post ('id')) && ($dintao = Dintao::find_by_id ($id, array ('select' => 'id, cover, cover_color_r, cover_color_g, cover_color_b')))))
+  public function update_cover_color_and_dimension () {
+    if (!(($id = OAInput::post ('id')) && ($dintao = Dintao::find_by_id ($id, array ('select' => 'id, cover, cover_color_r, cover_color_g, cover_color_b, cover_width, cover_height')))))
       return ;
 
-    $dintao->update_cover_color ();
+    $dintao->update_cover_color_and_dimension ();
   }
 }
