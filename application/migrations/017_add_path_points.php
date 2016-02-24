@@ -2,7 +2,7 @@
 
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 class Migration_Add_path_points extends CI_Migration {
@@ -18,6 +18,7 @@ class Migration_Add_path_points extends CI_Migration {
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
         PRIMARY KEY (`id`),
+        KEY `path_id_index` (`path_id`),
         FOREIGN KEY (`path_id`) REFERENCES `paths` (`id`) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
     );
