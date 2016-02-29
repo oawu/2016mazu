@@ -2,7 +2,7 @@
 
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 class Oa_controller extends Root_controller {
@@ -23,8 +23,6 @@ class Oa_controller extends Root_controller {
   public function __construct () {
     parent::__construct ();
     $this->add_meta (array ('http-equiv' => 'Content-type', 'content' => 'text/html; charset=utf-8'))
-         ->add_hidden (array ('id' => 'facebook_appId', 'value' => Cfg::setting ('facebook', 'appId')))
-         ->add_hidden (array ('id' => 'facebook_version', 'value' => Cfg::setting ('facebook', 'version')))
          ->add_hidden (array ('id' => 'ajax_navbar_url', 'value' => base_url ('ajax', 'navbar')));
   }
 
@@ -74,9 +72,13 @@ class Oa_controller extends Root_controller {
       $this->tabs[$key] = $val;
     return $this;
   }
-  protected function add_meta ($attributes) {
-    if (isset ($attributes['name'])) $this->meta_list = array_filter ($this->meta_list, function ($meta) use ($attributes) { return !isset ($meta['name']) || ($meta['name'] != $attributes['name']);});
-    if (isset ($attributes['property'])) $this->meta_list = array_filter ($this->meta_list, function ($meta) use ($attributes) { return !isset ($meta['property']) || ($meta['property'] != $attributes['property']);});
+  public function add_meta ($attributes) {
+    if (isset ($attributes['name']))
+      $this->meta_list = array_filter ($this->meta_list, function ($meta) use ($attributes) { return !isset ($meta['name']) || ($meta['name'] != $attributes['name']);});
+
+    if (isset ($attributes['property']) && !in_array($attributes['property'], array ('article:author', 'article:tag', 'og:see_also')))
+      $this->meta_list = array_filter ($this->meta_list, function ($meta) use ($attributes) { return !isset ($meta['property']) || ($meta['property'] != $attributes['property']) || isset ($meta['tag']) && ($meta['tag'] != $attributes['tag']);});
+
     array_push ($this->meta_list, $attributes);
     return $this;
   }
@@ -162,15 +164,17 @@ class Oa_controller extends Root_controller {
     if (!is_writable ($folder_path = FCPATH . implode (DIRECTORY_SEPARATOR, Cfg::system ('static', 'assets_folder')) . DIRECTORY_SEPARATOR))
       return null;
 
-    $version = 0;
     $file_name = implode (Cfg::system ('static', 'separate'), array (Cfg::system ('static', 'file_prefix'), get_parent_class ($this), $this->get_class (), $this->get_method (), Cfg::system ('static', 'name'), $i));
-    $file_name = (Cfg::system ('static', 'is_md5') ? md5 ($file_name) : $file_name) . '.' .  $format . ($version ? '?v=' . $version : '');
+    $file_name = (Cfg::system ('static', 'is_md5') ? md5 ($file_name) : $file_name) . '.' .  $format;
+    $bom = pack ('H*','EFBBBF');
 
     if (!is_readable ($folder_path . $file_name) && !($data = '')) {
       foreach ($temp as $key => $value)
-        $data .= (($file = read_file ($path = FCPATH . preg_replace ("|^(" . preg_quote (base_url ('')) . ")|", '', $value))) ? Cfg::system ('static', 'minify') ? $this->minify->$format->min ($file) : $file : '') . "\n";
+        $data .= (($file = preg_replace("/^$bom/", '', read_file ($path = FCPATH . preg_replace ("|^(" . preg_quote (base_url ('')) . ")|", '', $value)))) ? Cfg::system ('static', 'minify') ? $this->minify->$format->min ($file) : $file : '') . "\n";
       write_file ($folder_path . $file_name, $data, 'w+');
+ 
     }
+        
     return base_url (array_merge (Cfg::system ('static', 'assets_folder'), array ($file_name)));
   }
   private function _combine_static_files () {

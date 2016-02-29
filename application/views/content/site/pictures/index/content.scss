@@ -1,10 +1,18 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 @import "_oa";
-.as {
+#container>div>div:nth-child(2) {
+  @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    padding-top: 60px;
+  }
+  @media screen and (min-width: $mediaTabletWidth) {
+    padding-top: 75px;
+  }
+}
+article {
   position: relative;
   display: block;
   padding: 0 0 20px 0;
@@ -50,6 +58,25 @@
       overflow: hidden;
 
     }
+    div {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      display: inline-block;
+      line-height: 10px;
+      font-size: 13px;
+      padding: 1px 6px;
+      background-color: rgba(39, 40, 34, .5);
+      color: rgba(230, 230, 230, 1);
+      @include border-radius(20px);
+      @include text-shadow(0 0 5px rgba(39, 40, 34, .7));
+
+      &:before {
+        margin-right: 3px;
+        display: inline-block;
+        margin-top: 1px;
+      }
+    }
     figcaption {
       position: absolute;
       bottom: 0;
@@ -89,7 +116,7 @@ $layouts: (
       $height: nth($layout, 4);
       $margin: nth($layout, 5);
 
-      .as {
+      article {
         figure {
           width: calc((100% + #{$margin * 2}) / #{$column} - #{$margin * 2});
           height: $height;
@@ -110,7 +137,7 @@ $layouts: (
       $height: nth($layout, 4);
       $margin: nth($layout, 5);
 
-      .as {
+      article {
         figure {
           width: calc((100% + #{$margin * 2}) / #{$column} - #{$margin * 2});
           height: $height;

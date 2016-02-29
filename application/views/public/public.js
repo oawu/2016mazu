@@ -1,6 +1,6 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 Array.prototype.column = function (k) {
@@ -20,56 +20,39 @@ window.ajaxError = function (result) {
   console.error (result.responseText);
 };
 
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '695906407210191',
+    xfbml      : true,
+    version    : 'v2.4'
+  });
+};
+
+(function(d, s, id){
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/zh_TW/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+ }(document, 'script', 'facebook-jssdk'));
+
 $(function () {
-  var appId = $('#facebook_appId').val ();
-  var version = $('#facebook_version').val ();
-
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : appId,
-      xfbml      : true,
-      version    : version
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/zh_TW/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-
   window.mainLoading = $('#loading');
   window.showLoading = function (callback) {
-    this.mainLoading.fadeIn (function () {
-      $(this).removeClass ('hide');
-      if (callback)
-        callback ();
-    });
+    this.mainLoading.fadeIn (function () { $(this).removeClass ('hide'); if (callback) callback (); });
   };
 
   window.hideLoading = function (callback) {
-    clearTimeout (window.showLoadingTimer);
-
-    this.mainLoading.addClass ('hide').fadeOut (function () {
-      $(this).hide (function () {
-        if (callback)
-          callback ();
-      });
-    });
+    clearTimeout (window.showLoadingTimer); this.mainLoading.addClass ('hide').fadeOut (function () { $(this).hide (function () { if (callback) callback (); }); });
   };
 
   window.closeLoading = function (callback) {
-    window.hideLoading (function  () {
-      if (callback)
-        callback ();
-        window.mainLoading.remove ();
-    });
+    window.hideLoading (function  () { if (callback) callback (); window.mainLoading.remove (); });
   };
 
-  window.showLoadingTimer = setTimeout (function () {
-    window.showLoading ();
-  }, 100);
-
+  window.showLoadingTimer = setTimeout (function () { window.showLoading (); }, 100);
+  
+  $('time').timeago ();
+  $('._ic').imgLiquid ({verticalAlign: 'center'});
+  $('._it').imgLiquid ({verticalAlign: 'top'});
 });

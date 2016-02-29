@@ -1,12 +1,17 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 @import "_oa";
-
+$mainWidth: 1400px;
 $mobileHorizontalPadding: 10px;
 $mobileVerticalPadding: 15px;
+nav {
+  > div {
+    width: $mainWidth !important;
+  }
+}
 
 #container {
   @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
@@ -37,6 +42,15 @@ $mobileVerticalPadding: 15px;
     }
 
     > div {
+      &:nth-child(1) {
+        > div:not(:first-child) {
+          @media screen and (min-width: $mainWidth) {
+            border-left: 1px solid rgba(39, 40, 34, .2);
+            @include border-left-radius(3px);
+            @include box-shadow(-1px 1px 5px rgba(39, 40, 34, .1));
+          }
+        }
+      }
       &:nth-child(2) {
         position: relative;
         background-color: rgba(255, 255, 255, 1);
@@ -49,16 +63,20 @@ $mobileVerticalPadding: 15px;
         @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
           display: block;
           width: 100%;
+          min-height: 400px;
           word-break: break-all;
           border-top: 0;
           border-left: 0;
           border-right: 0;
           padding: $mobileVerticalPadding $mobileHorizontalPadding;
+          padding-top: $navMobileHeight + $mobileVerticalPadding;
         }
         @media screen and (min-width: $mediaTabletWidth) {
           z-index: 995;
-          border-left: 1px solid rgba(39, 40, 34, .25);
+          // border-left: 1px solid rgba(39, 40, 34, .25);
           padding: 20px;
+          padding-top: $navHeight + 20px;
+          @include box-shadow(0 0 10px 1px rgba(39, 40, 34, .2), -1px 0 1px rgba(39, 40, 34, .15));
           @include border-bottom-left-radius(3px);
         }
         @media screen and (min-width: #{$mainWidth + 40px}) {
@@ -87,42 +105,6 @@ $mobileVerticalPadding: 15px;
   }
 }
 
-#action {
-  position: fixed;
-  display: none;
-  font-size: 18px;
-  color: rgba(255, 255, 255, .9);
-  z-index: 99999;
-  cursor: pointer;
-  background-color: rgba(220, 55, 43, 1);
-  @include transition(all .3s);
-  @include border-radius(50%);
-  @include box-shadow(0 5px 7px 1px rgba(39, 40, 34, .3), inset 0 1px 2px rgba(255, 255, 255, .4));
-
-  @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-    right: 20px;
-    bottom: 30px;
-    width: 44px;
-    height: 44px;
-    line-height: 40px;
-    @include box-shadow(0 3px 4px 1px rgba(39, 40, 34, .25), inset 0 1px 2px rgba(255, 255, 255, .4));
-  }
-  @media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mainWidth - 1px}) {
-    right: 40px;
-    bottom: 40px;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-  }
-  @media screen and (min-width: #{$mainWidth + 40px}) {
-    right: 50px;
-    bottom: 50px;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-  }
-}
-
 #loading {
   position: fixed;
   top: 0;
@@ -131,7 +113,6 @@ $mobileVerticalPadding: 15px;
   @include loading();
   display: none;
 }
-
 form.search {
   @include clearfix();
   $submitWidth: 60px;
@@ -166,14 +147,18 @@ form.search {
         }
       }
     }
+    select {
+      float: left;
+      margin: 0;
+      height: 30px;
+    }
     input {
       float: left;
-      @include clearfix();
       @include input();
       margin: 0;
     }
     @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-      input {
+      input, select {
         width: 100%;
         &:not(:first-child) {
           margin-top: 5px;
@@ -181,9 +166,9 @@ form.search {
       }
     }
     @media screen and (min-width: #{$mediaMobileWidth}) {
-      @for $i from 1 through 8 {
+      @for $i from 1 through 10 {
         &.i#{$i} {
-          input {
+          input, select {
             width: calc((100% / #{$i}) - 7px);
             &:not(:nth-child(#{$i}n + 1)) {
               margin-left: 5px;
@@ -199,6 +184,7 @@ form.search {
   > button[type='submit'] {
     width: $submitWidth;
     @include button('blue-gray');
+    font-weight: normal;
     height: 30px;
     @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
       width: 100%;
@@ -207,6 +193,7 @@ form.search {
   }
   > a {
     @include button();
+    font-weight: normal;
     width: $newWidth;
     margin-left: 10px;
     display: none;
@@ -220,6 +207,7 @@ form.search {
   }
   ~ button {
     @include button('indigo');
+    font-weight: normal;
     @media screen and (min-width: #{$mediaMobileWidth}) {
       display: none;
     }
@@ -244,9 +232,35 @@ table.table-list-rwd {
       cursor: pointer;
     }
   }
-  .i_30 {
-    width: 30px;
-    @include border-radius(2px);
+  
+  .index_checkbox {
+    @include checkbox('mazu2');
+    cursor: pointer;
+
+    input {
+      &[disabled] {
+        ~ div {
+          cursor: not-allowed;
+        } 
+      }
+    }
+    > div {
+      display: inline-block;
+      margin-left: 3px;
+    }
+  }
+
+  @for $i from 1 through 10 {
+    .i_#{$i * 10} {
+      width: $i * 10px;
+      @include box-shadow(0 0 1px rgba(0, 0, 0, .2), 0 0 1px rgba(0, 0, 0, .2));
+      @include border-radius(2px);
+      @include transition(all .3s);
+
+      &:hover {
+        @include box-shadow(0 0 5px rgba(0, 0, 0, .3), 0 0 1px rgba(0, 0, 0, .3));
+      }
+    }
   }
   a {
     @include a;
@@ -262,9 +276,77 @@ table.table-form {
   @include material-table-form(100px);
 
   tbody tr th {
-    padding-top: 8px;
   }
   tbody tr td {
+
+    &.k {
+      @include split-right(30px, 'input:first-child', 'div');
+      input:first-child {
+        width: calc(100% - 35px) !important;
+      }
+      div {
+        text-align: center;
+        float: right;
+        margin-top: 7px;
+        color: rgba(137, 138, 135, 1);
+        border-left: 1px solid rgba(39, 40, 34, .1);
+        cursor: pointer;
+        @include transition(all .3s);
+        
+        &:hover {
+          color: rgba(97, 98, 95, 1);
+        }
+      }
+    }
+
+    .ma, .m {
+      + .ma, + .m {
+        margin-top: 5px;
+      }
+      @include clearfix();
+
+      input[type="text"] {
+        float: left;
+        &:nth-child(2) {
+          width: calc(((100% - 60px) / 10) * 3 - 5px - 15px);
+        }
+        &:nth-child(3) {
+          width: calc(((100% - 60px) / 10) * 7 - 5px - 15px);
+        }
+        margin-right: 10px;
+      }
+      div {
+        float: left;
+        width: 20px;
+        margin-right: 10px;
+
+        a {
+          @include a;
+          cursor: pointer;
+          display: block;
+          text-align: center;
+          width: 100%;
+          + a {
+            margin-top: 3px;
+          }
+        }
+      }
+      button {
+        float: right;
+        width: 50px;
+        @include button('mazu2');
+        font-weight: normal;
+      }
+    }
+
+    .cover {
+      height: 100px;
+      width: 100px;
+      display: block;
+      border: 1px solid rgba(190, 191, 189, 1);
+      @include border-radius(2px);
+      margin-bottom: 10px;
+    }
     &[colspan] {
       text-align: right;
       padding-top: 10px;
@@ -284,17 +366,21 @@ table.table-form {
     textarea.pure {
       @include material-textarea;
     }
-    textarea.ckeditor {
-      ~ [class*="cke"] {
-          &, &:after, &:before, *, *:after, *:before {
-              @include box-sizing(content-box);
-          }
+    textarea {
+      &[class*="cke"] {
+        &, &:after, &:before, *, *:after, *:before {
+          @include box-sizing(content-box);
+        }
       }
     }
 
-    input[type='text'] {
+    input[type='text'], input[type='number'], input[type='file'] {
       @include material-input;
     }
+    input[type='file'] {
+      border-bottom: 0;
+    }
+
 
     label {
       position: relative;
@@ -319,12 +405,14 @@ table.table-form {
         &[type='checkbox'] {
           &:checked {
             + * {
+              display: inline-block;
               &:before {
                 color: rgba(203, 78, 64, 1);
               }
             }
           }
           + * {
+            display: inline-block;
             &:before {
               content: "\e624";
               color: rgba(255, 255, 255, 1);
@@ -332,8 +420,7 @@ table.table-form {
               height: 18px;
               line-height: 16px;
               display: inline-block;
-              // font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
-              font-family: 'icomoon', "微軟正黑體", "Microsoft JhengHei", Monaco;
+              font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
               border: 1px solid rgba(39, 39, 34, .3);
               margin-right: 3px;
               text-align: center;
@@ -372,8 +459,7 @@ table.table-form {
               height: 18px;
               line-height: 16px;
               display: inline-block;
-              // font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
-              font-family: 'icomoon', "微軟正黑體", "Microsoft JhengHei", Monaco;
+              font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
               border: 1px solid rgba(39, 39, 34, .5);
               margin-right: 3px;
               text-align: center;
@@ -397,11 +483,9 @@ table.table-form {
 ._m {
   @include alert('info');
   position: absolute;
-  top: -$msgHeight;
   left: 0;
   display: inline-block;
   width: 100%;
-  height: $msgHeight;
   padding: 10px;
   border-right: 0;
   border-left: 0;
@@ -414,12 +498,34 @@ table.table-form {
 
   @include border-radius(0);
   @include opacity(0);
-  @include animation(_m_s 5s);
-  @include keyframes(_m_s){
-    0% { top: -$msgHeight; @include opacity(0); }
-    5% { top: -$msgHeight; @include opacity(0); }
-    15% { top: 0; @include opacity(1); }
-    90% { top: 0; @include opacity(1); }
-    100% { top: -$msgHeight; @include opacity(0); }
+  
+  @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    top: -$msgMobileHeight;
+    height: $msgMobileHeight;
+    
+    @include animation(_m_m_s 5s);
+    @include keyframes(_m_m_s){
+      0% { top: -$msgMobileHeight; @include opacity(0); }
+      5% { top: -$msgMobileHeight; @include opacity(0); }
+      15% { top: $navMobileHeight; @include opacity(1); }
+      90% { top: $navMobileHeight; @include opacity(1); }
+      100% { top: -$msgMobileHeight; @include opacity(0); }
+    }
   }
+  @media screen and (min-width: #{$mediaTabletWidth}) {
+    top: -$msgHeight;
+    height: $msgHeight;
+
+    @include animation(_m_t_s 5s);
+    @include keyframes(_m_t_s){
+      0% { top: -$msgHeight; @include opacity(0); }
+      5% { top: -$msgHeight; @include opacity(0); }
+      15% { top: $navHeight; @include opacity(1); }
+      90% { top: $navHeight; @include opacity(1); }
+      100% { top: -$msgHeight; @include opacity(0); }
+    }
+  }
+}
+.cke_combo__fontsize .cke_combo_text {
+  width: auto !important;
 }

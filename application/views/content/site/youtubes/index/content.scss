@@ -1,67 +1,38 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 @import "_oa";
-.as {
+
+#container>div>div:nth-child(2) {
+  @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    padding-top: 60px;
+  }
+  @media screen and (min-width: $mediaTabletWidth) {
+    padding-top: 75px;
+  }
+}
+article {
   position: relative;
+  width: 100%;
   display: block;
+  // background-color: rgba(0, 0, 255, 0.2);
   padding: 0 0 20px 0;
   @include clearfix();
-
+  
   > div {
     font-size: 15px;
   }
-  a {
-    float: left;
+  figure {
     position: relative;
+    float: left;
     display: inline-block;
-
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
+    
     margin: 0;
     cursor: pointer;
-    @include border-radius(2px);
 
-    &:before {
-      $size: 60px;
-      content: "\e61a";
-      font-family: 'icomoon', "微軟正黑體", "Microsoft JhengHei", Monaco;
-      position: absolute;
-      top: calc((100% - #{$size}) / 2);
-      left: calc((100% - #{$size}) / 2);
-      display: inline-block;
-      width: $size;
-      height: $size;
-      font-size: $size - 5px;
-      line-height: $size - 2px;
-      padding-left: 2px;
-      text-align: center;
-      @include opacity(.6);
-      @include transition(all .3s);
-      @include border-radius(50%);
-      background-color: rgba(0, 0, 0, 1);
-      color: rgba(255, 255, 255, 1);
-      border: 2px solid rgba(255, 255, 255, 1);
-      @include box-shadow(0 0 10px rgba(0, 0, 0, 1));
-    }
-    &:hover {
-      &:before {
-        @include opacity(.9);
-        @include box-shadow(0 0 10px 1px rgba(0, 0, 0, 1));
-      }
-    }
-    figure {
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-
-      overflow: hidden;
-
+    @media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
       &:before {
         content: '';
         position: absolute;
@@ -79,22 +50,84 @@
                         rgba(39, 40, 34, .7) 100%
                 ));
       }
-      figcaption {
+      &:after {
+        $w: 40px;
+        content: "\e907";
+        font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+        position: absolute;
+        z-index: 7;
+        top: calc(50% - #{$w / 2});
+        left: calc(50% - #{$w / 2});
+        display: inline-block;
+        width: $w;
+        height: $w;
+        line-height: $w - 1px;
+        font-size: 20px;
+        border: 1px solid rgba(255, 255, 255, 1);
+        color: rgba(255, 255, 255, 1);
+        padding-left: 3px;
+        background-color: rgba(0, 0, 0, 1);
+        @include opacity(.6);
+        @include border-radius(50%);
+        @include box-shadow(0 0 10px rgba(0, 0, 0, 1));
+      }
+    }
+    span {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      display: inline-block;
+      line-height: 10px;
+      font-size: 13px;
+      padding: 1px 6px;
+      background-color: rgba(39, 40, 34, .5);
+      color: rgba(245, 245, 245, 1);
+      @include border-radius(20px);
+      @include text-shadow(0 0 5px rgba(39, 40, 34, .7));
+      z-index: 5;
+
+      &:before {
+        margin-right: 3px;
+        display: inline-block;
+        margin-top: 1px;
+      }
+    }
+    a {
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+      @include border-radius(2px);
+      @media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
+        position: relative;
+        z-index: 5;
+      }
+    }
+    figcaption {
+      display: inline-block;
+      width: 100%;
+      margin-top: 5px;
+      text-align: left;
+
+      a {
+        @include a;
+        height: auto;
+        font-size: 16px;
+        @include border-radius(0);
+        @include overflow-docx3();
+      }
+      @media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
         position: absolute;
         bottom: 0;
         left: 0;
-        right: 0;
-        padding: 5px;
-        z-index: 10;
-        color: rgba(230, 230, 230, 1);
-        font-size: 16px;
-        @include transition(all .3s);
-        @include overflow-docx3();
+        padding: 0 3px;
+        z-index: 5;
+        a {
+          @include a(0, false, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+        }
       }
     }
   }
 }
-
 
 $layouts: (
   (0, 325px, 1, 180px, 3px),
@@ -119,12 +152,17 @@ $layouts: (
       $height: nth($layout, 4);
       $margin: nth($layout, 5);
 
-      .as {
-        a {
+      article {
+        figure {
           width: calc((100% + #{$margin * 2}) / #{$column} - #{$margin * 2});
-          height: $height;
+          a {
+            height: $height; 
+          }
           margin: $margin;
 
+          &:nth-child(n + #{$column + 1}) {
+            margin-top: 15px; 
+          }
           &:nth-child(#{$column}n + 1) {
             margin-left: 0;
           }
@@ -140,12 +178,17 @@ $layouts: (
       $height: nth($layout, 4);
       $margin: nth($layout, 5);
 
-      .as {
-        a {
+      article {
+        figure {
           width: calc((100% + #{$margin * 2}) / #{$column} - #{$margin * 2});
-          height: $height;
+          a {
+            height: $height;
+          }
           margin: $margin;
 
+          &:nth-child(n + #{$column + 1}) {
+            margin-top: 15px; 
+          }
           &:nth-child(#{$column}n + 1) {
             margin-left: 0;
           }

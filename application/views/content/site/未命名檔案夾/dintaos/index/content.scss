@@ -1,0 +1,309 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+.ds {
+  padding: 5px 0 20px 0;
+  > div {
+    font-size: 15px;
+  }
+  section {
+    position: relative;
+    text-align: left;
+    @include split('.i_t', '.r');
+
+    @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+      $width: 95px;
+      $height: 75px;
+      $marginTop: 36px;
+
+      + section {
+        margin-top: $marginTop;
+
+        &:before {
+          top: -($marginTop / 2 + 2px);
+          left: -10px;
+          width: calc(100% + 20px);
+          display: inline-block !important;
+        }
+      }
+      .i_t, .r {
+        height: $height;
+      }
+      .i_t {
+        width: $width;
+      }
+      .r {
+        height: $height + 10px;
+        width: calc(100% - #{$width + 10px});
+
+        a:first-child {
+          h2 {
+            font-size: 16px;
+            height: 22px;
+            line-height: 23px;
+            @include overflow-docx3();
+          }
+        }
+        div {
+          &:nth-child(2) {
+            margin-top: 2px;
+            font-size: 13px;
+            padding: 5px 0;
+            height: calc(100% - 27px);
+            line-height: 18px;
+          }
+          &:nth-child(3) {
+            padding-left: 5px;
+            height: 20px;
+            font-size: 8px;
+            line-height: 19px;
+            width: calc(100% - 50px) !important;
+            letter-spacing: .5px;
+            display: none !important;
+            @include overflow-docx3();
+          }
+        }
+        a:last-child {
+          font-size: 0;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+        }
+      }
+    }
+    @media screen and (min-width: $mediaMiniMobileWidth) and (max-width: #{$mediaMobileWidth - 1px}) {
+      $width: 125px;
+      $height: 100px;
+      $marginTop: 34px;
+
+      + section {
+        margin-top: $marginTop;
+        &:before {
+          top: -($marginTop / 2 + 2px);
+          left: $width;
+          width: calc(100% - #{$width});
+          display: inline-block !important;
+        }
+      }
+      .i_t, .r {
+        height: $height;
+      }
+      .i_t {
+        width: $width;
+      }
+      .r {
+        height: $height + 10px;
+        width: calc(100% - #{$width + 30px});
+        margin-right: 10px;
+
+        a:first-child {
+          h2 {
+            font-size: 18px;
+            height: 25px;
+            line-height: 24px;
+            @include overflow-docx3();
+          }
+        }
+        div {
+          &:nth-child(2) {
+            margin-top: 1px;
+            font-size: 14px;
+            padding: 5px 0;
+            height: calc(100% - 25px - 18px - 7px);
+            line-height: 19px;
+            letter-spacing: .5px;
+          }
+          &:nth-child(3) {
+            margin-top: 5px;
+            height: 20px;
+            font-size: 13px;
+            line-height: 20px;
+            letter-spacing: .5px;
+            @include overflow-docx3();
+          }
+        }
+        a:last-child {
+          font-size: 0;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+        }
+      }
+    }
+    @media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mediaTabletWidth - 1px}) {
+      $width: 150px;
+      $height: 125px;
+      $marginTop: 40px;
+
+      + section {
+        margin-top: $marginTop;
+        &:before {
+          top: -($marginTop / 2 + 2px);
+          left: $width + 15px;
+          width: calc(100% - #{$width + 15px});
+          display: inline-block !important;
+        }
+      }
+      .i_t, .r {
+        height: $height;
+      }
+      .i_t {
+        width: $width;
+      }
+      .r {
+        height: $height + 10px;
+        width: calc(100% - #{$width + 40px});
+        margin-right: 15px;
+        a:first-child {
+          h2 {
+            font-size: 19.5px;
+            height: 27px;
+            line-height: 26px;
+            @include overflow-docx3();
+          }
+        }
+        div {
+          &:nth-child(2) {
+            font-size: 15px;
+            padding: 5px 0;
+            height: calc(100% - 27px - 18px - 9px);
+            line-height: 19px;
+            letter-spacing: .8px;
+          }
+          &:nth-child(3) {
+            margin-top: 5px;
+            height: 23px;
+            font-size: 13px;
+            line-height: 21px;
+            letter-spacing: .5px;
+            display: inline-block;
+            width: calc(100% - 100px) !important;
+            @include overflow-docx3();
+          }
+        }
+        a:last-child {
+          font-size: 13px;
+          height: 18px;
+        }
+      }
+    }
+    @media screen and (min-width: $mediaTabletWidth) {
+      $width: 180px;
+      $height: 130px;
+      $marginTop: 50px;
+
+      + section {
+        margin-top: $marginTop;
+        &:before {
+          top: -($marginTop / 2 + 1px);
+          left: $width + 20px;
+          width: calc(100% - #{$width + 20px});
+          display: inline-block !important;
+        }
+      }
+      .i_t, .r {
+        height: $height;
+      }
+      .i_t {
+        width: $width;
+      }
+      .r {
+        height: $height + 10px;
+        width: calc(100% - #{$width + 40px});
+        margin-right: 15px;
+
+        a:first-child {
+          word-break: break-all;
+          overflow: hidden;
+          
+          h2 {
+            font-size: 19.5px;
+            height: 27px;
+            line-height: 26px;
+            word-break: break-all;
+            overflow: hidden;
+          }
+        }
+        div {
+          &:nth-child(2) {
+            margin-top: 4px;
+            font-size: 15px;
+            height: calc(100% - 27px - 18px - 5px - 10px);
+            line-height: 20px;
+            letter-spacing: .8px;
+          }
+          &:nth-child(3) {
+            margin-top: 7px;
+            height: 23px;
+            font-size: 14px;
+            line-height: 24px;
+            letter-spacing: .5px;
+            display: inline-block;
+            width: calc(100% - 100px) !important;
+            @include overflow-docx3();
+          }
+        }
+        a:last-child {
+          font-size: 14px;
+          height: 18px;
+        }
+      }
+    }
+    + section {
+      &:before {
+        content: '';
+        position: absolute;
+        display: none;
+        height: 1px;
+        background-color: rgba(233, 234, 233, 1);
+      }
+    }
+
+    .i_t {
+      margin-top: 5px;
+      border: 0 solid rgba(39, 40, 34, .25);
+      @include border-radius(2px);
+    }
+    .r {
+      a:first-child {
+        color: rgba(85, 85, 85, 1);
+        text-decoration: none;
+        @include transition(all .3s);
+        
+        &:hover {
+          color: rgba(40, 40, 40, 1);
+          font-weight: bold;
+        }
+        h2 {
+          margin: 0;
+        }
+      }
+      div {
+        &:nth-child(2) {
+          word-break: break-all;
+          overflow: hidden;
+          color: rgba(100, 100, 100, 1);
+        }
+        &:nth-child(3) {
+          display: inline-block;
+          width: 100%;
+          color: rgba(130, 130, 130, 1);
+          text-align: right;
+        }
+      }
+      a:last-child {
+        @include a;
+        position: absolute;
+        right: 0;
+        bottom: 2px;
+        text-align: right;
+      }
+    }
+  }
+}

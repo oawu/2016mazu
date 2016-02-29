@@ -1,0 +1,159 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+.as {
+  position: relative;
+  display: block;
+  padding: 0 0 20px 0;
+  @include clearfix();
+
+  > div {
+    font-size: 15px;
+  }
+  a {
+    float: left;
+    position: relative;
+    display: inline-block;
+
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    margin: 0;
+    cursor: pointer;
+    @include border-radius(2px);
+
+    &:before {
+      $size: 60px;
+      content: "\e61a";
+      font-family: 'icomoon', "微軟正黑體", "Microsoft JhengHei", Monaco;
+      position: absolute;
+      top: calc((100% - #{$size}) / 2);
+      left: calc((100% - #{$size}) / 2);
+      display: inline-block;
+      width: $size;
+      height: $size;
+      font-size: $size - 5px;
+      line-height: $size - 2px;
+      padding-left: 2px;
+      text-align: center;
+      @include opacity(.6);
+      @include transition(all .3s);
+      @include border-radius(50%);
+      background-color: rgba(0, 0, 0, 1);
+      color: rgba(255, 255, 255, 1);
+      border: 2px solid rgba(255, 255, 255, 1);
+      @include box-shadow(0 0 10px rgba(0, 0, 0, 1));
+    }
+    &:hover {
+      &:before {
+        @include opacity(.9);
+        @include box-shadow(0 0 10px 1px rgba(0, 0, 0, 1));
+      }
+    }
+    figure {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+
+      overflow: hidden;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: inline-block;
+        z-index: 3;
+        @include background-image(
+                linear-gradient(top, 
+                        rgba(39, 40, 34, 0) 0%,
+                        rgba(39, 40, 34, .2) 50%,
+                        rgba(39, 40, 34, .3) 60%,
+                        rgba(39, 40, 34, .7) 100%
+                ));
+      }
+      figcaption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 5px;
+        z-index: 10;
+        color: rgba(230, 230, 230, 1);
+        font-size: 16px;
+        @include transition(all .3s);
+        @include overflow-docx3();
+      }
+    }
+  }
+}
+
+
+$layouts: (
+  (0, 325px, 1, 180px, 3px),
+  (325px, $mediaMiniMobileWidth, 2, 140px, 3px),
+  ($mediaMiniMobileWidth, 370px, 2, 140px, 5px),
+  (370px, 410px, 2, 140px, 5px),
+  (410px, 525px, 2, 160px, 5px),
+  (525px, 585px, 3, 120px, 5px),
+  (585px, 680px, 3, 150px, 5px),
+  (680px, 800px, 4, 150px, 5px),
+  (800px, $mediaTabletWidth, 4, 180px, 5px),
+  ($mediaTabletWidth, 1040px, 4, 120px, 5px),
+  (1040px, 1090px, 4, 140px, 5px),
+  (1090px, 1185px, 4, 170px, 6px),
+  (1185px, 1280px, 4, 170px, 7px),
+  (1280px, 0, 4, 180px, 7px),
+);
+@each $layout in $layouts {
+  @if(nth($layout, 2) != 0) {
+    @media screen and (min-width: #{nth($layout, 1)}) and (max-width: #{nth($layout, 2) - 1px}) {
+      $column: nth($layout, 3);
+      $height: nth($layout, 4);
+      $margin: nth($layout, 5);
+
+      .as {
+        a {
+          width: calc((100% + #{$margin * 2}) / #{$column} - #{$margin * 2});
+          height: $height;
+          margin: $margin;
+
+          &:nth-child(#{$column}n + 1) {
+            margin-left: 0;
+          }
+          &:nth-child(#{$column}n) {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  } @else {
+    @media screen and (min-width: #{nth($layout, 1)}) {
+      $column: nth($layout, 3);
+      $height: nth($layout, 4);
+      $margin: nth($layout, 5);
+
+      .as {
+        a {
+          width: calc((100% + #{$margin * 2}) / #{$column} - #{$margin * 2});
+          height: $height;
+          margin: $margin;
+
+          &:nth-child(#{$column}n + 1) {
+            margin-left: 0;
+          }
+          &:nth-child(#{$column}n) {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+}

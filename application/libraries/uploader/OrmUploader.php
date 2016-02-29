@@ -2,7 +2,7 @@
 
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 class OrmUploader {
@@ -334,7 +334,7 @@ class OrmUploader {
     $format = pathinfo ($url, PATHINFO_EXTENSION);
     $temp = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge ($this->getTempDirectory (), array ($this->getRandomName () . ($format ? '.' . $format : ''))));
 
-    if (($temp = download_web_file ($url, $temp)) && $this->put ($temp, false))
+    if (($temp = download_web_file ($url, $temp)) && $this->put ($temp))
       return file_exists ($temp) ? @unlink ($temp) : true;
     else
       return false;

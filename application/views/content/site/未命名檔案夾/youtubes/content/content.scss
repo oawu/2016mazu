@@ -1,0 +1,362 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+.t {
+  @include split-right(140px, '> h2', '> div');
+  padding: 0 10px;
+  padding-bottom: 7px;
+  border-bottom: 4px solid rgba(227, 228, 239, 1);
+
+  > h2 {
+    margin: 0;
+    text-align: left;
+    color: rgba(85, 85, 85, 1);
+  }
+  > div {
+    margin-top: 2px;
+    text-align: right;
+    height: 23px;
+  }
+}
+.i {
+  margin: 0;
+  margin-top: 10px;
+  padding: 10px;
+  display: block;
+  overflow: hidden;
+
+  iframe {
+    width: 80%;
+  }
+}
+
+article {
+  text-align: left;
+  padding: 5px 10px;
+
+  p {
+    margin: 15.5px auto;
+    color: rgba(100, 100, 100, 1);
+    
+    a {
+      @include a(1px);
+      padding-bottom: 0;
+    }
+    img {
+      width: auto !important;
+      height: auto !important;
+
+      max-width: 100% !important;
+      max-height: 350px !important;
+
+      @include border-radius(2px);
+      margin-bottom: 15px;
+    }
+  }
+  ul {
+    margin: 15.5px auto;
+    margin-bottom: 20px;
+    padding-left: 30px;
+
+    li {
+      color: rgba(100, 100, 100, 1);
+
+      + li {
+        margin-top: 5px;
+      }
+    }
+  }
+}
+
+.s {
+  border-top: 1px solid rgba(39, 40, 34, .1);
+  padding: 10px;
+  padding-top: 15px;
+  margin-top: 10px;
+  text-align: left;
+  position: relative;
+  color: rgba(132, 132, 132, 1);
+
+  h2 {
+    font-weight: bold;
+  }
+  ul {
+    padding-left: 30px;
+
+    li {
+      + li {
+        margin-top: 3px;
+      }
+      a {
+        @include a(1px);
+      }
+    }
+  }
+}
+@media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+
+  .t {
+    position: relative;
+    height: 38px;
+
+    > h2 {
+      float: none;
+      display: inline-block;
+      width: 100%;
+      font-size: 22px;
+      letter-spacing: 2px;
+      height: 30px;
+      line-height: 31px;
+      @include overflow-docx3();
+    }
+    > div {
+      position: absolute;
+      left: 0;
+      bottom: -33px;
+      float: none;
+      text-align: left;
+      display: inline-block;
+      width: 100%;
+      margin-top: 6px;
+      padding-left: 10px;
+    }
+  } 
+  figure {
+    margin-top: 35px;
+    padding: 0 10px;
+    padding-top: 5px;
+  }
+  article {
+    p {
+      font-size: 15px;
+      line-height: 23px;
+    }
+    ul {
+      li {
+        font-size: 14px;
+      }
+    }
+  }
+}
+@media screen and (min-width: $mediaMiniMobileWidth) and (max-width: #{$mediaMobileWidth - 1px}) {
+  #container {
+    div {
+      div:nth-child(2) {
+        overflow: visible;
+      }
+    }
+  }
+  .t {
+    height: 38px;
+
+    > h2 {
+      font-size: 22px;
+      letter-spacing: 2px;
+      height: 30px;
+      line-height: 31px;
+      @include overflow-docx3();
+    }
+    > div {
+      margin-top: 6px;
+    }
+  } 
+  article {
+    p {
+      font-size: 15px;
+      line-height: 24px;
+    }
+    ul {
+      li {
+        font-size: 14px;
+      }
+    }
+  }
+}
+@media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mediaTabletWidth - 1px}) {
+  #container {
+    div {
+      div:nth-child(2) {
+        overflow: visible;
+      }
+    }
+  }
+  .t {
+    height: 38px;
+
+    > h2 {
+      font-size: 25px;
+      letter-spacing: 2px;
+      height: 30px;
+      line-height: 31px;
+      overflow: hidden;
+    }
+    > div {
+      margin-top: 6px;
+    }
+  } 
+  article {
+    p {
+      font-size: 15.5px;
+      line-height: 24.5px;
+    }
+    ul {
+      li {
+        font-size: 15px;
+      }
+    }
+  }
+}
+@media screen and (min-width: $mediaTabletWidth) {
+  #container {
+    div {
+      div:nth-child(2) {
+        overflow: visible;
+      }
+    }
+  }
+  .t {
+    height: 38px;
+
+    > h2 {
+      font-size: 25px;
+      letter-spacing: 2px;
+      height: 30px;
+      line-height: 31px;
+      overflow: hidden;
+    }
+    > div {
+      margin-top: 6px;
+    }
+  } 
+  article {
+    p {
+      font-size: 15.5px;
+      line-height: 24.5px;
+    }
+    ul {
+      li {
+        font-size: 15px;
+      }
+    }
+  }
+}
+@media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
+  .s {
+    h2 {
+      letter-spacing: 3px;
+      font-size: 16px;
+      margin: 0;
+    }
+    ul {
+      margin: 0;
+      margin-top: 10px;
+
+      li {
+        a {
+          font-size: 14px;
+          line-height: 17px;
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: $mediaTabletWidth) {
+  .s {
+    h2 {
+      letter-spacing: 3px;
+      font-size: 17px;
+      margin: 0;
+    }
+    ul {
+      margin: 0;
+      margin-top: 10px;
+
+      li {
+        a {
+          font-size: 14px;
+          line-height: 17px;
+        }
+      }
+    }
+  }
+}
+.np {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-top: 1px solid rgba(39, 40, 34, .1);
+  padding-top: 30px;
+  @include clearfix();
+  
+  a {
+    $arrowWidth: 30px;
+    $subHeight: 15px;
+    @include a;
+    position: relative;
+    display: inline-block;
+    max-width: 45%;
+    min-width: 75px;
+
+    padding: 0 5px;
+    padding-top: $subHeight + 2px;
+    font-size: 17px;
+    @include overflow-docx3();
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: $arrowWidth;
+
+      display: inline-block;
+      width: calc(100% - #{$arrowWidth});
+      height: $subHeight;
+      margin: 0;
+      font-size: 12px;
+      @include opacity(.7);
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      width: $arrowWidth;
+      float: left;
+      height: 100%;
+      padding-top: 5px;
+      font-size: 34px;
+      font-weight: normal;
+      font-family: 'icomoon', "微軟正黑體", "Microsoft JhengHei", Monaco;
+    }
+    &:nth-child(1) {
+      float: left;
+      text-align: left;
+      padding-left: $arrowWidth + 2px;
+      &:before {
+        content: "上一部";
+      }
+      &:after {
+        content: "\e60b";
+      }
+    }
+    &:nth-child(2) {
+      float: right;
+      text-align: right;
+      padding-right: $arrowWidth + 2px;
+      &:before {
+        left: 0;
+        content: "下一部";
+      }
+      &:after {
+        content: "\e60a";
+        float: right;
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+}

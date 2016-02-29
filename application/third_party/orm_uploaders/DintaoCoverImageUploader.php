@@ -2,7 +2,7 @@
 
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 class DintaoCoverImageUploader extends OrmImageUploader {
@@ -10,9 +10,9 @@ class DintaoCoverImageUploader extends OrmImageUploader {
   public function getVersions () {
     return array (
         '' => array (),
-        '30x30c' => array ('adaptiveResizeQuadrant', 30, 30, 't'),
-        '180x130c' => array ('adaptiveResizeQuadrant', 180, 130, 't'),
-        '1200x630c' => array ('adaptiveResizeQuadrant', 1200, 630, 't'),
+        '100x100c' => array ('adaptiveResizeQuadrant', 100, 100, 'c'),
+        '500w' => array ('resize', 500, 500, 'width'),
+        '1200x630c' => array ('adaptiveResizeQuadrant', 1200, 630, 'c'),
       );
   }
 }

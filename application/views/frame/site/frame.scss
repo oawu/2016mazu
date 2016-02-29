@@ -1,6 +1,6 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 @import "_oa";
@@ -63,16 +63,20 @@ nav {
         @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
           display: block;
           width: 100%;
+          min-height: 400px;
           word-break: break-all;
           border-top: 0;
           border-left: 0;
           border-right: 0;
           padding: $mobileVerticalPadding $mobileHorizontalPadding;
+          padding-top: $navHeight + $mobileVerticalPadding;
         }
         @media screen and (min-width: $mediaTabletWidth) {
           z-index: 995;
-          border-left: 1px solid rgba(39, 40, 34, .25);
+          // border-left: 1px solid rgba(39, 40, 34, .25);
+          @include box-shadow(0 0 10px 1px rgba(39, 40, 34, .2), -1px 0 1px rgba(39, 40, 34, .15));
           padding: 20px;
+          padding-top: $navHeight + 20px;
           @include border-bottom-left-radius(3px);
         }
         @media screen and (min-width: #{$mainWidth + 40px}) {
@@ -101,42 +105,6 @@ nav {
   }
 }
 
-#action {
-  position: fixed;
-  display: none;
-  font-size: 18px;
-  color: rgba(255, 255, 255, .9);
-  z-index: 99999;
-  cursor: pointer;
-  background-color: rgba(220, 55, 43, 1);
-  @include transition(all .3s);
-  @include border-radius(50%);
-  @include box-shadow(0 5px 7px 1px rgba(39, 40, 34, .3), inset 0 1px 2px rgba(255, 255, 255, .4));
-
-  @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-    right: 20px;
-    bottom: 30px;
-    width: 44px;
-    height: 44px;
-    line-height: 40px;
-    @include box-shadow(0 3px 4px 1px rgba(39, 40, 34, .25), inset 0 1px 2px rgba(255, 255, 255, .4));
-  }
-  @media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mainWidth - 1px}) {
-    right: 40px;
-    bottom: 40px;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-  }
-  @media screen and (min-width: #{$mainWidth + 40px}) {
-    right: 50px;
-    bottom: 50px;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-  }
-}
-
 #loading {
   position: fixed;
   top: 0;
@@ -146,276 +114,12 @@ nav {
   display: none;
 }
 
-form.search {
-  @include clearfix();
-  $submitWidth: 60px;
-  $newWidth: 60px;
-  position: relative;
-
-  @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-    display: none;
-    &.show {
-      display: block;
-    }
-  }
-  .l, > button[type='submit'], > a {
-    display: inline-block;
-    float: left;
-    width: calc(100% / 3);
-  }
-  .l {
-    width: calc(100% - #{$submitWidth});
-    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-      width: 100%;
-    }
-    text-align: left;
-
-    @for $i from 1 through 10 {
-      &.n#{$i} {
-        @media screen and (min-width: #{$mediaMobileWidth}) {
-          width: calc(100% - #{$submitWidth + ($newWidth + 10px) * $i});
-        }
-        ~ a {
-          display: inline-block;
-        }
-      }
-    }
-    input {
-      float: left;
-      @include clearfix();
-      @include input();
-      margin: 0;
-    }
-    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-      input {
-        width: 100%;
-        &:not(:first-child) {
-          margin-top: 5px;
-        }
-      }
-    }
-    @media screen and (min-width: #{$mediaMobileWidth}) {
-      @for $i from 1 through 8 {
-        &.i#{$i} {
-          input {
-            width: calc((100% / #{$i}) - 7px);
-            &:not(:nth-child(#{$i}n + 1)) {
-              margin-left: 5px;
-            }
-            &:not(:nth-child(-n + #{$i})) {
-              margin-top: 5px;
-            }
-          }
-        }
-      }
-    }
-  }
-  > button[type='submit'] {
-    width: $submitWidth;
-    @include button('blue-gray');
-    height: 30px;
-    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-      width: 100%;
-      margin-top: 5px;
-    }
-  }
-  > a {
-    @include button();
-    width: $newWidth;
-    margin-left: 10px;
-    display: none;
-    height: 30px;
-    line-height: 17px;
-    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-      width: 100%;
-      margin-left: 0;
-      margin-top: 5px;
-    }
-  }
-  ~ button {
-    @include button('indigo');
-    @media screen and (min-width: #{$mediaMobileWidth}) {
-      display: none;
-    }
-    width: 100%;
-    margin-top: 5px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-
-    &:before {
-      display: inline-block;
-      @include transform(rotate(90deg));
-    }
-  }
-}
-
-table.table-list-rwd {
-  @include material-table-list;
-  margin-top: 20px;
-  .sort {
-    a {
-      display: block;
-      cursor: pointer;
-    }
-  }
-  .i_30 {
-    width: 30px;
-    @include border-radius(2px);
-  }
-  a {
-    @include a;
-    font-size: 13px;
-
-    &[class*="icon-"] {
-      font-size: 18px;
-    }
-  }
-}
-
-table.table-form {
-  @include material-table-form(100px);
-
-  tbody tr th {
-    padding-top: 8px;
-  }
-  tbody tr td {
-    &[colspan] {
-      text-align: right;
-      padding-top: 10px;
-
-      button {
-        @include button('mazu');
-        padding: 5px 15px;
-      }
-      a {
-        @include a(1px, true);
-        font-size: 15px;
-        margin-top: 6px;
-        margin-right: 10px;
-      }
-    }
-
-    textarea.pure {
-      @include material-textarea;
-    }
-    textarea.ckeditor {
-      ~ [class*="cke"] {
-          &, &:after, &:before, *, *:after, *:before {
-              @include box-sizing(content-box);
-          }
-      }
-    }
-
-    input[type='text'] {
-      @include material-input;
-    }
-
-    label {
-      position: relative;
-      display: inline-block;
-
-      input {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        @include opacity(0);
-
-        + * {
-          z-index: 2;
-          display: inline-block;
-          cursor: pointer;
-          padding: 3px;
-          font-size: 14px;
-          line-height: 20px;
-          height: 24px;
-        }
-        &[type='checkbox'] {
-          &:checked {
-            + * {
-              &:before {
-                color: rgba(203, 78, 64, 1);
-              }
-            }
-          }
-          + * {
-            &:before {
-              content: "\e624";
-              color: rgba(255, 255, 255, 1);
-              width: 18px;
-              height: 18px;
-              line-height: 16px;
-              display: inline-block;
-              // font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
-              font-family: 'icomoon', "微軟正黑體", "Microsoft JhengHei", Monaco;
-              border: 1px solid rgba(39, 39, 34, .3);
-              margin-right: 3px;
-              text-align: center;
-              @include border-radius(2px);
-              @include transition(color .3s);
-            }
-          }
-        }
-
-        &[type='radio'] {
-          &:checked {
-            + * {
-              &:after {
-                border: 1px solid rgba(160, 65, 55, 1);
-                background-color: rgba(203, 78, 64, 1);
-              }
-            }
-          }
-          + * {
-            &:after {
-              position: absolute;
-              top: 7px;
-              left: 7px;
-              content: "";
-              display: inline-block;
-              width: 10px;
-              height: 10px;
-              border: 1px solid rgba(160, 65, 55, 0);
-              background-color: rgba(203, 78, 64, 0);
-              @include border-radius(50%);
-              @include transition(all .3s);
-            }
-            &:before {
-              content: '';
-              width: 18px;
-              height: 18px;
-              line-height: 16px;
-              display: inline-block;
-              // font-family: 'icomoon', cwTeXHei, Monaco, "微軟正黑體", "Microsoft JhengHei";
-              font-family: 'icomoon', "微軟正黑體", "Microsoft JhengHei", Monaco;
-              border: 1px solid rgba(39, 39, 34, .5);
-              margin-right: 3px;
-              text-align: center;
-              @include border-radius(50%);
-            }
-          }
-        }
-
-        &[disabled] {
-          cursor: not-allowed;
-
-          + * {
-            cursor: not-allowed;
-            @include opacity(.75);
-          }
-        }
-      }
-    }
-  }
-}
 ._m {
   @include alert('info');
   position: absolute;
-  top: -$msgHeight;
   left: 0;
   display: inline-block;
   width: 100%;
-  height: $msgHeight;
   padding: 10px;
   border-right: 0;
   border-left: 0;
@@ -428,12 +132,31 @@ table.table-form {
 
   @include border-radius(0);
   @include opacity(0);
-  @include animation(_m_s 5s);
-  @include keyframes(_m_s){
-    0% { top: -$msgHeight; @include opacity(0); }
-    5% { top: -$msgHeight; @include opacity(0); }
-    15% { top: 0; @include opacity(1); }
-    90% { top: 0; @include opacity(1); }
-    100% { top: -$msgHeight; @include opacity(0); }
+  
+  @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+    top: -$msgMobileHeight;
+    height: $msgMobileHeight;
+    
+    @include animation(_m_m_s 5s);
+    @include keyframes(_m_m_s){
+      0% { top: -$msgMobileHeight; @include opacity(0); }
+      5% { top: -$msgMobileHeight; @include opacity(0); }
+      15% { top: $navMobileHeight; @include opacity(1); }
+      90% { top: $navMobileHeight; @include opacity(1); }
+      100% { top: -$msgMobileHeight; @include opacity(0); }
+    }
+  }
+  @media screen and (min-width: #{$mediaTabletWidth}) {
+    top: -$msgHeight;
+    height: $msgHeight;
+
+    @include animation(_m_t_s 5s);
+    @include keyframes(_m_t_s){
+      0% { top: -$msgHeight; @include opacity(0); }
+      5% { top: -$msgHeight; @include opacity(0); }
+      15% { top: $navHeight; @include opacity(1); }
+      90% { top: $navHeight; @include opacity(1); }
+      100% { top: -$msgHeight; @include opacity(0); }
+    }
   }
 }

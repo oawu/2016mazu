@@ -2,7 +2,7 @@
 
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 class YoutubeCoverImageUploader extends OrmImageUploader {
@@ -10,8 +10,8 @@ class YoutubeCoverImageUploader extends OrmImageUploader {
   public function getVersions () {
     return array (
         '' => array (),
-        '30x30c' => array ('adaptiveResizeQuadrant', 40, 40, 't'),
-        '300w'   => array ('resize', 300, 300, 'width'),
+        '100x100c'  => array ('adaptiveResizeQuadrant', 100, 100, 't'),
+        '500w' => array ('resize', 500, 500, 'width'),
         '1200x630c' => array ('adaptiveResizeQuadrant', 1200, 630, 't'),
       );
   }

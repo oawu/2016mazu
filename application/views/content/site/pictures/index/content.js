@@ -1,6 +1,6 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 $(function () {
@@ -123,8 +123,12 @@ $(function () {
 
       if (disableAnimation) options.showAnimationDuration = 0;
 
-      gallery = new PhotoSwipe (pswpElement, PhotoSwipeUI_Default, items, options);
-      gallery.init ();
+      gallery = new PhotoSwipe (pswpElement, PhotoSwipeUI_Default, items, options, $(gallerySelector).find ('a').map (function () {
+        return $(this).data ('id');
+      }));
+      gallery.init (function (id) {
+        addPv ('Picture', id);
+      });
 
       var $center = $('div.pswp__caption__center').width (Math.floor (gallery.currItem.w * gallery.currItem.fitRatio) - 20);
 
@@ -152,7 +156,7 @@ $(function () {
       openPhotoSwipe (hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true);
   };
 
-  initPhotoSwipeFromDOM ('.as');
+  initPhotoSwipeFromDOM ('article');
 
   window.hideLoading ();
 });

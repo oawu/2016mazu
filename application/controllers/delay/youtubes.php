@@ -7,9 +7,9 @@
 class Youtubes extends Delay_controller {
 
   public function update_cover_color_and_dimension () {
-    if (!(($id = OAInput::post ('id')) && ($youtube = Youtube::find_by_id ($id, array ('select' => 'id, cover, cover_color_r, cover_color_g, cover_color_b, cover_width, cover_height')))))
+    if (!(($id = OAInput::post ('id')) && ($picture = Youtube::find_by_id ($id, array ('select' => 'id, cover, cover_color_r, cover_color_g, cover_color_b, cover_width, cover_height')))))
       return ;
 
-    $youtube->update_cover_color_and_dimension ();
+    $picture->update_cover_color_and_dimension ();
   }
 }

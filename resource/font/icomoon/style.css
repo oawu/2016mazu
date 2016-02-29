@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:    url('fonts/icomoon.eot?c7lpol');
-    src:    url('fonts/icomoon.eot?c7lpol#iefix') format('embedded-opentype'),
-        url('fonts/icomoon.ttf?c7lpol') format('truetype'),
-        url('fonts/icomoon.woff?c7lpol') format('woff'),
-        url('fonts/icomoon.svg?c7lpol#icomoon') format('svg');
+    src:    url('fonts/icomoon.eot?42acjq');
+    src:    url('fonts/icomoon.eot?42acjq#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?42acjq') format('truetype'),
+        url('fonts/icomoon.woff?42acjq') format('woff'),
+        url('fonts/icomoon.svg?42acjq#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -93,16 +93,31 @@
 .icon-eye2:before {
     content: "\e903";
 }
+.icon-play:before {
+    content: "\e907";
+}
 .icon-zoomin:before {
     content: "\e900";
 }
 .icon-zoomout:before {
     content: "\e901";
 }
+.icon-flame:before {
+    content: "\f0d2";
+}
+.icon-film:before {
+    content: "\e908";
+}
 .icon-alarm-cancel:before {
     content: "\e902";
 }
 .icon-cross:before {
     content: "\e117";
+}
+.icon-chevron-thin-left:before {
+    content: "\e904";
+}
+.icon-chevron-thin-right:before {
+    content: "\e905";
 }
 
