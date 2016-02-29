@@ -2,113 +2,89 @@
 
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 class Youtubes extends Site_controller {
-  private $all = '所有影片';
+  private $tag = null;
 
-  public function all ($offset = 0, $keyword = '') {
-    $keyword = trim (urldecode ($keyword));
+  public function __construct () {
+    parent::__construct ();
 
-    $columns = array ('id' => 'int');
-    $configs = array ($this->get_class (), $keyword ? $keyword : $this->all, '%s');
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Youtube', OAInput::get ())));
-    if ($keyword) Youtube::addConditions ($conditions, '(title LIKE ?) OR (description LIKE ?) OR (keywords LIKE ?)', '%' . $keyword . '%', '%' . $keyword . '%', '%' . $keyword . '%');
+    $this->add_param ('tag', $this->tag)
+         ;
+  }
+  public function show ($id = 0) {
+    if (!($id && ($youtube = Youtube::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', $id, Youtube::IS_ENABLED))))))
+      return redirect_message (array ('youtubes'), array (
+          '_flash_message' => '找不到該筆資料。'
+        ));
+
+    if ($tags = array_merge (column_array ($youtube->tags, 'name'), Cfg::setting ('site', 'keywords')))
+      foreach ($tags as $i => $tag)
+        if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+        else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+           
+    if ($also = $youtube->also ())
+      foreach ($also as $i => $a)
+        $this->add_meta (array ('property' => 'og:see_also', 'content' => $a->content_page_url ($this->tag)));
+
+    return $this->set_title ($youtube->title . ' - ' . Cfg::setting ('site', 'title'))
+                ->set_subtitle ($youtube->title)
+                ->set_back_link (base_url ('youtubes'))
+                ->add_css (resource_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
+                ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'my.js'))
+                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge ($youtube->keywords (), Cfg::setting ('site', 'keywords')))))
+                ->add_meta (array ('name' => 'description', 'content' => $youtube->mini_content (150)))
+                ->add_meta (array ('property' => 'og:title', 'content' => $youtube->title . ' - ' . Cfg::setting ('site', 'title')))
+                ->add_meta (array ('property' => 'og:description', 'content' => $youtube->mini_content (300)))
+                ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $youtube->cover->url ('1200x630c'), 'alt' => $youtube->title . ' - ' . Cfg::setting ('site', 'title')))
+                ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+                ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+                ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+                ->add_meta (array ('property' => 'article:modified_time', 'content' => $youtube->updated_at->format ('c')))
+                ->add_meta (array ('property' => 'article:published_time', 'content' => $youtube->created_at->format ('c')))
+                ->add_hidden (array ('id' => 'id', 'value' => $youtube->id))
+                ->load_view (array (
+                    'youtube' => $youtube,
+                    'prev' => $youtube->prev ($this->tag),
+                    'next' => $youtube->next ($this->tag),
+                  ));
+  }
+  public function index ($offset = 0) {
+    $columns = array ();
+
+    $configs = array ('youtubes', '%s');
+    $conditions = conditions ($columns, $configs);
+    Youtube::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', Youtube::IS_ENABLED);
 
     $limit = 12;
     $total = Youtube::count (array ('conditions' => $conditions));
     $offset = $offset < $total ? $offset : 0;
 
     $this->load->library ('pagination');
-    $configs['uri_segment'] = 3;
     $pagination = $this->pagination->initialize (array_merge (array ('total_rows' => $total, 'num_links' => 3, 'per_page' => $limit, 'uri_segment' => 0, 'base_url' => '', 'page_query_string' => false, 'first_link' => '第一頁', 'last_link' => '最後頁', 'prev_link' => '上一頁', 'next_link' => '下一頁', 'full_tag_open' => '<ul class="pagination">', 'full_tag_close' => '</ul>', 'first_tag_open' => '<li class="f">', 'first_tag_close' => '</li>', 'prev_tag_open' => '<li class="p">', 'prev_tag_close' => '</li>', 'num_tag_open' => '<li>', 'num_tag_close' => '</li>', 'cur_tag_open' => '<li class="active"><a href="#">', 'cur_tag_close' => '</a></li>', 'next_tag_open' => '<li class="n">', 'next_tag_close' => '</li>', 'last_tag_open' => '<li class="l">', 'last_tag_close' => '</li>'), $configs))->create_links ();
     $youtubes = Youtube::find ('all', array (
-      'offset' => $offset,
-      'limit' => $limit,
-      'order' => 'id DESC',
-      'conditions' => $conditions));
+        'offset' => $offset,
+        'limit' => $limit,
+        'order' => 'id DESC',
+        'include' => array ('mappings'),
+        'conditions' => $conditions
+      ));
 
-    return $this->set_method ('index')
-                ->set_subtitle ($keyword ? '<span class="icon-search"></span>' . $keyword : '所有照片')
+    if ($tags = YoutubeTag::all (array ('select' => 'id', 'limit' => 5, 'conditions' => array ('is_on_site = ?', YoutubeTag::IS_ON_SITE_NAMES))))
+      foreach ($tags as $tag)
+        $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ('tag', $tag->id, 'youtubes')));
+
+    return $this->set_title ('所有影片' . ' - ' . Cfg::setting ('site', 'title'))
+                ->set_subtitle ('所有影片')
+                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge (array ('所有影片'), Cfg::setting ('site', 'keywords')))))
+                ->add_meta (array ('property' => 'og:title', 'content' => '所有影片' . ' - ' . Cfg::setting ('site', 'title')))
+                ->add_meta (array ('property' => 'article:section', 'content' => '所有影片'))
                 ->load_view (array (
-                    'has_photoswipe' => true,
-                    'method' => $this->all,
-                    'keyword' => $keyword,
                     'youtubes' => $youtubes,
-                    'pagination' => $pagination
+                    'pagination' => $pagination,
+                    'columns' => $columns
                   ));
-  }
-
-  public function index ($method = '', $offset = 0) {
-    if (!($tag = YoutubeTag::find_by_name ($method = urldecode ($method), array ('select' => 'id'))))
-      return $this->set_subtitle ($method)
-                  ->load_view (array (
-                      'has_photoswipe' => false,
-                      'method' => $method,
-                      'youtubes' => array (),
-                      'pagination' => ''
-                    ));
-
-    $columns = array ('id' => 'int');
-    $configs = array ($this->get_class (), $method, '%s');
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'YoutubeTagMapping', OAInput::get ())));
-    YoutubeTagMapping::addConditions ($conditions, 'youtube_tag_id = ?', $tag->id);
-
-    $limit = 12;
-    $total = YoutubeTagMapping::count (array ('conditions' => $conditions));
-    $offset = $offset < $total ? $offset : 0;
-
-    $this->load->library ('pagination');
-    $pagination = $this->pagination->initialize (array_merge (array ('total_rows' => $total, 'num_links' => 3, 'per_page' => $limit, 'uri_segment' => 0, 'base_url' => '', 'page_query_string' => false, 'first_link' => '第一頁', 'last_link' => '最後頁', 'prev_link' => '上一頁', 'next_link' => '下一頁', 'full_tag_open' => '<ul class="pagination">', 'full_tag_close' => '</ul>', 'first_tag_open' => '<li class="f">', 'first_tag_close' => '</li>', 'prev_tag_open' => '<li class="p">', 'prev_tag_close' => '</li>', 'num_tag_open' => '<li>', 'num_tag_close' => '</li>', 'cur_tag_open' => '<li class="active"><a href="#">', 'cur_tag_close' => '</a></li>', 'next_tag_open' => '<li class="n">', 'next_tag_close' => '</li>', 'last_tag_open' => '<li class="l">', 'last_tag_close' => '</li>'), $configs))->create_links ();
-    $youtube_ids = column_array (YoutubeTagMapping::find ('all', array (
-      'select' => 'youtube_id',
-      'offset' => $offset,
-      'limit' => $limit,
-      'order' => 'sort DESC',
-      'conditions' => $conditions)), 'youtube_id');
-
-    $youtubes = $youtube_ids ? Youtube::find ('all', array ('order' => 'FIELD(id, ' . implode (', ', $youtube_ids) . ')', 'conditions' => array ('id IN (?)', $youtube_ids))) : array ();
-
-    return $this
-                ->set_subtitle ($method)
-                ->load_view (array (
-                    'has_photoswipe' => true,
-                    'method' => $method,
-                    'keyword' => $method,
-                    'youtubes' => $youtubes,
-                    'pagination' => $pagination
-                  ));
-  }
-  public function content ($method = null, $id = 0) {
-    if (!($id && ($youtube = Youtube::find_by_id ($id))))
-      return redirect_message (array ('youtubes'), array (
-          '_flash_message' => '無此照片！'
-        ));
-
-    $method = $method === null ? $method : $method;
-    $next = $youtube->next ($method == $this->all ? '' : $method);
-    $prev = $youtube->prev ($method == $this->all ? '' : $method);
-
-    if (!preg_match ('/^data:/', $og_img = $youtube->cover->url ('1200x630c')))
-      $this->add_meta (array ('property' => 'og:image', 'content' => $og_img, 'alt' => $youtube->title . ' - ' . Cfg::setting ('site', 'main', 'title')))
-           ->add_meta (array ('property' => 'og:image:type', 'content' => 'image/' . pathinfo ($og_img, PATHINFO_EXTENSION)))
-           ->add_meta (array ('property' => 'og:image:width', 'content' => '1200'))
-           ->add_meta (array ('property' => 'og:image:height', 'content' => '630'));
-
-    return $this->set_title ($youtube->title . ' - ' . Cfg::setting ('site', 'main', 'title'))
-                ->set_subtitle ($youtube->title)
-                ->set_back_link (base_url ($this->get_class (), $method))
-                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $youtube->keywords ())))
-                ->add_meta (array ('name' => 'description', 'content' => $youtube->mini_description ()))
-                ->add_meta (array ('property' => 'og:title', 'content' => $youtube->title))
-                ->add_meta (array ('property' => 'og:description', 'content' => $youtube->mini_description ()))
-                ->add_hidden (array ('id' => 'id', 'value' => $youtube->id))
-                ->load_view (array (
-                    'method' => $method,
-                    'youtube' => $youtube,
-                    'next' => $next,
-                    'prev' => $prev
-                  ), false);
   }
 }
