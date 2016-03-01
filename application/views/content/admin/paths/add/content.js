@@ -124,6 +124,12 @@ $(function () {
         center: new google.maps.LatLng (23.569396231491233, 120.3030703338623),
       });
 
+    _map.mapTypes.set ('map_style', new google.maps.StyledMapType ([
+      { featureType: 'transit', stylers: [{ visibility: 'off' }] },
+      { featureType: 'poi', stylers: [{ visibility: 'off' }] }
+    ]));
+    _map.setMapTypeId ('map_style');
+
     $fm.find ('input.ori_points').each (function () {
       initMarker (new google.maps.LatLng ($(this).data ('lat'), $(this).data ('lng')), 0, $(this).val ());
     });
@@ -166,6 +172,18 @@ $(function () {
       }));
 
       window.showLoading ();
+    });
+
+        $('#zoom').click (function () {
+      var $body = $('body');
+
+      if (!$body.hasClass ('f')) {
+        $body.addClass ('f');
+        $(this).attr ('class', 'icon-shrink');
+      } else {
+        $body.removeClass ('f');
+        $(this).attr ('class', 'icon-enlarge');
+      }
     });
     window.hideLoading ();
   }

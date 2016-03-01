@@ -4,5 +4,10 @@
  */
 
 $(function () {
+  window.checkboxUpdateStatus (
+      $('.index_checkbox input'),
+      $('#is_enabled_url'),
+      'is_enabled'
+    );
   window.hideLoading ();
 });

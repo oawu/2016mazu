@@ -261,6 +261,15 @@ table.table-list-rwd {
         @include box-shadow(0 0 5px rgba(0, 0, 0, .3), 0 0 1px rgba(0, 0, 0, .3));
       }
     }
+    .ih_#{$i * 10} {
+      height: $i * 10px;
+      @include border-radius(2px);
+      @include transition(all .3s);
+
+      &:hover {
+        @include box-shadow(0 0 5px rgba(0, 0, 0, .3), 0 0 1px rgba(0, 0, 0, .3));
+      }
+    }
   }
   a {
     @include a;

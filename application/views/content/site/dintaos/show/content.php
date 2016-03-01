@@ -40,8 +40,6 @@
   <?php
   } ?>
   <div class='pv icon-eye2'><?php echo $dintao->pv;?> 人</div>
-
-
 <?php
   if ($prev || $next) { ?>
     <div class='np'>

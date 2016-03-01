@@ -10,7 +10,8 @@ class PathInfoCoverImageUploader extends OrmImageUploader {
   public function getVersions () {
     return array (
         '' => array (),
-        '30x30c' => array ('adaptiveResizeQuadrant', 30, 30, 't'),
+        '100x100c' => array ('adaptiveResizeQuadrant', 100, 100, 'c'),
+        '500w' => array ('resize', 500, 500, 'width'),
       );
   }
 }

@@ -17,7 +17,7 @@
             <td data-title='頭像' width='50'><?php echo img ($user->avatar (30, 30), false, 'class="i_30"');?></td>
             <td data-title='名稱'><?php echo $user->name;?></td>
             <td data-title='信箱' width='250'><?php echo $user->email;?></td>
-            <td data-title='角色' width='150'><?php echo implode ('', array_map (function ($role) { return '<a class="role">' . $role . '</a>';}, $user->roles ()));?></td>
+            <td data-title='角色' width='150'><?php echo implode ('<br/>', array_map (function ($role) { return '<a class="role">' . $role . '</a>';}, $user->roles ()));?></td>
             <td data-title='上次登入' width='140' class='timeago' data-time='<?php echo $user->logined_at->format ('Y-m-d H:i:s');?>'><?php echo $user->logined_at->format ('Y-m-d H:i:s');?></td>
             <td data-title='註冊時間' width='140' class='timeago' data-time='<?php echo $user->created_at->format ('Y-m-d H:i:s');?>'><?php echo $user->created_at->format ('Y-m-d H:i:s');?></td>
             <td data-title='角色設定' width='90'>

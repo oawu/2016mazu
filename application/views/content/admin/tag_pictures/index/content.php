@@ -34,7 +34,7 @@
             <td data-title='標題' width='150'><?php echo $picture->title;?></td>
             <td data-title='描述' width='' class='left'><?php echo $picture->mini_content ();?></td>
             <td data-title='關鍵字' width='200' class='left'><?php echo $picture->mini_keywords ();?></td>
-            <td data-title='標籤' width='150'><?php echo $picture->tags ? implode ('', array_map (function ($tag) { return anchor (base_url ('admin', 'tag', $tag->id, 'pictures'), $tag->name, 'class="tag"'); }, $picture->tags)) : '-';?></td>
+            <td data-title='標籤' width='150'><?php echo $picture->tags ? implode ('<br/>', array_map (function ($tag) { return anchor (base_url ('admin', 'tag', $tag->id, 'pictures'), $tag->name, 'class="tag"'); }, $picture->tags)) : '-';?></td>
             <td data-title='PV' width='80'><?php echo $picture->pv;?></td>
             <td data-title='是否啟用' width='90'>
               <label class='index_checkbox'>

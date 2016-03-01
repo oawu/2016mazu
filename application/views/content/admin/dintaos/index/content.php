@@ -34,7 +34,7 @@
             <td data-title='標題' width='150'><?php echo $dintao->title;?></td>
             <td data-title='描述' width='' class='left'><?php echo $dintao->mini_content ();?></td>
             <td data-title='關鍵字' width='200' class='left'><?php echo $dintao->mini_keywords ();?></td>
-            <td data-title='標籤' width='150'><?php echo $dintao->tags ? implode ('', array_map (function ($tag) { return anchor (base_url ('admin', 'tag', $tag->id, 'dintaos'), $tag->name, 'class="tag"'); }, $dintao->tags)) : '-';?></td>
+            <td data-title='標籤' width='150'><?php echo $dintao->tags ? implode ('<br/>', array_map (function ($tag) { return anchor (base_url ('admin', 'tag', $tag->id, 'dintaos'), $tag->name, 'class="tag"'); }, $dintao->tags)) : '-';?></td>
             <td data-title='PV' width='80'><?php echo $dintao->pv;?></td>
             <td data-title='是否啟用' width='90'>
               <label class='index_checkbox'>

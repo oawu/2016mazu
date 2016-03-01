@@ -34,7 +34,7 @@
             <td data-title='標題' width='150'><?php echo $youtube->title;?></td>
             <td data-title='描述' width='' class='left'><?php echo $youtube->mini_content ();?></td>
             <td data-title='關鍵字' width='200' class='left'><?php echo $youtube->mini_keywords ();?></td>
-            <td data-title='標籤' width='150'><?php echo $youtube->tags ? implode ('', array_map (function ($tag) { return anchor (base_url ('admin', 'tag', $tag->id, 'youtubes'), $tag->name, 'class="tag"'); }, $youtube->tags)) : '-';?></td>
+            <td data-title='標籤' width='150'><?php echo $youtube->tags ? implode ('<br/>', array_map (function ($tag) { return anchor (base_url ('admin', 'tag', $tag->id, 'youtubes'), $tag->name, 'class="tag"'); }, $youtube->tags)) : '-';?></td>
             <td data-title='Video ID' width='150'><a href='<?php echo $youtube->url;?>' target='_blank'><?php echo $youtube->vid;?></a></td>
             <td data-title='PV' width='80'><?php echo $youtube->pv;?></td>
             <td data-title='是否啟用' width='90'>

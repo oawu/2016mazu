@@ -14,7 +14,7 @@ class DintaoTag extends OaModel {
 
   static $has_many = array (
     array ('mappings', 'class_name' => 'DintaoTagMapping', 'order' => 'dintao_id DESC'),
-    array ('dintaos', 'class_name' => 'Dintao', 'through' => 'mappings', 'order' => 'dintao_tag_mappings.sort DESC')
+    array ('dintaos', 'class_name' => 'Dintao', 'through' => 'mappings')
   );
 
   static $belongs_to = array (

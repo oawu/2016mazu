@@ -12,6 +12,11 @@ $site['keywords'] = array ('北港迎媽祖', '北港', '朝天宮', '媽祖', '
 $site['description'] = '北港迎媽祖 © 2016';
 
 $site['menu'] = array (
+    '三月十九' => array (
+        '路關簡介' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('march19'), 'class' => 'march19', 'method' => '', 'target' => '_self'),
+        '陣頭地圖' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('invoice_tags'), 'class' => '', 'method' => '', 'target' => '_self'),
+        '藝閣地圖' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('invoice_tags'), 'class' => '', 'method' => '', 'target' => '_self'),
+      ),
     '百年藝陣' => array (
         '所有陣頭' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('dintaos'), 'class' => 'dintaos', 'method' => '', 'target' => '_self'),
         '駕前陣頭' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('tag', 1, 'dintaos'), 'class' => 'tag_dintaos', 'method' => '', 'uri' => 1, 'target' => '_self'),
@@ -26,11 +31,6 @@ $site['menu'] = array (
     '影音欣賞' => array (
         '所有影片' => array ('roles' => array ('all'), 'icon' => 'icon-youtube', 'href' => base_url ('youtubes'), 'class' => 'youtubes', 'method' => '', 'target' => '_self'),
         '記錄北港' => array ('roles' => array ('all'), 'icon' => 'icon-youtube', 'href' => base_url ('tag', 1, 'youtubes'), 'class' => 'tag_youtubes', 'method' => '', 'uri' => 1, 'target' => '_self'),
-      ),
-    '三月十九' => array (
-        '路關簡介' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('invoice_tags'), 'class' => '', 'method' => '', 'target' => '_self'),
-        '陣頭地圖' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('invoice_tags'), 'class' => '', 'method' => '', 'target' => '_self'),
-        '藝閣地圖' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('invoice_tags'), 'class' => '', 'method' => '', 'target' => '_self'),
       ),
     '其他' => array (
         'PV' => array ('no_show' => true, 'roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('ajax', 'pv'), 'class' => 'ajax', 'method' => 'pv', 'target' => '_self'),

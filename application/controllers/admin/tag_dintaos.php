@@ -173,7 +173,7 @@ class Tag_dintaos extends Admin_controller {
       return (isset ($source['title']) && $source['title']) || (isset ($source['href']) && $source['href']);
     }) : array ());
 
-    return $this->add_tab ('編輯藝陣', array ('href' => base_url ('admin', $this->uri_1, $this->tag->id, $this->uri_2, 'edit', $this->dintao->id), 'index' => 4))
+    return $this->add_tab ('編輯藝陣', array ('href' => base_url ('admin', $this->uri_1, $this->tag->id, $this->uri_2, $this->dintao->id, 'edit'), 'index' => 4))
                 ->set_tab_index (4)
                 ->set_subtitle ('編輯藝陣')
                 ->load_view (array (
@@ -185,7 +185,7 @@ class Tag_dintaos extends Admin_controller {
 
   public function update () {
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, 'edit', $this->dintao->id), array (
+      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, $this->dintao->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -194,13 +194,13 @@ class Tag_dintaos extends Admin_controller {
     $cover = OAInput::file ('cover');
 
     if (!((string)$this->dintao->cover || $cover || $posts['url']))
-      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, 'edit', $this->dintao->id), array (
+      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, $this->dintao->id, 'edit'), array (
           '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
         ));
 
     if ($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, 'edit', $this->dintao->id), array (
+      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, $this->dintao->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -224,7 +224,7 @@ class Tag_dintaos extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, 'edit', $this->dintao->id), array (
+      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, $this->dintao->id, 'edit'), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));

@@ -14,7 +14,7 @@ class PictureTag extends OaModel {
 
   static $has_many = array (
     array ('mappings', 'class_name' => 'PictureTagMapping', 'order' => 'picture_id DESC'),
-    array ('pictures', 'class_name' => 'Picture', 'through' => 'mappings', 'order' => 'picture_tag_mappings.sort DESC')
+    array ('pictures', 'class_name' => 'Picture', 'through' => 'mappings')
   );
 
   static $belongs_to = array (

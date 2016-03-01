@@ -166,7 +166,7 @@ class Tag_youtubes extends Admin_controller {
       return (isset ($source['title']) && $source['title']) || (isset ($source['href']) && $source['href']);
     }) : array ());
 
-    return $this->add_tab ('編輯影音', array ('href' => base_url ('admin', $this->uri_1, $this->tag->id, $this->uri_2, 'edit', $this->youtube->id), 'index' => 4))
+    return $this->add_tab ('編輯影音', array ('href' => base_url ('admin', $this->uri_1, $this->tag->id, $this->uri_2, $this->youtube->id, 'edit'), 'index' => 4))
                 ->set_tab_index (4)
                 ->set_subtitle ('編輯影音')
                 ->load_view (array (
@@ -178,7 +178,7 @@ class Tag_youtubes extends Admin_controller {
 
   public function update () {
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, 'edit', $this->youtube->id), array (
+      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, $this->youtube->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -186,7 +186,7 @@ class Tag_youtubes extends Admin_controller {
     $posts['content'] = OAInput::post ('content', false);
 
     if ($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, 'edit', $this->youtube->id), array (
+      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, $this->youtube->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -209,7 +209,7 @@ class Tag_youtubes extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, 'edit', $this->youtube->id), array (
+      return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2, $this->youtube->id, 'edit'), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));

@@ -142,6 +142,12 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
 .icon-flame:before {
     content: "\f0d2";
 }
+.icon-enlarge:before {
+    content: "\e90a";
+}
+.icon-shrink:before {
+    content: "\e909";
+}
 .icon-film:before {
     content: "\e908";
 }

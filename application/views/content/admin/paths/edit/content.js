@@ -167,6 +167,18 @@ $(function () {
 
       window.showLoading ();
     });
+
+    $('#zoom').click (function () {
+      var $body = $('body');
+
+      if (!$body.hasClass ('f')) {
+        $body.addClass ('f');
+        $(this).attr ('class', 'icon-shrink');
+      } else {
+        $body.removeClass ('f');
+        $(this).attr ('class', 'icon-enlarge');
+      }
+    });
     window.hideLoading ();
   }
 

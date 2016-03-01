@@ -12,6 +12,7 @@ $role['role_names'] = array (
     'picture' => '管理相簿',
     'youtube' => '管理影音',
     'dintao' => '管理藝陣',
+    'path' => '管理路徑',
     'root' => '最高權限',
   );
 

@@ -4,6 +4,7 @@ Route::get ('/tag', 'main');
 Route::get ('/login', 'platform@login');
 Route::get ('/platform/index', 'platform@login');
 Route::get ('/platform', 'platform@login');
+Route::get ('/march19', 'march19@dintao');
 
 Route::resourcePagination_site (array (array ('dintaos', 'dintao')), 'dintaos');
 Route::resourcePagination_site (array (array ('pictures', 'picture')), 'pictures');
@@ -20,12 +21,16 @@ Route::group ('admin', function () {
   Route::resourcePagination_is_on_site (array ('dintao-tags'), 'dintao_tags');
   Route::resourcePagination_is_on_site (array ('picture-tags'), 'picture_tags');
   Route::resourcePagination_is_on_site (array ('youtube-tags'), 'youtube_tags');
+  Route::resourcePagination_is_on_site (array ('path-tags'), 'path_tags');
 
   Route::resourcePagination_is_enabled (array ('dintaos'), 'dintaos');
   Route::resourcePagination_is_enabled (array ('pictures'), 'pictures');
   Route::resourcePagination_is_enabled (array ('youtubes'), 'youtubes');
+  Route::resourcePagination_is_enabled (array ('paths'), 'paths');
 
   Route::resourcePagination_is_enabled (array ('tag', 'dintaos'), 'tag_dintaos');
   Route::resourcePagination_is_enabled (array ('tag', 'pictures'), 'tag_pictures');
   Route::resourcePagination_is_enabled (array ('tag', 'youtubes'), 'tag_youtubes');
+  
+  Route::resourcePagination_is_enabled (array ('path', 'infos'), 'path_path_infos');
 });
