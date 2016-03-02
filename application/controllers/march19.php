@@ -15,10 +15,12 @@ class March19 extends Site_controller {
   }
   public function dintao () {
     $this->set_tab_index (1)
+         ->set_subtitle ('陣頭路關')
          ->load_view ();
   }
   public function iko () {
     $this->set_tab_index (2)
+         ->set_subtitle ('藝閣路關')
          ->load_view ();
   }
 }

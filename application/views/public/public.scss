@@ -154,6 +154,12 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
 .icon-alarm-cancel:before {
     content: "\e902";
 }
+.icon-arrow-right:before {
+    content: "\e90b";
+}
+.icon-minus:before {
+    content: "\e115";
+}
 .icon-cross:before {
     content: "\e117";
 }

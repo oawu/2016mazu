@@ -70,7 +70,7 @@ class Site_controller extends Oa_controller {
   }
 
   private function _add_css () {
-    return $this->add_css ('http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700', false)
+    return $this->add_css ('https://fonts.googleapis.com/css?family=Open+Sans:400,700', false)
 
                 ->append_css (base_url ('application', 'cell', 'views', 'site_frame_cell', 'header', 'content.css'))
                 ->append_css (base_url ('application', 'cell', 'views', 'site_frame_cell', 'wrapper_left', 'content.css'))

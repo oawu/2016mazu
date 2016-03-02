@@ -5,48 +5,254 @@
 
 @import "_oa";
 
-
-._c {
+#container>div>div:nth-child(2) {
   text-align: left;
-  padding: 10px 20px;
-
+  @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+    padding-top: 75px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  @media screen and (min-width: $mediaMobileWidth) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+article {
+  margin-bottom: 50px;
+  &, * {
+    font-family: "微軟正黑體", "Open sans", Monaco !important;
+  }
+  @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+    margin-bottom: 30px;
+  }
+  &:last-child {
+    margin-bottom: 10px;
+  }
+  + article {
+    margin-top: 50px;
+  }
   h2 {
-    margin-top: 5px;
-  }
-  section {
-    line-height: 22px;
-    text-indent: 33px;
-    padding: 0 5px;
-
-    + h2 {
-      margin-top: 35px;
+    font-size: 22px;
+    margin-bottom: 5px;
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      margin: 17px auto;
+      font-size: 20px;
     }
-    + section {
+  }
+  h3 {
+    font-size: 18px;
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      font-size: 15px;
+    }
+  }
+  p {
+    font-size: 16px;
+    line-height: 1.7em;
+    padding: 0 10px;
+    display: inline-block;
+    width: 100%;
+    margin: 8px auto;
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      padding: 0;
+      font-size: 15px;
+    }
+  }
+  > p {
+    text-indent: 32px;
+  }
+  > span {
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+    font-size: 15px;
+    font-style: italic !important;
+    margin-top: 20px;
+    @include opacity(.7);
+    br {
+      display: none;
+    }
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      font-size: 13px;
+      line-height: 1.6em !important;
       margin-top: 10px;
+      br {
+        display: inline-block;
+      }
+    }
+    &:before {
+      margin-right: 5px;
+      @include opacity(.5);
     }
   }
-  .time {
-    padding-left: 10px;
-    @include split-left(50%);
-
-    .l, .r {
-
-      h3 {
-        font-size: 16px;
-        margin-top: 0;
-        margin-bottom: 5px;
+  > section {
+    h3 {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 10px;
+      + ul {
         display: inline-block;
         width: 100%;
-      }
-      ul {
         margin-top: 0;
-        li {
+      }
+
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        margin: 10px auto;
+      }
+    }
+    ol {
+      display: inline-block;
+      width: 100%;
+      margin-top: 8px;
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        padding-left: 25px;
+      }
+      li {
+        font-size: 15px;
+        line-height: 1.7em;
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          font-size: 13px;
+          // line-height: 1.5em;
           + li {
             margin-top: 5px;
           }
         }
-        + h3 {
-          margin-top: 10px;
+      }
+    }
+    ul {
+      padding-left: 20px;
+      @include clearfix();
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        padding-left: 0;
+      }
+      
+      
+      li {
+        float: left;
+        display: inline-block;
+        margin: 1px 0;
+        margin-left: 2px;
+        padding-right: 2px;
+        line-height: 1.7em;
+        height: 24px;
+        // background-color: rgba(0, 0, 255, 0.2);
+        font-size: 15px;
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          font-size: 14px;
+          margin-left: -2px;
+        }
+        @include transition(all .3s);
+        @include border-radius(2px);
+        // background-color: rgba(0, 0, 255, 0.2);
+        
+        &:after {
+          content: attr(title);
+          font-size: 12px;
+          margin-left: 2px;
+          @include opacity(.75);
+          @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+            display: none;
+          }
+        }
+
+        &:hover {
+          background-color: rgba(220, 55, 43, .2);
+          & + li {
+            background-color: rgba(220, 55, 43, .1);
+          }
+        }
+
+        &:first-child {
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 23px;
+          @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+            font-size: 14px;
+            line-height: 21px;
+            margin-left: 0;
+            margin-right: 0;
+          }
+
+          &:after {
+            content: ':';
+            @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+              display: inline-block;
+            }
+          }
+        }
+
+        + li {
+          &:before {
+            content: "\e90b";
+            font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+            margin-right: 5px;
+            margin-left: 0;
+            padding-left: 0;
+            @include opacity(.85);
+            @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+              display: inline-block;
+              padding-top: 1px;
+              margin-right: 1px;
+              @include opacity(.35);
+            }
+          }
+        }
+      }
+    }
+  }
+  > div {
+    @include clearfix();
+
+    > * {
+      float: left;
+      display: inline-block;
+      width: 100%;
+      @media screen and (min-width: $mediaMobileWidth) {
+        width: 50%;
+      }
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        &:first-child {
+          h3 {
+            margin-top: 10px;
+          }
+        }
+      }
+      h3 {
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          margin-bottom: 10px;
+        }
+        &:first-child {
+          @media screen and (min-width: $mediaMobileWidth) {
+            margin-top: 8px;
+          }
+        }
+        + ul, + ol {
+          @media screen and (min-width: $mediaMobileWidth) {
+            margin-top: 0;
+          }
+        }
+      }
+      ul, ol {
+        display: inline-block;
+        width: 100%;
+        font-size: 15px;
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          padding-left: 23px;
+          font-size: 13px;
+          margin-top: 0;
+        }
+        line-height: 1.7em;
+        &:last-child {
+          @media screen and (min-width: $mediaMobileWidth) {
+            margin-bottom: 0;
+          }
+        }
+      }
+      ol {
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          padding-left: 25px;
+          li {
+            font-size: 14px;
+          }
         }
       }
     }
