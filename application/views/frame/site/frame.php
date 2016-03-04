@@ -6,7 +6,7 @@
 <?php echo isset ($css_list) ? $css_list : ''; ?>
 <?php echo isset ($js_list) ? $js_list : ''; ?>
   </head>
-  <body lang="zh-tw">
+  <body lang="zh-tw" class='fs'>
 <?php echo isset ($hidden_list) ? $hidden_list : ''; ?>
 
 <?php echo render_cell ('site_frame_cell', 'header', isset ($subtitle) ? $subtitle : '', isset ($back_link) ? $back_link : '');?>

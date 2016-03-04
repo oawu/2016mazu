@@ -16,7 +16,7 @@ class Path extends OaModel {
     array ('mappings', 'class_name' => 'PathTagMapping', 'order' => 'path_id DESC'),
     array ('tags', 'class_name' => 'PathTag', 'through' => 'mappings'),
     array ('points', 'class_name' => 'PathPoint'),
-    array ('infos', 'class_name' => 'PathInfo'),
+    array ('infos', 'class_name' => 'PathInfo', 'conditions' => array ('destroy_user_id IS NULL')),
   );
 
   static $belongs_to = array (

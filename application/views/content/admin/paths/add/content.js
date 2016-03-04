@@ -13,10 +13,6 @@ $(function () {
   var _map = null;
   var _markers = [];
 
-  // $(window).resize (function () {
-  //   $map.css ({'height': '100%'});
-  // }).resize ();
-
   var getPixelPosition = function () {
     var scale = Math.pow (2, this.map.getZoom ());
     var nw = new google.maps.LatLng (
@@ -174,7 +170,7 @@ $(function () {
       window.showLoading ();
     });
 
-        $('#zoom').click (function () {
+    $('#zoom').click (function () {
       var $body = $('body');
 
       if (!$body.hasClass ('f')) {
@@ -184,6 +180,7 @@ $(function () {
         $body.removeClass ('f');
         $(this).attr ('class', 'icon-enlarge');
       }
+      google.maps.event.trigger (_map, 'resize');
     });
     window.hideLoading ();
   }

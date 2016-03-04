@@ -76,9 +76,10 @@ body {
       content: " 公里";
     }
   }
+  
   #zoom {
     display: inline-block;
-
+    padding: 5px;
     top: 5px;
     right: 5px;
     bottom: auto;
@@ -87,6 +88,8 @@ body {
     @include opacity(.8);
     @include transition(all .3s);
     &:before {
+      display: inline-block;
+      font-size: 20px;
       content: "\e90a";
       font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
     }

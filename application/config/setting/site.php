@@ -14,8 +14,8 @@ $site['description'] = '北港迎媽祖 © 2016';
 $site['menu'] = array (
     '三月十九' => array (
         '路關簡介' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('march19'), 'class' => 'march19', 'method' => '', 'target' => '_self'),
-        '陣頭地圖' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('invoice_tags'), 'class' => '', 'method' => '', 'target' => '_self'),
-        '藝閣地圖' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('invoice_tags'), 'class' => '', 'method' => '', 'target' => '_self'),
+        '陣頭地圖' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('maps', 'dintao'), 'class' => 'maps', 'method' => 'dintao', 'target' => '_self'),
+        '藝閣地圖' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('maps', 'iko'), 'class' => 'maps', 'method' => 'iko', 'target' => '_self'),
       ),
     '百年藝陣' => array (
         '所有陣頭' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('dintaos'), 'class' => 'dintaos', 'method' => '', 'target' => '_self'),
