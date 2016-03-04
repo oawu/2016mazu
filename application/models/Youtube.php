@@ -46,7 +46,7 @@ class Youtube extends OaModel {
 
   public static function search_youtube ($options = array ()) {
     $CI  =& get_instance ();
-    $CI->load->library ('Google/Google');
+    $CI->load->driver ('Google');
     $client = new Google_Client ();
     $client->setDeveloperKey (Cfg::setting ('google', ENVIRONMENT, 'server_key'));
     $youtube = new Google_Service_YouTube ($client);
