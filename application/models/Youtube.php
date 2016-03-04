@@ -47,12 +47,13 @@ class Youtube extends OaModel {
   public static function search_youtube ($options = array ()) {
     $CI  =& get_instance ();
     $CI->load->library ('Google');
-    $client = new Google_Client ();
-    $client->setDeveloperKey (Cfg::setting ('google', ENVIRONMENT, 'server_key'));
-    $youtube = new Google_Service_YouTube ($client);
 echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
 var_dump ('x');
 exit ();
+    $client = new Google_Client ();
+    $client->setDeveloperKey (Cfg::setting ('google', ENVIRONMENT, 'server_key'));
+    $youtube = new Google_Service_YouTube ($client);
+
     try {
       return array_map (function ($item) {
         return Youtube::google_SearchResultSnippet_format ($item);
