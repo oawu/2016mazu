@@ -161,7 +161,7 @@ $layouts: (
           margin: $margin;
 
           &:nth-child(n + #{$column + 1}) {
-            margin-top: 15px; 
+            margin-top: 10px; 
           }
           &:nth-child(#{$column}n + 1) {
             margin-left: 0;
@@ -187,7 +187,7 @@ $layouts: (
           margin: $margin;
 
           &:nth-child(n + #{$column + 1}) {
-            margin-top: 15px; 
+            margin-top: 10px; 
           }
           &:nth-child(#{$column}n + 1) {
             margin-left: 0;
