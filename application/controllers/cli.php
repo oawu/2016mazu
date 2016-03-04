@@ -42,7 +42,7 @@ class Cli extends Site_controller {
     echo " " . $this->color ("➜", 'r') . " Migration Back   ";
     $m = new CI_Migration ($this->config->item('migration'));
     echo str_repeat ('.', 5);
-    $m->version (2);
+    $m->version (15);
     echo str_repeat ('.', 5) . " " . $this->color ("OK!", 'G') . "\n";
 
     echo " " . $this->color ("➜", 'r') . " Migration Update ";
@@ -411,9 +411,9 @@ class Cli extends Site_controller {
   public function build () {
     $this->migration ();
 
-    $this->dintao ();
-    $this->picture ();
-    $this->youtube ();
+    // $this->dintao ();
+    // $this->picture ();
+    // $this->youtube ();
     $this->path ();
   }
 }
