@@ -45,6 +45,8 @@ class Youtube extends OaModel {
   }
 
   public static function search_youtube ($options = array ()) {
+    // include_once FCPATH . 'application' . DIRECTORY_SEPARATOR . 'libraries' . DIRECTORY_SEPARATOR . 'Google' . DIRECTORY_SEPARATOR . 'Google.php'
+    
     $CI  =& get_instance ();
     $CI->load->library ('Google/Google');
     $client = new Google_Client ();
@@ -119,7 +121,7 @@ class Youtube extends OaModel {
   public function youtube_info () {
     if ($this->youtube_info !== null) return $this->youtube_info;
 
-    $this->CI->load->library ('Google');
+    $this->CI->load->library ('Google/Google');
     $client = new Google_Client ();
     $client->setDeveloperKey (Cfg::setting ('google', ENVIRONMENT, 'server_key'));
     $youtube = new Google_Service_YouTube ($client);
