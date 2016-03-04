@@ -140,12 +140,12 @@
                 padding-top: 12px;
               }
               > div {
-                font-size: 14px;
+                font-size: 13px;
                 @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
                   font-size: 10px;
                 }
+                
                 &:first-child {
-                  margin-top: 2px;
                   color: rgba(157, 157, 170, 1);
                   @include overflow-docx3();
                 }
@@ -155,7 +155,6 @@
 
                   a {
                     @include a(1px);
-                    font-size: 15px;
 
                     &:after {
                       content: '»';
