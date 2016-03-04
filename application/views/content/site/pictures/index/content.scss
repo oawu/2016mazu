@@ -95,9 +95,9 @@ article {
 
 $layouts: (
   (0, 325px, 1, 180px, 3px),
-  (325px, $mediaMiniMobileWidth, 2, 140px, 3px),
-  ($mediaMiniMobileWidth, 370px, 2, 140px, 5px),
-  (370px, 410px, 2, 140px, 5px),
+  (325px, $mediaMiniMobileWidth, 1, 180px, 5px),
+  ($mediaMiniMobileWidth, 370px, 1, 180px, 5px),
+  (370px, 410px, 1, 220px, 5px),
   (410px, 525px, 2, 160px, 5px),
   (525px, 585px, 3, 120px, 5px),
   (585px, 680px, 3, 150px, 5px),
