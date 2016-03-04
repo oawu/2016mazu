@@ -35,6 +35,11 @@ body {
         #other {
           display: none;
         }
+        #zoom {
+          &:before {
+            content: "\e90a";
+          }
+        }
       }
       #menu {
         display: none;

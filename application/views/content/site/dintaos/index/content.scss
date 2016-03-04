@@ -36,6 +36,7 @@
           height: $figureHeight;
           margin: 0;
           padding: 0;
+          z-index: 2;
 
           a {
             position: relative;
@@ -69,6 +70,7 @@
           line-height: $h2Height + 8px;
           margin: 0;
           padding: 0 10px;
+          z-index: 3;
 
           @include background-image(
                         linear-gradient(
