@@ -16,8 +16,8 @@ $admin['menu'] = array (
         '路線列表' => array ('roles' => array ('path'), 'icon' => 'icon-location', 'href' => base_url ('admin', 'paths'), 'class' => 'paths', 'method' => '', 'target' => '_self'),
       ),
     '文章管理' => array (
-        '文章分類' => array ('roles' => array ('dintao'), 'icon' => 'icon-price-tag', 'href' => base_url ('admin', 'dintao-tags'), 'class' => 'dintao_tags', 'method' => '', 'target' => '_self'),
-        '文章列表' => array ('roles' => array ('dintao'), 'icon' => 'icon-file-text2', 'href' => base_url ('admin', 'dintaos'), 'class' => 'dintaos', 'method' => '', 'target' => '_self'),
+        '文章分類' => array ('roles' => array ('article'), 'icon' => 'icon-price-tag', 'href' => base_url ('admin', 'article-tags'), 'class' => 'article_tags', 'method' => '', 'target' => '_self'),
+        '文章列表' => array ('roles' => array ('article'), 'icon' => 'icon-file-text2', 'href' => base_url ('admin', 'articles'), 'class' => 'articles', 'method' => '', 'target' => '_self'),
       ),
     '藝陣管理' => array (
         '藝陣分類' => array ('roles' => array ('dintao'), 'icon' => 'icon-price-tag', 'href' => base_url ('admin', 'dintao-tags'), 'class' => 'dintao_tags', 'method' => '', 'target' => '_self'),

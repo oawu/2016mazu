@@ -5,7 +5,7 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-class ArticelCoverImageUploader extends OrmImageUploader {
+class ArticleCoverImageUploader extends OrmImageUploader {
 
   public function getVersions () {
     return array (
