@@ -12,9 +12,8 @@ class Main extends Site_controller {
          ->load_view ();
   }
   public function index () {
-    $this->add_tab ('陣頭列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
-         ->add_tab ('xxxx', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 2))
-         ->set_tab_index (1)
+    $this->set_title ('北港朝天宮')
+         ->set_subtitle ('北港朝天宮')
          ->load_view ();
   }
 }

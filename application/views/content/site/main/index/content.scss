@@ -4,51 +4,70 @@
  */
 
 @import "_oa";
-
-
 ._c {
   text-align: left;
-  padding: 10px 20px;
+  padding: 0 25px;
+}
+article {
 
-  h2 {
-    margin-top: 5px;
-  }
   section {
-    line-height: 22px;
-    text-indent: 33px;
-    padding: 0 5px;
-
-    + h2 {
-      margin-top: 35px;
+    @include clearfix();
+    
+    p {
+      font-size: 17px;
+      line-height: 1.7em;
+      text-indent: 35px;
     }
-    + section {
-      margin-top: 10px;
-    }
-  }
-  .time {
-    padding-left: 10px;
-    @include split-left(50%);
+    figure {
+      margin: 0;
+      padding: 0;
+      margin-bottom: 5px;
+      margin-right: 20px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 1);
+      @include border-radius(2px);
+      @include box-shadow(0 0 3px rgba(0, 0, 0, .3));
+      
 
-    .l, .r {
-
-      h3 {
-        font-size: 16px;
-        margin-top: 0;
-        margin-bottom: 5px;
+      float: left;
+      width: 470px;
+      
+      a {
         display: inline-block;
         width: 100%;
+        height: 100%;
+
+        img {
+          width: 100%;
+        }
       }
-      ul {
-        margin-top: 0;
-        li {
-          + li {
-            margin-top: 5px;
-          }
-        }
-        + h3 {
-          margin-top: 10px;
-        }
+      figcaption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: inline-block;
+        width: 100%;
+        color: rgba(255, 255, 255, 1);
+        padding: 10px 5px;
+        font-size: 15px;
+
+        @include background-image(
+                linear-gradient(top, 
+                        rgba(39, 40, 34, 0) 0%,
+                        rgba(39, 40, 34, .2) 50%,
+                        rgba(39, 40, 34, .3) 60%,
+                        rgba(39, 40, 34, .7) 100%
+                ));
+      }
+    }
+    &.r {
+      figure {
+        float: right;
+        margin-left: 20px;
+        margin-right: 0;
       }
     }
   }
+
 }
