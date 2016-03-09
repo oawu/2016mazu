@@ -114,7 +114,9 @@
         display: inline-block;
         width: 100%;
         text-align: left;
-        margin-top: 5px;
+        min-height: 25px;
+        margin-top: 20px;
+        font-size: 13px;
       }
     }
   }
@@ -171,10 +173,8 @@
   }
 
   > article {
-    // max-width: 945px;
     word-wrap: break-word; 
     word-break: break-all;
-
     padding: 0 20px;
     margin-top: 60px;
     @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
@@ -184,6 +184,9 @@
     @media screen and (min-width: #{$mediaMiniMobileWidth}) and (max-width: #{$mediaMobileWidth - 1px}) {
       padding: 0 10px;
       margin-top: 40px;
+    }
+    &, * {
+      font-family: "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, Monaco !important;
     }
     p {
       font-size: 16px;

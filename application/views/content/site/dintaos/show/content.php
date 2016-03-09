@@ -19,10 +19,7 @@
   <time><?php echo $dintao->created_at->format ('Y.m.d');?></time>
 </div>
 
-<article>
-  <?php echo $dintao->content;?>
-</article>
-
+<article><?php echo str_replace ('alt=""', 'alt="' . str_replace ('"', '', $dintao->title) . ' - ' . Cfg::setting ('site', 'title') . '"', $dintao->content);?></article>
 
 <?php
   if ($dintao->sources) { ?>

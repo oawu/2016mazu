@@ -1,0 +1,374 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+._c {
+  $figureHeight: 300px;
+  $figureMinHeight: 200px;
+
+  text-align: left;
+  padding: 0 25px;
+  @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+    padding: 0 10px;
+  }
+  > figure {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: $figureHeight + $navHeight;
+    @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+      height: $figureHeight + $navMobileHeight;
+    }
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      height: $figureMinHeight + $navMobileHeight;
+    }
+    a {
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+      height: $figureHeight + $navHeight;
+
+      @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
+        height: $figureHeight + $navMobileHeight;
+      }
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        height: $figureMinHeight + $navMobileHeight;
+      }
+      img {
+        width: 100%;
+      }
+    }
+
+    figcaption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      @include opacity(0);
+    }
+  }
+
+  .i {
+    font-size: 13px;
+    color: rgba(157, 157, 170, 1);
+
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+      > div {
+        display: inline-block;
+        width: 100%;
+
+        &:last-child {
+          margin-top: 25px;
+          min-height: 20px;
+          text-align: left !important;
+        }
+      }
+    }
+    @media screen and (min-width: $mediaMiniMobileWidth) {
+      @include split-right(150px, '>div:first-child', '>div:last-child');
+    }
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      margin-top: $figureMinHeight;
+    }
+    @media screen and (min-width: $mediaMobileWidth) {
+      margin-top: $figureHeight + 20px;
+    }
+
+    
+    > div {
+      &:first-child {
+        @include clearfix();
+        
+        > * {
+          float: left;
+          display: inline-block;
+          margin: 0 3px;
+        }
+        > a {
+          @include a(1px, false, rgba(137, 137, 150, 1), rgba(117, 117, 130, 1));
+          padding: 0;
+          font-size: 16px;
+        }
+
+        figure {
+          $d: 25px;
+          margin: 0;
+          margin-top: 0;
+          margin-right: 4px;
+          padding: 0;
+          width: $d;
+          height: $d;
+
+          a {
+            display: inline-block;
+            width: $d;
+            height: $d;
+            overflow: hidden;
+            @include border-radius(50%);
+
+            img {
+              width: 100%;
+            }
+          }
+        }
+        span {
+          color: rgba(137, 137, 150, .8);
+          margin-top: 4px;
+        }
+        time {
+          color: rgba(137, 137, 150, .6);
+          font-size: 13px;
+          margin-top: 3px;
+        }
+      }
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+  > article {
+    word-wrap: break-word; 
+    word-break: break-all;
+    margin-top: 40px;
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      margin-top: 30px;
+    }
+    &, * {
+      font-family: "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, Monaco !important;
+    }
+    p {
+      font-size: 16px;
+      margin: 5px 0;
+      margin: 15.5px auto;
+      color: rgba(85, 85, 85, 1);
+      line-height: 1.7em;
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        br {
+          display: none;
+        }
+      }
+      + p {
+        margin-top: 20px;
+      }
+      a {
+        @include a(1px, true);
+        padding: 0;
+        padding-bottom: 0;
+        border-bottom-color: rgba(42, 90, 149, 0.25);
+      }
+      img {
+        width: auto !important;
+        height: auto !important;
+
+        max-width: 100% !important;
+        max-height: 350px !important;
+        @include border-radius(2px);
+        margin-bottom: 15px;
+        cursor: pointer;
+
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          width: 100% !important;
+        }
+      }
+    }
+    ul {
+      margin: 15.5px auto;
+      margin-bottom: 20px;
+      padding-left: 30px;
+
+      li {
+        color: rgba(100, 100, 100, 1);
+
+        + li {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+  > ul {
+    position: relative;
+    list-style-type: none;
+    padding-left: 5px;
+    margin-bottom: 10px;
+    display: block;
+    padding-top: 35px;
+    margin-top: 35px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      width: 100%;
+      height: 1px;
+      border-top: 1px dashed rgba(220, 220, 220, 1);
+    }
+    &:after {
+      content: '相關參考';
+      position: absolute;
+      left: 20px;
+      top: -12px;
+      display: inline-block;
+      padding: 3px 8px;
+      border: 1px dashed rgba(200, 200, 200, 1);
+      font-size: 10px;
+      background-color: rgba(255, 255, 255, 1);
+      @include border-radius(3px);
+      
+    }
+
+    li {
+      font-size: 0;
+
+      + li {
+        margin-top: 15px;
+      }
+      a {
+        @include a;
+
+        padding: 0;
+        font-size: 14px;
+        @include overflow-docx3();
+        max-width: 100%;
+      }
+      span {
+        display: inline-block;
+        font-size: 10px;
+        color: rgba(85, 85, 85, .6);
+        font-style: oblique;
+        @include overflow-docx3();
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          max-width: 100%;
+          width: 100%;
+        }
+        a {
+          @include a(1px, true);
+          color: rgba(85, 85, 85, .6);
+          font-size: 13px;
+          border-bottom-color: rgba(85, 85, 85, .2);
+          @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+            @include overflow-docx3();
+            max-width: calc(100% - 20px);
+          }
+        }
+
+        &:before {
+          content: '-';
+          margin-right: 5px;
+          margin-left: 5px;
+          // @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+          //   margin-left: 10px;
+          // }
+        }
+      }
+    }
+  }
+  .pv {
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+    color: rgba(85, 85, 85, .7);
+    margin-top: 0;
+
+    &:before {
+      display: inline-block;
+      margin-top: 1px;
+      margin-right: 3px;
+    }
+  }
+  .np {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-top: 1px solid rgba(39, 40, 34, .1);
+    padding-top: 30px;
+    @include clearfix();
+
+    figure {
+      float: left;
+      position: relative;
+      display: inline-block;
+      max-width: 47.5%;
+      min-width: 75px;
+      margin: 0;
+      @include clearfix();
+      padding-left: 50px;
+
+      &:hover {
+        > a {
+          @include opacity(1);
+        }
+      }
+      > a {
+        @include a;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        @include border-radius(50%);
+        @include opacity(.8);
+        @include box-shadow(0 0 1px rgba(39, 40, 34, .1), 0 0 10px rgba(39, 40, 34, .1));
+      }
+      figcaption {
+        float: left;
+        width: 100%;
+        padding-left: 10px;
+        margin-bottom: 10px;
+
+        a {
+          @include a;
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          font-weight: bold;
+          font-size: 15px;
+          line-height: 1.5em;
+          
+          &:before {
+            content: '上一篇';
+            display: inline-block;
+            width: 100%;
+            font-weight: normal;
+            font-size: 10px;
+            @include opacity(.6);
+          }
+        }
+      }
+
+      &.p {
+        float: left;
+        text-align: left;
+      }
+      &.n {
+        float: right;
+        text-align: right;
+        padding-left: 0;
+        padding-right: 50px;
+
+        a {
+          left: auto;
+          right: 0;
+        }
+        figcaption {
+          float: right;
+          padding-left: 0;
+          padding-right: 10px;
+          a {
+            &:before {
+              content: '下一篇';
+            }
+          }
+        }
+      }
+    }
+  }
+}

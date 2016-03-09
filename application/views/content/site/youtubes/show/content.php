@@ -16,9 +16,7 @@
   <time><?php echo $youtube->created_at->format ('Y.m.d');?></time>
 </div>
 
-<article>
-  <?php echo $youtube->content;?>
-</article>
+<article><?php echo str_replace ('alt=""', 'alt="' . str_replace ('"', '', $youtube->title) . ' - ' . Cfg::setting ('site', 'title') . '"', $youtube->content);?></article>
 
 <?php
   if ($youtube->sources) { ?>

@@ -86,6 +86,9 @@
         display: inline-block;
         width: 100%;
         text-align: left;
+        min-height: 25px;
+        margin-top: 20px;
+        font-size: 13px;
       }
     }
   }
@@ -134,13 +137,14 @@
     }
   }
   > article {
-    // max-width: 945px;
     word-wrap: break-word; 
     word-break: break-all;
-
     margin-top: 60px;
     @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
       margin-top: 50px;
+    }
+    &, * {
+      font-family: "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, Monaco !important;
     }
     p {
       font-size: 16px;
@@ -363,84 +367,4 @@
       }
     }
   }
-
-  // .np {
-  //   margin-top: 10px;
-  //   margin-bottom: 20px;
-  //   border-top: 1px solid rgba(39, 40, 34, .1);
-  //   padding-top: 30px;
-  //   @include clearfix();
-    
-  //   a {
-  //     $arrowWidth: 50px;
-  //     $subHeight: 15px;
-  //     @include a;
-  //     position: relative;
-  //     display: inline-block;
-  //     max-width: 45%;
-  //     min-width: 75px;
-
-  //     padding: 0 5px;
-  //     padding-top: $subHeight + 12px;
-  //     font-size: 15px;
-
-  //     &:before {
-  //       content: '';
-  //       position: absolute;
-  //       top: 0;
-  //       left: $arrowWidth;
-
-  //       display: inline-block;
-  //       width: calc(100% - #{$arrowWidth});
-  //       height: $subHeight;
-  //       margin: 0;
-  //       font-size: 12px;
-  //       @include opacity(.7);
-  //     }
-  //     &:after {
-  //       content: '';
-  //       position: absolute;
-  //       top: calc(50% - (34px / 3) * 2);
-  //       left: 0;
-  //       display: inline-block;
-  //       width: $arrowWidth;
-  //       float: left;
-  //       height: 100%;
-  //       // padding-top: 5px;
-  //       font-size: 34px;
-  //       font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
-  //       font-weight: normal;
-  //     }
-  //     &.p {
-  //       float: left;
-  //       text-align: left;
-  //       padding-left: $arrowWidth + 2px;
-  //       &:before {
-  //         content: "上一篇";
-  //       }
-  //       &:after {
-  //         content: "\e904";
-  //         text-align: left;
-  //         @include opacity(.7);
-  //       }
-  //     }
-  //     &.n {
-  //       float: right;
-  //       text-align: right;
-  //       padding-right: $arrowWidth + 2px;
-  //       &:before {
-  //         left: 0;
-  //         content: "下一篇";
-  //       }
-  //       &:after {
-  //         content: "\e905";
-  //         text-align: right;
-  //         @include opacity(.7);
-  //         float: right;
-  //         left: auto;
-  //         right: 0;
-  //       }
-  //     }
-  //   }
-  // }
 }

@@ -12,7 +12,7 @@ class Migration_Add_path_infos extends CI_Migration {
         `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
         `path_id` int(11) unsigned NOT NULL COMMENT 'Path ID',
         `user_id` int(11) unsigned NOT NULL COMMENT 'User ID',
-        `destroy_user_id` int(11) unsigned DEFAULT NULL COMMENT '刪除此筆的 User ID(作者)',
+        `destroy_user_id` int(11) unsigned DEFAULT NULL COMMENT '刪除此筆的 User ID',
 
         `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
         `content` text  COMMENT '內容',

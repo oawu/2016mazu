@@ -13,6 +13,9 @@ $role['role_names'] = array (
     'youtube' => '管理影音',
     'dintao' => '管理藝陣',
     'path' => '管理路徑',
+    'article' => '管理文章',
+    'other' => '管理介紹',
+    'food' => '管理美食',
     'root' => '最高權限',
   );
 

@@ -33,6 +33,8 @@ $admin['menu'] = array (
       ),
     '其他' => array (
         '工具' => array ('no_show' => true, 'roles' => array ('all'), 'icon' => '', 'href' => base_url ('tools'), 'class' => 'tools', 'method' => '', 'target' => '_self'),
+        '介紹列表' => array ('roles' => array ('other'), 'icon' => 'icon-file-text2', 'href' => base_url ('admin', 'others'), 'class' => 'others', 'method' => '', 'target' => '_self'),
+        '美食列表' => array ('roles' => array ('food'), 'icon' => 'icon-file-text2', 'href' => base_url ('admin', 'foods'), 'class' => 'foods', 'method' => '', 'target' => '_self'),
         // '登入' => array ('no_show' => true, 'roles' => array (), 'icon' => 'icon-file-text2', 'href' => base_url ('platform', 'login'), 'class' => 'platform', 'method' => 'login', 'target' => '_self'),
         // 'ＦＢ登入' => array ('no_show' => true, 'roles' => array (), 'icon' => 'icon-file-text2', 'href' => base_url ('platform', 'fb_sign_in'), 'class' => 'platform', 'method' => 'fb_sign_in', 'target' => '_self'),
       ),

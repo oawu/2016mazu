@@ -18,9 +18,7 @@
   <time><?php echo $picture->created_at->format ('Y.m.d');?></time>
 </div>
 
-<article>
-  <?php echo $picture->content;?>
-</article>
+<article><?php echo str_replace ('alt=""', 'alt="' . str_replace ('"', '', $picture->title) . ' - ' . Cfg::setting ('site', 'title') . '"', $picture->content);?></article>
 
 <?php
   if ($picture->sources) { ?>

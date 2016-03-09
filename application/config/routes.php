@@ -5,6 +5,9 @@ Route::get ('/login', 'platform@login');
 Route::get ('/platform/index', 'platform@login');
 Route::get ('/platform', 'platform@login');
 Route::get ('/march19', 'march19@dintao');
+Route::get ('/others', 'others@author');
+// Route::get ('/others/網站聲明', 'others@disclaimer');
+// Route::get ('/others/製作人員', 'others@developers');
 
 Route::resourcePagination_site (array (array ('dintaos', 'dintao')), 'dintaos');
 Route::resourcePagination_site (array (array ('pictures', 'picture')), 'pictures');
@@ -29,6 +32,7 @@ Route::group ('admin', function () {
   Route::resourcePagination_is_enabled (array ('youtubes'), 'youtubes');
   Route::resourcePagination_is_enabled (array ('paths'), 'paths');
   Route::resourcePagination_is_enabled (array ('articles'), 'articles');
+  Route::resourcePagination_is_enabled (array ('others'), 'others');
 
   Route::resourcePagination_is_enabled (array ('tag', 'dintaos'), 'tag_dintaos');
   Route::resourcePagination_is_enabled (array ('tag', 'pictures'), 'tag_pictures');

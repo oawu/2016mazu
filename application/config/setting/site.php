@@ -15,7 +15,7 @@ $site['menu'] = array (
     '首頁' => array (
         '朝天宮' => array ('roles' => array ('all'), 'icon' => 'fi-h', 'href' => base_url (), 'class' => 'main', 'method' => 'index', 'target' => '_self'),
         '笨港文化' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('march19'), 'class' => 'march19', 'method' => '', 'target' => '_self'),
-        '開發作者' => array ('roles' => array ('all'), 'icon' => 'icon-user', 'href' => base_url ('march19'), 'class' => 'march19', 'method' => '', 'target' => '_self'),
+        '開發作者' => array ('roles' => array ('all'), 'icon' => 'icon-user', 'href' => base_url ('others'), 'class' => 'others', 'method' => '', 'target' => '_self'),
       ),
     '三月十九' => array (
         '路關簡介' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('march19'), 'class' => 'march19', 'method' => '', 'target' => '_self'),
