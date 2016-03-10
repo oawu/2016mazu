@@ -146,6 +146,9 @@ class CI_Router {
 		log_message ('debug', "Router Class Initialized");
 
 		$this->_set_routing ();
+		echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+		var_dump ($this->uri->segments);
+		exit ();
 	}
 
 	private function _set_routing () {
@@ -189,9 +192,7 @@ class CI_Router {
 		$this->uri->_remove_url_suffix ();
 		$this->uri->_explode_segments ();
 		$this->_parse_routes ();
-		$this->uri->_reindex_segments ();echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-var_dump ($this->uri->uri_string);
-exit ();
+		$this->uri->_reindex_segments ();
 	}
 
 	private function _set_default_controller () {
