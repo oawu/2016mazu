@@ -249,7 +249,9 @@
 	}
 
 	include_once (APPPATH.'controllers/'.$RTR->fetch_directory().$RTR->fetch_class().'.php');
-
+echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+var_dump ($RTR->fetch_directory());
+exit ();
 	// Set a mark point for benchmarking
 	$BM->mark('loading_time:_base_classes_end');
 
