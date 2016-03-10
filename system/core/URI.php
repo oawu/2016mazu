@@ -176,15 +176,15 @@ class CI_URI {
 	 * @return	string
 	 */
 	private function _detect_uri()
-	{echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-	var_dump ($_SERVER['REQUEST_URI']);
-	exit ();
+	{
 		if ( ! isset($_SERVER['REQUEST_URI']) OR ! isset($_SERVER['SCRIPT_NAME']))
 		{
 			return '';
 		}
 
-		$uri = $_SERVER['REQUEST_URI'];
+		$uri = $_SERVER['REQUEST_URI'];echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+	var_dump ($uri);
+	exit ();
 		if (strpos($uri, $_SERVER['SCRIPT_NAME']) === 0)
 		{
 			$uri = substr($uri, strlen($_SERVER['SCRIPT_NAME']));
