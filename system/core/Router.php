@@ -147,7 +147,7 @@ class CI_Router {
 
 		$this->_set_routing ();
 		echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-		var_dump ($this->uri->segments);
+		var_dump ($this->directory);
 		exit ();
 	}
 
