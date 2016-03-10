@@ -182,16 +182,16 @@ class CI_Router {
 			return $this->_validate_request($segments);
 
 		$this->uri->_fetch_uri_string ();
-echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-var_dump ($this->uri->uri_string);
-exit ();
+
 		if ($this->uri->uri_string == '')
 			return $this->_set_default_controller ();
 
 		$this->uri->_remove_url_suffix ();
 		$this->uri->_explode_segments ();
 		$this->_parse_routes ();
-		$this->uri->_reindex_segments ();
+		$this->uri->_reindex_segments ();echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+var_dump ($this->uri->uri_string);
+exit ();
 	}
 
 	private function _set_default_controller () {
