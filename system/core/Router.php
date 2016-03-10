@@ -146,6 +146,7 @@ class CI_Router {
 		log_message ('debug', "Router Class Initialized");
 
 		$this->_set_routing ();
+	exit ();
 	}
 
 	private function _set_routing () {
