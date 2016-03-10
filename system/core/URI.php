@@ -95,7 +95,9 @@ class CI_URI {
 
 			// Let's try the REQUEST_URI first, this will work in most situations
 			if ($uri = $this->_detect_uri())
-			{
+			{echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+			var_dump ($uri);
+			exit ();
 				$this->_set_uri_string($uri);
 				return;
 			}
@@ -183,8 +185,7 @@ class CI_URI {
 		}
 
 		$uri = $_SERVER['REQUEST_URI'];
-	echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-	var_dump ($uri);
+
 		if (strpos($uri, $_SERVER['SCRIPT_NAME']) === 0)
 		{
 			$uri = substr($uri, strlen($_SERVER['SCRIPT_NAME']));
