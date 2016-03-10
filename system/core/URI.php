@@ -176,7 +176,9 @@ class CI_URI {
 	 * @return	string
 	 */
 	private function _detect_uri()
-	{
+	{echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+	var_dump ($_SERVER['REQUEST_URI']);
+	exit ();
 		if ( ! isset($_SERVER['REQUEST_URI']) OR ! isset($_SERVER['SCRIPT_NAME']))
 		{
 			return '';
