@@ -233,7 +233,9 @@ class CI_Router {
 	private function _validate_request ($segments) {
 		if (!$segments)
 			return $segments;
-
+echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+var_dump ($segments);
+exit ();
 		if (file_exists (APPPATH . implode (DIRECTORY_SEPARATOR, array ('controllers', $segments[0] . EXT))))
 			return $segments;
 
