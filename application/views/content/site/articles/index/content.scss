@@ -1,0 +1,318 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+// $mediaMobileWidth
+@media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+  ._c {
+    section {
+      > div {
+        font-size: 15px;
+      }
+      article {
+        position: relative;
+        // border: 1px solid rgba(230, 230, 230, 1);
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 30px;
+        text-align: left;
+        overflow: hidden;
+        @include border-radius(2px);
+        @include box-shadow(0 0 1px rgba(100, 100, 100, 1));
+        
+
+        > * {
+          display: inline-block;
+          width: 100%;
+        }
+
+        $figureHeight: 180px;
+        figure {
+          // position: absolute;
+          // top: 0;
+          // left: 0;
+          height: $figureHeight;
+          margin: 0;
+          padding: 0;
+          z-index: 2;
+
+          a {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: $figureHeight;
+            overflow: hidden;
+
+            img {
+              width: 100%;
+            }
+          }
+
+          figcaption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: inline-block;
+            width: 100%;
+            z-index: -1;
+            @include opacity(0);
+          }
+        }
+
+        $h2Height: 50px;
+        h2 {
+          position: absolute;
+          top: $figureHeight - $h2Height;
+          left: 0;
+          height: $h2Height;
+          line-height: $h2Height + 8px;
+          margin: 0;
+          padding: 0 10px;
+          z-index: 3;
+
+          @include background-image(
+                        linear-gradient(
+                            rgba(39, 40, 34, 0) 0%,
+                            rgba(39, 40, 34, .7) 100%
+                        ));    
+
+          @include split-right(130px, 'a', 'time');
+
+          a {
+            @include a(0, false, rgba(230, 230, 230, 1), rgba(255, 255, 255, 1));
+            font-weight: bold;
+            width: auto;
+            max-width: calc(100% - 130px);
+            letter-spacing: 1px;
+            @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+              letter-spacing: .5px;
+              font-size: 18px;
+            }
+            @include text-shadow(1px 1px 3px rgba(39, 40, 34, .5));
+            @include overflow-docx3();
+          }
+          time {
+            font-size: 10px;
+            font-weight: normal;
+            height: 100%;
+            text-align: right;
+            color: rgba(255, 255, 255, .8);
+            line-height: $h2Height + 13px;
+            @include text-shadow(0 0 3px rgba(39, 40, 34, .5));
+          }
+        }
+
+        > div {
+          > div {
+            display: inline-block;
+            width: 100%;
+            
+            &:first-child {
+              padding: 15px 20px;
+              padding-bottom: 10px;
+              font-size: 16px;
+              line-height: 26px;
+              // border-bottom: 1px solid rgba(85, 85, 85, .1);
+              color: rgba(85, 85, 85, 1);
+              height: 95px;
+              // background-color: rgba(0, 0, 255, 0.2);
+              overflow: hidden;
+              word-wrap: break-word; 
+              word-break: break-all;
+
+              @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+                font-size: 14px;
+                line-height: 23px;
+                height: 86px;
+              }
+            }
+            &:last-child {
+              padding: 15px;
+              // margin-top: 12px;
+              padding-top: 17px;
+              // border-top: 1px solid rgba(85, 85, 85, .1);
+              @include split-right(100px, '>div:first-child', '>div:last-child');
+              @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+                padding: 10px;
+                // margin-top: 9px;
+                padding-top: 12px;
+              }
+              > div {
+                font-size: 13px;
+                @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+                  font-size: 10px;
+                }
+                
+                &:first-child {
+                  color: rgba(157, 157, 170, 1);
+                  @include overflow-docx3();
+                }
+                &:last-child {
+                  text-align: right;
+                  color: rgba(85, 85, 85, 1);
+
+                  a {
+                    @include a(1px);
+
+                    &:after {
+                      content: '»';
+                      display: inline-block;
+                      margin-top: -1px;
+                      margin-left: 3px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: $mediaMobileWidth) {
+  ._c {
+    section {
+      > div {
+        font-size: 15px;
+      }
+      article {
+        display: inline-block;
+        width: 100%;
+        $padding: 10px;
+        margin-bottom: 40px;
+
+        @include clearfix();
+        > * {
+          display: inline-block;
+          float: left;
+          text-align: left;
+        }
+        h2 {
+          $h2Height: 40px;
+          width: 100%;
+          font-size: 20px;
+          border-bottom: 1px solid rgba(85, 85, 85, .3);
+          margin: 0;
+          margin-bottom: 15px;
+          height: $h2Height;
+          line-height: $h2Height;
+          padding: 0 $padding;
+          @include split-right(130px, 'a', 'time');
+
+          a {
+            @include a(0, false, rgba(75, 75, 75, 1), rgba(55, 55, 55, 1));
+            font-weight: bold;
+            width: auto;
+            max-width: calc(100% - 130px);
+            letter-spacing: .5px;
+            // @include overflow-docx3();
+            overflow: hidden;
+            height: 100%;
+          }
+          time {
+            font-size: 13px;
+            font-weight: normal;
+            color: rgba(104, 104, 104, 1);
+            height: 100%;
+            text-align: right;
+          }
+        }
+        $figureWidth: 180px;
+        $figureHeight: 140px;
+        figure {
+          position: relative;
+          width: $figureWidth;
+          height: $figureHeight;
+          margin: 0;
+          padding: 0;
+          margin-left: $padding;
+          overflow: hidden;
+          @include border-radius(2px);
+          
+
+          a {
+            display: inline-block;
+            width: $figureWidth;
+            height: $figureHeight;
+            overflow: hidden;
+
+            img {
+              width: 100%;
+            }
+          }
+
+          figcaption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: inline-block;
+            width: 100%;
+            z-index: -1;
+            @include opacity(0);
+          }
+        }
+        > div {
+          position: relative;
+          width: calc(100% - #{$figureWidth} - #{$padding * 4});
+          margin-right: $padding;
+          margin-left: $padding * 2;
+
+          > div {
+            display: block;
+
+            &:first-child {
+              padding: 0 10px;
+              padding-bottom: 10px;
+              font-size: 16px;
+              line-height: 26px;
+              // border-bottom: 1px solid rgba(85, 85, 85, .1);
+              color: rgba(85, 85, 85, 1);
+              height: 107px;
+              // background-color: rgba(0, 0, 255, 0.2);
+              overflow: hidden;
+              word-wrap: break-word; 
+              word-break: break-all;
+            }
+            &:last-child {
+              padding: 0 10px;
+              margin-top: 5px;
+              padding-top: 7px;
+              border-top: 1px solid rgba(85, 85, 85, .1);
+              @include split-right(100px, '> div:first-child', '> div:last-child');
+
+              > div {
+                font-size: 13px;
+                &:first-child {
+                  color: rgba(157, 157, 170, 1);
+                  @media screen and (min-width: $mediaTabletWidth) {
+                    max-width: 450px - 100px;
+                  }
+                  @include overflow-docx3();
+                }
+                &:last-child {
+                  text-align: right;
+                  color: rgba(85, 85, 85, 1);
+
+                  a {
+                    @include a(1px);
+                    margin-top: 1px;
+
+                    &:after {
+                      content: '»';
+                      display: inline-block;
+                      margin-top: -1px;
+                      margin-left: 3px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

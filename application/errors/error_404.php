@@ -30,11 +30,15 @@ p {
 	margin: 12px 15px 12px 15px;
 }
 </style>
+<script type="text/javascript">
+	setTimeout (function () { window.location.replace ('/'); }, 3000);
+</script>
 </head>
 <body>
 	<div id="container">
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>
+		(三秒後跳轉回首頁)
 	</div>
 </body>
 </html>

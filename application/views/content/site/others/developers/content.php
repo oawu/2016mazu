@@ -1,35 +1,22 @@
-<div class='i'>
-  <figure>
-    <a>
-      <img alt='<?php echo $other->title;?> - <?php echo Cfg::setting ('site', 'title');?>' src='<?php echo $other->cover->url ('1200x630c');?>' />
-    </a>
-  </figure>
-
-  <figure>
-    <a href='<?php echo $other->user->facebook_link ();?>' target='_blank'><img src='<?php echo $other->user->avatar ();?>' /></a>
-    <figcaption data-title='文章編輯'><?php echo $other->user->name;?></figcaption>
-  </figure>
-
-  <figure>
-    <a href='<?php echo $other->user->facebook_link ();?>' target='_blank'><img src='<?php echo $other->user->avatar ();?>' /></a>
-    <figcaption data-title='文章編輯'><?php echo $other->user->name;?></figcaption>
-  </figure>
-
-  <figure>
-    <a href='<?php echo $other->user->facebook_link ();?>' target='_blank'><img src='<?php echo $other->user->avatar ();?>' /></a>
-    <figcaption data-title='文章編輯'><?php echo $other->user->name;?></figcaption>
-  </figure>
-
-  <figure>
-    <a href='<?php echo $other->user->facebook_link ();?>' target='_blank'><img src='<?php echo $other->user->avatar ();?>' /></a>
-    <figcaption data-title='文章編輯'><?php echo $other->user->name;?></figcaption>
-  </figure>
-</div>
 
 <article><?php echo preg_replace ('/<br\s*\/?>\n+/', '<br/>', $other->content);?></article>
 
 <?php
-  if (0) { ?>
+  if ($users) { ?>
+    <div class='i'>
+<?php foreach ($users as $user) { ?>
+        <figure>
+          <a href='<?php echo $user['href'];?>' target='_blank'><img src='<?php echo $user['src'];?>' /></a>
+          <figcaption data-title='<?php echo $user['title'];?>'><?php echo $user['name'];?></figcaption>
+        </figure>
+<?php } ?>
+    </div>
+<?php
+  }
+?>
+
+<?php
+  if ($other->sources) { ?>
     <ul>
 <?php foreach ($other->sources as $source) { ?>
         <li>
@@ -44,6 +31,7 @@
   <?php
   } ?>
   <div class='pv icon-eye2'><?php echo $other->pv;?> 人</div>
+
 <?php
   if ($prev || $next) { ?>
     <div class='np'>
@@ -67,4 +55,4 @@
       }?>
     </div>
 <?php 
-  }?>
+  } ?>

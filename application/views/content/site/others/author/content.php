@@ -20,7 +20,7 @@
 <article><?php echo preg_replace ('/<br\s*\/?>\n+/', '<br/>', $other->content);?></article>
 
 <?php
-  if (0) { ?>
+  if ($other->sources) { ?>
     <ul>
 <?php foreach ($other->sources as $source) { ?>
         <li>

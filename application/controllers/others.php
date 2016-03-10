@@ -63,10 +63,35 @@ class Others extends Site_controller {
     if ($next = Other::find ('one', array ('conditions' => array ('type = ? AND is_enabled = ? AND destroy_user_id IS NULL', $next, Other::IS_ENABLED))))
       $this->add_meta (array ('property' => 'og:see_also', 'content' => $next->content_page_url ()));
 
+    $users = array (
+        array (
+            'title' => '網站作者',
+            'name' => '吳政賢',
+            'src' => resource_url ('resource', 'image', 'users', 'comdan66.jpg'),
+            'href' => 'https://www.facebook.com/comdan66'
+          ),
+        array (
+            'title' => '視覺顧問',
+            'name' => '朱慧華',
+            'src' => resource_url ('resource', 'image', 'users', 'teresa.jpg'),
+            'href' => 'https://www.facebook.com/teresa.chu.3348'
+          ),
+        // array (
+        //     'title' => '文章編輯',
+        //     'name' => '吳慧萱',
+        //     'src' => resource_url ('resource', 'image', 'users', 'teresa.jpg'),
+        //     'href' => 'https://www.facebook.com/teresa.chu.3348'
+        //   )
+      );
+
+
+
+
     $this->set_tab_index (2)
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
+            'users' => $users,
           ));
   }
   public function license () {

@@ -34,7 +34,7 @@ class Cli extends Site_controller {
     return $colored_string;
   }
 
-  public function migration () {
+  public function migration ($version = 2) {
     echo "\n " . $this->color ("Migration Start!", 'C') . "\n" . str_repeat ('=', 60) . "\n";
     $this->load->library ('migration');
     $a = $this->config->load('migration', TRUE);;
@@ -42,7 +42,7 @@ class Cli extends Site_controller {
     echo " " . $this->color ("➜", 'r') . " Migration Back   ";
     $m = new CI_Migration ($this->config->item('migration'));
     echo str_repeat ('.', 5);
-    $m->version (11);
+    $m->version ($version);
     echo str_repeat ('.', 5) . " " . $this->color ("OK!", 'G') . "\n";
 
     echo " " . $this->color ("➜", 'r') . " Migration Update ";
@@ -50,6 +50,77 @@ class Cli extends Site_controller {
     echo str_repeat ('.', 5);
     $m->latest ();
     echo str_repeat ('.', 5) . " " . $this->color ("OK!", 'G') . "\n";
+  }
+  public function article () {
+    echo "\n " . $this->color ("Article Start!", 'C') . "\n" . str_repeat ('=', 60) . "\n";
+    $this->load->library ('CreateDemo');
+
+    echo " Create Article Tags.. Tag Count: " . count ($tags = array_merge (array (array ('name' => '駕前陣頭', 'is_on_site' => 1), array ('name' => '地方陣頭', 'is_on_site' => 1), array ('name' => '其他介紹', 'is_on_site' => 1)), array_map(function () { return array ('name' => CreateDemo::text (3, 3), 'is_on_site' => 0); }, range(0, rand (2, 5))))) . "\n" . str_repeat ('-', 60) . "\n";
+    foreach ($tags as $t) 
+      ArticleTag::transaction (function () use ($t) {
+        if (!verifyCreateOrm ($tag = ArticleTag::create (array (
+            'name' => $t['name'],
+            'is_on_site' => $t['is_on_site'],
+          ))))
+          return false;
+        
+        echo " " . $this->color ("➜", 'r') . " Tag ID: " . $tag->id . ' ' . str_repeat ('-', 10) . " " . $this->color ("OK!", 'G') . "\n";
+        return true;
+      });
+
+    echo "\n";
+    echo " Create Article.. Article Count: " . count ($arts = CreateDemo::pics (20, 40, array ('北港', '朝天宮', '陣頭'))) . "\n" . str_repeat ('-', 60) . "\n";
+
+    if ($tag_total = ArticleTag::count ())
+      foreach ($arts as $art)
+        if (Article::transaction (function () use ($art, $tag_total) {
+                  if (!verifyCreateOrm ($article = Article::create (array (
+                      'user_id' => 1,
+                      'destroy_user_id' => NULL,
+                      'title' => $art['title'],
+                      'keywords' => CreateDemo::text (),
+                      'content' => implode ('', array_map (function () { $pic = rand (0, 3) && ($pics = CreateDemo::pics (1, 5, array ('北港', '朝天宮', '陣頭'))) && ($pic = $pics[0]) && verifyCreateOrm ($cke = CkeditorPicture::create (array ('name' => ''))) && $cke->name->put_url ($pic['url']) ? '<p>' . '<img alt="" src="' . $cke->name->url ('400w') . '" style="width: 400px; height: 534px;" />' . '</p>' : ''; return $pic . '<p>' . CreateDemo::text (200, 500) . '</p>'; }, range (0, rand (2, 6)))),
+                      'pv' => rand (0, 100),
+                      'cover' => '',
+                      'cover_color_r' => 0,
+                      'cover_color_g' => 0,
+                      'cover_color_b' => 0,
+                      'cover_width' => 0,
+                      'cover_height' => 0,
+                      'is_enabled' => 1
+                    ))))
+                    return false;
+        
+                  echo " " . $this->color ("➜", 'r') . " Article ID: " . $article->id . ' .';
+        
+                  if (!$article->cover->put_url ($art['url']))
+                    return false;
+                  echo ".";
+        
+                  foreach (range (0, rand (0, 4)) as $sort => $value)
+                    if (!($source = ArticleSource::create (array (
+                                            'article_id' => $article->id,
+                                            'title' => CreateDemo::text (),
+                                            'href' => CreateDemo::password (20),
+                                            'sort' => $sort
+                                          ))))
+                      return false;
+                  echo ".";
+        
+                  if ($tags = ArticleTag::find ('all', array ('order' => 'RAND()', 'offset' => 0, 'limit' => rand (1, $tag_total))))
+                    foreach ($tags as $tag)
+                      if (!verifyCreateOrm ($mapping = ArticleTagMapping::create (array (
+                          'article_id' => $article->id,
+                          'article_tag_id' => $tag->id,
+                        ))));
+                  echo ".";
+        
+                  delay_job ('articles', 'update_cover_color_and_dimension', array ('id' => $article->id));
+                  return true;
+                }))
+          echo " " . $this->color ("OK!", 'G') . "\n";
+        else
+          echo " " . $this->color ("ERROR!", 'R') . "\n";
   }
   public function dintao () {
     echo "\n " . $this->color ("Dintao Start!", 'C') . "\n" . str_repeat ('=', 60) . "\n";
@@ -79,7 +150,7 @@ class Cli extends Site_controller {
                       'destroy_user_id' => NULL,
                       'title' => $din['title'],
                       'keywords' => CreateDemo::text (),
-                      'content' => implode ('', array_map (function () { return '<p>' . CreateDemo::text (200, 500) . '</p>'; }, range (0, rand (2, 6)))),
+                      'content' => implode ('', array_map (function () { $pic = rand (0, 3) && ($pics = CreateDemo::pics (1, 5, array ('北港', '朝天宮', '陣頭'))) && ($pic = $pics[0]) && verifyCreateOrm ($cke = CkeditorPicture::create (array ('name' => ''))) && $cke->name->put_url ($pic['url']) ? '<p>' . '<img alt="" src="' . $cke->name->url ('400w') . '" style="width: 400px; height: 534px;" />' . '</p>' : ''; return $pic . '<p>' . CreateDemo::text (200, 500) . '</p>'; }, range (0, rand (2, 6)))),
                       'pv' => rand (0, 100),
                       'cover' => '',
                       'cover_color_r' => 0,
@@ -150,7 +221,7 @@ class Cli extends Site_controller {
                       'destroy_user_id' => NULL,
                       'title' => $pic['title'],
                       'keywords' => CreateDemo::text (),
-                      'content' => implode ('', array_map (function () { return '<p>' . CreateDemo::text (200, 500) . '</p>'; }, range (0, rand (2, 6)))),
+                      'content' => implode ('', array_map (function () { $pic = rand (0, 3) && ($pics = CreateDemo::pics (1, 5, array ('北港', '朝天宮', '陣頭'))) && ($pic = $pics[0]) && verifyCreateOrm ($cke = CkeditorPicture::create (array ('name' => ''))) && $cke->name->put_url ($pic['url']) ? '<p>' . '<img alt="" src="' . $cke->name->url ('400w') . '" style="width: 400px; height: 534px;" />' . '</p>' : ''; return $pic . '<p>' . CreateDemo::text (200, 500) . '</p>'; }, range (0, rand (2, 6)))),
                       'pv' => rand (0, 100),
                       'name' => '',
                       'name_color_r' => 0,
@@ -221,7 +292,7 @@ class Cli extends Site_controller {
                       'destroy_user_id' => NULL,
                       'title' => $you['title'],
                       'keywords' => CreateDemo::text (),
-                      'content' => implode ('', array_map (function () { return '<p>' . CreateDemo::text (200, 500) . '</p>'; }, range (0, rand (2, 6)))),
+                      'content' => implode ('', array_map (function () { $pic = rand (0, 3) && ($pics = CreateDemo::pics (1, 5, array ('北港', '朝天宮', '陣頭'))) && ($pic = $pics[0]) && verifyCreateOrm ($cke = CkeditorPicture::create (array ('name' => ''))) && $cke->name->put_url ($pic['url']) ? '<p>' . '<img alt="" src="' . $cke->name->url ('400w') . '" style="width: 400px; height: 534px;" />' . '</p>' : ''; return $pic . '<p>' . CreateDemo::text (200, 500) . '</p>'; }, range (0, rand (2, 6)))),
                       'pv' => rand (0, 100),
                       'cover' => '',
                       'cover_color_r' => 0,
@@ -408,12 +479,91 @@ class Cli extends Site_controller {
         echo " " . $this->color ("OK!", 'G') . "\n";
       }
   }
+
+  public function other () {
+    echo "\n " . $this->color ("Other Start!", 'C') . "\n" . str_repeat ('=', 60) . "\n";
+    
+    $this->load->library ('CreateDemo');
+    $cover = FCPATH . 'resource' . DIRECTORY_SEPARATOR . 'image' . DIRECTORY_SEPARATOR . 'og' . DIRECTORY_SEPARATOR . 'larger.jpg';
+    copy ($cover, $cover1 = FCPATH . 'temp' . DIRECTORY_SEPARATOR . 'larger1.jpg');
+    copy ($cover, $cover2 = FCPATH . 'temp' . DIRECTORY_SEPARATOR . 'larger2.jpg');
+    copy ($cover, $cover3 = FCPATH . 'temp' . DIRECTORY_SEPARATOR . 'larger3.jpg');
+
+    $ots = array (
+      array (
+        'title' => '網站作者',
+        'type' => 'author',
+        'cover' => $cover1,
+        'content' => "<p>烘爐引炮 驚奇火花 驚震全場，輪廓描繪傳承力量 霓彩妝童延續風華，<br/>三聲起馬炮 三鼓三哨聲的先鋒中壇開路啟程，<br/>兩聲哨鼓的北港黃袍勇士也在砲火花中吞雲吐霧聞炮起舞，<br/>四小將鏘鏘響 門一開 青紅將軍開路展威風！</p><p>不變的，還是一樣的開場詞，<br/>是的，又一年了！這個慶典對於北港人，就像如候鳥的季節，是一個返鄉的時刻！<br/>每年十九前一晚，小鎮內車子就漸漸的多了，辦桌的廚棚也滿在街道上，<br/>這是一個屬於北港囝仔的春節、北港人的過年！</p><p>其實對於北港的熱情不僅僅是信仰，<br/>更還是一種習慣、參與感、責任感！<br/>還記得從國中時，自己去圖書館翻閱北港鎮地圖，<br/>用紙筆 一筆一畫的將路關路線圖完成。</p><p>高中時，拿著人生第一台的數位相機，<br/>記錄著每一年的活動，從起馬唱班到落馬唱班，<br/>如今終於可以用我所學的技能，來為我的故鄉做點什麼！</p><p>十幾年過去了 不曾改變的習慣還依然繼續！<br/>不曾冷卻的期待也依然澎湃！<br/>在外地的北港囝仔，還記得北港的鞭炮味嗎？<br/>還記得小時候期待三月十九到來的期待與喜悅感嗎？<br/>這是我們北港人最榮耀的過年，<br/>今年要記得回來，再忙都要回來幫媽祖婆逗熱鬧一下吧！</p><p>如果你不是北港人，<br/>但對傳統文化有著興趣與熱誠，推薦你來北港參與一次吧！<br/>你會看到的不只是陣頭鞭炮，而是整個鎮上參與的感動！</p><p>不多說了，要開始了！這個屬於全北港小鎮的盛會！出發，我們全鎮遶境去！</p>"
+      ),
+      array (
+        'title' => '製作人員',
+        'type' => 'developers',
+        'cover' => $cover2,
+        'content' => "<p>嗨 各位好：）</p><p>我們是這個網站的作者，製作北港三月十九遶境活動網站，今年已經邁入第三年了，<br/>近幾年因為智慧手機、Google Maps 普及，所以我便開始嘗試將路關圖製作成 Google Maps，並且發揮網頁設計的專長，將網頁與地圖結合！</p><p>最初製作的發想原因，其實只是單純想為北港媽祖三月十九繞境活動作宣傳，並且沒有任何營利與貪圖，唯一的目的就是讓更多的人可以瞭解北港文化與在地人對於在地的熱愛僅此而已，<br/>而對於鄉土北港的熱血直至今年也未曾間斷，當然的，未來的每一年也是！</p><p>就在 2014 年，我們完成了第一版的北港迎媽祖網站，<br/>如今看來雖是簡單畫面，但這一個網站成為讓我們每年繼續為北港製作網站的一個動力，<br/>當時就使用簡單的 Google Maps 規劃路線，並且使用 iframe 內嵌網頁呈現。</p><p>接著 2015 年，我們更利用 Google Maps 提供的 JavaScript API，<br/>製作的會移動的三月十九繞境路關地圖和提供多項北港文化的說明頁面，<br/>此時的網站奠定了今年網站的雛形！<br/>然而為了跟上手機時代，就將網頁技術上提升、導入 RWD 技術，讓更多使用者可以用手機瀏覽！</p><p>今年我們更加發揮自己的專長與技術，<br/>打算讓北港文化被記錄、被分享、被發現，<br/>當然不只是繞境地圖而已，目標是所有北港地區的文化、歷史、人文、美食.. 等，<br/>將這些通通都記錄在網站上，進而讓大家更進一步的認識北港！</p>"
+      ),
+      array (
+        'title' => '網站聲明',
+        'type' => 'license',
+        'cover' => $cover3,
+        'content' => "<p>這是一個熱愛北港廟會活動的非營利網站，<br/>主要希望能為地方古蹟、習俗活動帶來多一點的貢獻！<br/>更希望大家參與北港廟會活動的同時，能更加的融入北港當地的文化。<p>網站出發點，其實單純的只想為北港媽祖三月十九繞境活動作宣傳，<br/>若您個是熱愛在地文化的朋友們，那一定來參與這盛會！<br/>若您是個道道地地的北港囝仔，那更可以將這個網站分享出去，<br/>讓台灣所有人更可以看得到北港的美。</p><p>北港這個可愛以及迷人文化古鎮，<br/>它擁有的不只印象中的宗教信仰中心<br/>而是有著數多的百年藝陣、人文傳統、宗教信仰..等，<br/>讓我們期許這小鎮特色的是能被記錄與看見！<br/>無論文章或攝影，都一起來記錄吧！希望大家一起分享一起加油！</p><p>還是要說一下，<br/>網站上面資料多數是參考網路上資源以及前輩們對於地方研究敘述的資料！<br/>如要引用，請標明出處或告知原作者！<br/>另外，若是網站內文章、資訊有錯誤或有不妥，<br/>也歡迎各位來信指導、建議。</p>"
+        ),
+    );
+    echo " Create Other.. Other Count: " . count ($ots) . "\n" . str_repeat ('-', 60) . "\n";
+
+    foreach ($ots as $ot)
+      if (Other::transaction (function () use ($ot) {
+                if (!verifyCreateOrm ($other = Other::create (array (
+                    'user_id' => 1,
+                    'destroy_user_id' => NULL,
+                    'title' => $ot['title'],
+                    'keywords' => CreateDemo::text (),
+                    'content' => $ot['content'],
+                    'pv' => rand (0, 100),
+                    'type' => $ot['type'],
+                    'cover' => '',
+                    'cover_color_r' => 0,
+                    'cover_color_g' => 0,
+                    'cover_color_b' => 0,
+                    'cover_width' => 0,
+                    'cover_height' => 0,
+                    'is_enabled' => 1
+                  ))))
+                  return false;
+      
+                echo " " . $this->color ("➜", 'r') . " Other ID: " . $other->id . ' .';
+
+                if (!$other->cover->put ($ot['cover']))
+                  return false;
+                echo ".";
+      
+                foreach (range (0, rand (0, 4)) as $sort => $value)
+                  if (!($source = OtherSource::create (array (
+                                          'other_id' => $other->id,
+                                          'title' => CreateDemo::text (),
+                                          'href' => CreateDemo::password (20),
+                                          'sort' => $sort
+                                        ))))
+                    return false;
+                echo ".";
+      
+                echo ".";
+      
+                delay_job ('others', 'update_cover_color_and_dimension', array ('id' => $other->id));
+                return true;
+              }))
+        echo " " . $this->color ("OK!", 'G') . "\n";
+      else
+        echo " " . $this->color ("ERROR!", 'R') . "\n";
+  }
   public function build () {
     $this->migration ();
 
-    // $this->dintao ();
-    // $this->picture ();
+    $this->article ();
+    $this->dintao ();
+    $this->picture ();
     $this->youtube ();
     $this->path ();
+    $this->other ();
   }
 }

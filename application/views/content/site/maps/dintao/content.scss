@@ -80,7 +80,7 @@ body {
   padding: 0 !important;
   text-align: left;
   background: $mainBackgroundColor $mainBackgroundImage;
-  @include box-shadow(0 0 5px 1px rgba(0, 0, 0, 0.2), 0 0 1px rgba(39, 40, 34, .4));
+  @include box-shadow(0 0 1px rgba(39, 40, 34, .5));
 
   #map {
     position: relative;
