@@ -31,7 +31,9 @@ class Site_controller extends Oa_controller {
       return redirect_message (array (), array (
           '_flash_message' => ''
         ));
-
+echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+var_dump ($menus_list);
+exit ();
     $this->set_componemt_path ('component', 'site')
          ->set_frame_path ('frame', 'site')
          ->set_content_path ('content', 'site')
