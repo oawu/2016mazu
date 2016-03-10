@@ -15,7 +15,9 @@ class Site_controller extends Oa_controller {
 
     if ($this->input->is_cli_request ())
       return;
-    
+    echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+var_dump (Cfg::setting ('site', 'menu'));
+exit ();
     $menus_list = array_map (function ($menus) use ($class, $method, &$has_active) {
       return array_map (function ($item) use ($class, $method, &$has_active) {
         $has_active |= ($a = ((isset ($item['class']) && $item['class']) && ($class == $item['class']) && (isset ($item['method']) && $item['method']) && ($method == $item['method'])) || (((isset ($item['class']) && $item['class'])) && ($class == $item['class']) && !((isset ($item['method']) && $item['method']))) || (!(isset ($item['class']) && $item['class']) && (isset ($item['method']) && $item['method']) && ($method == $item['method'])));
@@ -31,9 +33,7 @@ class Site_controller extends Oa_controller {
       return redirect_message (array (), array (
           '_flash_message' => ''
         ));
-echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-var_dump ($menus_list);
-exit ();
+
     $this->set_componemt_path ('component', 'site')
          ->set_frame_path ('frame', 'site')
          ->set_content_path ('content', 'site')
