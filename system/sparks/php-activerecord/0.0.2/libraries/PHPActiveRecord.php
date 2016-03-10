@@ -36,7 +36,7 @@ class PHPActiveRecord {
             foreach ($db as $conn_name => $conn)
             {
                 // Build the DSN string for each connection
-                $connections[$conn_name] =       $conn['dbdriver'].
+                $connections[$conn_name] =       'mysql'.
                                     '://'       .$conn['username'].
                                     ':'         .$conn['password'].
                                     '@'         .$conn['hostname'].
