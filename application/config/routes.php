@@ -42,6 +42,6 @@ Route::group ('admin', function () {
   
   Route::resourcePagination_is_enabled (array ('path', 'infos'), 'path_path_infos');
 });
-// echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-// var_dump (Route::getRoute ());
-// exit ();
+echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+var_dump (Route::getRoute ());
+exit ();
