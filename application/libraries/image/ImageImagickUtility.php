@@ -42,7 +42,7 @@ class ImageImagickUtility extends ImageBaseUtility {
 
   // return dimension format array
   public function getDimension ($image = null) {
-    $image = $image ? $image : $this->image->clone ();
+    $image = $image ? $image : clone $this->image;
 
     if (!(($imagePage = $image->getImagePage ()) && isset ($imagePage['width']) && isset ($imagePage['height']) && (intval ($imagePage['width']) > 0) && (intval ($imagePage['height']) > 0)))
       $imagePage = $image->getImageGeometry ();
@@ -61,7 +61,8 @@ class ImageImagickUtility extends ImageBaseUtility {
 
   // return image object
   private function _machiningImageResize ($newDimension) {
-    $newImage = $this->image->clone ()->coalesceImages ();
+    $newImage = clone $this->image;
+    $newImage = $newImage->coalesceImages ();
 
     if ($this->format == 'gif')
       do {
@@ -79,7 +80,8 @@ class ImageImagickUtility extends ImageBaseUtility {
     $newImage->setFormat ($this->format);
 
     if ($this->format == 'gif') {
-      $imagick = $this->image->clone ()->coalesceImages ();
+      $imagick = clone $this->image;
+      $imagick = $imagick->coalesceImages ();
       do {
         $temp = new Imagick ();
         $temp->newImage ($width, $height, new ImagickPixel ($color));
@@ -90,7 +92,7 @@ class ImageImagickUtility extends ImageBaseUtility {
         $newImage->setImageDelay ($imagick->getImageDelay ());
       } while ($imagick->nextImage ());
     } else {
-      $imagick = $this->image->clone ();
+      $imagick = clone $this->image;
       $imagick->chopImage ($cropX, $cropY, 0, 0);
       $newImage->newImage ($width, $height, new ImagickPixel ($color));
       $newImage->compositeImage ($imagick, imagick::COMPOSITE_DEFAULT, 0, 0 );
@@ -102,7 +104,7 @@ class ImageImagickUtility extends ImageBaseUtility {
   private function _machiningImageRotate ($degree, $color = 'transparent') {
     $newImage = new Imagick ();
     $newImage->setFormat ($this->format);
-    $imagick = $this->image->clone ();
+    $imagick = clone $this->image;
 
     if ($this->format == 'gif') {
       $imagick->coalesceImages();
@@ -136,12 +138,13 @@ class ImageImagickUtility extends ImageBaseUtility {
   // return ImageImagickUtility object
   private function _machiningImageFilter ($radius, $sigma, $channel) {
     if ($this->format == 'gif') {
-      $newImage = $this->image->clone ()->coalesceImages ();
+      $newImage = clone $this->image;
+      $newImage = $newImage->coalesceImages ();
       do {
         $newImage->adaptiveBlurImage ($radius, $sigma, $channel);
       } while ($newImage->nextImage () || !$newImage = $newImage->deconstructImages ());
     } else {
-      $newImage = $this->image->clone ();
+      $newImage = clone $this->image;
       $newImage->adaptiveBlurImage ($radius, $sigma, $channel);
     }
     return $newImage;
@@ -183,7 +186,8 @@ class ImageImagickUtility extends ImageBaseUtility {
     $newImage->setFormat ($this->format);
 
     if ($this->format == 'gif') {
-      $imagick = $this->image->clone ()->coalesceImages ();
+      $imagick = clone $this->image;
+      $imagick = $imagick->coalesceImages ();
       do {
         $temp = new Imagick ();
         $temp->newImage ($width, $height, new ImagickPixel ($color));
@@ -194,7 +198,7 @@ class ImageImagickUtility extends ImageBaseUtility {
       } while ($imagick->nextImage ());
     } else {
       $newImage->newImage ($width, $height, new ImagickPixel ($color));
-      $newImage->compositeImage ($this->image->clone (), imagick::COMPOSITE_DEFAULT, intval (($width - $this->dimension['width']) / 2), intval (($height - $this->dimension['height']) / 2));
+      $newImage->compositeImage (clone $this->image, imagick::COMPOSITE_DEFAULT, intval (($width - $this->dimension['width']) / 2), intval (($height - $this->dimension['height']) / 2));
     }
 
     return $this->_updateImage ($newImage);
@@ -407,7 +411,8 @@ class ImageImagickUtility extends ImageBaseUtility {
     $newImage->setFormat ($this->format);
 
     if ($this->format == 'gif') {
-      $imagick = $this->image->clone ()->coalesceImages ();
+      $imagick = clone $this->image;
+      $imagick = $imagick->coalesceImages ();
       do {
         $temp = new Imagick ();
 
@@ -422,7 +427,7 @@ class ImageImagickUtility extends ImageBaseUtility {
         $newImage->setImageDelay ($imagick->getImageDelay ());
       } while ($imagick->nextImage ());
     } else {
-      $newImage = $this->image->clone ();
+      $newImage = clone $this->image;
       $newImage->setimagebackgroundcolor("black");
       $newImage->gammaImage (0.75);
       $newImage->vignetteImage (0, max ($this->dimension['width'], $this->dimension['height']) * 0.2, 0 - ($this->dimension['width'] * 0.05), 0 - ($this->dimension['height'] * 0.05));
@@ -435,7 +440,7 @@ class ImageImagickUtility extends ImageBaseUtility {
     if (!($maxCount > 0))
       throw new ImageUtilityException ('ImageImagickUtility 錯誤！', '參數錯誤，maxCount：' . $maxCount, '參數 radius 一定要大於 0！');
 
-    $temp = $this->image->clone ();
+    $temp = clone $this->image;
 
     $temp->quantizeImage ($maxCount, Imagick::COLORSPACE_RGB, 0, false, false );
     $pixels = $temp->getImageHistogram ();
@@ -525,7 +530,8 @@ class ImageImagickUtility extends ImageBaseUtility {
     if ($this->format == 'gif') {
       $newImage = new Imagick ();
       $newImage->setFormat ($this->format);
-      $imagick = $this->image->clone ()->coalesceImages ();
+      $imagick = clone $this->image;
+      $imagick = $imagick->coalesceImages ();
       do {
         $temp = new Imagick ();
         $temp->newImage ($this->dimension['width'], $this->dimension['height'], new ImagickPixel ('transparent'));
@@ -535,7 +541,7 @@ class ImageImagickUtility extends ImageBaseUtility {
         $newImage->setImageDelay ($imagick->getImageDelay ());
       } while ($imagick->nextImage ());
     } else {
-      $newImage = $this->image->clone ();
+      $newImage = clone $this->image;
       $newImage->annotateImage ($draw, $startX, $startY, $degree, $text);
     }
 

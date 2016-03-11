@@ -18,7 +18,8 @@ class Route {
 		$trace = debug_backtrace (DEBUG_BACKTRACE_PROVIDE_OBJECT);
 
 		if (in_array (strtolower ($name), self::$methods) && (count ($arguments) == 2)) {
-			$group = isset ($trace[3]['class']) && ($trace[3]['class'] == 'Route') && isset ($trace[3]['function']) && ($trace[3]['function'] == 'group') && isset ($trace[3]['type']) && ($trace[3]['type'] == '::') && isset ($trace[3]['args'][0]) ? trim ($trace[3]['args'][0], '/') . '/' : '';
+			$trace = is_php ('7') ? $trace[2] : $trace[3];
+			$group = isset ($trace['class']) && ($trace['class'] == 'Route') && isset ($trace['function']) && ($trace['function'] == 'group') && isset ($trace['type']) && ($trace['type'] == '::') && isset ($trace['args'][0]) ? trim ($trace['args'][0], '/') . '/' : '';
 
 			$path = array_filter (explode ('/', $arguments[0]));
 			$controller = array_filter (preg_split ('/[@,\(\)\s]+/', $arguments[1]), function ($t) { return $t || $t === '0'; });
@@ -146,9 +147,6 @@ class CI_Router {
 		log_message ('debug', "Router Class Initialized");
 
 		$this->_set_routing ();
-		echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-		var_dump ($this->directory);
-		exit ();
 	}
 
 	private function _set_routing () {
