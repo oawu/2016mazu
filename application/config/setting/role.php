@@ -15,7 +15,7 @@ $role['role_names'] = array (
     'path' => '管理路徑',
     'article' => '管理文章',
     'other' => '管理介紹',
-    'food' => '管理美食',
+    'store' => '管理店家',
     'root' => '最高權限',
   );
 

@@ -17,27 +17,53 @@
     padding-right: 40px;
   }
 }
+
 article {
   margin-bottom: 50px;
+  display: inline-block;
+  width: 100%;
   &, * {
     font-family: "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, Monaco !important;
   }
   @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
     margin-bottom: 30px;
+    &:first-child {
+      h2 {
+        margin-top: 0;
+      }
+    }
   }
   &:last-child {
     margin-bottom: 10px;
   }
   + article {
-    margin-top: 50px;
+    // margin-top: 20px;
   }
   h2 {
     font-size: 22px;
-    margin-bottom: 5px;
-
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    + p {
+      margin-top: 10px;
+    }
     @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
       margin: 17px auto;
       font-size: 20px;
+    }
+    > div {
+      display: inline-block;
+      height: 25px;
+      width: auto;
+      text-align: right;
+      font-size: 0;
+      position: absolute !important;
+      right: 0;
+      top: 5px;
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        top: 3px;
+      }
     }
   }
   h3 {
@@ -83,6 +109,7 @@ article {
     &:before {
       margin-right: 5px;
       @include opacity(.5);
+      font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
     }
   }
   > section {

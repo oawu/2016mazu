@@ -1,5 +1,6 @@
+
 <article>
-  <h2>沿革簡介</h2>
+  <h2>沿革簡介<div class="fb-like" data-href="<?php echo base_url ('march19', 'dintao');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></h2>
   <p>清康熙卅三（公元一六九四年），福建湄洲朝天閣高僧樹璧奉請媽祖神尊來台，於農曆三月十九日午時登陸笨港（即今北港），神顯是永駐笨港，庇佑萬民，遂立祠奉祀，自此香火日盛。</p>
   <p>地方信眾為感念媽祖聖德，例由笨港渡海回湄洲謁祖，回程在台南安平登陸，三月十九日鑾駕回抵笨港，同時舉行盛大慶典與繞境。嗣因甲午戰爭後，清廷日漸衰弱，列強環伺，台灣割讓日本，海疆日險，謁祖行程因而停止，惟地方信眾為紀念此一例行謁祖活動，仍於每年十九日、二十日迎請聖母舉行繞境，祈求風調雨順、國泰民安，此即本盛會之由來。</p>
   <p>北港媽祖出巡繞境活動，經行政院文化部於民國九十九年六月十八日依據文化資產保存法第五十九條指定「北港朝天宮迎媽祖」為我國重要民俗。</p>
@@ -103,3 +104,24 @@
     </ol>
   </section>
 </article>
+
+<?php
+  if ($prev || $next) { ?>
+    <div class='np a'>
+<?php if ($prev) { ?>
+        <figure class='p'>
+          <a href='<?php echo $prev['url'];?>'></a>
+          <figcaption><a href='<?php echo $prev['url'];?>'><?php echo $prev['title'];?></a></figcaption>
+        </figure>
+      <?php
+      }
+      if ($next) {?>
+        <figure class='n'>
+          <a href='<?php echo $next['url'];?>'></a>
+          <figcaption><a href='<?php echo $next['url'];?>'><?php echo $next['title'];?></a></figcaption>
+        </figure>
+      <?php
+      }?>
+    </div>
+<?php 
+  }

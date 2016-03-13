@@ -35,6 +35,7 @@
   <?php
   } ?>
   <div class='pv icon-eye2'><?php echo $other->pv;?> 人</div>
+
 <?php
   if ($prev || $next) { ?>
     <div class='np'>
@@ -58,4 +59,4 @@
       }?>
     </div>
 <?php 
-  }?>
+  }

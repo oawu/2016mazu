@@ -11,6 +11,10 @@ $admin['footer']['description'] = '如有相關問題歡迎與<a href="https://w
 
 
 $admin['menu'] = array (
+    '店家管理' => array (
+        '店家分類' => array ('roles' => array ('store'), 'icon' => 'icon-price-tag', 'href' => base_url ('admin', 'store-tags'), 'class' => 'store_tags', 'method' => '', 'target' => '_self'),
+        '店家列表' => array ('roles' => array ('store'), 'icon' => 'icon-location', 'href' => base_url ('admin', 'stores'), 'class' => 'stores', 'method' => '', 'target' => '_self'),
+      ),
     '路線管理' => array (
         '路線分類' => array ('roles' => array ('path'), 'icon' => 'icon-price-tag', 'href' => base_url ('admin', 'path-tags'), 'class' => 'path_tags', 'method' => '', 'target' => '_self'),
         '路線列表' => array ('roles' => array ('path'), 'icon' => 'icon-location', 'href' => base_url ('admin', 'paths'), 'class' => 'paths', 'method' => '', 'target' => '_self'),
@@ -34,7 +38,6 @@ $admin['menu'] = array (
     '其他' => array (
         '工具' => array ('no_show' => true, 'roles' => array ('all'), 'icon' => '', 'href' => base_url ('tools'), 'class' => 'tools', 'method' => '', 'target' => '_self'),
         '介紹列表' => array ('roles' => array ('other'), 'icon' => 'icon-file-text2', 'href' => base_url ('admin', 'others'), 'class' => 'others', 'method' => '', 'target' => '_self'),
-        '美食列表' => array ('roles' => array ('food'), 'icon' => 'icon-file-text2', 'href' => base_url ('admin', 'foods'), 'class' => 'foods', 'method' => '', 'target' => '_self'),
         // '登入' => array ('no_show' => true, 'roles' => array (), 'icon' => 'icon-file-text2', 'href' => base_url ('platform', 'login'), 'class' => 'platform', 'method' => 'login', 'target' => '_self'),
         // 'ＦＢ登入' => array ('no_show' => true, 'roles' => array (), 'icon' => 'icon-file-text2', 'href' => base_url ('platform', 'fb_sign_in'), 'class' => 'platform', 'method' => 'fb_sign_in', 'target' => '_self'),
       ),

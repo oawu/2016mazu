@@ -1,5 +1,5 @@
 <article>
-  <h2>遊行時間</h2>
+  <h2>遊行時間<div class="fb-like" data-href="<?php echo base_url ('march19', 'dintao');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></h2>
   <p>農曆三月十九、二十日每日中午十二時０分，依編排號次以國樂車為首，停廟西側民主路口，其他藝閣依號次排列於後，中午十二時三十分進入遊行路線。晚間六時三十分依號次集合於廟西側民主路指定地點，晚間七時準時進入遊行路線。</p>
   <p>農曆三月廿一、廿二、廿三日晚間六時三十分，依號次集合於廟西側民主路指定地點，晚間七時準時進入遊行路線，遊行完畢後解散。</p>
 </article>
@@ -57,3 +57,24 @@
     <ol><li>遊行中領隊人員，可視實際狀況調整遊行路線。</li><li>請各里辦公處事前配合藝閣所經路線兩旁障礙物清理及樹木突出枝幹修剪。</li><li>請參加各單位負責人要求製作者提供兩百字左右藝閣典故介紹及藝閣車上配置合格滅火器及絕緣材質撐高桿各兩隻以上。</li><li>請參加各單位負責人，應事前切實檢查藝閣車輛之性能、電器路線及兒童乘坐之安全性，如遇雨應關閉發電機總電源，以確保人員安全。</li><li>遊行前請參加單位負責人與製作者，切實檢查兒童乘坐是否繫好安全帶，在行進中請注意道路兩旁跨越電線、樹木及其他障礙物，並注意車上兒童安全，遊行中嚴禁丟擲糖果，以免造成參觀人潮推擠危險。</li><li>三月十九日及二十日在遊行中遇聖母神轎隊伍，請優先禮讓聖母神轎隊伍通過。</li><li>請北港義警隊於藝閣所經之處，協助管制車輛及疏導交通，在遊行中請協助車隊隔離與參觀民眾之安全距離。</li></ol>
   </section>
 </article>
+
+<?php
+  if ($prev || $next) { ?>
+    <div class='np a'>
+<?php if ($prev) { ?>
+        <figure class='p'>
+          <a href='<?php echo $prev['url'];?>'></a>
+          <figcaption><a href='<?php echo $prev['url'];?>'><?php echo $prev['title'];?></a></figcaption>
+        </figure>
+      <?php
+      }
+      if ($next) {?>
+        <figure class='n'>
+          <a href='<?php echo $next['url'];?>'></a>
+          <figcaption><a href='<?php echo $next['url'];?>'><?php echo $next['title'];?></a></figcaption>
+        </figure>
+      <?php
+      }?>
+    </div>
+<?php 
+  }

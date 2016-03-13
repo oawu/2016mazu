@@ -16,18 +16,18 @@ class Maps extends Site_controller {
         array ('id' => 2, 'title' => '十九下午'),
         array ('id' => 3, 'title' => '十九晚上'),
         array ('id' => 4, 'title' => '二十上午'),
-        array ('id' => 5, 'title' => '二十下午'),
-        array ('id' => 6, 'title' => '二十晚上')
+        array ('id' => 4, 'title' => '二十下午'),
+        array ('id' => 4, 'title' => '二十晚上')
       );
 
     $this->iko_tabs = array (
-        array ('id' => 7,  'title' => '十九下午'),
-        array ('id' => 8,  'title' => '十九晚間'),
-        array ('id' => 9,  'title' => '二十下午'),
-        array ('id' => 10, 'title' => '二十晚間'),
-        array ('id' => 11, 'title' => '廿一晚間'),
-        array ('id' => 12, 'title' => '廿二晚間'),
-        array ('id' => 13, 'title' => '廿三晚間'),
+        array ('id' => 4,  'title' => '十九下午'),
+        array ('id' => 4,  'title' => '十九晚間'),
+        array ('id' => 4,  'title' => '二十下午'),
+        array ('id' => 4, 'title' => '二十晚間'),
+        array ('id' => 4, 'title' => '廿一晚間'),
+        array ('id' => 4, 'title' => '廿二晚間'),
+        array ('id' => 4, 'title' => '廿三晚間'),
       );
 
     $this->add_js (Cfg::setting ('google', 'client_js_url'), false);
@@ -52,14 +52,43 @@ class Maps extends Site_controller {
         'n' => $i->longitude);
     }, $path->infos));
 
+    if ($index == 0)
+      $prev = array (
+          'url' => base_url ('march19', 'iko'),
+          'title' => '藝閣路關'
+        );
+    else if (isset ($this->dintao_tabs[$index - 1]))
+      $prev = array (
+          'url' => base_url ($this->get_class (), 'dintao', $index - 1),
+          'title' => '三月' . $this->dintao_tabs[$index - 1]['title'] . ' 陣頭地圖'
+        );
+    else 
+      $prev = null;
+
+    if (isset ($this->dintao_tabs[$index + 1]))
+      $next = array (
+          'url' => base_url ('maps', 'dintao', $index + 1),
+          'title' => '三月' . $this->dintao_tabs[$index + 1]['title'] . ' 陣頭地圖'
+        );
+    else if ($index + 1 == count ($this->dintao_tabs))
+      $next = array (
+          'url' => base_url ('maps', 'iko'),
+          'title' => '三月' . $this->iko_tabs[0]['title'] . ' 藝閣地圖'
+        );
+    else
+      $next = null;
+
+
     $this->set_tab_index ($index)
-         ->set_subtitle ('三月' . $this->dintao_tabs[$index]['title'] . ' 陣頭路關')
+         ->set_subtitle ('三月' . $this->dintao_tabs[$index]['title'] . ' 陣頭地圖')
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
          ->add_hidden (array ('id' => 'id', 'value' => $path->id))
          ->load_view (array (
             'path' => $path,
             'polyline' => $polyline,
             'infos' => $infos,
+            'prev' => $prev,
+            'next' => $next,
           ));
   }
   public function iko ($index = 0) {
@@ -82,8 +111,34 @@ class Maps extends Site_controller {
         'n' => $i->longitude);
     }, $path->infos));
 
+    if ($index == 0)
+      $prev = array (
+          'url' => base_url ('maps', 'dintao', $i = count ($this->dintao_tabs) - 1),
+          'title' => '三月' . $this->dintao_tabs[$i]['title'] . ' 陣頭地圖'
+        );
+    else if (isset ($this->iko_tabs[$index - 1]))
+      $prev = array (
+          'url' => base_url ($this->get_class (), 'iko', $index - 1),
+          'title' => '三月' . $this->iko_tabs[$index - 1]['title'] . ' 藝閣地圖'
+        );
+    else 
+      $prev = null;
+
+    if (isset ($this->iko_tabs[$index + 1]))
+      $next = array (
+          'url' => base_url ('maps', 'iko', $index + 1),
+          'title' => '三月' . $this->iko_tabs[$index + 1]['title'] . ' 藝閣地圖'
+        );
+    else if ($index + 1 == count ($this->iko_tabs))
+      $next = array (
+          'url' => base_url ('dintaos'),
+          'title' => '所有陣頭',
+        );
+    else
+      $next = null;
+
     $this->set_tab_index ($index)
-         ->set_subtitle ('三月' . $this->iko_tabs[$index]['title'] . ' 藝閣路關')
+         ->set_subtitle ('三月' . $this->iko_tabs[$index]['title'] . ' 藝閣地圖')
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
          ->add_hidden (array ('id' => 'id', 'value' => $path->id))
          ->set_method ('dintao')
@@ -91,6 +146,8 @@ class Maps extends Site_controller {
             'path' => $path,
             'polyline' => $polyline,
             'infos' => $infos,
+            'prev' => $prev,
+            'next' => $next,
           ));
   }
 }

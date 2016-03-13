@@ -80,7 +80,7 @@
   margin-left: -22px;
   background-position: 0 -108px;
   cursor: pointer;
-  z-index: 8060;
+  z-index: 999999999999;
   @include opacity(.8);
 }
 
@@ -360,7 +360,7 @@
   left: 0;
   width: 100%;
   overflow: hidden;
-  z-index: 999999;
+  z-index: 999999999999;
 }
 
 #fancybox-thumbs.bottom {
@@ -457,8 +457,8 @@
   }
 }
 .fancybox-type-iframe, .fancybox-type-image {
-  z-index: 999999 !important;
+  z-index: 999999999999 !important;
 }
 .fancybox-overlay {
-  z-index: 999998 !important;
+  z-index: 999999999998 !important;
 }

@@ -11,10 +11,6 @@ $(function () {
   var _marker = null;
   var _polyline = null;
 
-  // $(window).resize (function () {
-  //   $map.css ({'height': '100%'});
-  // }).resize ();
-
   function initialize () {
     _map = new google.maps.Map ($map.get (0), {
         zoom: 16,
@@ -78,6 +74,19 @@ $(function () {
 
         window.showLoading ();
       }
+    });
+
+    $('#zoom').click (function () {
+      var $body = $('body');
+
+      if (!$body.hasClass ('f')) {
+        $body.addClass ('f');
+        $(this).attr ('class', 'icon-shrink');
+      } else {
+        $body.removeClass ('f');
+        $(this).attr ('class', 'icon-enlarge');
+      }
+      google.maps.event.trigger (_map, 'resize');
     });
     window.hideLoading ();
   }

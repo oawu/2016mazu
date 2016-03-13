@@ -18,7 +18,7 @@ class Site_controller extends Oa_controller {
     
     $menus_list = array_map (function ($menus) use ($class, $method, &$has_active) {
       return array_map (function ($item) use ($class, $method, &$has_active) {
-        $has_active |= ($a = ((isset ($item['class']) && $item['class']) && ($class == $item['class']) && (isset ($item['method']) && $item['method']) && ($method == $item['method'])) || (((isset ($item['class']) && $item['class'])) && ($class == $item['class']) && !((isset ($item['method']) && $item['method']))) || (!(isset ($item['class']) && $item['class']) && (isset ($item['method']) && $item['method']) && ($method == $item['method'])));
+        $has_active |= ($a = ((isset ($item['class']) && $item['class']) && ($class == $item['class']) && (isset ($item['method']) && $item['method']) && (is_array ($item['method']) ? in_array ($method, $item['method']) : ($method == $item['method']))) || (((isset ($item['class']) && $item['class'])) && ($class == $item['class']) && !((isset ($item['method']) && $item['method']))) || (!(isset ($item['class']) && $item['class']) && (isset ($item['method']) && $item['method']) && (is_array ($item['method']) ? in_array ($method, $item['method']) : ($method == $item['method']))));
         return array_merge ($item, array ('active' => $a && !isset ($item['uri'])));
       }, $menus);
     }, array_filter (array_map (function ($group) {
@@ -26,6 +26,8 @@ class Site_controller extends Oa_controller {
         return in_array ('all', $item['roles']) || (User::current () && User::current ()->in_roles ($item['roles']));
       });
     }, Cfg::setting ('site', 'menu'))));
+
+    // uasort ($menus_list, function ($a, $b) { return count (array_filter ($a, function ($menu) { return isset ($menu['active']) && $menu['active']; })) <= count (array_filter ($b, function ($menu) { return isset ($menu['active']) && $menu['active']; })); });
 
     if (!$has_active && (($class != 'main') || ($method != 'index')))
       return redirect_message (array (), array (

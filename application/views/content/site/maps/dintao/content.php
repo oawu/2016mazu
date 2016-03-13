@@ -18,3 +18,24 @@
   } ?>
 </div>
 <div id='menu' class='fi-m'></div>
+
+<?php
+  if ($prev || $next) { ?>
+    <div class='np a'>
+<?php if ($prev) { ?>
+        <figure class='p'>
+          <a href='<?php echo $prev['url'];?>'></a>
+          <figcaption><a href='<?php echo $prev['url'];?>'><?php echo $prev['title'];?></a></figcaption>
+        </figure>
+      <?php
+      }
+      if ($next) {?>
+        <figure class='n'>
+          <a href='<?php echo $next['url'];?>'></a>
+          <figcaption><a href='<?php echo $next['url'];?>'><?php echo $next['title'];?></a></figcaption>
+        </figure>
+      <?php
+      }?>
+    </div>
+<?php 
+  }

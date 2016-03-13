@@ -41,6 +41,24 @@ class Route {
     	return '';		
 	}
 
+	public static function site_store () {
+		self::get ('/stores/index/(:id)-(:any)', 'stores@index($1)');
+		self::get ('/stores/(:id)-(:any)', 'stores@index($1)');
+		self::get ('/store/(:id)-(:any)', 'stores@index($1)');
+
+		self::get ('/stores/index/(:id)', 'stores@index($1)');
+		self::get ('/stores/(:id)', 'stores@index($1)');
+		self::get ('/store/(:id)', 'stores@index($1)');
+
+		self::get ('/tag/(:id)/stores', 'tag_stores@index($1)');
+		self::get ('/tag/(:id)/stores/index/(:id)-(:any)', 'tag_stores@index($1, $2)');
+		self::get ('/tag/(:id)/stores/(:id)-(:any)', 'tag_stores@index($1, $2)');
+		self::get ('/tag/(:id)/store/(:id)-(:any)', 'tag_stores@index($1, $2)');
+
+		self::get ('/tag/(:id)/stores/index/(:id)', 'tag_stores@index($1, $2)');
+		self::get ('/tag/(:id)/stores/(:id)', 'tag_stores@index($1, $2)');
+		self::get ('/tag/(:id)/store/(:id)', 'tag_stores@index($1, $2)');
+	}
 	public static function resource ($uris, $controller, $prefix = '') {
 		$c = count ($uris = is_string ($uris) ? array ($uris) : $uris);
 
