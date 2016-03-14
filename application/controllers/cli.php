@@ -663,14 +663,14 @@ class Cli extends Site_controller {
 
   }
   public function build () {
-    $this->migration ();
+    $this->migration (26);
 
-    $this->article ();
-    $this->dintao ();
-    $this->picture ();
-    $this->youtube ();
-    $this->path ();
-    $this->other ();
+    // $this->article ();
+    // $this->dintao ();
+    // $this->picture ();
+    // $this->youtube ();
+    // $this->path ();
+    // $this->other ();
     $this->store ();
   }
 }
