@@ -43,8 +43,8 @@
         z-index: 1;
         padding: 10px 5px;
         background-color: rgba(255, 255, 255, 1);
-        @include text-shadow(0 0 5px rgba(173, 47, 41, 1));
-        @include background-image(linear-gradient(top, rgba(215, 20, 0, .8) 0%, rgba(215, 50, 50, 1) 100%));
+        @include text-shadow(0 0 5px rgba(68, 76, 148, 1));
+        @include background-image(linear-gradient(top, rgba(68, 76, 148, .8) 0%, rgba(68, 76, 148, 1) 100%));
 
         &:after {
           content: '';
@@ -66,7 +66,7 @@
             display: inline-block;
             font-size: 20px;
             letter-spacing: 0;
-            color: rgba(249, 218, 216, 1);
+            color: rgba(255, 255, 255, 1);
           }
           &:first-child {
             > div {
@@ -150,7 +150,7 @@
             font-weight: bold;
             padding-left: 12px;
             color: rgba(45, 45, 45, 1);
-            border-left: 3px solid rgba(219, 71, 67, 1);
+            border-left: 3px solid rgba(86, 92, 160, 1);
           }
           &:before {
             vertical-align: middle;

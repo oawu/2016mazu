@@ -33,8 +33,45 @@ class Main extends Site_controller {
   //        ->load_view ();
   // }
   public function index () {
+    $march19 = '2016-04-25 00:00:00';
+
+    $temp = new DateTime ($march19);
+    $day_count = $temp->diff (new DateTime (date ('Y-m-d H:i:s')))->format ("%a");
+    
+    $path = Path::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', 1, Path::IS_ENABLED)));
+    $polyline = json_encode (array_map (function ($p) { return array ('a' => $p->latitude, 'n' => $p->longitude);}, $path->points));
+
+    $prev = array ();
+    $next = array (
+        'url' => base_url ('articles'),
+        'title' => '笨港文化'
+      );
+
+    $store = Store::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', 1, Store::IS_ENABLED)));
+    $store = json_encode (array (
+        'u' => base_url ('stores', $store->id),
+        't' => $store->title,
+        'c' => $store->mini_content (50),
+        'i' => $store->icon_url (),
+        'o' => $store->cover->url ('230x115c'),
+        'a' => $store->latitude,
+        'n' => $store->longitude
+      ));
+
     $this->set_title ('北港朝天宮')
          ->set_subtitle ('北港朝天宮')
-         ->load_view ();
+         ->add_css (resource_url ('resource', 'css', 'OA-mobileScrollView', 'OA-mobileScrollView.css'))
+         ->add_js (Cfg::setting ('google', 'client_js_url'), false)
+         ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
+         ->add_js (resource_url ('resource', 'javascript', 'jquery-ui_v1.11.4', 'jquery-ui.min.js'))
+         ->add_js (resource_url ('resource', 'javascript', 'OA-mobileScrollView', 'OA-mobileScrollView.min.js'))
+         ->load_view (array (
+            'day_count' => $day_count,
+            'path' => $path,
+            'store' => $store,
+            'polyline' => $polyline,
+            'prev' => $prev,
+            'next' => $next,
+          ));
   }
 }

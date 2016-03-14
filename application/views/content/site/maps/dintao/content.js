@@ -83,7 +83,7 @@ $(function () {
         optimized: false,
         labelContent: info (),
         labelAnchor: new google.maps.Point (230 / 2, 170 + 20 - 4),
-        labelClass: 'path_info',
+        labelClass: 'info',
         icon: {path: 'M 0 0'},
         lastMarker: null
       });
