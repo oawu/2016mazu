@@ -101,12 +101,55 @@ class Cli2 extends Site_controller {
   public function clean_baishatun_cell () {
     clean_cell ('baishatun_cell', '*');
   }
+
+
+  public function mail ($msgs = array ()) {
+    if (!$msgs)
+      $msgs = array (
+          '錯誤原因' => '不明原因錯誤！',
+          '錯誤時間' => date ('Y-m-d H:i:s'),
+        );
+    
+    $html = "<article style='font-size:15px;line-height:22px;color:rgb(85,85,85)'><p style='margin-bottom:0'>Hi 管理員,</p><section style='padding:5px 20px'><p>剛剛發生了系統異常的狀況，以下是錯誤訊息：</p><table style='width:100%;border-collapse:collapse'><tbody>";
+    foreach ($msgs as $title => $msg)
+      $html .= "<tr><th style='width:100px;text-align:right;padding:11px 5px 10px 0;border-bottom:1px dashed rgba(200,200,200,1)'>" . $title . "：</th><td style='text-align:left;text-align:left;padding:11px 0 10px 5px;border-bottom:1px dashed rgba(200,200,200,1)'>" . $msg . "</td></tr>";
+    $html .= "</tbody></table><br/><p style='text-align:right'>如果需要詳細列表，可以置<a href='" . base_url ('admin') . "' style='color:rgba(96,156,255,1);margin:0 2px'>管理後台</a>檢閱。</p></section></article>";
+    
+    $this->load->library ('OaMailGun');
+    $mail = new OaMailGun ();
+    $result = $mail->sendMessage (array (
+              'from' => Cfg::setting ('mail_gun', 'user', 'system', 'name') . ' <' . Cfg::setting ('mail_gun', 'user', 'system', 'email') . '>',
+              'to' => 'OA' . ' <comdan66@gmail.com>',
+              'subject' => '[排程錯誤] ' . Cfg::setting ('mail_gun', 'user', 'system', 'subject'),
+              'html' => $html
+            ));
+  }
+
+  public function clean_query ($psw) {
+    $log = CrontabLog::start ('每 30 分鐘，清除 query logs');
+    $this->load->helper ('file');
+    write_file (FCPATH . 'application/logs/query.log', '', FOPEN_READ_WRITE_CREATE_DESTRUCTIVE);
+    $log->finish ();
+  }
   public function baishatun () {
+    $path = FCPATH . 'temp/hi.text';
+
+    if (file_exists ($path))
+      return $log->error ('上一次還沒完成！') && $this->mail (array (
+          '錯誤原因' => '重複更新狀況！',
+          '錯誤時間' => date ('Y-m-d H:i:s'),
+        ));
+
+    $this->load->helper ('file');
+    write_file ($path, 'Hi!');
+
     for ($i = 1; $i < 4; $i++) { 
       try {
         $this->baishatun_showtaiwan ($i);
       }catch(Exception $e) { BaishatunErrorLog::create (array ('message' => '[baishatun crontab ' . $i . '] 執行錯誤！')); }
     }
+   
+    // return @unlink ($path);
   }
   public function baishatun_showtaiwan ($id = 0) {
     switch ($id) {
