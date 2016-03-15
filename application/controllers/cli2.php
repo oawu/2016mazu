@@ -144,12 +144,14 @@ class Cli2 extends Site_controller {
     $this->load->helper ('file');
     write_file ($path, 'Hi!');
 
-    for ($i = 1; $i < 4; $i++) { 
-      try {
-        $this->baishatun_showtaiwan ($i);
-      } catch(Exception $e) { BaishatunErrorLog::create (array ('message' => '[baishatun crontab ' . $i . '] 執行錯誤！')); }
-    }
+    $this->baishatun_showtaiwan (3);
+    // for ($i = 1; $i < 4; $i++) { 
+    //   try {
+    //     $this->baishatun_showtaiwan ($i);
+    //   } catch(Exception $e) { BaishatunErrorLog::create (array ('message' => '[baishatun crontab ' . $i . '] 執行錯誤！')); }
+    // }
     
+    $this->clean_baishatun_cell ();
     $log->finish ();
     return @unlink ($path);
   }
@@ -171,6 +173,5 @@ class Cli2 extends Site_controller {
           BaishatunErrorLog::create (array ('message' => '[baishatun com] 執行錯誤！'));
         break;
     }
-    $this->clean_baishatun_cell ();
   }
 }
