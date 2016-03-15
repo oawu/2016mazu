@@ -7,7 +7,7 @@
 
 
 $static['enable'] = true;
-$static['minify'] = false;
+$static['minify'] = true;
 $static['is_md5'] = true;
 
 $static['assets_folder'] = array ('assets');

@@ -36,6 +36,56 @@ article {
     + section {
       margin-top: 20px;
     }
+    #c {
+      display: block;
+      margin: 17px 0;
+      margin-top: 5px;
+      font-size: 17px;
+      line-height: 1.7em;
+      color: rgba(100, 100, 100, 1);
+      @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+        font-size: 16px;
+        line-height: 1.6em;
+        text-indent: 0;
+        margin-top: 17px;
+      }
+      > span {
+
+        > b {
+          margin: 0 2px;
+          font-weight: normal;
+
+          &:last-child {
+            position: relative;
+
+            &:before {
+              content: '';
+              position: absolute;
+              top: calc(50% - 1px + 10%);
+              left: calc(50% - 1px);
+              display: inline-block;
+              width: 2px;
+              height: 2px;
+              background-color: rgba(39, 40, 34, .5);
+              @include border-radius(50%);
+              @include scale(0);
+              @include opacity(.8);
+
+              @include animation(_h_c .6s);
+              @include keyframes(_h_c){
+                0% { 
+                  @include scale(0); @include opacity(.8);
+                }
+                100% { 
+                  @include scale(20); @include opacity(0);
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
     p {
       font-size: 17px;
       line-height: 1.7em;
@@ -146,6 +196,10 @@ article {
       }
     }
     h2 {
+      u {
+        text-decoration: none;
+        color: rgba(173, 47, 42, 1);
+      }
       position: relative;
       @media screen and (min-width: 0px) and (max-width: #{500px - 1px}) {
         font-size: 18px;

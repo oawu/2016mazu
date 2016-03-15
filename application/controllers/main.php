@@ -36,8 +36,9 @@ class Main extends Site_controller {
     $march19 = '2016-04-25 00:00:00';
 
     $temp = new DateTime ($march19);
-    $day_count = $temp->diff (new DateTime (date ('Y-m-d H:i:s')))->format ("%a");
-    
+    $day_count = $temp->diff (new DateTime (date ('Y-m-d H:i:s')))->format ('%a');
+    $day_count = strtotime ($march19) - strtotime (date ('Y-m-d H:i:s')) < 0 ? 0 - $day_count : $day_count;
+
     $path = Path::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', 1, Path::IS_ENABLED)));
     $polyline = json_encode (array_map (function ($p) { return array ('a' => $p->latitude, 'n' => $p->longitude);}, $path->points));
 
@@ -66,6 +67,7 @@ class Main extends Site_controller {
          ->add_js (resource_url ('resource', 'javascript', 'jquery-ui_v1.11.4', 'jquery-ui.min.js'))
          ->add_js (resource_url ('resource', 'javascript', 'OA-mobileScrollView', 'OA-mobileScrollView.min.js'))
          ->load_view (array (
+            'march19' => $march19,
             'day_count' => $day_count,
             'path' => $path,
             'store' => $store,

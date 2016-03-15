@@ -1,6 +1,14 @@
 <article>
   <section class='r'>
-    <h2><span>歲次丙申年 農曆</span>三月十九<span>日</span>還剩 <?php echo $day_count;?> 天！<div class="fb-like" data-href="<?php echo base_url ('march19', 'dintao');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></h2>
+    <h2>
+<?php if ($day_count > 0) { ?>
+        <span>歲次丙申年 農曆</span>三月十九<span>日</span>倒數 <?php echo $day_count;?> 天！
+<?php } else if ($day_count > -3) { ?>
+        <u>今天就是</u> <span>歲次丙申年 農曆</span>三月十九<span>日</span>！
+<?php } else { ?>
+        <span>歲次丙申年 農曆</span>三月十九<span>日</span>已完滿落幕！
+<?php }?>
+      <div class="fb-like" data-href="<?php echo base_url ('march19', 'dintao');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></h2>
     
     <figure>
       <a href=''>
@@ -9,7 +17,7 @@
       <figcaption>北港朝天宮俗稱北港媽祖廟</figcaption>
     </figure>
 
-    <p>2016年 農曆三月十九日 倒數 <span>5天 10小時 3分 2秒<span>！</p>
+    <div id='c'>2016年 農曆三月十九日 <span data-day='<?php echo $day_count;?>' data-end='<?php echo strtotime (date ($march19));?>'></span>！</div>
     <p>烘爐引炮 驚奇火花 驚震全場，輪廓描繪傳承力量 霓彩妝童延續風華，三聲起馬炮 三鼓三哨聲的先鋒中壇開路啟程，兩聲哨鼓的北港黃袍勇士也在砲火花中吞雲吐霧聞炮起舞，四小將鏘鏘響 門一開 青紅將軍開路展威風！</p>
     <p>不變的，還是一樣的開場詞，是的，又一年了！這個慶典對於北港人，就像如候鳥的季節，是一個返鄉的時刻！每年十九前一晚，小鎮內車子就漸漸的多了，辦桌的廚棚也滿在街道上，這是一個屬於北港囝仔的春節、北港人的過年！</p>
     <p>十幾年過去了 不曾改變的習慣還依然繼續！不曾冷卻的期待也依然澎湃！在外地的北港囝仔，還記得北港的鞭炮味嗎？還記得小時候期待三月十九到來的期待與喜悅感嗎？這是我們北港人最榮耀的過年，今年要記得回來，再忙都要回來幫媽祖婆逗熱鬧一下吧！</p>

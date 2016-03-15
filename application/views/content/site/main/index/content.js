@@ -4,6 +4,32 @@
  */
 
 $(function () {
+  function conv_time_unit (sec) {
+    var msec = sec * 1000,
+        days = Math.floor (msec / (24 * 3600 * 1000)),
+        leave1 = msec % (24 * 3600 * 1000),
+        hours = Math.floor (leave1 / (3600 * 1000)),
+        leave2 = leave1 % (3600 * 1000),
+        minutes = Math.floor (leave2 / (60 * 1000)),
+        leave3 = leave2 % (60 * 1000),
+        seconds = Math.round (leave3 / 1000);
+    var strs = [];
+    strs.push (days > 0 ? days + '天' : null);
+    strs.push (hours > 0 ? hours + '小時' : null);
+    strs.push (minutes > 0 ? minutes + '分' : null);
+    strs.push (seconds > 0 ? seconds + '秒' : null);
+
+    return strs.filter (function (t) {
+      return t;
+    });
+  }
+  var $cs = $('#c span'), cc = function () {
+    var strs = conv_time_unit ($cs.data ('end') - new Date ().getTime () / 1000);
+    if (strs.length) $cs.html ('還剩 <b>' + strs.join ('</b><b>')  + '</b>');
+    else $cs.html ($cs.data ('day') > -3 ? '正在開始，北港的鄉親們一起迎熱鬧吧' : '已經圓滿落幕，讓我們再準備倒數下一次三月十九吧！');
+  };
+  cc (); setInterval (cc, 1000);
+
   $('.scroll').OAmobileScrollView ({
     trigger_length: 30
   }).find ('a').imgLiquid ({verticalAlign: 'center'});

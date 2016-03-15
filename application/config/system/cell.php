@@ -19,7 +19,7 @@ $cell['driver'] = 'file'; // 'file', 'redis'
 $cell['redis_main_key'] = array ('cell');
 
 $cell['file_prefix'] = '_cell';
-$cell['file_is_md5'] = true;
+$cell['file_is_md5'] = false;
 
 $cell['class_suffix']  = '_cell';
 $cell['method_prefix'] = '_cache_';
