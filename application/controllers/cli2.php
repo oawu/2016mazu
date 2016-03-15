@@ -106,17 +106,17 @@ class Cli2 extends Site_controller {
       default:
       case '1':
         if ($this->baishatun_showtaiwan_1 ())
-          BaishatunErrorLog::create (array ('BaishatunErrorLog' => '[showtaiwan 1] 執行錯誤！'));
+          BaishatunErrorLog::create (array ('message' => '[showtaiwan 1] 執行錯誤！'));
         break;
       
       case '2':
         if ($this->baishatun_showtaiwan_2 ())
-          BaishatunErrorLog::create (array ('BaishatunErrorLog' => '[showtaiwan 2] 執行錯誤！'));
+          BaishatunErrorLog::create (array ('message' => '[showtaiwan 2] 執行錯誤！'));
         break;
       
       case '3':
         if ($this->baishatun_com ())
-          BaishatunErrorLog::create (array ('BaishatunErrorLog' => '[baishatun com] 執行錯誤！'));
+          BaishatunErrorLog::create (array ('message' => '[baishatun com] 執行錯誤！'));
         break;
     }
     $this->clean_baishatun_cell ();
