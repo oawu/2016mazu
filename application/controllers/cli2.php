@@ -132,7 +132,7 @@ class Cli2 extends Site_controller {
     $log->finish ();
   }
   public function baishatun () {
-    $log = CrontabLog::start ('每 2 分鐘更新');
+    $log = CrontabLog::start ('每 1 分鐘更新');
     $path = FCPATH . 'temp/hi.text';
 
     if (file_exists ($path))

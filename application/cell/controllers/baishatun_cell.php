@@ -9,7 +9,7 @@ class Baishatun_cell extends Cell_Controller {
 
   /* render_cell ('baishatun_cell', 'api', var1, ..); */
   public function _cache_api ($class = 'BaishatunShowtaiwan1Path', $id) {
-    return array ('time' => 60 * 5, 'key' => $class . '_' . $id);
+    return array ('time' => 60 * 2, 'key' => $class . '_' . $id);
   }
 
   public function api ($class = 'BaishatunShowtaiwan1Path', $id) {
