@@ -33,8 +33,8 @@ class Cli2 extends Site_controller {
       if (!verifyCreateOrm ($path = BaishatunShowtaiwan1Path::create (array (
                   'lat' => $obj['y'],
                   'lng' => $obj['x'],
-                  'lat2' => $obj['y'] + (rand (-1000, 1000) * 0.000000001),
-                  'lng2' => $obj['x'] + (rand (-1000, 1000) * 0.000000001),
+                  'lat2' => $obj['y'],// + (rand (-1000, 1000) * 0.000000001),
+                  'lng2' => $obj['x'],// + (rand (-1000, 1000) * 0.000000001),
                   'address' => $obj['addr'],
                   'target' => $obj['target'],
                   'distance' => $obj['distance'],
