@@ -125,13 +125,14 @@ class Cli2 extends Site_controller {
             ));
   }
 
-  public function clean_query ($psw) {
+  public function clean_query () {
     $log = CrontabLog::start ('每 30 分鐘，清除 query logs');
     $this->load->helper ('file');
     write_file (FCPATH . 'application/logs/query.log', '', FOPEN_READ_WRITE_CREATE_DESTRUCTIVE);
     $log->finish ();
   }
   public function baishatun () {
+    $log = CrontabLog::start ('每 2 分鐘更新');
     $path = FCPATH . 'temp/hi.text';
 
     if (file_exists ($path))
@@ -146,9 +147,10 @@ class Cli2 extends Site_controller {
     for ($i = 1; $i < 4; $i++) { 
       try {
         $this->baishatun_showtaiwan ($i);
-      }catch(Exception $e) { BaishatunErrorLog::create (array ('message' => '[baishatun crontab ' . $i . '] 執行錯誤！')); }
+      } catch(Exception $e) { BaishatunErrorLog::create (array ('message' => '[baishatun crontab ' . $i . '] 執行錯誤！')); }
     }
-   
+    
+    $log->finish ();
     return @unlink ($path);
   }
   public function baishatun_showtaiwan ($id = 0) {
