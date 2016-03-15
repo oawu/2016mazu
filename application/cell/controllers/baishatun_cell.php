@@ -42,7 +42,9 @@ class Baishatun_cell extends Cell_Controller {
             't' => $path->time_at->format ('Y-m-d H:i:s')
           );
     }, $paths);
-
-    return array_splice (array_reverse ($paths), 0);
+    
+    $paths = array_reverse ($paths);
+    $paths = array_splice ($paths, 0);
+    return $paths;
   }
 }
