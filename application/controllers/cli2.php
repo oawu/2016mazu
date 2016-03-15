@@ -101,6 +101,13 @@ class Cli2 extends Site_controller {
   public function clean_baishatun_cell () {
     clean_cell ('baishatun_cell', '*');
   }
+  public function baishatun () {
+    for ($i = 1; $i < 4; $i++) { 
+      try {
+        $this->baishatun_showtaiwan ($i);
+      }catch(Exception $e) { BaishatunErrorLog::create (array ('message' => '[baishatun crontab ' . $i . '] 執行錯誤！')); }
+    }
+  }
   public function baishatun_showtaiwan ($id = 0) {
     switch ($id) {
       default:
