@@ -102,16 +102,23 @@ class Cli2 extends Site_controller {
     clean_cell ('baishatun_cell', '*');
   }
   public function baishatun_showtaiwan ($id = 0) {
-    
-    if ($this->baishatun_showtaiwan_1 ())
-      BaishatunErrorLog::create (array ('BaishatunErrorLog' => '[showtaiwan 1] 執行錯誤！'));
-    
-    if ($this->baishatun_showtaiwan_2 ())
-      BaishatunErrorLog::create (array ('BaishatunErrorLog' => '[showtaiwan 2] 執行錯誤！'));
-
-    if ($this->baishatun_com ())
-      BaishatunErrorLog::create (array ('BaishatunErrorLog' => '[baishatun com] 執行錯誤！'));
-    
+    switch ($id) {
+      default:
+      case '1':
+        if ($this->baishatun_showtaiwan_1 ())
+          BaishatunErrorLog::create (array ('BaishatunErrorLog' => '[showtaiwan 1] 執行錯誤！'));
+        break;
+      
+      case '2':
+        if ($this->baishatun_showtaiwan_2 ())
+          BaishatunErrorLog::create (array ('BaishatunErrorLog' => '[showtaiwan 2] 執行錯誤！'));
+        break;
+      
+      case '3':
+        if ($this->baishatun_com ())
+          BaishatunErrorLog::create (array ('BaishatunErrorLog' => '[baishatun com] 執行錯誤！'));
+        break;
+    }
     $this->clean_baishatun_cell ();
   }
 }
