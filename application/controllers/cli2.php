@@ -149,7 +149,7 @@ class Cli2 extends Site_controller {
       }catch(Exception $e) { BaishatunErrorLog::create (array ('message' => '[baishatun crontab ' . $i . '] 執行錯誤！')); }
     }
    
-    // return @unlink ($path);
+    return @unlink ($path);
   }
   public function baishatun_showtaiwan ($id = 0) {
     switch ($id) {
