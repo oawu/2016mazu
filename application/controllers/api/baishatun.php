@@ -41,7 +41,7 @@ class Baishatun extends Api_controller {
   }
 
   public function heatmap ($q = 0) {
-    $q = $q < 0 ? 0 : $q;
+    $q = $q < 0 ? 0 : ($q > 5 ? 4 : $q);
     $q = render_cell ('baishatun_cell', 'heatmap', $q);
     return $this->output_json (array (
         's' => true, 'q' => $q
