@@ -45,6 +45,13 @@ class Baishatun_cell extends Cell_Controller {
     
     $paths = array_reverse ($paths);
     $paths = array_splice ($paths, 0);
-    return $paths;
+
+    $this->CI->load->library ('SphericalGeometry');
+    $l = round (SphericalGeometry::computeLength (array_map (function ($path) {return new LatLng ($path['a'], $path['n']);}, $paths)) / 1000, 2);
+
+    return array (
+        'p' => $paths,
+        'l' => $l
+      );
   }
 }

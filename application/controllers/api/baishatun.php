@@ -20,23 +20,23 @@ class Baishatun extends Api_controller {
   }
 
   public function com ($id = 0) {
-    $paths = render_cell ('baishatun_cell', 'api', 'BaishatunComPath', $id);
+    $r = render_cell ('baishatun_cell', 'api', 'BaishatunComPath', $id);
     return $this->output_json (array (
-        'v' => $this->version,'s' => true, 'p' => $paths,
+        'v' => $this->version,'s' => true, 'p' => $r['p'], 'l' => $r['l']
       ));
   }
 
   public function showtaiwan1 ($id = 0) {
-    $paths = render_cell ('baishatun_cell', 'api', 'BaishatunShowtaiwan1Path', $id);
+    $r = render_cell ('baishatun_cell', 'api', 'BaishatunShowtaiwan1Path', $id);
     return $this->output_json (array (
-        'v' => $this->version,'s' => true, 'p' => $paths,
+        'v' => $this->version,'s' => true, 'p' => $r['p'], 'l' => $r['l']
       ));
   }
 
   public function showtaiwan2 ($id = 0) {
-    $paths = render_cell ('baishatun_cell', 'api', 'BaishatunShowtaiwan2Path', $id);
+    $r = render_cell ('baishatun_cell', 'api', 'BaishatunShowtaiwan2Path', $id);
     return $this->output_json (array (
-        'v' => $this->version,'s' => true, 'p' => $paths,
+        'v' => $this->version,'s' => true, 'p' => $r['p'], 'l' => $r['l']
       ));
   }
 
