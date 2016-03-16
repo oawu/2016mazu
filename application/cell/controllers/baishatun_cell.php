@@ -27,6 +27,9 @@ class Baishatun_cell extends Cell_Controller {
         if ($temp = $user)
           array_push ($qs, array ('a' => $temp->lat, 'n' => $temp->lng));
 
+    $qs = count ($qs) < 200 ? count ($qs) < 100 ? count ($qs) < 50 ? array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : array_merge ($qs, array_map ('rand_x', $qs)) : array_merge ($qs);
+    array_rand ($qs);
+
     return $qs;
   }
 

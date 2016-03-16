@@ -5,6 +5,14 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
+if (!function_exists ('rand_x')) {
+  function rand_x ($t) {
+    return array (
+      'a' => $t['a'] + (rand (-1000, 1000) * 0.00000001),
+      'n' => $t['n'] + (rand (-1000, 1000) * 0.00000001)
+      );
+  }
+}
 if (!function_exists ('oa_url_encode')) {
   function oa_url_encode ($str) {
     return rawurlencode (preg_replace ('/[\/%]/', ' ', $str));
