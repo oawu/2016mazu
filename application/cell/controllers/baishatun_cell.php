@@ -6,6 +6,29 @@
  */
 
 class Baishatun_cell extends Cell_Controller {
+  
+  /* render_cell ('baishatun_cell', 'heatmap', var1, ..); */
+  public function _cache_heatmap ($q) {
+    return array ('time' => 60 * 10, 'key' => $q);
+  }
+  public function heatmap ($q) {
+    $unit = 30; //sec
+
+    $end = date ('Y-m-d H:i:s');
+    $start = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * ($q + 1)) . ' minutes'));
+
+    $users = BaishatunUser::find ('all', array ('select' => 'lat,lng', 'conditions' => array ('created_at BETWEEN ? AND ?', $start, $end)));
+
+    $temp = null;
+    $qs = array ();
+
+    foreach ($users as $user)
+      if (!$temp || ($temp->lat != $user->lat) || ($temp->lng != $user->lng))
+        if ($temp = $user)
+          array_push ($qs, array ('a' => $temp->lat, 'n' => $temp->lng));
+
+    return $qs;
+  }
 
   /* render_cell ('baishatun_cell', 'api', var1, ..); */
   public function _cache_api ($class = 'BaishatunShowtaiwan1Path', $id) {
