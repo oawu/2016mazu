@@ -46,8 +46,11 @@ class Baishatun extends Api_controller {
       BaishatunErrorLog::create (array ('message' => '[location] POST 錯誤！'));
       return;
     }
+    
+    $ip = $this->input->ip_address ();
 
     if (!verifyCreateOrm (BaishatunUser::create (array (
+                'ip'  => isset ($ip) && $ip ? $ip : '0.0.0.0',
                 'lat' => $a,
                 'lng' => $n,
               ))))
