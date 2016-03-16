@@ -8,10 +8,10 @@
 class Baishatun_cell extends Cell_Controller {
   
   /* render_cell ('baishatun_cell', 'heatmap', var1, ..); */
-  public function _cache_heatmap ($q) {
+  public function _cache_heatmap ($q = 0) {
     return array ('time' => 60 * 25, 'key' => $q);
   }
-  public function heatmap ($q) {
+  public function heatmap ($q = 0) {
     $unit = 60; //sec
 
     $end = date ('Y-m-d H:i:s');
