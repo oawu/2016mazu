@@ -30,7 +30,7 @@
 <?php if ($infos) {
         foreach ($infos as $info) { ?>
           <tr>
-            <td data-title='訊息'><?php echo $info->msgs;?></td>
+            <td data-title='訊息'><?php echo implode ('<br/>', $info->msgs ());?></td>
             <td data-title='編輯' width='80'>
               <a href='<?php echo base_url ('admin', $uri_1, $info->id, 'edit');?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', $uri_1, $info->id);?>' data-method='delete' class='icon-bin destroy'></a>
