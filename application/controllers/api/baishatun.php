@@ -16,7 +16,7 @@ class Baishatun extends Api_controller {
     else
       header ('Access-Control-Allow-Origin: *');
 
-    $this->version = 14;
+    $this->version = 15;
   }
 
   public function com ($id = 0) {
