@@ -14,7 +14,7 @@ class Baishatun_cell extends Cell_Controller {
   public function heatmap ($q = 0) {
     $unit = 60; //sec
 
-    $end = date ('Y-m-d H:i:s');
+    $end = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * $q) . ' minutes'));
     $start = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * ($q + 1)) . ' minutes'));
 
     $users = BaishatunUser::find ('all', array ('select' => 'lat,lng', 'conditions' => array ('created_at BETWEEN ? AND ?', $start, $end)));
@@ -27,7 +27,17 @@ class Baishatun_cell extends Cell_Controller {
         if ($temp = $user)
           array_push ($qs, array ('a' => $temp->lat, 'n' => $temp->lng));
 
-    $qs = count ($qs) < 200 ? count ($qs) < 100 ? count ($qs) < 50 ? array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : array_merge ($qs, array_map ('rand_x', $qs)) : array_merge ($qs);
+    $qs = count ($qs) < 400 ? 
+            count ($qs) < 200 ? 
+              count ($qs) < 100 ? 
+                count ($qs) < 50 ? 
+                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
+                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
+                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
+                  array_merge ($qs, array_map ('rand_x', $qs)) :
+                  array_merge ($qs)
+                  ;
+
     array_rand ($qs);
 
     return $qs;
