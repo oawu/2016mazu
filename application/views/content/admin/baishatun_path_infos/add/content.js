@@ -62,8 +62,8 @@ $(function () {
       });
 
     _map.mapTypes.set ('map_style', new google.maps.StyledMapType ([
-      { featureType: 'transit', stylers: [{ visibility: 'off' }] },
-      { featureType: 'poi', stylers: [{ visibility: 'off' }] }
+      { featureType: 'transit', stylers: [{ visibility: 'simplified' }] },
+      { featureType: 'poi', stylers: [{ visibility: 'simplified' }] },
     ]));
     _map.setMapTypeId ('map_style');
 
