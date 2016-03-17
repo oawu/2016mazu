@@ -50,6 +50,7 @@ class Baishatun_cell extends Cell_Controller {
 
   public function api ($class = 'BaishatunShowtaiwan1Path', $id) {
     if ($id == 0) {
+      $first = $class::first (array ('select' => 'id,lat,lng,lat2,lng2,time_at'));
       $last = $class::last (array ('select' => 'id,lat,lng,lat2,lng2,time_at'));
 
       $point_ids = array ();
@@ -62,9 +63,10 @@ class Baishatun_cell extends Cell_Controller {
         if ($temp = array_slice ($all_point_ids, $key, 1))
           array_push ($point_ids, array_shift ($temp));
       if (!$point_ids) return $point_ids;
-      
+
       $paths = $class::find ('all', array ('select' => 'id,lat,lng,lat2,lng2,time_at', 'order' => 'id DESC', 'conditions' => array ('id IN (?)', $point_ids)));
-      if ($paths[0]->id == $last->id) array_unshift ($paths, $last);
+      if ($paths[0]->id != $last->id) array_unshift ($paths, $last);
+      if ($paths[count ($paths) - 1]->id != $first->id) array_push ($paths, $first);
 
     } else {
       $paths = array_reverse ($class::find ('all', array ('select' => 'id,lat,lng,lat2,lng2,time_at', 'conditions' => array ('id > ?', $id))));
