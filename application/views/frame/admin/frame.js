@@ -45,7 +45,7 @@ $(function () {
         $p.remove ();
       })).append ($('<a />').addClass ('icon-triangle-down2').click (function () {
         var $p = $(this).parents ('.m'), $x = $p.next (), $n = $p.clone (true);
-        if ($x.hasClass ('ma')) $n.prependTo ($td);
+        if ($x.hasClass ('ma')) $n.prependTo ($tds);
         else $n.insertAfter ($x);
         $p.remove ();
       }))

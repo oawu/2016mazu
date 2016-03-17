@@ -97,7 +97,7 @@ class Store_tags extends Admin_controller {
   public function edit () {
     $posts = Session::getData ('posts', true);
     
-    return $this->add_tab ('編輯標籤', array ('href' => base_url ('admin', $this->uri_1, 'edit', $this->tag->id), 'index' => 3))
+    return $this->add_tab ('編輯標籤', array ('href' => base_url ('admin', $this->uri_1, $this->tag->id, 'edit'), 'index' => 3))
                 ->set_tab_index (3)
                 ->set_subtitle ('編輯景點標籤')
                 ->load_view (array (

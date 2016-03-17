@@ -39,6 +39,7 @@ Route::group ('admin', function () {
   Route::resourcePagination_is_enabled (array ('paths'), 'paths');
   Route::resourcePagination_is_enabled (array ('others'), 'others');
   Route::resourcePagination_is_enabled (array ('stores'), 'stores');
+  Route::resourcePagination_is_enabled (array ('baishatun-path-infos'), 'baishatun_path_infos');
 
   Route::resourcePagination_is_enabled (array ('tag', 'articles'), 'tag_articles');
   Route::resourcePagination_is_enabled (array ('tag', 'dintaos'), 'tag_dintaos');

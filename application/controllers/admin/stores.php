@@ -155,7 +155,7 @@ class Stores extends Admin_controller {
       return (isset ($source['title']) && $source['title']) || (isset ($source['href']) && $source['href']);
     }) : array ());
 
-    return $this->add_tab ('編輯景點', array ('href' => base_url ('admin', $this->uri_1, 'edit', $this->store->id), 'index' => 3))
+    return $this->add_tab ('編輯景點', array ('href' => base_url ('admin', $this->uri_1, $this->store->id, 'edit'), 'index' => 3))
                 ->set_tab_index (3)
                 ->set_subtitle ('編輯景點')
                 ->add_js (Cfg::setting ('google', 'client_js_url'), false)

@@ -38,6 +38,7 @@ $admin['menu'] = array (
     '其他' => array (
         '工具' => array ('no_show' => true, 'roles' => array ('all'), 'icon' => '', 'href' => base_url ('tools'), 'class' => 'tools', 'method' => '', 'target' => '_self'),
         '介紹列表' => array ('roles' => array ('other'), 'icon' => 'icon-file-text2', 'href' => base_url ('admin', 'others'), 'class' => 'others', 'method' => '', 'target' => '_self'),
+        '白沙屯位置資訊' => array ('roles' => array ('baishatun'), 'icon' => 'icon-location', 'href' => base_url ('admin', 'baishatun_path_infos'), 'class' => 'baishatun_path_infos', 'method' => '', 'target' => '_self'),
         // '登入' => array ('no_show' => true, 'roles' => array (), 'icon' => 'icon-file-text2', 'href' => base_url ('platform', 'login'), 'class' => 'platform', 'method' => 'login', 'target' => '_self'),
         // 'ＦＢ登入' => array ('no_show' => true, 'roles' => array (), 'icon' => 'icon-file-text2', 'href' => base_url ('platform', 'fb_sign_in'), 'class' => 'platform', 'method' => 'fb_sign_in', 'target' => '_self'),
       ),

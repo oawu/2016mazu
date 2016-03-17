@@ -9,7 +9,7 @@ class Baishatun_cell extends Cell_Controller {
   
   /* render_cell ('baishatun_cell', 'heatmap', var1, ..); */
   public function _cache_heatmap ($q = 0) {
-    return array ('time' => 60 * 25, 'key' => $q);
+    return array ('time' => 60 * 30, 'key' => $q);
   }
   public function heatmap ($q = 0) {
     $unit = 60; //sec
@@ -74,10 +74,19 @@ class Baishatun_cell extends Cell_Controller {
 
     $this->CI->load->library ('SphericalGeometry');
     $l = round (SphericalGeometry::computeLength (array_map (function ($path) {return new LatLng ($path['a'], $path['n']);}, $paths)) / 1000, 2);
+    
+    $is = array_map (function ($i) {
+      return array (
+          'm' => $i->msgs (),
+          'a' => $i->lat,
+          'n' => $i->lng,
+        );
+    }, BaishatunPathInfo::all ());
 
     return array (
         'p' => $paths,
-        'l' => $l
+        'l' => $l,
+        'i' => $is
       );
   }
 }

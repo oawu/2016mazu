@@ -147,7 +147,7 @@ class Youtubes extends Admin_controller {
       return (isset ($source['title']) && $source['title']) || (isset ($source['href']) && $source['href']);
     }) : array ());
 
-    return $this->add_tab ('編輯影音', array ('href' => base_url ('admin', $this->uri_1, 'edit', $this->youtube->id), 'index' => 3))
+    return $this->add_tab ('編輯影音', array ('href' => base_url ('admin', $this->uri_1, $this->youtube->id, 'edit'), 'index' => 3))
                 ->set_tab_index (3)
                 ->set_subtitle ('編輯影音')
                 ->load_view (array (

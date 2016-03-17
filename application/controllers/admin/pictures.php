@@ -154,7 +154,7 @@ class Pictures extends Admin_controller {
       return (isset ($source['title']) && $source['title']) || (isset ($source['href']) && $source['href']);
     }) : array ());
 
-    return $this->add_tab ('編輯相簿', array ('href' => base_url ('admin', $this->uri_1, 'edit', $this->picture->id), 'index' => 3))
+    return $this->add_tab ('編輯相簿', array ('href' => base_url ('admin', $this->uri_1, $this->picture->id, 'edit'), 'index' => 3))
                 ->set_tab_index (3)
                 ->set_subtitle ('編輯相簿')
                 ->load_view (array (

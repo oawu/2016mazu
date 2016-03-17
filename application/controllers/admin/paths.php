@@ -136,7 +136,7 @@ class Paths extends Admin_controller {
   public function edit () {
     $posts = Session::getData ('posts', true);
     
-    return $this->add_tab ('編輯路線', array ('href' => base_url ('admin', $this->uri_1, 'edit', $this->path->id), 'index' => 3))
+    return $this->add_tab ('編輯路線', array ('href' => base_url ('admin', $this->uri_1, $this->path->id, 'edit'), 'index' => 3))
                 ->set_tab_index (3)
                 ->set_subtitle ('編輯路線')
                 ->add_js (Cfg::setting ('google', 'client_js_url'), false)
