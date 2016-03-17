@@ -64,7 +64,7 @@ class Baishatun extends Api_controller {
       BaishatunErrorLog::create (array ('message' => '[location] 新增錯誤！'));
   }
   public function clear () {
-    $path = FCPATH . 'temp/hi.text';
+    $path = FCPATH . 'temp/api.json';
     @unlink ($path);
     if (!file_exists ($path))
       echo "OK";

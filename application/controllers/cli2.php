@@ -77,13 +77,81 @@ class Cli2 extends Site_controller {
     write_file (FCPATH . 'application/logs/query.log', '', FOPEN_READ_WRITE_CREATE_DESTRUCTIVE);
     $log->finish ();
   }
-  public function baishatun () {
+// <CORSConfiguration>
+//     <CORSRule>
+//         <AllowedOrigin>*</AllowedOrigin>
+//         <AllowedMethod>GET</AllowedMethod>
+//         <MaxAgeSeconds>3000</MaxAgeSeconds>
+//         <AllowedHeader>Authorization</AllowedHeader>
+//     </CORSRule>
+// </CORSConfiguration>
+  // http://pic.mazu.ioa.tw/upload/baishatun/api.json
+  
+  public function error ($log, $msg = '不明原因錯誤！') {
+      BaishatunErrorLog::create (array ('message' => $msg));
+      $log->error ($msg);
+      $this->mail (array (
+          '錯誤原因' => $msg,
+          '清除網址' => '<a href="' . base_url ('api', 'baishatun', 'clear') . '">點我</a>',
+          '錯誤時間' => date ('Y-m-d H:i:s'),
+        ));
+      return true;
+  }
+  public function baishatun ($version = 24) {
+    $log = CrontabLog::start ('每 1 分鐘更新');
+    $path = FCPATH . 'temp/api.json';
+
+    if (file_exists ($path))
+      return $this->error ($log, '上一次還沒完成，或還沒清除檔案！');
+
+    $r = render_cell ('baishatun_cell', 'api', 'BaishatunComPath', 0);
+    $r = array (
+        's' => true,
+        'v' => $version,
+        't' => date ('Y-m-d H:i:s'),
+        'l' => $r['l'],
+        'i' => $r['i'],
+        'p' => $r['p'],
+      );
+
+    $this->load->helper ('file');
+    if (!write_file ($path, json_encode ($r)))
+      return $this->error ($log, '無罰寫入 json 檔案！');
+
+    $this->baishatun_com ();
+    $this->clean_baishatun_cell ();
+
+    $r = render_cell ('baishatun_cell', 'api', 'BaishatunComPath', 0);
+    $r = array (
+        's' => true,
+        'v' => $version,
+        't' => date ('Y-m-d H:i:s'),
+        'l' => $r['l'],
+        'i' => $r['i'],
+        'p' => $r['p'],
+      );
+
+    if (!write_file ($path, json_encode ($r)))
+      return $this->error ($log, '無罰寫入 json 檔案！');
+
+    $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
+    $this->load->library ('S3', Cfg::system ('s3', 'buckets', $bucket));
+    if (!S3::putObjectFile ($path, $bucket, 'upload' . DIRECTORY_SEPARATOR . 'baishatun' . DIRECTORY_SEPARATOR . 'api.json', S3::ACL_PUBLIC_READ, array (), array ('Cache-Control' => 'max-age=315360000', 'Expires' => gmdate ('D, d M Y H:i:s T', strtotime ('+5 years')))))
+      $this->error ($log, '丟到 S3 失敗！');
+
+    $this->clean_baishatun_cell ();
+    $log->finish ();
+
+    return @unlink ($path) ? true : $this->error ($log, '刪除 json 失敗！');
+  }
+  public function baishatun_x () {
     $log = CrontabLog::start ('每 1 分鐘更新');
     $path = FCPATH . 'temp/hi.text';
 
     if (file_exists ($path))
       return $log->error ('上一次還沒完成！') && $this->mail (array (
           '錯誤原因' => '重複更新狀況！',
+          '清除網址' => '<a href="' . base_url ('api', 'baishatun', 'clear') . '">點我</a>',
           '錯誤時間' => date ('Y-m-d H:i:s'),
         ));
 
@@ -91,8 +159,8 @@ class Cli2 extends Site_controller {
     write_file ($path, 'Hi!');
 
     $this->baishatun_com ();
-    
     $this->clean_baishatun_cell ();
+
     $log->finish ();
     return @unlink ($path);
   }
