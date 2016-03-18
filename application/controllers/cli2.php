@@ -100,7 +100,38 @@ class Cli2 extends Site_controller {
         ));
       return true;
   }
-  public function baishatun ($version = 27) {
+  public function heatmap_update ($q = 0) {
+    $unit = 60; //sec
+
+    $end = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * $q) . ' minutes'));
+    $start = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * ($q + 1)) . ' minutes'));
+
+    $users = BaishatunUser::find ('all', array ('select' => 'lat,lng', 'conditions' => array ('created_at BETWEEN ? AND ?', $start, $end)));
+
+    $temp = null;
+    $qs = array ();
+
+    foreach ($users as $user)
+      if (!$temp || ($temp->lat != $user->lat) || ($temp->lng != $user->lng))
+        if ($temp = $user)
+          array_push ($qs, array ('a' => $temp->lat, 'n' => $temp->lng));
+
+    $qs = count ($qs) < 400 ? 
+            count ($qs) < 200 ? 
+              count ($qs) < 100 ? 
+                count ($qs) < 50 ? 
+                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
+                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
+                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
+                  array_merge ($qs, array_map ('rand_x', $qs)) :
+                  array_merge ($qs)
+                  ;
+
+    array_rand ($qs);
+
+    return $qs;
+  }
+  public function baishatun ($version = 28) {
     $log = CrontabLog::start ('每 1 分鐘更新路線');
     $path = FCPATH . 'temp/api.json';
 
@@ -148,37 +179,6 @@ class Cli2 extends Site_controller {
     return @unlink ($path) ? true : $this->error ($log, '刪除 json 失敗！', base_url ('api', 'baishatun', 'clear_api'));
   }
   
-  public function heatmap_update ($q = 0) {
-    $unit = 60; //sec
-
-    $end = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * $q) . ' minutes'));
-    $start = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * ($q + 1)) . ' minutes'));
-
-    $users = BaishatunUser::find ('all', array ('select' => 'lat,lng', 'conditions' => array ('created_at BETWEEN ? AND ?', $start, $end)));
-
-    $temp = null;
-    $qs = array ();
-
-    foreach ($users as $user)
-      if (!$temp || ($temp->lat != $user->lat) || ($temp->lng != $user->lng))
-        if ($temp = $user)
-          array_push ($qs, array ('a' => $temp->lat, 'n' => $temp->lng));
-
-    $qs = count ($qs) < 400 ? 
-            count ($qs) < 200 ? 
-              count ($qs) < 100 ? 
-                count ($qs) < 50 ? 
-                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
-                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
-                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
-                  array_merge ($qs, array_map ('rand_x', $qs)) :
-                  array_merge ($qs)
-                  ;
-
-    array_rand ($qs);
-
-    return $qs;
-  }
   public function heatmap () {
     $log = CrontabLog::start ('每 5 分鐘更新熱點');
     $qs = array (0, 1, 2, 3, 4);
