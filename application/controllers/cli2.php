@@ -180,7 +180,7 @@ class Cli2 extends Site_controller {
     return $qs;
   }
   public function heatmap () {
-    $log = CrontabLog::start ('每 10 分鐘更新熱點');
+    $log = CrontabLog::start ('每 5 分鐘更新熱點');
     $qs = array (0, 1, 2, 3, 4);
     $datas = array_map (function ($i) {
       return array (
