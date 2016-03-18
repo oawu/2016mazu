@@ -81,4 +81,55 @@ class Baishatun extends Api_controller {
       echo '</div>';
     }
   }
+
+  private function _put_mag () {
+    $path = FCPATH . 'temp/put_msgs_to_s3.text';
+
+    if (file_exists ($path))
+      return ;
+
+    $this->load->helper ('file');
+    if (!write_file ($path, json_encode (array ())))
+      return ;
+
+    $msgs = array_map (function ($msg) {
+      return array (
+          'm' => $msg->message,
+          't' => $msg->created_at->format ('Y-m-d H:m:i'),
+        );
+    }, BaishatunMessage::find ('all', array (
+        'select' => 'message, created_at',
+        'limit' => 35,
+        'order' => 'id DESC'
+      )));
+
+    if (!write_file ($path, json_encode (array (
+        's' => true,
+        't' => date ('Y-m-d H:i:s'),
+        'm' => $msgs
+      ))))
+      return @unlink ($path);
+
+
+    $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
+    $this->load->library ('S3', Cfg::system ('s3', 'buckets', $bucket));
+    S3::putObjectFile ($path, $bucket, 'upload' . DIRECTORY_SEPARATOR . 'baishatun' . DIRECTORY_SEPARATOR . 'mags.json', S3::ACL_PUBLIC_READ, array (), array ('Cache-Control' => 'max-age=315360000', 'Expires' => gmdate ('D, d M Y H:i:s T', strtotime ('+5 years'))));
+
+    return @unlink ($path);
+  }
+  public function mag () {
+    // http://pic.mazu.ioa.tw/upload/baishatun/mags.json
+    if (!(($msg = OAInput::post ('msg')) && ($msg = trim ($msg)))) 
+      return $this->output_json (array ('s' => true));
+
+    $ip = $this->input->ip_address ();
+    BaishatunMessage::create (array (
+        'ip' => $ip,
+        'message' => $msg,
+      ));
+
+    $this->_put_mag ();
+
+    return $this->output_json (array ('s' => true));
+  }
 }
