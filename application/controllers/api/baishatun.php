@@ -63,13 +63,22 @@ class Baishatun extends Api_controller {
               ))))
       BaishatunErrorLog::create (array ('message' => '[location] 新增錯誤！'));
   }
-  public function clear () {
-    $path = FCPATH . 'temp/api.json';
+  public function clear_api () {
+    echo $path = FCPATH . 'temp/api.json';
+    echo ' ...... ';
     @unlink ($path);
-    if (!file_exists ($path))
-      echo "OK";
-    else
-      echo "NO";
+    echo !file_exists ($path) ? 'OK' : 'NO';
   }
+  public function clear_heatmaps () {
+    $paths = array ();
 
+    for ($i = 0; $i < 10; $i++) {
+      echo '<div style="margin:5px;">';
+      echo $path = FCPATH . 'temp/heatmap' . $i . '.json';
+      echo ' ...... ';
+      @unlink ($path);
+      echo !file_exists ($path) ? 'OK' : 'NO';
+      echo '</div>';
+    }
+  }
 }

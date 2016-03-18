@@ -52,10 +52,4 @@ Route::group ('admin', function () {
 Route::group ('api', function () {
   Route::get ('/baishatun/1/', 'baishatun@com(0)');
   Route::get ('/baishatun/1/(:id)', 'baishatun@com($1)');
-
-  Route::get ('/baishatun/2/', 'baishatun@showtaiwan1(0)');
-  Route::get ('/baishatun/2/(:id)', 'baishatun@showtaiwan1($1)');
-
-  Route::get ('/baishatun/3/', 'baishatun@showtaiwan2(0)');
-  Route::get ('/baishatun/3/(:id)', 'baishatun@showtaiwan2($1)');
 });

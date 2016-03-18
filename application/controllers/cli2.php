@@ -87,22 +87,25 @@ class Cli2 extends Site_controller {
 // </CORSConfiguration>
   // http://pic.mazu.ioa.tw/upload/baishatun/api.json
   
-  public function error ($log, $msg = '不明原因錯誤！') {
+  public function error ($log, $msg = '不明原因錯誤！', $url = '') {
       BaishatunErrorLog::create (array ('message' => $msg));
       $log->error ($msg);
-      $this->mail (array (
+      $this->mail ($url ? array (
           '錯誤原因' => $msg,
-          '清除網址' => '<a href="' . base_url ('api', 'baishatun', 'clear') . '">點我</a>',
+          '清除網址' => '<a href="' . $url . '">點我</a>',
+          '錯誤時間' => date ('Y-m-d H:i:s'),
+        ) : array (
+          '錯誤原因' => $msg,
           '錯誤時間' => date ('Y-m-d H:i:s'),
         ));
       return true;
   }
   public function baishatun ($version = 27) {
-    $log = CrontabLog::start ('每 1 分鐘更新');
+    $log = CrontabLog::start ('每 1 分鐘更新路線');
     $path = FCPATH . 'temp/api.json';
 
     if (file_exists ($path))
-      return $this->error ($log, '上一次還沒完成，或還沒清除檔案！');
+      return $this->error ($log, '上一次還沒完成，或還沒清除檔案！', base_url ('api', 'baishatun', 'clear_api'));
 
     $r = render_cell ('baishatun_cell', 'api', 'BaishatunComPath', 0);
     $r = array (
@@ -116,7 +119,7 @@ class Cli2 extends Site_controller {
 
     $this->load->helper ('file');
     if (!write_file ($path, json_encode ($r)))
-      return $this->error ($log, '無罰寫入 json 檔案！');
+      return $this->error ($log, '寫入 json 檔案錯誤或失敗！');
 
     $this->baishatun_com ();
     $this->clean_baishatun_cell ();
@@ -132,7 +135,7 @@ class Cli2 extends Site_controller {
       );
 
     if (!write_file ($path, json_encode ($r)))
-      return $this->error ($log, '無罰寫入 json 檔案！');
+      return $this->error ($log, '寫入 json 檔案錯誤或失敗！');
 
     $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
     $this->load->library ('S3', Cfg::system ('s3', 'buckets', $bucket));
@@ -142,26 +145,98 @@ class Cli2 extends Site_controller {
     $this->clean_baishatun_cell ();
     $log->finish ();
 
-    return @unlink ($path) ? true : $this->error ($log, '刪除 json 失敗！');
+    return @unlink ($path) ? true : $this->error ($log, '刪除 json 失敗！', base_url ('api', 'baishatun', 'clear_api'));
   }
-  public function baishatun_x () {
-    $log = CrontabLog::start ('每 1 分鐘更新');
-    $path = FCPATH . 'temp/hi.text';
+  
+  public function heatmap_update ($q = 0) {
+    $unit = 60; //sec
 
-    if (file_exists ($path))
-      return $log->error ('上一次還沒完成！') && $this->mail (array (
-          '錯誤原因' => '重複更新狀況！',
-          '清除網址' => '<a href="' . base_url ('api', 'baishatun', 'clear') . '">點我</a>',
-          '錯誤時間' => date ('Y-m-d H:i:s'),
-        ));
+    $end = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * $q) . ' minutes'));
+    $start = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * ($q + 1)) . ' minutes'));
+
+    $users = BaishatunUser::find ('all', array ('select' => 'lat,lng', 'conditions' => array ('created_at BETWEEN ? AND ?', $start, $end)));
+
+    $temp = null;
+    $qs = array ();
+
+    foreach ($users as $user)
+      if (!$temp || ($temp->lat != $user->lat) || ($temp->lng != $user->lng))
+        if ($temp = $user)
+          array_push ($qs, array ('a' => $temp->lat, 'n' => $temp->lng));
+
+    $qs = count ($qs) < 400 ? 
+            count ($qs) < 200 ? 
+              count ($qs) < 100 ? 
+                count ($qs) < 50 ? 
+                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
+                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
+                  array_merge ($qs, array_map ('rand_x', $qs), array_map ('rand_x', $qs)) : 
+                  array_merge ($qs, array_map ('rand_x', $qs)) :
+                  array_merge ($qs)
+                  ;
+
+    array_rand ($qs);
+
+    return $qs;
+  }
+  public function heatmap () {
+    $log = CrontabLog::start ('每 10 分鐘更新熱點');
+    $qs = array (0, 1, 2, 3, 4);
+    $datas = array_map (function ($i) {
+      return array (
+          'q' => $i,
+          'p' => FCPATH . 'temp/heatmap' . $i . '.json'
+        ); 
+    }, $qs);
+
+    $datas = array_filter ($datas, function ($data) {
+      return !file_exists ($data['p']);
+    });
+
+    if (count ($datas) != count ($qs)) return $this->error ($log, '上一次還沒完成，或還沒清除檔案！', base_url ('api', 'baishatun', 'clear_heatmaps'));
 
     $this->load->helper ('file');
-    write_file ($path, 'Hi!');
+    $ws = array_filter ($datas, function ($data) {
+      return write_file ($data['p'], json_encode (array ()));
+    });
 
-    $this->baishatun_com ();
-    $this->clean_baishatun_cell ();
+    if (count ($ws) != count ($datas))
+      return $this->error ($log, '寫入 json 檔案錯誤或失敗！', base_url ('api', 'baishatun', 'clear_heatmaps'));
 
+    $that = $this;
+    $datas = array_map (function ($data) use ($that) {
+      return array (
+          'q' => $data['q'],
+          'p' => $data['p'],
+          'd' => array (
+              's' => true,
+              'q' => $that->heatmap_update ($data['q'])
+            )
+        );
+    }, $datas);
+
+    $ws = array_filter ($datas, function ($data) {
+      return write_file ($data['p'], json_encode ($data['d']));
+    });
+
+    if (count ($ws) != count ($datas))
+      return $this->error ($log, '寫入 json 檔案錯誤或失敗！', base_url ('api', 'baishatun', 'clear_heatmaps'));
+
+    $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
+    $this->load->library ('S3', Cfg::system ('s3', 'buckets', $bucket));
+    
+    $ws = array_filter ($datas, function ($data) use ($bucket) {
+      return S3::putObjectFile ($data['p'], $bucket, 'upload' . DIRECTORY_SEPARATOR . 'baishatun' . DIRECTORY_SEPARATOR . 'heatmap' . $data['q'] . '.json', S3::ACL_PUBLIC_READ, array (), array ('Cache-Control' => 'max-age=315360000', 'Expires' => gmdate ('D, d M Y H:i:s T', strtotime ('+5 years'))));
+    });
+
+    if (count ($ws) != count ($datas))
+      $this->error ($log, '丟到 S3 失敗！');
+    
     $log->finish ();
-    return @unlink ($path);
+    $ws = array_filter ($datas, function ($data) {
+      return @unlink ($data['p']);
+    });
+
+    return (count ($ws) == count ($datas)) ? true : $this->error ($log, '刪除 json 失敗！', base_url ('api', 'baishatun', 'clear_heatmaps'));
   }
 }
