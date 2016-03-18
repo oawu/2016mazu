@@ -94,11 +94,12 @@ class Baishatun extends Api_controller {
 
     $msgs = array_map (function ($msg) {
       return array (
+          'i' =>$msg->ip,
           'm' => $msg->message,
-          't' => $msg->created_at->format ('Y-m-d H:m:i'),
+          't' => $msg->created_at->format ('Y-m-d H:m:i')
         );
     }, BaishatunMessage::find ('all', array (
-        'select' => 'message, created_at',
+        'select' => 'ip, message, created_at',
         'limit' => 35,
         'order' => 'id DESC'
       )));
