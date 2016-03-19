@@ -83,6 +83,9 @@ class Baishatun extends Api_controller {
   }
 
   private function _put_mag () {
+    $bl = array (
+      '0.0.0.0',
+      );
     $path = FCPATH . 'temp/put_msgs_to_s3.text';
 
     if (file_exists ($path))
@@ -101,7 +104,8 @@ class Baishatun extends Api_controller {
     }, BaishatunMessage::find ('all', array (
         'select' => 'ip, message, created_at',
         'limit' => 40,
-        'order' => 'id DESC'
+        'order' => 'id DESC',
+        'conditions' => array ('ip NOT IN (?)', $bl)
       )));
 
     if (!write_file ($path, json_encode (array (
