@@ -85,6 +85,7 @@ class Baishatun extends Api_controller {
   private function _put_mag () {
     $bl = array (
       '0.0.0.0',
+      '116.241.208.129',
       );
     $path = FCPATH . 'temp/put_msgs_to_s3.text';
 
