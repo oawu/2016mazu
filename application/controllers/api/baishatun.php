@@ -86,6 +86,7 @@ class Baishatun extends Api_controller {
     $bl = array (
       '0.0.0.0',
       '116.241.208.129',
+      '49.214.97.13',
       );
     $path = FCPATH . 'temp/put_msgs_to_s3.text';
 
@@ -95,7 +96,7 @@ class Baishatun extends Api_controller {
     $this->load->helper ('file');
     if (!write_file ($path, json_encode (array ())))
       return ;
-
+// https://www.facebook.com/baishatunGPS/
     $msgs = array_map (function ($msg) {
       return array (
           'i' =>$msg->ip,
