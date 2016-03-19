@@ -83,10 +83,7 @@ class Baishatun extends Api_controller {
   }
 
   private function _put_mag () {
-    $bl = array (
-      '0.0.0.0',
-      '116.241.208.129',
-      );
+    $bl = column_array (BaishatunBlacklist::find ('all', array ('select' => 'ip')), 'ip');
     $path = FCPATH . 'temp/put_msgs_to_s3.text';
 
     if (file_exists ($path))
@@ -95,7 +92,7 @@ class Baishatun extends Api_controller {
     $this->load->helper ('file');
     if (!write_file ($path, json_encode (array ())))
       return ;
-// https://www.facebook.com/baishatunGPS/
+
     $msgs = array_map (function ($msg) {
       return array (
           'a' => $msg->user_id ? true : false,
@@ -107,7 +104,7 @@ class Baishatun extends Api_controller {
         'select' => 'ip, user_id, message, created_at',
         'limit' => 40,
         'order' => 'id DESC',
-        'conditions' => array ('ip NOT IN (?)', $bl)
+        'conditions' => $bl ? array ('ip NOT IN (?)', $bl) : array ()
       )));
 
     if (!write_file ($path, json_encode (array (
@@ -123,6 +120,18 @@ class Baishatun extends Api_controller {
     S3::putObjectFile ($path, $bucket, 'upload' . DIRECTORY_SEPARATOR . 'baishatun' . DIRECTORY_SEPARATOR . 'mags.json', S3::ACL_PUBLIC_READ, array (), array ('Cache-Control' => 'max-age=315360000', 'Expires' => gmdate ('D, d M Y H:i:s T', strtotime ('+5 years'))));
 
     return @unlink ($path);
+  }
+  public function ip () {
+    if (!(($ip = OAInput::post ('ip')) && ($ip = trim ($ip)))) 
+      return $this->output_json (array ('s' => true));
+
+    BaishatunBlacklist::create (array (
+        'ip' => $ip,
+      ));
+    
+    $this->_put_mag ();
+
+    return $this->output_json (array ('s' => true));
   }
   public function mag () {
     // http://pic.mazu.ioa.tw/upload/baishatun/mags.json
