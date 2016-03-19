@@ -50,8 +50,8 @@ class Baishatun_cell extends Cell_Controller {
 
   public function api ($class = 'BaishatunShowtaiwan1Path', $id) {
     if ($id == 0) {
-      $first = $class::first (array ('select' => 'id,lat,lng,lat2,lng2,time_at'));
-      $last = $class::last (array ('select' => 'id,lat,lng,lat2,lng2,time_at'));
+      $first = $class::first (array ('select' => 'id,lat,lng,lat2,lng2,time_at', 'conditions' => array ('is_enabled = 1')));
+      $last = $class::last (array ('select' => 'id,lat,lng,lat2,lng2,time_at', 'conditions' => array ('is_enabled = 1')));
 
       $point_ids = array ();
       if (!($all_point_ids = column_array ($class::find ('all', array ('select' => 'id', 'order' => 'id DESC')), 'id')))
