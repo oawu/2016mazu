@@ -54,7 +54,7 @@ class Baishatun_cell extends Cell_Controller {
       $last = $class::last (array ('select' => 'id,lat,lng,lat2,lng2,time_at', 'conditions' => array ('is_enabled = 1')));
 
       $point_ids = array ();
-      if (!($all_point_ids = column_array ($class::find ('all', array ('select' => 'id', 'order' => 'id DESC')), 'id')))
+      if (!($all_point_ids = column_array ($class::find ('all', array ('select' => 'id', 'order' => 'id DESC', 'conditions' => array ('is_enabled = 1'))), 'id')))
         return $point_ids;
 
       $c = count ($all_point_ids);
@@ -64,12 +64,12 @@ class Baishatun_cell extends Cell_Controller {
           array_push ($point_ids, array_shift ($temp));
       if (!$point_ids) return $point_ids;
 
-      $paths = $class::find ('all', array ('select' => 'id,lat,lng,lat2,lng2,time_at', 'order' => 'id DESC', 'conditions' => array ('id IN (?)', $point_ids)));
+      $paths = $class::find ('all', array ('select' => 'id,lat,lng,lat2,lng2,time_at', 'order' => 'id DESC', 'conditions' => array ('id IN (?) AND is_enabled = 1', $point_ids)));
       if ($paths[0]->id != $last->id) array_unshift ($paths, $last);
       if ($paths[count ($paths) - 1]->id != $first->id) array_push ($paths, $first);
 
     } else {
-      $paths = array_reverse ($class::find ('all', array ('select' => 'id,lat,lng,lat2,lng2,time_at', 'conditions' => array ('id > ?', $id))));
+      $paths = array_reverse ($class::find ('all', array ('select' => 'id,lat,lng,lat2,lng2,time_at', 'conditions' => array ('id > ? AND is_enabled = 1', $id))));
     }
 
     $paths = array_map (function ($path) {
