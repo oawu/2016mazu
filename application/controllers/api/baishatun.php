@@ -100,7 +100,7 @@ class Baishatun extends Api_controller {
         );
     }, BaishatunMessage::find ('all', array (
         'select' => 'ip, message, created_at',
-        'limit' => 35,
+        'limit' => 40,
         'order' => 'id DESC'
       )));
 
