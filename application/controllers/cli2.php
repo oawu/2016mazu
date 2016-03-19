@@ -34,8 +34,8 @@ class Cli2 extends Site_controller {
     if (!verifyCreateOrm ($path = BaishatunComPath::create (array (
                 'lat' => $result['lat'][0],
                 'lng' => $result['lng'][0],
-                'lat2' => $result['lat'][0] + (rand (-19999, 19999) * 0.00000001),
-                'lng2' => $result['lng'][0] + (rand (-19999, 19999) * 0.00000001),
+                'lat2' => $result['lat'][0] + (rand (-49999, 49999) * 0.00000001),
+                'lng2' => $result['lng'][0] + (rand (-49999, 49999) * 0.00000001),
                 'address' => '',
                 'target' => '',
                 'distance' => '',
@@ -43,6 +43,9 @@ class Cli2 extends Site_controller {
               ))))
       return BaishatunErrorLog::create (array ('message' => '[baishatun com] 新增錯誤！'));
     return true;
+  }
+  public function x () {
+    echo 0 + (rand (-49999, 49999) * 0.00000001);
   }
   public function clean_baishatun_cell () {
     clean_cell ('baishatun_cell', '*');
