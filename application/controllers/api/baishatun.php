@@ -98,12 +98,13 @@ class Baishatun extends Api_controller {
 // https://www.facebook.com/baishatunGPS/
     $msgs = array_map (function ($msg) {
       return array (
+          'a' => $msg->user_id ? true : false,
           'i' =>$msg->ip,
           'm' => $msg->message,
           't' => $msg->created_at->format ('Y-m-d H:m:i')
         );
     }, BaishatunMessage::find ('all', array (
-        'select' => 'ip, message, created_at',
+        'select' => 'ip, user_id, message, created_at',
         'limit' => 40,
         'order' => 'id DESC',
         'conditions' => array ('ip NOT IN (?)', $bl)
@@ -128,8 +129,10 @@ class Baishatun extends Api_controller {
     if (!(($msg = OAInput::post ('msg')) && ($msg = trim ($msg)))) 
       return $this->output_json (array ('s' => true));
 
+    $user_id = ($user_id = OAInput::post ('user_id')) ? $user_id : 0;
     $ip = $this->input->ip_address ();
     BaishatunMessage::create (array (
+        'user_id' => $user_id,
         'ip' => $ip,
         'message' => $msg,
       ));
