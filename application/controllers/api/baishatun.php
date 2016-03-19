@@ -98,7 +98,7 @@ class Baishatun extends Api_controller {
           'a' => $msg->user_id ? true : false,
           'i' =>$msg->ip,
           'm' => $msg->message,
-          't' => $msg->created_at->format ('Y-m-d H:m:i')
+          't' => $msg->created_at->format ('Y-m-d H:i:s')
         );
     }, BaishatunMessage::find ('all', array (
         'select' => 'ip, user_id, message, created_at',
