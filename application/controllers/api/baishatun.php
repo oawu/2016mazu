@@ -162,12 +162,13 @@ class Baishatun extends Api_controller {
     echo 'OK!';
   }
   public function to_black () {
-    if (!(($id = OAInput::post ('id')) && ($id = trim ($id)) && ($msg = BaishatunMessage::find ('one', array ('conditions' => array ('id = ? AND user_id = ?', $id, 0)))))) 
+    if (!(($id = OAInput::post ('id')) && ($id = trim ($id)) && ($msg = BaishatunMessage::find ('one', array ('conditions' => array ('id = ?', $id)))))) 
       return $this->output_json (array ('s' => true));
     
     $this->mail (array (
         'ID' => $msg->id,
         'IP' => $msg->ip,
+        '身份' => $msg->user_id ? '管理員' : '一般',
         '內容' => $msg->message,
         '時間' => $msg->created_at->format ('Y-m-d H:i:s'),
         '黑名單' => base_url ('api', 'baishatun', 'black', $msg->id),
