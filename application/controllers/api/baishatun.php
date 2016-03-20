@@ -165,14 +165,16 @@ class Baishatun extends Api_controller {
     if (!(($id = OAInput::post ('id')) && ($id = trim ($id)) && ($msg = BaishatunMessage::find ('one', array ('conditions' => array ('id = ?', $id)))))) 
       return $this->output_json (array ('s' => true));
     
-    $this->mail (array (
-        'ID' => $msg->id,
-        'IP' => $msg->ip,
-        '身份' => $msg->user_id ? '管理員' : '一般',
-        '內容' => $msg->message,
-        '時間' => $msg->created_at->format ('Y-m-d H:i:s'),
-        '黑名單' => base_url ('api', 'baishatun', 'black', $msg->id),
-      ));
+    $msg->black_count += 1;
+    if ($msg->save () && $msg->black_count > 3)
+      $this->mail (array (
+          'ID' => $msg->id,
+          'IP' => $msg->ip,
+          '身份' => $msg->user_id ? '管理員' : '一般',
+          '內容' => $msg->message,
+          '時間' => $msg->created_at->format ('Y-m-d H:i:s'),
+          '黑名單' => base_url ('api', 'baishatun', 'black', $msg->id),
+        ));
     
     return $this->output_json (array ('s' => true));
   }
