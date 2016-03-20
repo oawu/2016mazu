@@ -134,7 +134,7 @@ class Cli2 extends Site_controller {
 
     return $qs;
   }
-  public function baishatun ($version = 40) {
+  public function baishatun ($version = 41) {
     $log = CrontabLog::start ('每 1 分鐘更新路線');
     $path = FCPATH . 'temp/api.json';
 
