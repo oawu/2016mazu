@@ -96,12 +96,13 @@ class Baishatun extends Api_controller {
     $msgs = array_map (function ($msg) {
       return array (
           'a' => $msg->user_id ? true : false,
+          'd' =>$msg->id,
           'i' =>$msg->ip,
           'm' => $msg->message,
           't' => $msg->created_at->format ('Y-m-d H:i:s')
         );
     }, BaishatunMessage::find ('all', array (
-        'select' => 'ip, user_id, message, created_at',
+        'select' => 'id, ip, user_id, message, created_at',
         'limit' => 40,
         'order' => 'id DESC',
         'conditions' => $bl ? array ('ip NOT IN (?)', $bl) : array ()
