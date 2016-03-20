@@ -166,7 +166,7 @@ class Baishatun extends Api_controller {
       return $this->output_json (array ('s' => true));
     
     $msg->black_count += 1;
-    if ($msg->save () && $msg->black_count > 3)
+    if ($msg->save () && $msg->black_count > 1)
       $this->mail (array (
           'ID' => $msg->id,
           'IP' => $msg->ip,
