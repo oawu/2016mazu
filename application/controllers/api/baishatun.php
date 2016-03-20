@@ -119,7 +119,7 @@ class Baishatun extends Api_controller {
     if (!write_file ($path, json_encode (array (
         's' => true,
         't' => date ('Y-m-d H:i:s'),
-        'c' => $c * 2,
+        'c' => $c * 4,
         'm' => $msgs
       ))))
       return @unlink ($path);
