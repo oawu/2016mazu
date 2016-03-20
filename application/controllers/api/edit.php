@@ -6,6 +6,22 @@
  */
 
 class Edit extends Api_controller {
+  public function x () {
+    $paths = BaishatunComPath::find ('all', array ('order' => 'id ASC', 'conditions' => array ('is_enabled = 1')));
+    echo json_encode (array_map (function ($path) {
+          return array (
+            'a' => $path->lat2,
+            'n' => $path->lng2
+          );
+        }, $paths));
+
+    // return $this->output_json (array_map (function ($path) {
+    //   return array (
+    //     'a' => $path->lat,
+    //     'n' => $path->lng
+    //   );
+    // }, $paths));
+  }
   public function www () {
     if (!(($id = OAInput::post ('id')) && ($path = BaishatunComPath::find ('one', array ('select' => 'id, lat2, lng2', 'conditions' => array ('id = ?', $id))))))
       return;
