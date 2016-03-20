@@ -114,7 +114,7 @@ class Baishatun extends Api_controller {
     $end = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * $q) . ' minutes'));
     $start = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * ($q + 1)) . ' minutes'));
 
-    $c = count (BaishatunMessage::find ('all', array ('group' => 'ip', 'conditions' => array ('created_at BTWEEN ? AND ?', $start, $end))));
+    $c = count (BaishatunMessage::find ('all', array ('group' => 'ip', 'conditions' => array ('created_at BETWEEN ? AND ?', $start, $end))));
 
     if (!write_file ($path, json_encode (array (
         's' => true,

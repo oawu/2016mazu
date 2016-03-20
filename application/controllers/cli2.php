@@ -45,6 +45,13 @@ class Cli2 extends Site_controller {
     return true;
   }
   public function x () {
+    $unit = 10; //sec
+    $q = 0;
+
+    $end = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * $q) . ' minutes'));
+    $start = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * ($q + 1)) . ' minutes'));
+
+    echo $c = count (BaishatunMessage::find ('all', array ('group' => 'ip', 'conditions' => array ('created_at BTWEEN ? AND ?', $start, $end))));
     // $a = ;
     // var_dump ();
     // exit ();
