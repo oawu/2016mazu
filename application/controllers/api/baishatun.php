@@ -119,11 +119,10 @@ class Baishatun extends Api_controller {
     if (!write_file ($path, json_encode (array (
         's' => true,
         't' => date ('Y-m-d H:i:s'),
-        'c' => $c * 4,
+        'c' => $c * 10,
         'm' => $msgs
       ))))
       return @unlink ($path);
-
 
     $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
     $this->load->library ('S3', Cfg::system ('s3', 'buckets', $bucket));
