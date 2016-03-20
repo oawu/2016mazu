@@ -107,9 +107,12 @@ class Baishatun extends Api_controller {
         'conditions' => $bl ? array ('ip NOT IN (?)', $bl) : array ()
       )));
 
+    $c = count (BaishatunMessage::find ('all', array ('group' => 'ip', 'conditions' => array ('created_at > date_sub(now(), interval 10 minute)'))));
+
     if (!write_file ($path, json_encode (array (
         's' => true,
         't' => date ('Y-m-d H:i:s'),
+        'c' => $c * 2,
         'm' => $msgs
       ))))
       return @unlink ($path);

@@ -45,7 +45,9 @@ class Cli2 extends Site_controller {
     return true;
   }
   public function x () {
-    echo 0 + (rand (-49999, 49999) * 0.00000001);
+    // $a = ;
+    // var_dump ();
+    // exit ();
   }
   public function clean_baishatun_cell () {
     clean_cell ('baishatun_cell', '*');
