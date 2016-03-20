@@ -170,6 +170,7 @@ class Baishatun extends Api_controller {
       $this->mail (array (
           'ID' => $msg->id,
           'IP' => $msg->ip,
+          '檢舉次數' => $msg->black_count . ' 次',
           '身份' => $msg->user_id ? '管理員' : '一般',
           '內容' => $msg->message,
           '時間' => $msg->created_at->format ('Y-m-d H:i:s'),
