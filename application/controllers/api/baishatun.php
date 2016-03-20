@@ -108,7 +108,13 @@ class Baishatun extends Api_controller {
         'conditions' => $bl ? array ('ip NOT IN (?)', $bl) : array ()
       )));
 
-    $c = count (BaishatunMessage::find ('all', array ('group' => 'ip', 'conditions' => array ('created_at > date_sub(now(), interval 10 minute)'))));
+    $unit = 10; //sec
+    $q = 0;
+
+    $end = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * $q) . ' minutes'));
+    $start = date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' - ' . ($unit * ($q + 1)) . ' minutes'));
+
+    $c = count (BaishatunMessage::find ('all', array ('group' => 'ip', 'conditions' => array ('created_at BTWEEN ? AND ?', $start, $end))));
 
     if (!write_file ($path, json_encode (array (
         's' => true,
