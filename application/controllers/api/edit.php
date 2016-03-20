@@ -8,12 +8,14 @@
 class Edit extends Api_controller {
   public function x () {
     $paths = BaishatunComPath::find ('all', array ('order' => 'id ASC', 'conditions' => array ('is_enabled = 1')));
-    echo json_encode (array_map (function ($path) {
+    $this->load->library ('SphericalGeometry');
+    echo $l = round (SphericalGeometry::computeLength (array_map (function ($path) {return new LatLng ($path['a'], $path['n']);}, array_map (function ($path) {
           return array (
             'a' => $path->lat2,
             'n' => $path->lng2
           );
-        }, $paths));
+        }, $paths))) / 1000, 2);
+
 
     // return $this->output_json (array_map (function ($path) {
     //   return array (
