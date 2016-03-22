@@ -148,17 +148,24 @@ nav {
         display: inline-block;
         height: 40px;
         width: 40px;
-        margin-top: 5px;
         font-size: 35px;
         text-align: center;
         color: rgba(251, 236, 235, 1);
         @include text-shadow(0 0 1px rgba(39, 40, 34, .65));
 
         @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-          margin-top: 9px;
+          // margin-top: 9px;
           font-size: 30px;
+          height: 100%;
+          line-height: 50px;
+        }
+        @media screen and (min-width: #{$mediaMobileWidth}) and (max-width: #{$mediaTabletWidth - 1px}) {
+          font-size: 35px;
+          height: 100%;
+          line-height: 45px;
         }
         @media screen and (min-width: $mediaTabletWidth) {
+          margin-top: 5px;
           display: none;
         }
       }

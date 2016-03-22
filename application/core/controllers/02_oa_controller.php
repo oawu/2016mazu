@@ -240,4 +240,20 @@ class Oa_controller extends Root_controller {
     if ($return) return $this->load->view ($frame_path, $frame_data, $return);
     else $this->load->view ($frame_path, $frame_data, $return)->cache ($cache_time);
   }
+  protected function output_error_json ($message, $code = 405, $cache = 0) {
+    $server_protocol = (isset($_SERVER['SERVER_PROTOCOL'])) ? $_SERVER['SERVER_PROTOCOL'] : FALSE;
+    if (substr (php_sapi_name (), 0, 3) == 'cgi')
+      header ('Status: ' . $code . ' ' . $message, true);
+    elseif (($server_protocol == 'HTTP/1.1') || ($server_protocol == 'HTTP/1.0'))
+      header ($server_protocol . ' ' . $code . ' ' . $message, true, $code);
+    else
+      header ('HTTP/1.1 ' . $code . ' ' . $message, true, $code);
+
+    return $this->output
+                ->set_content_type ('application/json')
+                ->set_output (json_encode (array (
+                    'message' => $message
+                  )))
+                ->cache ($cache);
+  }
 }

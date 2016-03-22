@@ -14,6 +14,7 @@ class Root_controller extends CI_Controller {
   private $libraries_path   = array ();
 
   private $param = array ();
+  private $error = array ();
 
   public function __construct () {
     parent::__construct ();
@@ -40,6 +41,12 @@ class Root_controller extends CI_Controller {
          ->set_method ($this->router->fetch_method ());
   }
 
+  public function disable ($error) {
+    return $this->error = $error;
+  }
+  public function enable () {
+    return $this->error ? $this->error : false;
+  }
   protected function set_class ($class) {
     $this->class = strtolower (trim ($class));
     return $this;

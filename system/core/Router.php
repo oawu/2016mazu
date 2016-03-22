@@ -65,7 +65,7 @@ class Route {
 		$group = self::_getGroup ();
 		$prefix = trim ($group . trim ($prefix, '/'), '/') . '/';
 
-		self::get ($prefix . implode ('/(:id)/', $uris) . '/', $prefix . $controller . '@index');
+		self::get ($prefix . implode ('/(:id)/', $uris) . '/', $prefix . $controller . '@index($1)');
 		self::get ($prefix . implode ('/(:id)/', $uris) . '/(:id)', $prefix . $controller . '@show($1' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (2, $c))) : '') . ')');
 		self::get ($prefix . implode ('/(:id)/', $uris) . '/add', $prefix . $controller . '@add(' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (1, $c - 1))) : '') . ')');
 		self::post ($prefix . implode ('/(:id)/', $uris) . '/', $prefix . $controller . '@create(' . ($c > 1 ? ', ' . implode (', ', array_map (function ($a) { return '$' . $a; }, range (1, $c - 1))) : '') . ')');
