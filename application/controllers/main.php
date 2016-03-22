@@ -64,8 +64,6 @@ class Main extends Site_controller {
          ->add_css (resource_url ('resource', 'css', 'OA-mobileScrollView', 'OA-mobileScrollView.css'))
          ->add_js (Cfg::setting ('google', 'client_js_url'), false)
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
-         ->add_js (resource_url ('resource', 'javascript', 'jquery-ui_v1.11.4', 'jquery-ui.min.js'))
-         ->add_js (resource_url ('resource', 'javascript', 'OA-mobileScrollView', 'OA-mobileScrollView.min.js'))
          ->load_view (array (
             'march19' => $march19,
             'day_count' => $day_count,
