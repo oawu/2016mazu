@@ -30,10 +30,6 @@ $(function () {
   };
   cc (); setInterval (cc, 1000);
 
-  $('.scroll').OAmobileScrollView ({
-    trigger_length: 30
-  }).find ('a').imgLiquid ({verticalAlign: 'center'});
-
   var $map = $('#map');
   var _map = null;
   var _polyline = null;
