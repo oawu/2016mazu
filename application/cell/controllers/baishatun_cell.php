@@ -48,7 +48,7 @@ class Baishatun_cell extends Cell_Controller {
     return array ('time' => 60 * 2, 'key' => $class . '_' . $id);
   }
 
-  public function api ($class = 'BaishatunShowtaiwan1Path', $id) {
+  public function api ($class = 'BaishatunPath', $id) {
     $m_id = 4624;
     if ($id == 0) {
       $first = $class::first (array ('select' => 'id,lat,lng,lat2,lng2,time_at', 'conditions' => array ('is_enabled = 1 AND id > ?', $m_id)));

@@ -1,13 +1,14 @@
 <article>
   <section class='r'>
+    <h2>北港朝天宮<div class="fb-like" data-href="<?php echo base_url ('march19');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></h2>
+    
     <figure>
       <a href=''>
-        <img alt="" src="http://comdan66.github.io/matsu/2015/img/site/chao-tian/01-04.jpg" />
+        <img alt="井上 北港媽 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '03.jpg');?>" />
       </a>
-      <figcaption>北港朝天宮俗稱北港媽祖廟</figcaption>
+      <figcaption>井上 北港媽</figcaption>
     </figure>
 
-    <h2>北港朝天宮<div class="fb-like" data-href="<?php echo base_url ('march19');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></h2>
 
     <p>俗稱北港媽祖廟，這座位於<b>雲林縣北港鎮中山路178號</b>的廟宇，目前被列為中華民國<b>二級古蹟</b>，是座主祀媽祖的廟宇，目前也為台灣最具影響力及分靈眾多的媽祖廟之一。</p>
     <p>清康熙三十三年(西元1694年)，<b>樹璧和尚</b>自湄洲嶼朝天閣奉請媽祖來台，航途中遇暴風雨漂流至笨港(今北港)，樹璧和尚認為此為神意，遂將媽祖奉祀於笨港街，並建天妃廟，後改名天后宮，再改今朝天宮。</p>
@@ -15,13 +16,15 @@
   </section>
 
   <section>
+    <h2>北港廟會</h2>
+    
     <figure>
       <a href=''>
-        <img alt="" src="http://comdan66.github.io/matsu/2015/img/site/chao-tian/01-04.jpg" />
+        <img alt="百年神轎 祖媽神轎 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '10.jpg');?>" />
       </a>
-      <figcaption>北港朝天宮俗稱北港媽祖廟</figcaption>
+      <figcaption>百年神轎 祖媽神轎</figcaption>
     </figure>
-    <h2>北港廟會</h2>
+    
     <p>農曆三月期間在臺灣各地迎媽祖的廟會活動非常頻繁，而在這段時間的北港鎮更能看到媽祖廟會的盛況非常，它對北港人的意義更是第二個過年一般，多數在外地工作的北港遊子都會回鄉參與！</p>
     <p>每當到了農曆三月十九上午，大家都在等著廟口<b>起馬炮</b>點燃，燃後蹦的一聲，繞境隊伍開始出發了，漸漸的北港街頭鞭炮聲四起，廟會遶境就此正式已經開始！夜晚街道上可見家家戶戶都會用<b>辦桌</b>的方式來邀請遠方親友一同慶賀媽祖聖誕！</p>
     <p>廟會期間，沿路上可見每家每戶都準備好香案、水果和金爐來恭迎媽祖聖駕。從農曆十九日至二十三日媽祖聖誕當天，街道上不只有陣頭遶境的活動，還有<b>真人藝閣</b>遊行！目前真人藝閣在台灣已經是越來越少見，北港藝閣數量目前是全台數量最多的藝閣遶境。</p>
@@ -30,29 +33,30 @@
   </section>
 
   <section class='r'>
+    <h2>三月十九</h2>
+    
     <figure>
       <a href=''>
-        <img alt="" src="http://comdan66.github.io/matsu/2015/img/site/chao-tian/01-04.jpg" />
+        <img alt="國家重要民俗 北港朝天宮迎媽祖 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '06.jpg');?>" />
       </a>
-      <figcaption>北港朝天宮俗稱北港媽祖廟</figcaption>
+      <figcaption>國家重要民俗 北港朝天宮迎媽祖</figcaption>
     </figure>
-
-    <h2>三月十九</h2>
 
     <p>我想一定會有人問，為什麼北港迎媽祖活動會是在農曆三月十九、二十，而不是二十三日媽祖誕辰當天呢？</p>
     <p>這要追朔於早期朝天宮會都在媽祖生日前夕回到湄州祖廟謁祖進香，而當回到北港時，時間就是在農曆三月十九日，所以當進香完後的隊伍回到北港時，也就會在這一天在北港境內出巡祈福，而原本一天的繞境活動也於民國四十四年擴大至兩天！</p>
-    <p>近年北港迎媽祖的活動也於 2008年被指定為「台灣文化資產」，並與台東炸寒單、鹽水蜂炮並稱為「台灣三大炮」，更於 2011年受中華民國行政院文建會指定為國家重要民俗。 </p>
+    <p>近年「北港朝天宮迎媽祖」的活動也於 2008年被指定為「台灣文化資產」，並與台東炸寒單、鹽水蜂炮並稱為「台灣三大炮」，更於 2011年受中華民國行政院文建會指定為<b>國家重要民俗</b>。 </p>
   </section>
 
   <section>
+    <h2>北港犁炮</h2>
+    
     <figure>
       <a href=''>
-        <img alt="" src="http://comdan66.github.io/matsu/2015/img/site/chao-tian/01-04.jpg" />
+        <img alt="台灣三大炮 北港犁炮 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '07.jpg');?>" />
       </a>
-      <figcaption>北港朝天宮俗稱北港媽祖廟</figcaption>
+      <figcaption>台灣三大炮 北港犁炮</figcaption>
     </figure>
 
-    <h2>北港犁炮</h2>
 
     <p>廟會鞭炮對於北港囝仔來說是件重要的回憶與活動，有句台灣俗話「北港炮 新塭金」，就是在說鞭炮對於北港人的特殊意義，北港人更會用「吃炮」來表示對媽祖的崇敬之意，若你問北港人為什麼看似不會害怕鞭炮、都敢在鞭炮上採踏，他們大約都會說「北港囝仔毋驚炮」，這是因為多數的北港人自小都會參與三月十九的活動，所以自小就習慣了鞭炮聲，而這樣的一個習俗也成就了台灣三大炮之一的名聲。</p>
     <p>通常當神轎吃炮時，剎那間火光四飛、煙霧滿天聲音之大有如雷聲，炸完的下一秒天空就會下起炮屑雨來，當炮屑灑落一地時，四周自然的就會響起歡呼掌聲，所以北港人常會驕傲的說<b>北港囝仔毋驚炮</b>！</p>
@@ -60,13 +64,14 @@
   </section>
   
   <section class='r'>
+    <h2>吃炮(喫炮)</h2>
+    
     <figure>
       <a href=''>
-        <img alt="" src="http://comdan66.github.io/matsu/2015/img/site/chao-tian/01-04.jpg" />
+        <img alt="吃炮、踩炮、炸轎 北港犁炮 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '09.jpg');?>" />
       </a>
-      <figcaption>北港朝天宮俗稱北港媽祖廟</figcaption>
+      <figcaption>吃炮、踩炮、炸轎 北港犁炮</figcaption>
     </figure>
-    <h2>吃炮(喫炮)</h2>
 
     <p>吃炮是個怎麼個吃法？依據北港當地陣頭的習慣最主要會分成三種方式: 1.犁炮 2.踩炮 3.炸轎。</p>
     <p><b>犁炮</b> 顧名思義就是用<b>犁頭生</b>(犁頭鐵質部)搭配<b>火爐</b>施放，當火爐中的木炭將犁頭生燒紅時，就可以用來點燃手中的<b>排炮</b>(尺炮)並在點燃的同時丟向神轎，這種燃放鞭炮的方式稱為犁炮，而後期也有直接使用香來當成引燃的工具。</p>
@@ -81,9 +86,9 @@
   <section>
     <figure>
       <a href=''>
-        <img alt="" src="http://comdan66.github.io/matsu/2015/img/site/chao-tian/01-04.jpg" />
+        <img alt="藝閣 台灣藝術之美 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '11.jpg');?>" />
       </a>
-      <figcaption>北港朝天宮俗稱北港媽祖廟</figcaption>
+      <figcaption>藝閣 台灣藝術之美</figcaption>
     </figure>
 
     <h2>真人藝閣</h2>
@@ -97,9 +102,9 @@
   <section class='r'>
     <figure>
       <a href=''>
-        <img alt="" src="http://comdan66.github.io/matsu/2015/img/site/chao-tian/01-04.jpg" />
+        <img alt="老塗獅 北港老陣頭 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '12.jpg');?>" />
       </a>
-      <figcaption>北港朝天宮俗稱北港媽祖廟</figcaption>
+      <figcaption>老塗獅 北港老陣頭</figcaption>
     </figure>
 
     <h2>百年藝陣</h2>

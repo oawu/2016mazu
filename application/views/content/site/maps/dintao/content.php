@@ -18,6 +18,7 @@
   } ?>
 </div>
 <div id='menu' class='fi-m'></div>
+<div id='tip'>這邊有功能選單喔！</div>
 
 <?php
   if ($prev || $next) { ?>

@@ -19,34 +19,6 @@ class Baishatun extends Api_controller {
     $this->version = 25;
   }
 
-  public function com ($id = 0) {
-    $r = render_cell ('baishatun_cell', 'api', 'BaishatunComPath', $id);
-    return $this->output_json (array (
-        'v' => $this->version, 's' => true, 'p' => $r['p'], 'l' => $r['l'], 'i' => $r['i']
-      ));
-  }
-
-  public function showtaiwan1 ($id = 0) {
-    $r = render_cell ('baishatun_cell', 'api', 'BaishatunShowtaiwan1Path', $id);
-    return $this->output_json (array (
-        'v' => $this->version, 's' => true, 'p' => $r['p'], 'l' => $r['l'], 'i' => $r['i']
-      ));
-  }
-
-  public function showtaiwan2 ($id = 0) {
-    $r = render_cell ('baishatun_cell', 'api', 'BaishatunShowtaiwan2Path', $id);
-    return $this->output_json (array (
-        'v' => $this->version, 's' => true, 'p' => $r['p'], 'l' => $r['l'], 'i' => $r['i']
-      ));
-  }
-
-  public function heatmap ($q = 0) {
-    $q = $q < 0 ? 0 : ($q > 5 ? 4 : $q);
-    $q = render_cell ('baishatun_cell', 'heatmap', $q);
-    return $this->output_json (array (
-        's' => true, 'q' => $q
-      ));
-  }
   public function location () {
     $posts = OAInput::post ();
     if (!(isset ($posts['a']) && isset ($posts['n']) && ($a = trim ($posts['a'])) && ($n = trim ($posts['n'])))) {
@@ -63,25 +35,23 @@ class Baishatun extends Api_controller {
               ))))
       BaishatunErrorLog::create (array ('message' => '[location] 新增錯誤！'));
   }
-  public function clear_api () {
-    echo $path = FCPATH . 'temp/api.json';
-    echo ' ...... ';
-    @unlink ($path);
-    echo !file_exists ($path) ? 'OK' : 'NO';
-  }
-  public function clear_heatmaps () {
-    $paths = array ();
+  public function mag () {
+    // http://pic.mazu.ioa.tw/upload/baishatun/mags.json
+    if (!(($msg = OAInput::post ('msg')) && ($msg = trim ($msg)))) 
+      return $this->output_json (array ('s' => true));
 
-    for ($i = 0; $i < 10; $i++) {
-      echo '<div style="margin:5px;">';
-      echo $path = FCPATH . 'temp/heatmap' . $i . '.json';
-      echo ' ...... ';
-      @unlink ($path);
-      echo !file_exists ($path) ? 'OK' : 'NO';
-      echo '</div>';
-    }
-  }
+    $user_id = ($user_id = OAInput::post ('user_id')) ? $user_id : 0;
+    $ip = $this->input->ip_address ();
+    BaishatunMessage::create (array (
+        'user_id' => $user_id,
+        'ip' => $ip,
+        'message' => $msg,
+      ));
 
+    $this->_put_mag ();
+
+    return $this->output_json (array ('s' => true));
+  }
   private function _put_mag () {
     $bl = column_array (BaishatunBlacklist::find ('all', array ('select' => 'ip')), 'ip');
     $path = FCPATH . 'temp/put_msgs_to_s3.text';
@@ -130,6 +100,35 @@ class Baishatun extends Api_controller {
 
     return @unlink ($path);
   }
+
+
+
+
+
+
+
+
+
+
+  public function clear_api () {
+    echo $path = FCPATH . 'temp/api.json';
+    echo ' ...... ';
+    @unlink ($path);
+    echo !file_exists ($path) ? 'OK' : 'NO';
+  }
+  public function clear_heatmaps () {
+    $paths = array ();
+
+    for ($i = 0; $i < 10; $i++) {
+      echo '<div style="margin:5px;">';
+      echo $path = FCPATH . 'temp/heatmap_' . $i . '.json';
+      echo ' ...... ';
+      @unlink ($path);
+      echo !file_exists ($path) ? 'OK' : 'NO';
+      echo '</div>';
+    }
+  }
+
 
   public function mail ($msgs = array ()) {
     if (!$msgs)
@@ -192,23 +191,6 @@ class Baishatun extends Api_controller {
         'ip' => $ip,
       ));
     
-    $this->_put_mag ();
-
-    return $this->output_json (array ('s' => true));
-  }
-  public function mag () {
-    // http://pic.mazu.ioa.tw/upload/baishatun/mags.json
-    if (!(($msg = OAInput::post ('msg')) && ($msg = trim ($msg)))) 
-      return $this->output_json (array ('s' => true));
-
-    $user_id = ($user_id = OAInput::post ('user_id')) ? $user_id : 0;
-    $ip = $this->input->ip_address ();
-    BaishatunMessage::create (array (
-        'user_id' => $user_id,
-        'ip' => $ip,
-        'message' => $msg,
-      ));
-
     $this->_put_mag ();
 
     return $this->output_json (array ('s' => true));

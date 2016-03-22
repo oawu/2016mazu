@@ -157,6 +157,9 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
 .icon-arrow-right:before {
     content: "\e90b";
 }
+.icon-gps_fixed:before {
+    content: "\e1b3";
+}
 .icon-minus:before {
     content: "\e115";
 }
@@ -169,4 +172,6 @@ a[href^="http://maps.google.com/maps"], a[href^="https://maps.google.com/maps"] 
 .icon-chevron-thin-right:before {
     content: "\e905";
 }
+
+
 

@@ -32,6 +32,9 @@ class Maps extends Site_controller {
 
     $this->add_js (Cfg::setting ('google', 'client_js_url'), false);
   }
+  public function gps () {
+    
+  }
   public function dintao ($index = 0) {
     if (!(isset ($this->dintao_tabs[$index]) && ($path = Path::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', $this->dintao_tabs[$index]['id'], Path::IS_ENABLED))))))
       return redirect_message (array ('march19'), array (

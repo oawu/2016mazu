@@ -12,9 +12,9 @@
     
     <figure>
       <a href=''>
-        <img alt="" src="http://comdan66.github.io/matsu/2015/img/site/chao-tian/01-04.jpg" />
+        <img alt="農曆三月熱鬧北港 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '05.jpg');?>" />
       </a>
-      <figcaption>北港朝天宮俗稱北港媽祖廟</figcaption>
+      <figcaption>農曆三月熱鬧北港</figcaption>
     </figure>
 
     <div id='c'>2016年 農曆三月十九日 <span data-day='<?php echo $day_count;?>' data-end='<?php echo strtotime (date ($march19));?>'></span>！</div>
@@ -40,9 +40,9 @@
 
     <figure>
       <a href=''>
-        <img alt="" src="http://comdan66.github.io/matsu/2015/img/site/chao-tian/01-04.jpg" />
+        <img alt="觀音殿的龍柱 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '04.png');?>" />
       </a>
-      <figcaption>北港朝天宮俗稱北港媽祖廟</figcaption>
+      <figcaption>觀音殿的龍柱</figcaption>
     </figure>
 
     <p>家鄉的鄉土文化當然不僅限於朝天宮的文物，舉凡北港圓環的顏思齊紀念碑、三級古蹟義民廟、知名景點甕牆、美食小吃，這些都是北港的在地文化、特色。其實來到這古鎮，可以看到的不止是香客人潮、也不止是香紙鞭炮，如果細心品嘗這些人文藝術，其實可以看到先民開墾台灣的痕跡。</p>
@@ -53,9 +53,9 @@
   <section>
     <figure>
       <a href=''>
-        <img alt="" src="http://comdan66.github.io/matsu/2015/img/site/chao-tian/01-04.jpg" />
+        <img alt="2013年 北港迎媽祖 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '01.jpg');?>" />
       </a>
-      <figcaption>北港朝天宮俗稱北港媽祖廟</figcaption>
+      <figcaption>2013年 北港迎媽祖</figcaption>
     </figure>
 
     <h2>多媒體影音</h2>

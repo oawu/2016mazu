@@ -8,6 +8,9 @@
 body {
   &.f {
     @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      #tip {
+        display: none; 
+      }
       #container>div>div:nth-child(2) {
         overflow: hidden;
       }
@@ -500,4 +503,51 @@ $ih: 115px;
       }
     }
   }
+}
+#tip {
+  @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+    position: fixed;
+    top: 60px;
+    left: 5px;
+    display: inline-block;
+    padding: 2px 5px;
+    font-size: 10px;
+    border: 1px solid rgba(171, 48, 46, .60);
+    background-color: rgba(220, 63, 46, 1.00);
+    z-index: 999999999;
+    color: rgba(255, 255, 255, 1.00);
+    @include border-radius(2px);
+    @include opacity(.75);
+    @include animation(_m_tip_s .5s infinite);
+    @include keyframes(_m_tip_s){
+      0% { top: 60px; }
+      50% { top: 65px; }
+      100% { top: 60px; }
+    }
+    &:after, &:before {
+      bottom: 100%;
+      left: 23px;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+    &:after {
+      border-color: transparent;
+      border-bottom-color: rgba(220, 63, 46, 1.00);
+      border-width: (6px);
+      margin-left: -(6px);
+    }
+    &:before {
+      border-color: transparent;
+      border-bottom-color: rgba(171, 48, 46, 1.00);
+      border-width: (6px + 1px);
+      margin-left: -(6px + 1px);
+    }
+  }
+  @media screen and (min-width: $mediaMobileWidth) {
+    display: none;
+  } 
 }

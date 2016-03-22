@@ -96,8 +96,17 @@ article {
       }
     }
     h2 {
+      u {
+        text-decoration: none;
+        color: rgba(173, 47, 42, 1);
+      }
       position: relative;
-      
+      @media screen and (min-width: 0px) and (max-width: #{500px - 1px}) {
+        font-size: 18px;
+        span {
+          display: none;
+        }
+      }
       > div {
         display: inline-block;
         height: 25px;
@@ -107,11 +116,9 @@ article {
         font-size: 0;
         margin-left: 10px;
         padding-top: 4px;
-        @media screen and (min-width: 0px) and (max-width: #{700px - 1px}) {
-          position: absolute !important;
-          right: 0;
-          top: 0;
-        }
+        position: absolute !important;
+        right: 0;
+        top: 0;
       }
     }
     &.r {

@@ -59,8 +59,8 @@ class Main extends Site_controller {
         'n' => $store->longitude
       ));
 
-    $this->set_title ('北港朝天宮')
-         ->set_subtitle ('北港朝天宮')
+    $this->set_title ('網站首頁')
+         ->set_subtitle ('網站首頁')
          ->add_css (resource_url ('resource', 'css', 'OA-mobileScrollView', 'OA-mobileScrollView.css'))
          ->add_js (Cfg::setting ('google', 'client_js_url'), false)
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))

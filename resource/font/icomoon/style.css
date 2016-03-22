@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:    url('fonts/icomoon.eot?5rc6j2');
-    src:    url('fonts/icomoon.eot?5rc6j2#iefix') format('embedded-opentype'),
-        url('fonts/icomoon.ttf?5rc6j2') format('truetype'),
-        url('fonts/icomoon.woff?5rc6j2') format('woff'),
-        url('fonts/icomoon.svg?5rc6j2#icomoon') format('svg');
+    src:    url('fonts/icomoon.eot?m2qu7f');
+    src:    url('fonts/icomoon.eot?m2qu7f#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?m2qu7f') format('truetype'),
+        url('fonts/icomoon.woff?m2qu7f') format('woff'),
+        url('fonts/icomoon.svg?m2qu7f#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -119,6 +119,9 @@
 }
 .icon-arrow-right:before {
     content: "\e90b";
+}
+.icon-gps_fixed:before {
+    content: "\e1b3";
 }
 .icon-minus:before {
     content: "\e115";

@@ -14,6 +14,7 @@ $(function () {
   var _points = [];
   var _mazu = null;
   var _info = null;
+  var _isMoved = false;
   var _infos = [];
 
   function formatFloat (num, pos) {
@@ -45,6 +46,7 @@ $(function () {
 
     clearTimeout (_timer);
     _timer = setTimeout (function () {
+      if (!_isMoved && !(i % 10)) mapGo (_map, _points[i]);
       markerGo (_mazu, _points[i], loop (i));
     }, 150);
   }
@@ -67,10 +69,8 @@ $(function () {
     ]));
     _map.setMapTypeId ('map_style');
     
-    var bounds = new google.maps.LatLngBounds ();
     _points = $map.data ('polyline').map (function (t) {
         var position = new google.maps.LatLng (t.a, t.n);
-        bounds.extend (position);
         return position;
       });
 
@@ -96,7 +96,6 @@ $(function () {
     
     _infos = $map.data ('infos').map (function (t) {
       var position = new google.maps.LatLng (t.a, t.n);
-      bounds.extend (position);
       var m = new google.maps.Marker ({
           map: _map,
           draggable: false,
@@ -111,7 +110,6 @@ $(function () {
       return m;
     });
     
-    if (_infos.length) _map.fitBounds (bounds);
     
     var $zoom = $('#zoom').click (function () {
       if (!$body.hasClass ('f')) {
@@ -122,7 +120,6 @@ $(function () {
         $(this).attr ('class', 'icon-enlarge');
       }
       google.maps.event.trigger (_map, 'resize');
-      _map.fitBounds (bounds);
     });
 
     var $container = $('#container');
@@ -139,7 +136,6 @@ $(function () {
     });
 
     if (_points.length) {
-      _map.fitBounds (bounds);
       _polyline = new google.maps.Polyline ({
         map: _map,
         strokeColor: 'rgba(255, 3, 0, .6)',
@@ -166,6 +162,10 @@ $(function () {
       });
       google.maps.event.addListener (_map, 'dragstart', function () {
         new google.maps.event.trigger (_info, 'click');
+        _isMoved = true;
+      });
+      google.maps.event.addListener (_map, 'zoom_changed', function () {
+        _isMoved = true;
       });
       setTimeout (loop, 1000);
     }
