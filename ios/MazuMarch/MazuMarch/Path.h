@@ -12,6 +12,6 @@
 @interface Path : ORM
 
 // Fields
-@property NSString *lat, *lng, *al, *ah ,*av ,*sd ,*ct;
+@property NSString *a, *n, *l, *h ,*v ,*s ,*t;
 
 @end

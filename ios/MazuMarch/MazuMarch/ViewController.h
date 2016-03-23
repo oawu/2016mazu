@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "Header.h"
 #import "Path.h"
 #import "AFHTTPRequestOperationManager.h"
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>
 
-@property UITextView *logTextView;
+@property UITextView *locationLogTextView;
+@property UITextView *uploadLogTextView;
 @property UISwitch *switchButton;
 @property UILabel *switchLabel;
 @property CLLocationManager *locationManager;
-
+@property NSTimer *timer;
+@property BOOL isUpload;
 @end
 

@@ -23,7 +23,20 @@ class March_paths extends Api_controller {
       return $this->output_error_json ('Not POST method!');
 
     $paths = ($paths = OAInput::post ('p')) ? $paths : array ();
-    $paths = array_filter ($paths, array ($this, '_validation_path_posts'));
+    $paths = array_map (function (&$post) {
+      if (!(isset ($post['id']) && is_numeric ($post['id'] = trim ($post['id'])))) return false; $post['sqlite_id'] = $post['id']; unset ($post['id']);    
+      if (!(isset ($post['a']) && is_numeric ($post['a'] = trim ($post['a'])))) return false; $post['latitude'] = $post['a']; unset ($post['a']);
+      if (!(isset ($post['n']) && is_numeric ($post['n'] = trim ($post['n'])))) return false; $post['longitude'] = $post['n']; unset ($post['n']);
+      if (!(isset ($post['h']) && is_numeric ($post['h'] = trim ($post['h'])))) return false; $post['accuracy_horizontal'] = $post['h']; unset ($post['h']);
+      if (!(isset ($post['v']) && is_numeric ($post['v'] = trim ($post['v'])))) return false; $post['accuracy_vertical'] = $post['v']; unset ($post['v']);
+      if (!(isset ($post['l']) && is_numeric ($post['l'] = trim ($post['l'])))) return false; $post['altitude'] = $post['l']; unset ($post['l']);
+      if (!(isset ($post['s']) && is_numeric ($post['s'] = trim ($post['s'])))) return false; $post['speed'] = $post['s']; unset ($post['s']);
+      if (!(isset ($post['t']) && $post['t'] = trim ($post['t']))) return false; $post['create_time'] = $post['t']; unset ($post['t']);
+      $post['latitude2'] = $post['latitude'];
+      $post['longitude2'] = $post['longitude'];
+
+      return $post;
+    }, $paths);
 
     $march = $this->march;
     $paths = array_filter ($paths, function (&$path) use ($march) {
@@ -41,23 +54,7 @@ class March_paths extends Api_controller {
     $paths = column_array ($paths, 'sqlite_id');
     $sqlite_ids = array_slice ($paths, 0);
     
-    return $this->output_json (array ('ids' => $sqlite_ids, 'paths' => array_map (function ($path) {
-      return $path->to_array ();
-    }, $march->paths ())));
+    return $this->output_json (array ('ids' => $sqlite_ids));
   }
-  private function _validation_path_posts (&$posts) {
-    if (!(isset ($posts['i']) && is_numeric ($posts['i'] = trim ($posts['i'])))) return false; $posts['sqlite_id'] = $posts['i']; unset ($posts['i']);    
-    if (!(isset ($posts['a']) && is_numeric ($posts['a'] = trim ($posts['a'])))) return false; $posts['latitude'] = $posts['a']; unset ($posts['a']);
-    if (!(isset ($posts['n']) && is_numeric ($posts['n'] = trim ($posts['n'])))) return false; $posts['longitude'] = $posts['n']; unset ($posts['n']);
-    $posts['latitude2'] = $posts['latitude'];
-    $posts['longitude2'] = $posts['longitude'];
 
-    if (!(isset ($posts['h']) && is_numeric ($posts['h'] = trim ($posts['h'])))) return false; $posts['accuracy_horizontal'] = $posts['h']; unset ($posts['h']);
-    if (!(isset ($posts['v']) && is_numeric ($posts['v'] = trim ($posts['v'])))) return false; $posts['accuracy_vertical'] = $posts['v']; unset ($posts['v']);
-    if (!(isset ($posts['l']) && is_numeric ($posts['l'] = trim ($posts['l'])))) return false; $posts['altitude'] = $posts['l']; unset ($posts['l']);
-    if (!(isset ($posts['s']) && is_numeric ($posts['s'] = trim ($posts['s'])))) return false; $posts['speed'] = $posts['s']; unset ($posts['s']);
-    if (!(isset ($posts['t']) && $posts['t'] = trim ($posts['t']))) return false; $posts['create_time'] = $posts['t']; unset ($posts['t']);
-
-    return true;
-  }
 }
