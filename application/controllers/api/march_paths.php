@@ -24,11 +24,9 @@ class March_paths extends Api_controller {
 
     $paths = ($paths = OAInput::post ('p')) ? $paths : array ();
     $paths = array_filter ($paths, array ($this, '_validation_path_posts'));
-echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-var_dump ($paths);
-exit ();
+
     $march = $this->march;
-    $sqlite_ids = array_slice (column_array (array_filter ($paths, function (&$path) use ($march) {
+    $paths = array_filter ($paths, function (&$path) use ($march) {
       $create = MarchPath::transaction (function () use (&$path, $march) {
         if (!(verifyCreateOrm ($path = MarchPath::create (array_intersect_key (array_merge ($path, array ('march_id' => $march->id)), MarchPath::table ()->columns)))))
           return false;
@@ -39,7 +37,9 @@ exit ();
         return true;
       });
       return $create;
-    }), 'sqlite_id'), 0);
+    });
+    $paths = column_array ($paths, 'sqlite_id');
+    $sqlite_ids = array_slice ($paths, 0);
     
     return $this->output_json (array ('ids' => $sqlite_ids, 'paths' => array_map (function ($path) {
       return $path->to_array ();
