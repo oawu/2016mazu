@@ -13,7 +13,7 @@
       padding: 0;
       padding-top: $navHeight;
       width: $wrapperLeftWidth;
-      z-index: 990;
+      z-index: 90;
       padding-bottom: 50px;
 
       @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
@@ -24,7 +24,7 @@
         height: 100%;
         width: $wrapperLeftMobileWidth;
         overflow-y: auto;
-        z-index: 999999;
+        z-index: 135;
         border: 0;
         padding-top: 0;
         -webkit-overflow-scrolling: touch;

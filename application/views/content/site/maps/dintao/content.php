@@ -3,6 +3,11 @@
   <div id='like' class="fb-like" data-href="<?php echo current_url ();?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
   <div id='length'><?php echo $path->length ();?></div>
   <div id='zoom'></div>
+
+</div>
+<div id='menu' class='fi-m'></div>
+<div id='tip'>這邊有功能選單喔！</div>
+
 <?php
   if ($tabs) { ?>
     <label id='other'>
@@ -16,9 +21,6 @@
     </label>
 <?php
   } ?>
-</div>
-<div id='menu' class='fi-m'></div>
-<div id='tip'>這邊有功能選單喔！</div>
 
 <?php
   if ($prev || $next) { ?>
