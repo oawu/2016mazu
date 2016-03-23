@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import "Path.h"
+#import "AFHTTPRequestOperationManager.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <CLLocationManagerDelegate>
 
+@property UITextView *logTextView;
+@property UISwitch *switchButton;
+@property UILabel *switchLabel;
+@property CLLocationManager *locationManager;
 
 @end
 

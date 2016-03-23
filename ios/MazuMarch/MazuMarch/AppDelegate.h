@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "Header.h"
+#import "ORM.h"
+#import "Path.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
