@@ -28,8 +28,8 @@ class Migration_Add_march_paths extends CI_Migration {
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
         PRIMARY KEY (`id`),
-        KEY `is_enabled_index` (`is_enabled`),
-        KEY `march_id_is_enabled_index` (`march_id`, `is_enabled`),
+        KEY `sqlite_id_index` (`sqlite_id`),
+        KEY `sqlite_id_march_id_is_enabled_index` (`sqlite_id`, `march_id`, `is_enabled`),
         FOREIGN KEY (`march_id`) REFERENCES `marches` (`id`) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
     );

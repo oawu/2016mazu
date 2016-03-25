@@ -16,12 +16,7 @@ class March_paths extends Api_controller {
       return $this->disable ($this->output_error_json ('Parameters error!'));
   }
 
-  public function index () {
-  }
   public function create () {
-    if (!$this->has_post ())
-      return $this->output_error_json ('Not POST method!');
-
     $paths = ($paths = OAInput::post ('p')) ? $paths : array ();
     $paths = array_map (function (&$post) {
       if (!(isset ($post['id']) && is_numeric ($post['id'] = trim ($post['id'])))) return false; $post['sqlite_id'] = $post['id']; unset ($post['id']);    
@@ -34,6 +29,7 @@ class March_paths extends Api_controller {
       if (!(isset ($post['t']) && $post['t'] = trim ($post['t']))) return false; $post['create_time'] = $post['t']; unset ($post['t']);
       $post['latitude2'] = $post['latitude'];
       $post['longitude2'] = $post['longitude'];
+      $post['is_enabled'] = 0;
 
       return $post;
     }, $paths);
@@ -54,6 +50,30 @@ class March_paths extends Api_controller {
     $paths = column_array ($paths, 'sqlite_id');
     $sqlite_ids = array_slice ($paths, 0);
     
+    $path1 = MarchPath::find ('one', array (
+        'select' => 'id,latitude2,longitude2,is_enabled',
+        'order' => 'sqlite_id DESC',
+        'conditions' => array ('march_id = ?', $march->id)
+      ));
+    $path2 = MarchPath::find ('one', array (
+        'select' => 'id,latitude2,longitude2',
+        'order' => 'sqlite_id DESC',
+        'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)
+      ));
+
+    if ($path1 && $path2 && ($path1->id != $path2->id)) {
+      $this->load->library ('SphericalGeometry');
+      $l = SphericalGeometry::computeLength (array_map (function ($path) {
+          return new LatLng ($path->latitude2, $path->longitude2);
+        }, array ($path1, $path2)));
+
+      if ($l > 5)
+        MarchPath::transaction (function () use ($path1) {
+          $path1->is_enabled = 1;
+          return $path1->save ();
+        });
+    }
+
     return $this->output_json (array ('ids' => $sqlite_ids));
   }
 

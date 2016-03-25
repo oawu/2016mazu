@@ -96,6 +96,30 @@ nav {
         @include opacity(0);
         @include transition(all .3s);
 
+        &:before {
+          content: '✕';
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          
+          @media screen and (min-width: 0px) and (max-width: #{350px - 1px}) {
+            top: 5px;
+            right: 5px;
+          }
+          display: inline-block;
+          width: 40px;
+          height: 40px;
+          line-height: 38px;
+          text-align: center;
+          font-size: 23px;
+          color: rgba(255, 255, 255, .9);
+          border: 1px solid rgba(255, 255, 255, .9);
+          background-color: rgba(39, 40, 34, 1);
+          cursor: pointer;
+          @include border-radius(50%);
+          @include opacity(.9);
+          @include transition(all .3s);
+        }
         @media screen and (min-width: $mediaTabletWidth) {
           width: 0;
           display: none;

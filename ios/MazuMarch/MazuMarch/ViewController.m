@@ -95,6 +95,7 @@
         [self uploadLog:@"==================================="];
 
         [self.locationManager startUpdatingLocation];
+        [self.locationManager startMonitoringSignificantLocationChanges];
         [self locationLog:@"開啟定位系統"];
         [self locationLog:@"----------------------------------------"];
 
@@ -115,6 +116,7 @@
 
         [self locationLog:@"----------------------------------------"];
         [self.locationManager stopUpdatingLocation];
+        [self.locationManager stopMonitoringSignificantLocationChanges];
         [self locationLog:@"關閉定位系統"];
         
         [self locationLog:@"----------------------------------------"];

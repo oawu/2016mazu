@@ -15,6 +15,12 @@ Array.prototype.max = function (k) {
 Array.prototype.min = function (k) {
   return Math.min.apply (null, this.column (k));
 };
+Array.prototype.last = function () {
+  return this[this.length - 1];
+};
+Array.prototype.first = function () {
+  return this[0];
+};
 
 window.ajaxError = function (result) {
   console.error (result.responseText);

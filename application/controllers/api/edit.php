@@ -6,6 +6,17 @@
  */
 
 class Edit extends Api_controller {
+  public function aaa () {
+    // 新增使用者
+      // 資料庫新增一筆帳號 aaa 密碼 xxx 的資料
+    User::create (array (
+        'name' => 'oa',
+        'email' => 'xxxx',
+        'uid' => 111
+      ));
+    echo "ok";
+    // echo json_encode(array ("天氣好", '大晴天'));
+  }
   public function x () {
     $paths = BaishatunComPath::find ('all', array ('order' => 'id ASC', 'conditions' => array ('is_enabled = 1')));
     $this->load->library ('SphericalGeometry');

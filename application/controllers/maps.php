@@ -21,9 +21,9 @@ class Maps extends Site_controller {
       );
 
     $this->iko_tabs = array (
-        array ('id' => 4,  'title' => '十九下午'),
-        array ('id' => 4,  'title' => '十九晚間'),
-        array ('id' => 4,  'title' => '二十下午'),
+        array ('id' => 4, 'title' => '十九下午'),
+        array ('id' => 4, 'title' => '十九晚間'),
+        array ('id' => 4, 'title' => '二十下午'),
         array ('id' => 4, 'title' => '二十晚間'),
         array ('id' => 4, 'title' => '廿一晚間'),
         array ('id' => 4, 'title' => '廿二晚間'),
@@ -34,6 +34,11 @@ class Maps extends Site_controller {
   }
   public function gps () {
     
+    $this->set_subtitle ('三月十九，神轎定位')
+         ->add_css (base_url ('application', 'views', 'content', 'site', 'maps', 'gps', 'a.css'))
+         ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
+         ->load_view (array (
+          ));
   }
   public function dintao ($index = 0) {
     if (!(isset ($this->dintao_tabs[$index]) && ($path = Path::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', $this->dintao_tabs[$index]['id'], Path::IS_ENABLED))))))
