@@ -113,11 +113,11 @@ $(function () {
     if (origin) _directionsDisplay.mapZoom = _map.zoom;
 
     var request = {
-      origin: origin ? origin : _directionsDisplay.myLocation,
+      origin: _directionsDisplay.myLocation,
       destination: _markers.last ().position,
       travelMode: google.maps.TravelMode[$travelMode.filter (':checked').val ()],
     };
-
+    
     new google.maps.DirectionsService ().route (request, function (response, status) {
       if (status != google.maps.DirectionsStatus.OK) { $navigation.text ('規劃失敗'); return ; }
 
@@ -146,7 +146,7 @@ $(function () {
       }.bind ($(this)), function () { $(this).remove (); }.bind ($(this)));
     });
 
-    $travelMode.change (setDirection);
+    $travelMode.change (function () {setDirection ();});
   }
   function initButtons () {
     $('#menu').click (function () { coverBody ('show', $container); });
@@ -189,17 +189,15 @@ $(function () {
 
     $.when ($.ajax (_url1 + '?t=' + new Date ().getTime (), {dataType: 'json'})).done (function (result) {
       _isLoadPath = false;
-
       if (++_c > _cl) return location.reload ();
       if (_v === 0) _v = result.v;
       if (_v != result.v) return location.reload ();
-      if (!result.s) return ;
+      if (!result.s) { if (isFirst) window.hideLoading (); return ; }
 
       var latlngs = result.p.filter (function (t) { return t.i > _id; }).map (function (t) { return {id: t.i, lat: t.a, lng: t.n, time: t.t}; });
-      if (!latlngs.length) return ;
+      if (!latlngs.length) { if (isFirst) window.hideLoading (); return ; }
 
       if (result.l > 0) $length.html (result.l);
-
 
       _id = latlngs.last ().id;
       

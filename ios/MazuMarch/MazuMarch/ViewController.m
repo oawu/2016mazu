@@ -144,10 +144,10 @@
     NSArray *paths = [Path findAll: @{@"limit": @UPLOAD_PATHS_LIMIT}];
 
     if (((int)[paths count]) < 1) {
-        self.isUpload = NO;
+//        self.isUpload = NO;
         [self uploadLog:@"----------------------------------------"];
         [self uploadLog:@"沒有節點！"];
-        return;
+//        return;
     }
     
     NSMutableDictionary *parameters = [NSMutableDictionary new];
