@@ -65,7 +65,7 @@ class Cli_march extends Site_controller {
 
     $point_ids = array ();
     if (!($all_point_ids = column_array (MarchPath::find ('all', array ('select' => 'sqlite_id', 'order' => 'sqlite_id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id))), 'sqlite_id')))
-      return $point_ids;
+      return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
 
     $c = count ($all_point_ids);
     $unit = $c < 10000 ? $c < 5000 ? $c < 2500 ? $c < 1500 ? $c < 1000 ? $c < 500 ? $c < 200 ? $c < 100 ? $c < 10 ? 0 : 0.01 : 0.05 : 0.15 : 0.3 : 0.46 : 1 : 1.5 : 2.3 : 3;
