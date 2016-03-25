@@ -248,6 +248,9 @@
                    @"s": [NSString stringWithFormat:@"%f", s],
                    @"t": t
                    }];
+
+    if (((int)[Path count]) >= UPLOAD_PATHS_LIMIT)
+        [self uploadPaths];
 }
 
 - (void)didReceiveMemoryWarning {
