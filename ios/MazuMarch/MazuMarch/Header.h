@@ -8,7 +8,7 @@
 
 #ifndef Header_h
 #define Header_h
-#define UPLOAD_PATHS_LIMIT 20
+#define UPLOAD_PATHS_LIMIT 50
 #define MARCH_ID 1
 #define DEV YES
 
