@@ -27,7 +27,7 @@ class Cli_march extends Site_controller {
     if (!write_file ($path, json_encode (array ())))
       return array ('march' => $march, 'msg' => '寫入 json 檔案錯誤或失敗(1)！');
 
-    $r = $this->_get_paths ($march->id);
+    $r = $this->_get_paths ($march);
     $r = array (
         's' => $r['s'],
         'v' => $march->version,
@@ -70,10 +70,7 @@ class Cli_march extends Site_controller {
     return S3::putObjectFile ($path, $bucket, $s3_path, S3::ACL_PUBLIC_READ, array (), array ('Cache-Control' => 'max-age=315360000', 'Expires' => gmdate ('D, d M Y H:i:s T', strtotime ('+5 years'))));
   }
 
-  private function _get_paths ($march_id) {
-    if (!($march_id && ($march = March::find_by_id ($march_id))))
-      return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
-
+  private function _get_paths ($march) {
     $first = MarchPath::first (array ('select' => 'sqlite_id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
     $last = MarchPath::last (array ('select' => 'sqlite_id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
 

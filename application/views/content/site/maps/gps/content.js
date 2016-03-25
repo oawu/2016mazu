@@ -2,12 +2,11 @@
  * @author      OA Wu <comdan66@gmail.com>
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
-
 $(function () {
   // var ;
   // var 
   // var 
-  var _url1 = 'http://pic.mazu.ioa.tw/api/march/2/paths.json';
+  var _url1 = 'http://pic.mazu.ioa.tw/api/march/1/paths.json';
 
   var $map = $('#map'),
       $myLocation = $('#location'),
@@ -19,7 +18,6 @@ $(function () {
       $navigation = $('#navigation'),
       $length = $('#length'),
       _map = null,
-      _fixZindexTimer = null,
       _myMarker = null,
       _trafficLayer = null,
       _overflow = $body.css ('overflow'),
@@ -34,7 +32,8 @@ $(function () {
       _v = 0,
       _addresss = null,
       _polyline = null,
-      _isMoved = false
+      _isMoved = false,
+      _mazu = null;
 
 
 
@@ -46,19 +45,15 @@ $(function () {
   function setLoation (a, n) {
     // $.ajax ({url: _url4,data: { a: a, n: n },async: true, cache: false, dataType: 'json', type: 'POST'});
   }
-  function fixZindex (t) {
-    clearTimeout (_fixZindexTimer);
-    _fixZindexTimer = setTimeout (function () { $('img[src$="mazu.png"]').parents ('.gmnoprint').css ({'opacity': 1}); }, t);
-  }
+
   function initMap () {
     _map = new google.maps.Map ($map.get (0), { zoom: 16, zoomControl: true, scrollwheel: true, scaleControl: true, mapTypeControl: false, navigationControl: true, streetViewControl: false, disableDoubleClickZoom: true, center: new google.maps.LatLng (23.569396231491233, 120.3030703338623)});
     _map.mapTypes.set ('map_style', new google.maps.StyledMapType ([{ featureType: 'transit', stylers: [{ visibility: 'simplified' }] }, { featureType: 'poi', stylers: [{ visibility: 'simplified' }] }]));
     _map.setMapTypeId ('map_style');
 
     google.maps.event.addListener (_map, 'zoom_changed', function () {
-      fixZindex (500);
-      _map.zoom < 13 ? _map.zoom < 12 ? _map.zoom < 11 ? _times.forEach (function (t, i) { t.setMap (i % 4 ? null : _map); }) : _times.forEach (function (t, i) { t.setMap (i % 3 ? null : _map); }) : _times.forEach (function (t, i) { t.setMap (i % 2 ? null : _map); }) : _times.forEach (function (t, i) { t.setMap (_map); });
-      _map.zoom < 13 ? _infos.forEach (function (t, i) { t.setMap (null); }) : _infos.forEach (function (t, i) { t.setMap (_map); });
+      // _map.zoom < 13 ? _map.zoom < 12 ? _map.zoom < 11 ? _times.forEach (function (t, i) { t.setMap (i % 4 ? null : _map); }) : _times.forEach (function (t, i) { t.setMap (i % 3 ? null : _map); }) : _times.forEach (function (t, i) { t.setMap (i % 2 ? null : _map); }) : _times.forEach (function (t, i) { t.setMap (_map); });
+      // _map.zoom < 13 ? _infos.forEach (function (t, i) { t.setMap (null); }) : _infos.forEach (function (t, i) { t.setMap (_map); });
     });
     google.maps.event.addListener (_map, 'dragend', function () { _isMoved = true; });
   }
@@ -197,19 +192,37 @@ $(function () {
       if (result.l > 0) $length.html (result.l);
 
       _id = latlngs.last ().id;
-      
-      if (_markers.length) _markers.last ().setIcon ({ path: circlePath (4), strokeColor: 'rgba(249, 39, 114, 1)', strokeWeight: 1, fillColor: 'rgba(249, 39, 114, .8)', fillOpacity: 0.5 });
+      _times.forEach (function (t, i) { t.setMap (null); });
+      _times = [];
+
+      // if (_markers.length) _markers.last ().setIcon ({ path: circlePath (4), strokeColor: 'rgba(249, 39, 114, 1)', strokeWeight: 1, fillColor: 'rgba(249, 39, 114, .8)', fillOpacity: 0.5 });
 
       _markers = _markers.concat (latlngs.map (function (t, i) {
-        if ((i % 5 === 0) && (i !== latlngs.length - 1)) _times.push (new MarkerWithLabel ({ position: new google.maps.LatLng (t.lat, t.lng), draggable: false, raiseOnDrag: true, map: _map, labelContent: '' + $.timeago (t.time), labelAnchor: new google.maps.Point (0, 0), labelClass: 'time', icon: {path: 'M 0 0'} }));
-        return new google.maps.Marker ({ map: _map, zIndex: t.id, draggable: false, optimized: false, position: new google.maps.LatLng (t.lat, t.lng), icon: i == latlngs.length - 1 ? 'img/mazu.png' : { path: circlePath (4), strokeColor: 'rgba(255, 68, 170, 1)', strokeWeight: 1, fillColor: 'rgba(255, 68, 170, 1)', fillOpacity: 0.5 } });
+        // if ((i % 15 === 0) && (i !== latlngs.length - 1))
+        //  _times.push (new MarkerWithLabel ({ 
+        //   position: position, 
+        //   draggable: false, 
+        //   map: _map, 
+        //   zIndex: 1,
+        //   labelContent: '' + $.timeago (t.time), 
+        //   labelAnchor: new google.maps.Point (0, 0), labelClass: 'time', 
+        // }));
+
+        return new google.maps.Marker ({ timeString: $.timeago (t.time),  map: _map, zIndex: t.id, draggable: false, optimized: false, position: new google.maps.LatLng (t.lat, t.lng), icon: { path: circlePath (4), strokeColor: 'rgba(255, 68, 170, 1)', strokeWeight: 1, fillColor: 'rgba(255, 68, 170, 1)', fillOpacity: 0.5 } });
       }));
+
+      if (!_mazu) _mazu = new MarkerWithLabel ({ map: _map, draggable: false, optimized: false, labelContent: '<img src="' + result.c + '" />', labelAnchor: new google.maps.Point (40 / 2, 70), labelClass: 'mazu_icon'});
+      _mazu.setPosition (_markers.last ().position);
+      _mazu.setZIndex (999);
+
+      var u = parseInt (_markers.length / 10, 10);
+      _times = _markers.map (function (t, i) { return i % u ? null : new MarkerWithLabel ({position: t.position, draggable: false, map: _map, zIndex: 1, icon: {path: 'M 0 0'}, labelContent: t.timeString, labelAnchor: new google.maps.Point (-5, -5), labelClass: 'time'});}).filter (function (t) { return t; });
 
       new google.maps.Geocoder ().geocode ({'latLng': _markers.last ().position}, function (result, status) {
         if (!((status == google.maps.GeocoderStatus.OK) && result.length && (result = result[0]) && result.formatted_address))
           return;
 
-        if(!_addresss) _addresss = new MarkerWithLabel ({ position: _markers.last ().position, draggable: false, raiseOnDrag: true, map: _map, labelContent: '', labelAnchor: new google.maps.Point (0, 0), labelClass: 'address', icon: {path: 'M 0 0'} });
+        if(!_addresss) _addresss = new MarkerWithLabel ({ position: _markers.last ().position, draggable: false, map: _map, labelContent: '', labelAnchor: new google.maps.Point (10, -5), labelClass: 'address', icon: {path: 'M 0 0'} });
         _addresss.labelContent = result.formatted_address;
         _addresss.setPosition (_markers.last ().position);
       });
@@ -222,7 +235,6 @@ $(function () {
       _infos = [];
       _infos = result.i.map (function (t, i) { return new MarkerWithLabel ({ map: _map, zIndex: i, draggable: false, raiseOnDrag: false, clickable: false, optimized: false, labelContent: '<div class="c"><div>' + t.m.map (function (u) {return '<span>' + u + '</span>';}).join ('') + '</div></div><div class="b"></div>', labelAnchor: new google.maps.Point (130 / 2, 37 + 20 - 4 + (t.m.length - 1) * 23), labelClass: 'i ' + 'n' + t.m.length, icon: {path: 'M 0 0'}, position: new google.maps.LatLng (t.a, t.n) }); });
       
-      fixZindex (2000);
 
       if (isFirst) {
         _map.setCenter (_markers.last ().position);
