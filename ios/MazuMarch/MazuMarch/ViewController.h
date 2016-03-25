@@ -18,8 +18,12 @@
 @property UITextView *uploadLogTextView;
 @property UISwitch *switchButton;
 @property UILabel *switchLabel;
+@property UISegmentedControl *segmentedControl;
+
 @property CLLocationManager *locationManager;
 @property NSTimer *timer;
 @property BOOL isUpload;
+@property int marchId;
+
 @end
 

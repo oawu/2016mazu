@@ -71,28 +71,28 @@ class Cli_march extends Site_controller {
   }
 
   private function _get_paths ($march) {
-    $first = MarchPath::first (array ('select' => 'sqlite_id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
-    $last = MarchPath::last (array ('select' => 'sqlite_id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
+    $first = MarchPath::first (array ('select' => 'id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
+    $last = MarchPath::last (array ('select' => 'id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
 
     $point_ids = array ();
-    if (!($all_point_ids = column_array (MarchPath::find ('all', array ('select' => 'sqlite_id', 'order' => 'sqlite_id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND accuracy_horizontal < 70', $march->id))), 'sqlite_id')))
+    if (!($all_ids = column_array (MarchPath::find ('all', array ('select' => 'id', 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND accuracy_horizontal < 70', $march->id))), 'id')))
       return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
 
-    $c = count ($all_point_ids);
+    $c = count ($all_ids);
     $unit = $c < 10000 ? $c < 5000 ? $c < 2500 ? $c < 1500 ? $c < 1000 ? $c < 500 ? $c < 200 ? $c < 100 ? $c < 10 ? 0 : 0.01 : 0.05 : 0.15 : 0.3 : 0.46 : 1 : 1.5 : 2.3 : 3;
-    for ($i = 0; ($key = round (($i * (2 + ($i - 1) * $unit)) / 2)) < $all_point_ids[0]; $i++)
-      if ($temp = array_slice ($all_point_ids, $key, 1))
+    for ($i = 0; ($key = round (($i * (2 + ($i - 1) * $unit)) / 2)) < $all_ids[0]; $i++)
+      if ($temp = array_slice ($all_ids, $key, 1))
         array_push ($point_ids, array_shift ($temp));
-    if (!$point_ids) return $point_ids;
+    if (!$point_ids) return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
 
-    $paths = MarchPath::find ('all', array ('select' => 'sqlite_id,latitude2,longitude2,time_at', 'order' => 'id DESC', 'conditions' => array ('sqlite_id IN (?) AND march_id = ? AND is_enabled = 1', $point_ids, $march->id)));
+    $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'order' => 'id DESC', 'conditions' => array ('id IN (?) AND march_id = ? AND is_enabled = 1', $point_ids, $march->id)));
 
-    if ($paths[0]->sqlite_id != $last->sqlite_id) array_unshift ($paths, $last);
-    if ($paths[count ($paths) - 1]->sqlite_id != $first->sqlite_id) array_push ($paths, $first);
+    if ($paths[0]->id != $last->id) array_unshift ($paths, $last);
+    if ($paths[count ($paths) - 1]->id != $first->id) array_push ($paths, $first);
 
     $paths = array_map (function ($path) {
       return array (
-            'i' => $path->sqlite_id,
+            'i' => $path->id,
             'a' => $path->latitude2,
             'n' => $path->longitude2,
             't' => $path->time_at->format ('Y-m-d H:i:s')

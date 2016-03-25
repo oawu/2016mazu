@@ -22,6 +22,8 @@
 }
 
 - (void)initUI {
+    self.marchId = 1;
+
     self.locationManager = [CLLocationManager new];
     [self.locationManager setDelegate:self];
     [self.locationManager setDistanceFilter:0];
@@ -49,6 +51,15 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.switchLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeCenterY multiplier:1 constant:0.0]];
     
     
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"十九早", @"十九中", @"十九晚", @"二十早", @"二十中", @"二十晚"]];
+    [self.segmentedControl setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.segmentedControl addTarget:self action:@selector(chooseOne:) forControlEvents:UIControlEventValueChanged];
+    [self.segmentedControl setSelectedSegmentIndex:self.marchId - 1];
+    
+    [self.view addSubview:self.segmentedControl];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.switchLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
+    
     
     self.uploadLogTextView = [UITextView new];
     [self.uploadLogTextView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -75,11 +86,15 @@
     [self.locationLogTextView setClipsToBounds:YES];
     
     [self.view addSubview:self.locationLogTextView];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeBottom multiplier:1 constant:20.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.segmentedControl attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1 constant:10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:-10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.uploadLogTextView attribute:NSLayoutAttributeTop multiplier:1 constant:-10.0]];
 }
+- (void)chooseOne:(id)sender {
+    self.marchId = (int)[sender selectedSegmentIndex] + 1;
+}
+
 -(void)setState:(id)sender {
     BOOL state = [sender isOn];
     if (state) {
@@ -98,12 +113,19 @@
         [self.locationManager startMonitoringSignificantLocationChanges];
         [self locationLog:@"開啟定位系統"];
         [self locationLog:@"----------------------------------------"];
-
-        self.isUpload = NO;
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:PATH_FETCH_TIMER target:self selector:@selector(uploadPaths) userInfo:nil repeats:YES];
-        [self locationLog:@"開啟計時器"];
+        
+        
+        [self.segmentedControl setEnabled:NO];
+        [self locationLog:@"鎖定選擇器"];
         [self locationLog:@"----------------------------------------"];
         
+        
+        self.isUpload = NO;
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:PATH_FETCH_TIMER target:self selector:@selector(uploadPaths) userInfo:nil repeats:YES];
+        [self uploadLog:@"開啟計時器"];
+        [self uploadLog:@"----------------------------------------"];
+        
+//        segmentedControl
         [self.switchLabel setText:@"開啟"];
         [self locationLog:@"已開啟"];
         [self uploadLog:@"已開啟"];
@@ -122,8 +144,13 @@
         [self locationLog:@"----------------------------------------"];
         [self.timer invalidate];
         self.timer = nil;
-        [self locationLog:@"關閉計時器"];
-
+        [self uploadLog:@"關閉計時器"];
+        
+        [self.segmentedControl setEnabled:YES];
+        [self locationLog:@"開啟選擇器"];
+        [self locationLog:@"----------------------------------------"];
+        
+        
         [self uploadPaths];
         
         [self locationLog:@"----------------------------------------"];
@@ -141,7 +168,7 @@
     [self uploadLog:@"----------------------------------------"];
     [self uploadLog:@"上傳路徑"];
 
-    NSArray *paths = [Path findAll: @{@"limit": @UPLOAD_PATHS_LIMIT}];
+    NSArray *paths = [Path findAll: @{@"order": @"id DESC", @"limit": @UPLOAD_PATHS_LIMIT}];
 
     if (((int)[paths count]) < 1) {
 //        self.isUpload = NO;
@@ -160,7 +187,7 @@
     
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
-    [httpManager POST:[NSString stringWithFormat:API_POST_MARCH_PAYHS, MARCH_ID]
+    [httpManager POST:[NSString stringWithFormat:API_POST_MARCH_PAYHS, self.marchId]
            parameters:data
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   

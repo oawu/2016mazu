@@ -18,67 +18,57 @@ class March_paths extends Api_controller {
 
   public function create () {
     $paths = ($paths = OAInput::post ('p')) ? $paths : array ();
-    $paths = array_map (function (&$post) {
-      if (!(isset ($post['id']) && is_numeric ($post['id'] = trim ($post['id'])))) return false; $post['sqlite_id'] = $post['id']; unset ($post['id']);    
-      if (!(isset ($post['a']) && is_numeric ($post['a'] = trim ($post['a'])))) return false; $post['latitude'] = $post['a']; unset ($post['a']);
-      if (!(isset ($post['n']) && is_numeric ($post['n'] = trim ($post['n'])))) return false; $post['longitude'] = $post['n']; unset ($post['n']);
-      if (!(isset ($post['h']) && is_numeric ($post['h'] = trim ($post['h'])))) return false; $post['accuracy_horizontal'] = $post['h']; unset ($post['h']);
-      if (!(isset ($post['v']) && is_numeric ($post['v'] = trim ($post['v'])))) return false; $post['accuracy_vertical'] = $post['v']; unset ($post['v']);
-      if (!(isset ($post['l']) && is_numeric ($post['l'] = trim ($post['l'])))) return false; $post['altitude'] = $post['l']; unset ($post['l']);
-      if (!(isset ($post['s']) && is_numeric ($post['s'] = trim ($post['s'])))) return false; $post['speed'] = $post['s']; unset ($post['s']);
-      if (!(isset ($post['t']) && $post['t'] = trim ($post['t']))) return false; $post['time_at'] = $post['t']; unset ($post['t']);
+    if (!$paths) return $this->output_json (array ('ids' => array ()));
+
+    $march = $this->march;
+    $last = MarchPath::find ('one', array (
+        'select' => 'time_at',
+        'order' => 'time_at DESC',
+        'conditions' => array ('march_id = ?', $march->id)
+      ));
+
+    $paths = array_filter (array_map (function ($post) use ($last) {
+      if (!(isset ($post['id']) && is_numeric ($post['id'] = trim ($post['id'])))) return null;
+      if (!(isset ($post['a']) && is_numeric ($post['a'] = trim ($post['a'])))) return null;
+      if (!(isset ($post['n']) && is_numeric ($post['n'] = trim ($post['n'])))) return null;
+      if (!(isset ($post['h']) && is_numeric ($post['h'] = trim ($post['h'])))) return null;
+      if (!(isset ($post['v']) && is_numeric ($post['v'] = trim ($post['v'])))) return null;
+      if (!(isset ($post['l']) && is_numeric ($post['l'] = trim ($post['l'])))) return null;
+      if (!(isset ($post['s']) && is_numeric ($post['s'] = trim ($post['s'])))) return null;
+      if (!(isset ($post['t']) && ($post['t'] = trim ($post['t'])))) return null;
+      
+      $post['sqlite_id'] = $post['id'];
+      $post['latitude'] = $post['a'];
+      $post['longitude'] = $post['n'];
+      $post['accuracy_horizontal'] = $post['h'];
+      $post['accuracy_vertical'] = $post['v'];
+      $post['altitude'] = $post['l'];
+      $post['speed'] = $post['s'];
+      $post['time_at'] = $post['t'];
       $post['latitude2'] = $post['latitude'];
       $post['longitude2'] = $post['longitude'];
       $post['is_enabled'] = 1;
 
-      return $post;
-    }, $paths);
+      unset ($post['id'], $post['a'], $post['n'], $post['h'], $post['v'], $post['l'], $post['s'], $post['t']);
 
-    $march = $this->march;
-    $paths = array_filter ($paths, function (&$path) use ($march) {
-      $create = MarchPath::transaction (function () use (&$path, $march) {
-        if (!(verifyCreateOrm ($path = MarchPath::create (array_intersect_key (array_merge ($path, array ('march_id' => $march->id)), MarchPath::table ()->columns)))))
-          return false;
-
-        if ($march->is_finished && !($march->is_finished = 0))
-          $march->save ();
-
-        return true;
-      });
-      return $create;
+      return !$last || $post['time_at'] > $last->time_at ? $post : null;
+    }, $paths));
+  
+    if (!$paths) return $this->output_json (array ('ids' => array ()));
+  
+    usort ($paths, function ($a, $b) {
+      return $a['time_at'] > $b['time_at'];
     });
+
+    $paths = array_filter ($paths, function ($path) use ($march) {
+      return MarchPath::transaction (function () use ($path, $march) {
+        return verifyCreateOrm (MarchPath::create (array_intersect_key (array_merge ($path, array ('march_id' => $march->id)), MarchPath::table ()->columns)));
+      });
+    });
+
     $paths = column_array ($paths, 'sqlite_id');
     $sqlite_ids = array_slice ($paths, 0);
     
-    // $path1 = MarchPath::find ('one', array (
-    //     'select' => 'id,latitude2,longitude2,is_enabled',
-    //     'order' => 'sqlite_id DESC',
-    //     'conditions' => array ('march_id = ?', $march->id)
-    //   ));
-    // $path2 = MarchPath::find ('one', array (
-    //     'select' => 'id,latitude2,longitude2',
-    //     'order' => 'sqlite_id DESC',
-    //     'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)
-    //   ));
-
-    // if ($path1 && !$path2) {
-    //     MarchPath::transaction (function () use ($path1) {
-    //       $path1->is_enabled = 1;
-    //       return $path1->save ();
-    //     });
-    // } else if ($path1 && $path2 && ($path1->id != $path2->id)) {
-    //   $this->load->library ('SphericalGeometry');
-    //   $l = SphericalGeometry::computeLength (array_map (function ($path) {
-    //       return new LatLng ($path->latitude2, $path->longitude2);
-    //     }, array ($path1, $path2)));
-
-    //   if ($l > 5)
-    //     MarchPath::transaction (function () use ($path1) {
-    //       $path1->is_enabled = 1;
-    //       return $path1->save ();
-    //     });
-    // }
-
     return $this->output_json (array ('ids' => $sqlite_ids));
   }
 
