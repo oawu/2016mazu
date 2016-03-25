@@ -26,7 +26,7 @@ class March_paths extends Api_controller {
       if (!(isset ($post['v']) && is_numeric ($post['v'] = trim ($post['v'])))) return false; $post['accuracy_vertical'] = $post['v']; unset ($post['v']);
       if (!(isset ($post['l']) && is_numeric ($post['l'] = trim ($post['l'])))) return false; $post['altitude'] = $post['l']; unset ($post['l']);
       if (!(isset ($post['s']) && is_numeric ($post['s'] = trim ($post['s'])))) return false; $post['speed'] = $post['s']; unset ($post['s']);
-      if (!(isset ($post['t']) && $post['t'] = trim ($post['t']))) return false; $post['create_time'] = $post['t']; unset ($post['t']);
+      if (!(isset ($post['t']) && $post['t'] = trim ($post['t']))) return false; $post['time_at'] = $post['t']; unset ($post['t']);
       $post['latitude2'] = $post['latitude'];
       $post['longitude2'] = $post['longitude'];
       $post['is_enabled'] = 0;
@@ -61,7 +61,12 @@ class March_paths extends Api_controller {
         'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)
       ));
 
-    if ($path1 && $path2 && ($path1->id != $path2->id)) {
+    if ($path1 && !$path2) {
+        MarchPath::transaction (function () use ($path1) {
+          $path1->is_enabled = 1;
+          return $path1->save ();
+        });
+    } else if ($path1 && $path2 && ($path1->id != $path2->id)) {
       $this->load->library ('SphericalGeometry');
       $l = SphericalGeometry::computeLength (array_map (function ($path) {
           return new LatLng ($path->latitude2, $path->longitude2);
