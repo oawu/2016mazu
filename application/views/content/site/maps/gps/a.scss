@@ -12,7 +12,7 @@
   }
 }
 .time, .address {
-  background-color: rgba(255, 255, 255, .8);
+  background-color: rgba(255, 255, 255, 1);
   padding: 3px 5px;
   width: 100px;
   font-size: 10px;
@@ -25,8 +25,8 @@
 }
 .address {
   width: auto;
-  background-color: rgba(0, 137, 123, 1.00);
-  color: rgba(250, 250, 250, 1.00);
+  background-color: rgba(248, 187, 208, 1.00);
+  // color: rgba(250, 250, 250, 1.00);
   @include opacity(1);
 }
 

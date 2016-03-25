@@ -33,7 +33,8 @@ $(function () {
       _addresss = null,
       _polyline = null,
       _isMoved = false,
-      _mazu = null;
+      _mazu = null,
+      _loadDataTime = 30000
 
 
 
@@ -246,13 +247,10 @@ $(function () {
     });
   }
   function initialize () {
-    // _markers.push (new google.maps.LatLng (23.569396231491233, 120.3030703338623));
     initMap ();
     initButtons ();
     loadData (true);
-    // setInterval (loadData, _loadDataTime);
-
-    // navigator.geolocation.getCurrentPosition (function (location) { setLoation (location.coords.latitude, location.coords.longitude); }, function () {});
+    setInterval (loadData, _loadDataTime);
   }
   google.maps.event.addDomListener (window, 'load', initialize);
 
