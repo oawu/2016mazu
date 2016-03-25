@@ -28,13 +28,12 @@ $(function () {
       _isLoadPath = false,
       _c = 0,
       _cl = 36,
-      _id = 0,
       _v = 0,
       _addresss = null,
       _polyline = null,
       _isMoved = false,
       _mazu = null,
-      _loadDataTime = 30000
+      _loadDataTime = 10000
 
 
 
@@ -186,39 +185,33 @@ $(function () {
       if (_v === 0) _v = result.v;
       if (_v != result.v) return location.reload ();
       if (!result.s) { if (isFirst) window.hideLoading (); return ; }
-
-      var latlngs = result.p.filter (function (t) { return t.i > _id; }).map (function (t) { return {id: t.i, lat: t.a, lng: t.n, time: t.t}; });
-      if (!latlngs.length) { if (isFirst) window.hideLoading (); return ; }
+      if (!result.p.length) { if (isFirst) window.hideLoading (); return ; }
 
       if (result.l > 0) $length.html (result.l);
 
-      _id = latlngs.last ().id;
       _times.forEach (function (t, i) { t.setMap (null); });
-      _times = [];
+      _infos.forEach (function (t) { t.setMap (null); });
+      _times = _markers = _infos = [];
 
-      // if (_markers.length) _markers.last ().setIcon ({ path: circlePath (4), strokeColor: 'rgba(249, 39, 114, 1)', strokeWeight: 1, fillColor: 'rgba(249, 39, 114, .8)', fillOpacity: 0.5 });
+      _markers = result.p.map (function (t, i) {
+        return {
+          timeString: $.timeago (t.t),
+          position: new google.maps.LatLng (t.a, t.n)
+        };
+      });
 
-      _markers = _markers.concat (latlngs.map (function (t, i) {
-        // if ((i % 15 === 0) && (i !== latlngs.length - 1))
-        //  _times.push (new MarkerWithLabel ({ 
-        //   position: position, 
-        //   draggable: false, 
-        //   map: _map, 
-        //   zIndex: 1,
-        //   labelContent: '' + $.timeago (t.time), 
-        //   labelAnchor: new google.maps.Point (0, 0), labelClass: 'time', 
-        // }));
-
-        return new google.maps.Marker ({ timeString: $.timeago (t.time),  map: _map, zIndex: t.id, draggable: false, optimized: false, position: new google.maps.LatLng (t.lat, t.lng), icon: { path: circlePath (4), strokeColor: 'rgba(255, 68, 170, 1)', strokeWeight: 1, fillColor: 'rgba(255, 68, 170, 1)', fillOpacity: 0.5 } });
-      }));
-
-      if (!_mazu) _mazu = new MarkerWithLabel ({ map: _map, draggable: false, optimized: false, labelContent: '<img src="' + result.c + '" />', labelAnchor: new google.maps.Point (40 / 2, 70), labelClass: 'mazu_icon'});
+      if (!_mazu) _mazu = new MarkerWithLabel ({ map: _map, draggable: false, optimized: false, labelContent: '<img src="' + result.c + '" />', icon: {path: 'M 0 0'}, labelAnchor: new google.maps.Point (40 / 2, 70), labelClass: 'mazu_icon'});
       _mazu.setPosition (_markers.last ().position);
       _mazu.setZIndex (999);
 
       var u = parseInt (_markers.length / 10, 10);
-      _times = _markers.map (function (t, i) { return i % u ? null : new MarkerWithLabel ({position: t.position, draggable: false, map: _map, zIndex: 1, icon: {path: 'M 0 0'}, labelContent: t.timeString, labelAnchor: new google.maps.Point (-5, -5), labelClass: 'time'});}).filter (function (t) { return t; });
+      _times = _markers.map (function (t, i) { return i % u ? null : new MarkerWithLabel ({position: t.position, draggable: false, map: _map, zIndex: 1, icon: { path: circlePath (4), strokeColor: 'rgba(255, 68, 170, 1)', strokeWeight: 1, fillColor: 'rgba(255, 68, 170, 1)', fillOpacity: 0.5 }, labelContent: t.timeString, labelAnchor: new google.maps.Point (-5, -5), labelClass: 'time'});}).filter (function (t) { return t; });
 
+      _infos = result.i.map (function (t, i) { return new MarkerWithLabel ({ map: _map, zIndex: i, draggable: false, raiseOnDrag: false, clickable: false, optimized: false, labelContent: '<div class="c"><div>' + t.m.map (function (u) {return '<span>' + u + '</span>';}).join ('') + '</div></div><div class="b"></div>', labelAnchor: new google.maps.Point (130 / 2, 37 + 20 - 4 + (t.m.length - 1) * 23), labelClass: 'i ' + 'n' + t.m.length, icon: {path: 'M 0 0'}, position: new google.maps.LatLng (t.a, t.n) }); });
+
+      if (!_polyline) _polyline = new google.maps.Polyline ({ map: _map, strokeColor: 'rgba(249, 39, 114, .45)', strokeWeight: 5 });
+      _polyline.setPath (_markers.map (function (t) { return t.position; }));
+      
       new google.maps.Geocoder ().geocode ({'latLng': _markers.last ().position}, function (result, status) {
         if (!((status == google.maps.GeocoderStatus.OK) && result.length && (result = result[0]) && result.formatted_address))
           return;
@@ -228,14 +221,6 @@ $(function () {
         _addresss.setPosition (_markers.last ().position);
       });
 
-      if (!_polyline) _polyline = new google.maps.Polyline ({ map: _map, strokeColor: 'rgba(249, 39, 114, .45)', strokeWeight: 5 });
-      _polyline.setPath (_markers.map (function (t) { return t.position; }));
-
-      
-      _infos.forEach (function (t) { t.setMap (null); });
-      _infos = [];
-      _infos = result.i.map (function (t, i) { return new MarkerWithLabel ({ map: _map, zIndex: i, draggable: false, raiseOnDrag: false, clickable: false, optimized: false, labelContent: '<div class="c"><div>' + t.m.map (function (u) {return '<span>' + u + '</span>';}).join ('') + '</div></div><div class="b"></div>', labelAnchor: new google.maps.Point (130 / 2, 37 + 20 - 4 + (t.m.length - 1) * 23), labelClass: 'i ' + 'n' + t.m.length, icon: {path: 'M 0 0'}, position: new google.maps.LatLng (t.a, t.n) }); });
-      
 
       if (isFirst) {
         _map.setCenter (_markers.last ().position);
