@@ -16,38 +16,52 @@ class Cli_march extends Site_controller {
     }
   }
 
-  public function index ($march_id = 1) {
-    $version = 1;
-    $log = CrontabLog::start ('每 1 分鐘更新路線');
-
-    $path = FCPATH . 'temp/march_' . $march_id . '_paths.json';
-    $s3_path = 'api/march/' . $march_id . '/paths.json';
+  private function _update_paths ($march) {
+    $path = FCPATH . 'temp/march_' . $march->id . '_paths.json';
+    $s3_path = 'api/march/' . $march->id . '/paths.json';
 
     if (file_exists ($path))
-      return $this->_error ($log, '上一次還沒完成，或還沒清除檔案！', base_url ('api', 'baishatun', 'clear_api'));
+      return array ('march' => $march, 'msg' => '上一次還沒完成，或還沒清除檔案！');
 
     $this->load->helper ('file');
     if (!write_file ($path, json_encode (array ())))
-      return $this->_error ($log, '寫入 json 檔案錯誤或失敗！');
+      return array ('march' => $march, 'msg' => '寫入 json 檔案錯誤或失敗(1)！');
 
-    $r = $this->_get_paths ($march_id);
+    $r = $this->_get_paths ($march->id);
     $r = array (
         's' => $r['s'],
-        'v' => $version,
+        'v' => $march->version,
         't' => date ('Y-m-d H:i:s'),
         'l' => $r['l'],
+        'c' => $march->icon,
         'i' => $r['i'],
         'p' => $r['p'],
       );
 
     if (!write_file ($path, json_encode ($r)))
-      return $this->_error ($log, '寫入 json 檔案錯誤或失敗！');
+      return array ('march' => $march, 'msg' => '寫入 json 檔案錯誤或失敗(2)！');
+
+    $msg = array ();
 
     if (!$this->_put_s3 ($path, $s3_path))
-      $this->_error ($log, '丟到 S3 失敗！');
+      $msg = array ('march' => $march, 'msg' => '丟到 S3 失敗！');
 
-    $log->finish ();
-    return @unlink ($path) ? true : $this->_error ($log, '刪除 json 失敗！', base_url ('api', 'baishatun', 'clear_api'));
+    if (!@unlink ($path))
+      $msg = array ('march' => $march, 'msg' => '刪除 json 失敗！');
+
+    return $msg;
+  }
+  public function index () {
+    $version = 1;
+
+    $log = CrontabLog::start ('每 1 分鐘更新路線');
+    $marches = March::find ('all', array ('conditions' => array ('is_enabled = 1')));
+
+    foreach ($marches as $march)
+      if ($re = $this->_update_paths ($march))
+        $this->_error ($log, $re['march']->title . '(' . $re['march']->id . ')' . $re['msg']);
+
+    return $log->finish ();
   }
 
   private function _put_s3 ($path, $s3_path) {
@@ -112,14 +126,14 @@ class Cli_march extends Site_controller {
 
   private function _error ($log, $msg = '不明原因錯誤！', $url = '') {
       $log->error ($msg);
-      $this->mail ($url ? array (
-          '錯誤原因' => $msg,
-          '清除網址' => '<a href="' . $url . '">點我</a>',
-          '錯誤時間' => date ('Y-m-d H:i:s'),
-        ) : array (
-          '錯誤原因' => $msg,
-          '錯誤時間' => date ('Y-m-d H:i:s'),
-        ));
+      // $this->mail ($url ? array (
+      //     '錯誤原因' => $msg,
+      //     '清除網址' => '<a href="' . $url . '">點我</a>',
+      //     '錯誤時間' => date ('Y-m-d H:i:s'),
+      //   ) : array (
+      //     '錯誤原因' => $msg,
+      //     '錯誤時間' => date ('Y-m-d H:i:s'),
+      //   ));
       return true;
   }
 }

@@ -7,10 +7,7 @@ $(function () {
   // var ;
   // var 
   // var 
-  var _url1 = 'http://pic.mazu.ioa.tw/api/march/1/paths.json';
-  
-
-
+  var _url1 = 'http://pic.mazu.ioa.tw/api/march/2/paths.json';
 
   var $map = $('#map'),
       $myLocation = $('#location'),
