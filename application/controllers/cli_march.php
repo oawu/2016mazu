@@ -85,8 +85,8 @@ class Cli_march extends Site_controller {
         array_push ($point_ids, array_shift ($temp));
     if (!$point_ids) return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
 
-    $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'order' => 'id DESC', 'conditions' => array ('id IN (?) AND march_id = ? AND is_enabled = 1', $point_ids, $march->id)));
-    // $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
+    // $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'order' => 'id DESC', 'conditions' => array ('id IN (?) AND march_id = ? AND is_enabled = 1', $point_ids, $march->id)));
+    $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
 
     if ($paths[0]->id != $last->id) array_unshift ($paths, $last);
     if ($paths[count ($paths) - 1]->id != $first->id) array_push ($paths, $first);
