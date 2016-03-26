@@ -200,18 +200,18 @@ $(function () {
         };
       });
 
+      if (!_polyline) _polyline = new google.maps.Polyline ({ map: _map, strokeColor: 'rgba(249, 39, 114, .45)', strokeWeight: 5 });
+      _polyline.setPath (_markers.map (function (t) { return t.position; }));
+
       if (!_mazu) _mazu = new MarkerWithLabel ({ map: _map, draggable: false, optimized: false, labelContent: '<img src="' + result.c + '" />', icon: {path: 'M 0 0'}, labelAnchor: new google.maps.Point (40 / 2, 70), labelClass: 'mazu_icon'});
       _mazu.setPosition (_markers.last ().position);
       _mazu.setZIndex (999);
 
       var u = parseInt (_markers.length / 10, 10);
-      _times = _markers.map (function (t, i) { return i % u ? null : new MarkerWithLabel ({position: t.position, draggable: false, map: _map, zIndex: 1, icon: { path: circlePath (4), strokeColor: 'rgba(255, 68, 170, 1)', strokeWeight: 1, fillColor: 'rgba(255, 68, 170, 1)', fillOpacity: 0.5 }, labelContent: t.timeString, labelAnchor: new google.maps.Point (-5, -5), labelClass: 'time'});}).filter (function (t) { return t; });
+      _times = _markers.map (function (t, i) { return i % u ? null : new MarkerWithLabel ({position: t.position, draggable: false, map: _map, zIndex: 1, icon: { path: circlePath (3), strokeColor: 'rgba(255, 68, 170, 1)', strokeWeight: 1, fillColor: 'rgba(255, 68, 170, 1)', fillOpacity: 0.5 }, labelContent: t.timeString, labelAnchor: new google.maps.Point (-5, -5), labelClass: 'time'});}).filter (function (t) { return t; });
 
       _infos = result.i.map (function (t, i) { return new MarkerWithLabel ({ map: _map, zIndex: i, draggable: false, raiseOnDrag: false, clickable: false, optimized: false, labelContent: '<div class="c"><div>' + t.m.map (function (u) {return '<span>' + u + '</span>';}).join ('') + '</div></div><div class="b"></div>', labelAnchor: new google.maps.Point (130 / 2, 37 + 20 - 4 + (t.m.length - 1) * 23), labelClass: 'i ' + 'n' + t.m.length, icon: {path: 'M 0 0'}, position: new google.maps.LatLng (t.a, t.n) }); });
 
-      if (!_polyline) _polyline = new google.maps.Polyline ({ map: _map, strokeColor: 'rgba(249, 39, 114, .45)', strokeWeight: 5 });
-      _polyline.setPath (_markers.map (function (t) { return t.position; }));
-      
       new google.maps.Geocoder ().geocode ({'latLng': _markers.last ().position}, function (result, status) {
         if (!((status == google.maps.GeocoderStatus.OK) && result.length && (result = result[0]) && result.formatted_address))
           return;

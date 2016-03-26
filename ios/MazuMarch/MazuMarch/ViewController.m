@@ -23,6 +23,7 @@
 
 - (void)initUI {
     self.marchId = 1;
+    self.distance = 1;
 
     self.locationManager = [CLLocationManager new];
     [self.locationManager setDelegate:self];
@@ -30,6 +31,7 @@
     [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     [self.locationManager setAllowsBackgroundLocationUpdates:YES];
     [self.locationManager requestAlwaysAuthorization];
+    [self.locationManager setDistanceFilter:self.distance];
     
     self.switchButton = [UISwitch new];
     [self.switchButton setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -49,6 +51,31 @@
     [self.view addSubview:self.switchLabel];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.switchLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeRight multiplier:1 constant:10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.switchLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeCenterY multiplier:1 constant:0.0]];
+    
+    
+    self.stepperLabel = [UILabel new];
+    [self.stepperLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.stepperLabel setText:[NSString stringWithFormat:@"%d 公尺", self.distance]];
+
+    
+    [self.view addSubview:self.stepperLabel];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.stepperLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:-10.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.stepperLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeCenterY multiplier:1 constant:0.0]];
+    
+
+
+    self.stepper = [UIStepper new];
+    [self.stepper setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.stepper setMaximumValue:10.0];
+    [self.stepper setMinimumValue:0];
+    [self.stepper setValue:self.distance];
+    [self.stepper addTarget:self action:@selector(stepperChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    
+    [self.view addSubview:self.stepper];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.stepper attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.stepperLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:-10.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.stepper attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeCenterY multiplier:1 constant:0.0]];
+    
     
     
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"十九早", @"十九中", @"十九晚", @"二十早", @"二十中", @"二十晚"]];
@@ -91,6 +118,15 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:-10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.uploadLogTextView attribute:NSLayoutAttributeTop multiplier:1 constant:-10.0]];
 }
+
+- (void)stepperChanged:(UIStepper*)sender {
+    self.distance = (int)[sender value];
+    [self.stepperLabel setText:[NSString stringWithFormat:@"%d 公尺", self.distance]];
+    [self.locationManager setDistanceFilter:self.distance];
+    [self locationLog:[NSString stringWithFormat:@"設定 %d 公尺觸發", self.distance]];
+    [self locationLog:@"----------------------------------------"];
+}
+
 - (void)chooseOne:(id)sender {
     self.marchId = (int)[sender selectedSegmentIndex] + 1;
 }
@@ -119,13 +155,17 @@
         [self locationLog:@"鎖定選擇器"];
         [self locationLog:@"----------------------------------------"];
         
+
+        [self.stepper setEnabled:NO];
+        [self locationLog:@"鎖定級距器"];
+        [self locationLog:@"----------------------------------------"];
         
         self.isUpload = NO;
         self.timer = [NSTimer scheduledTimerWithTimeInterval:PATH_FETCH_TIMER target:self selector:@selector(uploadPaths) userInfo:nil repeats:YES];
         [self uploadLog:@"開啟計時器"];
         [self uploadLog:@"----------------------------------------"];
         
-//        segmentedControl
+
         [self.switchLabel setText:@"開啟"];
         [self locationLog:@"已開啟"];
         [self uploadLog:@"已開啟"];
@@ -148,6 +188,10 @@
         
         [self.segmentedControl setEnabled:YES];
         [self locationLog:@"開啟選擇器"];
+        [self locationLog:@"----------------------------------------"];
+        
+        [self.stepper setEnabled:YES];
+        [self locationLog:@"開啟級距器"];
         [self locationLog:@"----------------------------------------"];
         
         
@@ -178,7 +222,28 @@
 //        self.isUpload = NO;
         [self uploadLog:@"----------------------------------------"];
         [self uploadLog:@"沒有節點！"];
-//        return;
+        [self locationManager: self.locationManager didUpdateLocations: @[self.locationManager.location]];
+        [self uploadLog:@"強制取點！"];
+//
+//        CLLocation *location = self.locationManager.location;
+//        double a = location.coordinate.latitude;
+//        double n = location.coordinate.longitude;
+//        double s = location.speed;
+//        double l = location.altitude;
+//        double h = location.horizontalAccuracy;
+//        double v = location.verticalAccuracy;
+//        
+//        [self locationLog:[NSString stringWithFormat:@"----------------------------------------\n  經度：%.5f\n  緯度：%.5f\n  速度：%.3f Km/H\n  海拔高度：%.1f 公尺\n  水平準度：%.1f 公尺\n  海拔準度：%.1f 公尺\n  目前時間：%@", a, n, s, l, h, v, t]];
+//        [Path create:@{
+//                       @"a": [NSString stringWithFormat:@"%f", a],
+//                       @"n": [NSString stringWithFormat:@"%f", n],
+//                       @"l": [NSString stringWithFormat:@"%f", l],
+//                       @"h": [NSString stringWithFormat:@"%f", h],
+//                       @"v": [NSString stringWithFormat:@"%f", v],
+//                       @"s": [NSString stringWithFormat:@"%f", s],
+//                       @"t": t
+//                       }];
+        
     }
     
     NSMutableDictionary *parameters = [NSMutableDictionary new];

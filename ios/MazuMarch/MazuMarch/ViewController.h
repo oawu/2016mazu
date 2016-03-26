@@ -19,11 +19,14 @@
 @property UISwitch *switchButton;
 @property UILabel *switchLabel;
 @property UISegmentedControl *segmentedControl;
+@property UIStepper *stepper;
+@property UILabel *stepperLabel;
 
 @property CLLocationManager *locationManager;
 @property NSTimer *timer;
 @property BOOL isUpload;
 @property int marchId;
+@property int distance;
 
 @end
 
