@@ -47,7 +47,7 @@ class March_paths extends Api_controller {
       $post['time_at'] = $post['t'];
       $post['latitude2'] = $post['latitude'];
       $post['longitude2'] = $post['longitude'];
-      $post['is_enabled'] = 1;
+      $post['is_enabled'] = $post['accuracy_horizontal'] < 100 ? 1 : 0;
 
       unset ($post['id'], $post['a'], $post['n'], $post['h'], $post['v'], $post['l'], $post['s'], $post['t']);
 

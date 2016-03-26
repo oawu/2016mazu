@@ -75,7 +75,7 @@ class Cli_march extends Site_controller {
     $last = MarchPath::last (array ('select' => 'id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
 
     $point_ids = array ();
-    if (!($all_ids = column_array (MarchPath::find ('all', array ('select' => 'id', 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND accuracy_horizontal < 70', $march->id))), 'id')))
+    if (!($all_ids = column_array (MarchPath::find ('all', array ('select' => 'id', 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id))), 'id')))
       return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
 
     $c = count ($all_ids);

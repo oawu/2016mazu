@@ -165,8 +165,12 @@
     if (self.isUpload) return;
     self.isUpload = YES;
     
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *t = [dateFormatter stringFromDate:[NSDate date]];
+    
     [self uploadLog:@"----------------------------------------"];
-    [self uploadLog:@"上傳路徑"];
+    [self uploadLog:[NSString stringWithFormat:@"上傳路徑: %@", t]];
 
     NSArray *paths = [Path findAll: @{@"order": @"id DESC", @"limit": @UPLOAD_PATHS_LIMIT}];
 

@@ -30,7 +30,6 @@ class Migration_Add_march_paths extends CI_Migration {
         PRIMARY KEY (`id`),
         KEY `march_id_is_enabled_index` (`march_id`, `is_enabled`),
         KEY `id_march_id_is_enabled_index` (`id`, `march_id`, `is_enabled`),
-        KEY `march_id_is_enabled_accuracy_horizontal_index` (`march_id`, `is_enabled`, `accuracy_horizontal`),
         FOREIGN KEY (`march_id`) REFERENCES `marches` (`id`) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
     );
