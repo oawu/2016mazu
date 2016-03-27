@@ -28,5 +28,7 @@
 @property int marchId;
 @property int distance;
 
+@property UIBackgroundTaskIdentifier *backgroundTaskIdentifier;
+
 @end
 

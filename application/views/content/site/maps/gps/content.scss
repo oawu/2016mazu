@@ -163,6 +163,7 @@
   #like {
     position: absolute;
     left: 10px;
+    bottom: 45px;
     @media screen and (min-width: 0px) and (max-width: #{350px - 1px}) {
       bottom: 40px;
       left: 5px;
@@ -698,52 +699,65 @@ $w: 225px;
     overflow: hidden;
     overflow-y: auto;
 
-    > span {
+    &:before, &:after {
       display: inline-block;
       width: 100%;
-
-      &:nth-child(1) {
-        // border-bottom: 1px solid rgba(39, 40, 34, .3);
-        padding: 3px;
-        font-size: 12px;
-        background-color: rgba(255, 255, 255, 1.00);
-        @include box-shadow(0 0 1px rgba(95, 95, 95, 1));
-        color: rgba(220, 64, 48, 1.00);
-      }
-      &:nth-child(2) {
-        position: relative;
-        text-align: center;
-        margin-top: 15px;
-        color: rgba(39, 40, 34, .55);
-
-        &:before, &:after {
-          content: '';
-          position: absolute;
-          left: 5px;
-          top: 50%;
-          display: inline-block;
-          width: 25%;
-          height: 1px;
-          background-color: rgba(39, 40, 34, .25);
-        }
-        &:after {
-          left: auto;
-          right: 5px;
-        }
-      }
-      &:nth-child(3) {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        background-color: rgba(255, 255, 255, .95);
-        z-index: 1;
-        color: rgba(55, 55, 55, .75);
-        text-align: center;
-        padding: 2px 0;
-        font-size: 10px;
-        @include box-shadow(0 0 1px rgba(95, 95, 95, 1));
-      }
     }
+    &:before {
+      content: attr(data-infos);
+      padding: 3px;
+      font-size: 12px;
+      background-color: rgba(255, 255, 255, 1.00);
+      @include box-shadow(0 0 1px rgba(95, 95, 95, 1));
+      color: rgba(220, 64, 48, 1.00);
+    }
+
+    // > span {
+    //   display: inline-block;
+    //   width: 100%;
+
+    //   &:nth-child(1) {
+    //     // border-bottom: 1px solid rgba(39, 40, 34, .3);
+    //     padding: 3px;
+    //     font-size: 12px;
+    //     background-color: rgba(255, 255, 255, 1.00);
+    //     @include box-shadow(0 0 1px rgba(95, 95, 95, 1));
+    //     color: rgba(220, 64, 48, 1.00);
+    //   }
+    //   &:nth-child(2) {
+    //     position: relative;
+    //     text-align: center;
+    //     margin-top: 15px;
+    //     color: rgba(39, 40, 34, .55);
+
+    //     &:before, &:after {
+    //       content: '';
+    //       position: absolute;
+    //       left: 5px;
+    //       top: 50%;
+    //       display: inline-block;
+    //       width: 25%;
+    //       height: 1px;
+    //       background-color: rgba(39, 40, 34, .25);
+    //     }
+    //     &:after {
+    //       left: auto;
+    //       right: 5px;
+    //     }
+    //   }
+    //   &:nth-child(3) {
+    //     position: absolute;
+    //     left: 0;
+    //     bottom: 0;
+    //     background-color: rgba(255, 255, 255, .95);
+    //     z-index: 1;
+    //     color: rgba(55, 55, 55, .75);
+    //     text-align: center;
+    //     padding: 2px 0;
+    //     font-size: 10px;
+    //     @include box-shadow(0 0 1px rgba(95, 95, 95, 1));
+    //   }
+    // }
     > div {
       @include clearfix();
       padding: 5px;
@@ -821,6 +835,9 @@ $w: 225px;
               color: rgba(198, 56, 47, 1.00);
               &:before {
                 border-right-color: rgba(235, 85, 30, .4);
+              }
+              + a {
+                display: none;
               }
             }
           }

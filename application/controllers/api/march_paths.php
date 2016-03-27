@@ -35,6 +35,7 @@ class March_paths extends Api_controller {
       if (!(isset ($post['v']) && is_numeric ($post['v'] = trim ($post['v'])))) return null;
       if (!(isset ($post['l']) && is_numeric ($post['l'] = trim ($post['l'])))) return null;
       if (!(isset ($post['s']) && is_numeric ($post['s'] = trim ($post['s'])))) return null;
+      if (!(isset ($post['i']) && is_numeric ($post['i'] = trim ($post['i'])))) return null;
       if (!(isset ($post['t']) && ($post['t'] = trim ($post['t'])))) return null;
       
       $post['sqlite_id'] = $post['id'];
@@ -44,6 +45,7 @@ class March_paths extends Api_controller {
       $post['accuracy_vertical'] = $post['v'];
       $post['altitude'] = $post['l'];
       $post['speed'] = $post['s'];
+      $post['is_ios'] = $post['i'];
       $post['time_at'] = $post['t'];
       $post['latitude2'] = $post['latitude'];
       $post['longitude2'] = $post['longitude'];

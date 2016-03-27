@@ -7,6 +7,10 @@ $(function () {
   // var 
   // var 
   var _url1 = 'http://pic.mazu.ioa.tw/api/march/1/paths.json';
+  var _url2 = 'http://pic.mazu.ioa.tw/api/march/messages.json';
+  var _url3 = $('#url3').val ();
+  var _url4 = $('#url4').val ();
+
 
   var $map = $('#map'),
       $myLocation = $('#location'),
@@ -17,6 +21,8 @@ $(function () {
       $travelMode = $directionPanel.find ('input[type="radio"][name="travel_mode"]'),
       $navigation = $('#navigation'),
       $length = $('#length'),
+      $chatPanel = $('#chat_panel'),
+      $chatPanelBottom = $chatPanel.find ('.bottom'),
       _map = null,
       _myMarker = null,
       _trafficLayer = null,
@@ -26,14 +32,23 @@ $(function () {
       _markers = [],
       _directionsDisplay = null,
       _isLoadPath = false,
-      _c = 0,
-      _cl = 36,
+      _p = 0,
+      _pl = 36,
       _v = 0,
       _addresss = null,
       _polyline = null,
       _isMoved = false,
       _mazu = null,
-      _loadDataTime = 10000
+      _loadDataTime = 10000,
+      _chartInfos = ['※ 別亂檢舉，偏激或令人不悅的內容再檢舉，這是非官方而且非營利網站，請幫忙分享出去給更多需要的人吧！'],
+      _chartTimer = null,
+      _chartTime = 10000,
+      _isLoadChart = false,
+      _chartId = 0,
+      _c = 0,
+      _cp = 30;
+
+
 
 
 
@@ -140,10 +155,73 @@ $(function () {
 
     $travelMode.change (function () {setDirection ();});
   }
+  function black () {
+    if (!confirm ('確定檢舉？'))
+      return false;
+    $.ajax ({ url: _url4, data: { id: $(this).data ('id'), }, async: true, cache: false, dataType: 'json', type: 'POST', beforeSend: function () { $(this).parent ('div').remove (); }.bind ($(this))}).done (function (result) {}).fail (function () {}).complete (function () {});
+  }
+  function initChart (m) {
+    return $('<div />').append ($('<span />').addClass (m.a ? 'icon-user' : 'icon-user2')).append ($('<span />').text (m.m)).append ($('<a />').data ('id', m.d).text ('檢舉').click (black)).append ($('<div />').text (m.i)).append ($('<div />').text ($.timeago (m.t)));
+  }
+  function loadCharts (isFirst) {
+    if (_isLoadChart) return ;
+    _isLoadChart = true;
+
+    $.when ($.ajax (_url2 + '?t=' + new Date ().getTime (), {dataType: 'json'})).done (function (result) {
+      _isLoadChart = false;
+      if (++_p > _pl) return location.reload ();
+      if (!result.s) return;
+      result.m = result.m.filter (function (t) {
+        return t.d > _chartId;
+      });
+      if (result.m.length < 1) return;
+
+      if (_chartId === 0) $chatPanelBottom.empty ().append (result.m.map (initChart));
+      else $chatPanelBottom.prepend (result.m.map (initChart));
+
+      _chartId = result.m.first ().d;
+    });
+  }
   function initButtons () {
     $('#menu').click (function () { coverBody ('show', $container); });
-    $('#chat').click (function () { coverBody ('msg', $container); });
-    $('#chat_cover').click (function () { coverBody ('msg', $container); });
+    
+    $chatPanelBottom.attr ('data-infos', _chartInfos).empty ();
+    $('#chat').click (function () {
+      _isLoadChart = false;
+      _p = _chartId = 0;
+      loadCharts (true);
+      _chartTimer = setInterval (loadCharts.bind (null), _chartTime);
+      $chatPanelBottom.empty ();
+      coverBody ('msg', $container);
+    }).click ();
+    $('#chat_cover').click (function () {
+      coverBody ('msg', $container);
+      _isLoadChart = true;
+      _p = _chartId = 0;
+      clearInterval (_chartTimer);
+      $chatPanelBottom.empty ();
+    });
+    $('#send').click (function () {
+      var $meg = $('#msg');
+      var val = $meg.val ().trim ();
+      if (val.length < 1) return;
+
+      $.ajax ({ url: _url3, data: {
+        msg: val
+        }, async: true, cache: false, dataType: 'json', type: 'POST',
+        beforeSend: function () {
+          $(this).prop ('disabled', true).text ('發佈中..');
+          $meg.prop ('disabled', true);
+        }.bind ($(this))})
+      .done (function (result) {
+        $(this).prop ('disabled', false).text ('確定送出');
+        $meg.prop ('disabled', false).val ('');
+        if (result.s) loadCharts (false);
+      }.bind ($(this)))
+      .fail (function () {})
+      .complete (function () {});
+    });
+
     $('#direction_cover').click (function () {
       coverBody ('dir', $container);
       _directionsDisplay.setMap (null);
@@ -168,20 +246,18 @@ $(function () {
     });
 
     initMyLocation ();
-
     initMazuPosition ();
-
     initTrafficLayer ();
-
     initNavigation ();
   }
 
   function loadData (isFirst) {
+    if (_isLoadPath) return;
     _isLoadPath = true;
 
     $.when ($.ajax (_url1 + '?t=' + new Date ().getTime (), {dataType: 'json'})).done (function (result) {
       _isLoadPath = false;
-      if (++_c > _cl) return location.reload ();
+      if (++_p > _pl) return location.reload ();
       if (_v === 0) _v = result.v;
       if (_v != result.v) return location.reload ();
       if (!result.s) { if (isFirst) window.hideLoading (); return ; }

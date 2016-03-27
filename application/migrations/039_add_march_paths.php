@@ -24,6 +24,7 @@ class Migration_Add_march_paths extends CI_Migration {
         `longitude2` DOUBLE NOT NULL COMMENT '校正經度',
 
         `is_enabled` tinyint(1) unsigned NOT NULL DEFAULT 1 COMMENT '是否採用，1 採用，0 不採用',
+        `is_ios` tinyint(1) unsigned NOT NULL DEFAULT 1 COMMENT '是否 iOS 上傳，1 是，0 不是',
         `time_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '時間',
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',

@@ -37,6 +37,8 @@ class Maps extends Site_controller {
     $this->set_subtitle ('三月十九，神轎定位')
          ->add_css (base_url ('application', 'views', 'content', 'site', 'maps', 'gps', 'a.css'))
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
+         ->add_hidden (array ('id' => 'url3', 'value' => base_url ('api', 'march_messages')))
+         ->add_hidden (array ('id' => 'url4', 'value' => base_url ('api', 'march_messages', 'report')))
          ->load_view (array (
           ));
   }

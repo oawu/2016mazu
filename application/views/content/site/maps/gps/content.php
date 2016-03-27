@@ -33,9 +33,8 @@
       <button type='button' id='send'>確定送出</button>
     </div>
     <div class='bottom'>
-      <span>※ 檢舉</span>
-      <span>目前線上 5人</span>
-      <span>聊天室平均每 10 秒更新</span>
+      <!-- <span>※ 檢舉</span>
+      <span>目前線上 5人</span> -->
 
       <div>
         <span class='icon-user'></span>
