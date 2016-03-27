@@ -193,7 +193,7 @@ $(function () {
       _chartTimer = setInterval (loadCharts.bind (null), _chartTime);
       $chatPanelBottom.empty ();
       coverBody ('msg', $container);
-    }).click ();
+    });
     $('#chat_cover').click (function () {
       coverBody ('msg', $container);
       _isLoadChart = true;
