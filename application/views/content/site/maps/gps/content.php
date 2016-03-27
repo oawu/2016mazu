@@ -32,57 +32,7 @@
       <textarea id='msg' placeholder='在想些什麼？'></textarea>
       <button type='button' id='send'>確定送出</button>
     </div>
-    <div class='bottom'>
-      <!-- <span>※ 檢舉</span>
-      <span>目前線上 5人</span> -->
-
-      <div>
-        <span class='icon-user'></span>
-        <span>檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉</span>
-        <a>檢舉</a>
-        <div>127.0.0.1</div>
-        <div>1 分鐘之前</div>
-      </div>
-      
-      <div>
-        <span class='icon-user2'></span>
-        <span>檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉</span>
-        <a>檢舉</a>
-        <div>127.0.0.1</div>
-        <div>1 分鐘之前</div>
-      </div>
-      
-      <div>
-        <span class='icon-user2'></span>
-        <span>檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉</span>
-        <a>檢舉</a>
-        <div>127.0.0.1</div>
-        <div>1 分鐘之前</div>
-      </div>
-      
-      <div>
-        <span class='icon-user2'></span>
-        <span>檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉檢舉</span>
-        <a>檢舉</a>
-        <div>127.0.0.1</div>
-        <div>1 分鐘之前</div>
-      </div>
-
-      <div>
-        <span class='icon-user'></span>
-        <span>adssssssssssssss</span>
-        <a>檢舉</a>
-        <div>127.0.0.1</div>
-        <div>1 分鐘之前</div>
-      </div>
-      <div>
-        <span class='icon-user2'></span>
-        <span>adssssssssssssss</span>
-        <a>檢舉</a>
-        <div>127.0.0.1</div>
-        <div>1 分鐘之前</div>
-      </div>
-    </div>
+    <div class='bottom'></div>
   </div>
   <div id='chat_cover'></div>
 
