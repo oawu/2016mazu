@@ -42,7 +42,7 @@ $(function () {
       _loadDataTime = 10000,
       _chartInfos = ['※ 別亂檢舉，偏激或令人不悅的內容再檢舉，這是非官方而且非營利網站，請幫忙分享出去給更多需要的人吧！'],
       _chartTimer = null,
-      _chartTime = 10000,
+      _chartTime = 5000,
       _isLoadChart = false,
       _chartId = 0,
       _c = 0,
