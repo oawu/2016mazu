@@ -33,6 +33,10 @@
         [self.window.rootViewController.view addConstraint:[NSLayoutConstraint constraintWithItem:self.addStatusBar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.window.rootViewController.view attribute:NSLayoutAttributeRight multiplier:1 constant:0.0]];
         [self.window.rootViewController.view addConstraint:[NSLayoutConstraint constraintWithItem:self.addStatusBar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:20.0]];
     }
+
+    if (![USER_DEFAULTS objectForKey:@"march_id"])
+        [USER_DEFAULTS setValue:@1 forKey:@"march_id"];
+
     return YES;
 }
 

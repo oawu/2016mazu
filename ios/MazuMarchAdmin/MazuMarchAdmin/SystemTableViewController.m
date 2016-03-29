@@ -31,17 +31,17 @@
                           @"items": @[
                                   @{
                                       @"name": @"活動選擇",
-                                      @"action": @"AvatarViewController",
+                                      @"action": @"MarchViewController",
                                       @"image": @"system_00"
                                       },
                                   @{
                                       @"name": @"清除暫存",
-                                      @"action": @"NameViewController",
+                                      @"action": @"ClearTempViewController",
                                       @"image": @"system_01"
                                       },
                                   @{
                                       @"name": @"黑名單列表",
-                                      @"action": @"NameViewController",
+                                      @"action": @"BlackListViewController",
                                       @"image": @"system_02"
                                       }
                                   ]
@@ -51,12 +51,12 @@
                           @"items": @[
                                   @{
                                       @"name": @"GPS電量",
-                                      @"action": @"AvatarViewController",
+                                      @"action": @"BatteryViewController",
                                       @"image": @"system_100"
                                       },
                                   @{
                                       @"name": @"上次上傳",
-                                      @"action": @"AvatarViewController",
+                                      @"action": @"LastTimeViewController",
                                       @"image": @"system_11"
                                       }]
                           }];
@@ -102,6 +102,11 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *action = [[[[self.features objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"action"];
+    
+    [self.navigationController pushViewController:[NSClassFromString(action) new] animated:YES];
+}
 
 /*
 // Override to support conditional editing of the table view.

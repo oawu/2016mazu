@@ -156,6 +156,7 @@
              }
              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  self.isLoading = NO;
+                 if (alert) [alert dismissViewControllerAnimated:YES completion:nil];
 //                 NSLog(@"=======>Failure!Error:%@", [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding]);
              }
      ];

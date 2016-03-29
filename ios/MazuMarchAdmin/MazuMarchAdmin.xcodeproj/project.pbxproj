@@ -50,6 +50,8 @@
 		0E88ED8F1CA9919800D06A95 /* Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ED8E1CA9919800D06A95 /* Path.m */; };
 		0E88ED941CAA102600D06A95 /* SystemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ED931CAA102600D06A95 /* SystemTableViewController.m */; };
 		0E88ED981CAA282400D06A95 /* MyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ED971CAA282400D06A95 /* MyTabBarController.m */; };
+		0EADDBE01CAAA917006AE497 /* MarchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EADDBDF1CAAA917006AE497 /* MarchViewController.m */; };
+		0EADDBE31CAAB29D006AE497 /* ClearTempViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EADDBE21CAAB29D006AE497 /* ClearTempViewController.m */; };
 		5CEA4DFEACEB5EE52E790E29 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61CCA0D5333E23E8966B28E6 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -157,6 +159,10 @@
 		0E88ED931CAA102600D06A95 /* SystemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemTableViewController.m; sourceTree = "<group>"; };
 		0E88ED961CAA282400D06A95 /* MyTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabBarController.h; sourceTree = "<group>"; };
 		0E88ED971CAA282400D06A95 /* MyTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabBarController.m; sourceTree = "<group>"; };
+		0EADDBDE1CAAA917006AE497 /* MarchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarchViewController.h; sourceTree = "<group>"; };
+		0EADDBDF1CAAA917006AE497 /* MarchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarchViewController.m; sourceTree = "<group>"; };
+		0EADDBE11CAAB29D006AE497 /* ClearTempViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearTempViewController.h; sourceTree = "<group>"; };
+		0EADDBE21CAAB29D006AE497 /* ClearTempViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearTempViewController.m; sourceTree = "<group>"; };
 		61CCA0D5333E23E8966B28E6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB487A4AD26B8997DFF64313 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		ECB8BAA84CEF5DCC639441D5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -227,6 +233,10 @@
 				0E88ECF41CA8CB9700D06A95 /* Main.storyboard */,
 				0E88ED921CAA102600D06A95 /* SystemTableViewController.h */,
 				0E88ED931CAA102600D06A95 /* SystemTableViewController.m */,
+				0EADDBDE1CAAA917006AE497 /* MarchViewController.h */,
+				0EADDBDF1CAAA917006AE497 /* MarchViewController.m */,
+				0EADDBE11CAAB29D006AE497 /* ClearTempViewController.h */,
+				0EADDBE21CAAB29D006AE497 /* ClearTempViewController.m */,
 				0E88ECFA1CA8CB9700D06A95 /* Assets.xcassets */,
 				0E88ECFC1CA8CB9700D06A95 /* LaunchScreen.storyboard */,
 				0E88ECFF1CA8CB9700D06A95 /* Info.plist */,
@@ -587,6 +597,7 @@
 				0E88ED571CA9012400D06A95 /* SDWebImagePrefetcher.m in Sources */,
 				0E88ECF91CA8CB9700D06A95 /* MazuMarchAdmin.xcdatamodeld in Sources */,
 				0E88ED7C1CA9103700D06A95 /* AFURLSessionManager.m in Sources */,
+				0EADDBE01CAAA917006AE497 /* MarchViewController.m in Sources */,
 				0E88ED5E1CA9012400D06A95 /* UIView+WebCacheOperation.m in Sources */,
 				0E88ED4F1CA9012400D06A95 /* MKAnnotationView+WebCache.m in Sources */,
 				0E88ED5B1CA9012400D06A95 /* UIImage+WebP.m in Sources */,
@@ -610,6 +621,7 @@
 				0E88ED561CA9012400D06A95 /* SDWebImageManager.m in Sources */,
 				0E88ECED1CA8CB9700D06A95 /* main.m in Sources */,
 				0E88ED8A1CA947C000D06A95 /* MapsViewController.m in Sources */,
+				0EADDBE31CAAB29D006AE497 /* ClearTempViewController.m in Sources */,
 				0E88ED7A1CA9103700D06A95 /* AFURLRequestSerialization.m in Sources */,
 				0E88ED511CA9012400D06A95 /* SDImageCache.m in Sources */,
 				0E88ED761CA9103700D06A95 /* AFHTTPSessionManager.m in Sources */,

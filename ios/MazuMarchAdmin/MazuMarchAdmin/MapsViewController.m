@@ -98,7 +98,7 @@
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"text/plain"]];
-    [httpManager GET:[NSString stringWithFormat:LOAD_PATHS_API_URL, 1]
+    [httpManager GET:[NSString stringWithFormat:LOAD_PATHS_API_URL, (int)[[USER_DEFAULTS objectForKey:@"march_id"] integerValue]]
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  self.isLoading = NO;
@@ -118,6 +118,7 @@
              }
              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  self.isLoading = NO;
+                 if (alert) [alert dismissViewControllerAnimated:YES completion:nil];
              }
      ];
 }
