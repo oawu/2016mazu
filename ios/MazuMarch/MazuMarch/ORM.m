@@ -43,14 +43,16 @@ static sqlite3 *db = nil;
 
 + (NSMutableArray *)varList:(Class)class exception:(NSArray *)exception {
     unsigned int count;
-    
+
     NSMutableArray *list = [NSMutableArray new];
     Ivar *vars = class_copyIvarList(class, &count);
     NSString *temp;
     for (NSUInteger i=0; i<count; i++) {
         temp = [[NSString stringWithFormat:@"%s", ivar_getName(vars[i])] find:@"_" replace:@""];
-        if (!exception || ((int)[exception indexOfObject:temp] == -1))
+        if (!exception || ([exception indexOfObject:temp] == NSNotFound)) {
             [list addObject:temp];
+        }
+        
     }
     return list;
 }
@@ -60,27 +62,35 @@ static sqlite3 *db = nil;
 
 - (id)init:(NSDictionary *)params{
     self = [super init];
+
     if (self)
         for (NSString *key in params)
             if ([self respondsToSelector:NSSelectorFromString(key)])
                 [self setValue:[params objectForKey:key] forKey:key];
+    
+    self.sid = (long)[[params objectForKey:@"id"] integerValue];
+
     return self;
 }
 
-- (id)initWithId:(long) id {
+- (id)initWithSid:(long) sid {
     self = [super init];
-    if (self) [self setId:id];
+    if (self) [self setSid:sid];
     return self;
 }
 
-- (id)initWithId:(long) id params:(NSDictionary *)params {
+- (id)initWithSid:(long) sid params:(NSDictionary *)params {
     self = [super init];
     if (self) {
-        [self setId:id];
+        [self setSid:sid];
 
         for (NSString *key in params)
             if ([self respondsToSelector:NSSelectorFromString(key)])
                 [self setValue:[params objectForKey:key] forKey:key];
+        
+        
+        self.sid = (long)[params objectForKey:@"id"];
+
     }
     return self;
 }
@@ -96,14 +106,15 @@ static sqlite3 *db = nil;
     
     NSString *keyFields = [NSString stringWithFormat:@"'%@'", [[params allKeys] componentsJoinedByString:@"', '"]];
     NSString *valueFields = [NSString stringWithFormat:@"'%@'", [[params allValues] componentsJoinedByString:@"', '"]];
-    
+
     const char *sql = [[NSString stringWithFormat:@"INSERT INTO %@ (%@) VALUES (%@)", [[NSStringFromClass([self class]) lowercaseString] pluralizeString], keyFields, valueFields] cStringUsingEncoding:NSASCIIStringEncoding];
+
     sqlite3_stmt *statement;
     sqlite3_prepare(db, sql, -1, &statement, NULL);
     if (sqlite3_step(statement) != SQLITE_DONE) return nil;
     sqlite3_finalize(statement);
     
-    return [[self alloc] initWithId:sqlite3_last_insert_rowid(db) params: params];
+    return [[self alloc] initWithSid:(long)sqlite3_last_insert_rowid(db) params: params];
 }
 
 + (NSArray *)findAll:(NSDictionary *)conditions {
@@ -114,7 +125,7 @@ static sqlite3 *db = nil;
     
     if (![conditions objectForKey:@"select"]) {
         select = [NSMutableArray new];
-        [select addObjectsFromArray:[self varList:[ORM class] exception:@[@"count"]]];
+        [select addObjectsFromArray:@[@"id"]];
         [select addObjectsFromArray:[self varList:[self class]]];
         [conditions setValue:[select componentsJoinedByString:@", "] forKey:@"select"];
     } else {
@@ -222,7 +233,7 @@ static sqlite3 *db = nil;
 }
 
 - (BOOL)save {
-    if (!(db && [self id])) return NO;
+    if (!(db && [self sid])) return NO;
 
     NSMutableArray *vars = [ORM varList:[self class]];
     NSMutableDictionary *params = [NSMutableDictionary new];
@@ -231,7 +242,7 @@ static sqlite3 *db = nil;
         if ([self respondsToSelector:NSSelectorFromString(key)])
             [params setValue:[self valueForKey:key] forKey:key];
     
-    return [[self class] updateAll:params where:[NSString stringWithFormat:@"id = %ld", [self id]]];
+    return [[self class] updateAll:params where:[NSString stringWithFormat:@"id = %ld", [self sid]]];
 }
 
 + (BOOL)deleteAll:(NSString *)where {
@@ -251,8 +262,8 @@ static sqlite3 *db = nil;
 }
 
 - (BOOL)delete {
-    if (!(db && [self id])) return NO;
-    return [[self class] deleteAll:[NSString stringWithFormat:@"id = %ld", [self id]]];
+    if (!(db && [self sid])) return NO;
+    return [[self class] deleteAll:[NSString stringWithFormat:@"id = %ld", [self sid]]];
 }
 + (BOOL)truncate {
     if (!db) return NO;
@@ -277,10 +288,11 @@ static sqlite3 *db = nil;
         if ([self respondsToSelector:NSSelectorFromString(key)])
             [params setValue:[self valueForKey:key] forKey:key];
     
-    vars = [ORM varList:[ORM class] exception:@[@"count"]];
-    for (NSString *key in vars)
-        if ([self respondsToSelector:NSSelectorFromString(key)])
-            [params setValue:[self valueForKey:key] forKey:key];
+
+    [params setValue:[self valueForKey:@"sid"] forKey:@"id"];
+//    for (NSString *key in @[@"id"])
+//        if ([self respondsToSelector:NSSelectorFromString(key)])
+//            [params setValue:[self valueForKey:key] forKey:key];
     
     return params;
 }

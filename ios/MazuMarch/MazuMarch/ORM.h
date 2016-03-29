@@ -13,7 +13,7 @@
 
 @interface ORM : NSObject
 
-@property long id;
+@property long sid;
 @property NSUInteger *count;
 
 + (BOOL)initDB:(NSString *)sqlName;
@@ -21,8 +21,8 @@
 + (NSMutableArray *)varList:(Class)class;
 
 - (id)init:(NSDictionary *)params;
-- (id)initWithId:(long) id;
-- (id)initWithId:(long) id params:(NSDictionary *)params;
+- (id)initWithSid:(long) sid;
+- (id)initWithSid:(long) sid params:(NSDictionary *)params;
 - (id)initWithCount:(NSUInteger *)count;
 
 + (id)create: (NSDictionary *)params;

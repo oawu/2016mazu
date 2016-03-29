@@ -71,11 +71,13 @@ class Cli_march extends Site_controller {
   }
 
   private function _get_paths ($march) {
-    $first = MarchPath::first (array ('select' => 'id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
-    $last = MarchPath::last (array ('select' => 'id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
+    $is_ios = 0;
+    
+    $first = MarchPath::first (array ('select' => 'id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND is_ios = ?', $march->id,  $is_ios)));
+    $last = MarchPath::last (array ('select' => 'id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND is_ios = ?', $march->id,  $is_ios)));
 
     $point_ids = array ();
-    if (!($all_ids = column_array (MarchPath::find ('all', array ('select' => 'id', 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id))), 'id')))
+    if (!($all_ids = column_array (MarchPath::find ('all', array ('select' => 'id', 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND is_ios = ?', $march->id, $is_ios))), 'id')))
       return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
 
     $c = count ($all_ids);
@@ -85,8 +87,8 @@ class Cli_march extends Site_controller {
         array_push ($point_ids, array_shift ($temp));
     if (!$point_ids) return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
 
-    $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'order' => 'id DESC', 'conditions' => array ('id IN (?) AND march_id = ? AND is_enabled = 1', $point_ids, $march->id)));
-    // $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1', $march->id)));
+    $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'order' => 'id DESC', 'conditions' => array ('id IN (?) AND march_id = ? AND is_enabled = 1 AND is_ios = ?', $point_ids, $march->id, $is_ios)));
+    // $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND is_ios = ?', $march->id, $is_ios)));
 
     if ($paths[0]->id != $last->id) array_unshift ($paths, $last);
     if ($paths[count ($paths) - 1]->id != $first->id) array_push ($paths, $first);

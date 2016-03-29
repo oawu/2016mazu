@@ -19,7 +19,8 @@ class March_paths extends Api_controller {
   public function create () {
     $paths = ($paths = OAInput::post ('p')) ? $paths : array ();
     if (!$paths) return $this->output_json (array ('ids' => array ()));
-
+// var_dump ($paths);
+// exit ();
     $march = $this->march;
     $last = MarchPath::find ('one', array (
         'select' => 'time_at',

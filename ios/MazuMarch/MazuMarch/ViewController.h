@@ -27,6 +27,7 @@
 @property BOOL isUpload;
 @property int marchId;
 @property int distance;
+@property UIDevice *myDevice;
 
 @property UIBackgroundTaskIdentifier *backgroundTaskIdentifier;
 

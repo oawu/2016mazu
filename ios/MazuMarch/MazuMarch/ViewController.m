@@ -17,6 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.myDevice = [UIDevice currentDevice];
+    [self.myDevice setBatteryMonitoringEnabled:YES];
     
     [self initUI];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
@@ -225,25 +227,7 @@
         [self uploadLog:@"沒有節點！"];
         [self locationManager: self.locationManager didUpdateLocations: @[self.locationManager.location]];
         [self uploadLog:@"強制取點！"];
-//
-//        CLLocation *location = self.locationManager.location;
-//        double a = location.coordinate.latitude;
-//        double n = location.coordinate.longitude;
-//        double s = location.speed;
-//        double l = location.altitude;
-//        double h = location.horizontalAccuracy;
-//        double v = location.verticalAccuracy;
-//        
-//        [self locationLog:[NSString stringWithFormat:@"----------------------------------------\n  經度：%.5f\n  緯度：%.5f\n  速度：%.3f Km/H\n  海拔高度：%.1f 公尺\n  水平準度：%.1f 公尺\n  海拔準度：%.1f 公尺\n  目前時間：%@", a, n, s, l, h, v, t]];
-//        [Path create:@{
-//                       @"a": [NSString stringWithFormat:@"%f", a],
-//                       @"n": [NSString stringWithFormat:@"%f", n],
-//                       @"l": [NSString stringWithFormat:@"%f", l],
-//                       @"h": [NSString stringWithFormat:@"%f", h],
-//                       @"v": [NSString stringWithFormat:@"%f", v],
-//                       @"s": [NSString stringWithFormat:@"%f", s],
-//                       @"t": t
-//                       }];
+
         
     }
     
@@ -251,7 +235,7 @@
 
     int i = 0;
     for (Path* path in paths) [parameters setValue:[path toDictionary] forKey:[NSString stringWithFormat:@"%d", i++]];
-    
+
     NSMutableDictionary *data = [NSMutableDictionary new];
     [data setValue:parameters forKey:@"p"];
     
@@ -306,8 +290,9 @@
     double l = location.altitude;
     double h = location.horizontalAccuracy;
     double v = location.verticalAccuracy;
+    NSString *b = [NSString stringWithFormat:@"%d", (int)ABS ((float)[self.myDevice batteryLevel] * 100)];
 
-    [self locationLog:[NSString stringWithFormat:@"----------------------------------------\n  經度：%.5f\n  緯度：%.5f\n  速度：%.3f Km/H\n  海拔高度：%.1f 公尺\n  水平準度：%.1f 公尺\n  海拔準度：%.1f 公尺\n  目前時間：%@", a, n, s, l, h, v, t]];
+    [self locationLog:[NSString stringWithFormat:@"----------------------------------------\n  經度：%.5f\n  緯度：%.5f\n  速度：%.3f Km/H\n  海拔高度：%.1f 公尺\n  水平準度：%.1f 公尺\n  海拔準度：%.1f 公尺\n  目前時間：%@\n 電池電量：%@", a, n, s, l, h, v, t, b]];
 
     [Path create:@{
                    @"a": [NSString stringWithFormat:@"%f", a],
@@ -318,7 +303,7 @@
                    @"s": [NSString stringWithFormat:@"%f", s],
                    @"t": t,
                    @"i": @"1",
-                   @"b": @"100"
+                   @"b": b
                    }];
 
     if (((int)[Path count]) >= UPLOAD_PATHS_LIMIT)
