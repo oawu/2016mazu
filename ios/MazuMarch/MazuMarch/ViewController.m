@@ -16,44 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+    
     [self initUI];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
-    
-//    __weak ViewController * weakSelf = self;
-
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        
-//        // Since we are not on the main run loop this will NOT work:
-//        [NSTimer scheduledTimerWithTimeInterval:PATH_FETCH_TIMER
-//                                         target:self
-//                                       selector:@selector(timerDidFire:)
-//                                       userInfo:nil
-//                                        repeats:YES];
-//        
-//        // This is bacause the |scheduledTimerWithTimeInterval| uses
-//        // [NSRunLoop currentRunLoop] which will return a new background run loop
-//        // which will not be currently running.
-//        // Instead do this:
-//        NSTimer * timer = [NSTimer timerWithTimeInterval:PATH_FETCH_TIMER
-//                                target:weakSelf
-//                              selector:@selector(timerDidFire:)
-//                              userInfo:nil
-//                               repeats:YES];
-//        
-//        [[NSRunLoop mainRunLoop] addTimer:timer
-//                                  forMode:NSDefaultRunLoopMode];
-//        // or use |NSRunLoopCommonModes| if you want the timer to fire while scrolling
-//    });
-//
-    
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:PATH_FETCH_TIMER target:self selector:@selector(timerDidFire:) userInfo:nil repeats:YES];
 }
 
-- (void) timerDidFire:(NSTimer *)timer
-{
-    NSLog(@"Timer did fire");
-}
 - (void)initUI {
     self.marchId = 1;
     self.distance = 1;
@@ -348,7 +316,9 @@
                    @"h": [NSString stringWithFormat:@"%f", h],
                    @"v": [NSString stringWithFormat:@"%f", v],
                    @"s": [NSString stringWithFormat:@"%f", s],
-                   @"t": t
+                   @"t": t,
+                   @"i": @"1",
+                   @"b": @"100"
                    }];
 
     if (((int)[Path count]) >= UPLOAD_PATHS_LIMIT)

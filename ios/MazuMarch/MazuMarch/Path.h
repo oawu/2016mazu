@@ -12,6 +12,6 @@
 @interface Path : ORM
 
 // Fields
-@property NSString *a, *n, *l, *h ,*v ,*s ,*t;
+@property NSString *a, *n, *l, *h, *v, *s, *t, *i, *b;
 
 @end

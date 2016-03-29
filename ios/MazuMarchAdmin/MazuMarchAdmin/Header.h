@@ -15,7 +15,11 @@
 
 #define LOAD_MESSAGE_API_URL @"http://pic.mazu.ioa.tw/api/march/messages.json"
 #define SEND_MESSAGE_API_URL @"http://mazu.ioa.tw/api/march_messages/"
+
+#define LOAD_PATHS_API_URL @"http://pic.mazu.ioa.tw/api/march/%d/paths.json"
+
 #define USER_ID @"1"
 #define LOAD_MESSAGE_TIMER 5 //sec
+#define LOAD_PATH_TIMER 30 //sec
 
 #endif /* Header_h */

@@ -44,7 +44,7 @@
     [self.avatar.layer setCornerRadius:20];
     [self.avatar setClipsToBounds:YES];
     
-    [self.avatar setImage:[[UIImage imageNamed:self.message.isAdmin ? @"user_admin" : @"user"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [self.avatar setImage:[[UIImage imageNamed:self.message.isAdmin ? @"user_1" : @"user_0"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
 
     [self.avatar setContentMode:UIViewContentModeScaleAspectFill];
     [self.avatar setClipsToBounds:YES];

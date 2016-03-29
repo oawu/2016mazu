@@ -27,6 +27,12 @@
     [anotherButton setTintColor:[UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:1.00]];
     self.navigationItem.rightBarButtonItem = anotherButton;
 }
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
 - (void)refreshPropertyList {
     UIAlertController *inputAlert = [UIAlertController
                                 alertControllerWithTitle:@"輸入訊息"

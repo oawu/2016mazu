@@ -134,11 +134,11 @@
 		0E9C5B671CA26C1500DA0C99 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0E9C5B641CA26C1100DA0C99 /* ORM.h */,
+				0E9C5B651CA26C1100DA0C99 /* ORM.m */,
 				0E9C5B751CA26FF900DA0C99 /* Path.h */,
 				0E9C5B761CA26FF900DA0C99 /* Path.m */,
 				0E9C5B681CA26C4E00DA0C99 /* ActiveSupportInflector */,
-				0E9C5B641CA26C1100DA0C99 /* ORM.h */,
-				0E9C5B651CA26C1100DA0C99 /* ORM.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";

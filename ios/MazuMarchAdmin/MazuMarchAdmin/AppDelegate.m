@@ -17,6 +17,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [GMSServices provideAPIKey:@"AIzaSyD_q2ZdVbRTc_4NAO1G4pxGthibz5uSqlI"];
+    
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+        self.addStatusBar = [[UIView alloc] init];
+        
+        [self.addStatusBar setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.addStatusBar setBackgroundColor:[UIColor colorWithRed:0.67 green:0.19 blue:0.18 alpha:1.00]];
+        
+        [self.window.rootViewController.view addSubview:self.addStatusBar];
+        
+        [self.window.rootViewController.view addConstraint:[NSLayoutConstraint constraintWithItem:self.addStatusBar attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.window.rootViewController.view attribute:NSLayoutAttributeTop multiplier:1 constant:0.0]];
+        [self.window.rootViewController.view addConstraint:[NSLayoutConstraint constraintWithItem:self.addStatusBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.window.rootViewController.view attribute:NSLayoutAttributeLeft multiplier:1 constant:0.0]];
+        [self.window.rootViewController.view addConstraint:[NSLayoutConstraint constraintWithItem:self.addStatusBar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.window.rootViewController.view attribute:NSLayoutAttributeRight multiplier:1 constant:0.0]];
+        [self.window.rootViewController.view addConstraint:[NSLayoutConstraint constraintWithItem:self.addStatusBar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:20.0]];
+    }
     return YES;
 }
 

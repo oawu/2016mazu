@@ -44,6 +44,13 @@
 		0E88ED7A1CA9103700D06A95 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ED6F1CA9103700D06A95 /* AFURLRequestSerialization.m */; };
 		0E88ED7B1CA9103700D06A95 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ED711CA9103700D06A95 /* AFURLResponseSerialization.m */; };
 		0E88ED7C1CA9103700D06A95 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ED731CA9103700D06A95 /* AFURLSessionManager.m */; };
+		0E88ED861CA938E900D06A95 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0E88ED851CA938E900D06A95 /* Podfile */; };
+		0E88ED8A1CA947C000D06A95 /* MapsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ED891CA947C000D06A95 /* MapsViewController.m */; };
+		0E88ED8C1CA9849300D06A95 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E88ED8B1CA9849300D06A95 /* CoreLocation.framework */; };
+		0E88ED8F1CA9919800D06A95 /* Path.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ED8E1CA9919800D06A95 /* Path.m */; };
+		0E88ED941CAA102600D06A95 /* SystemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ED931CAA102600D06A95 /* SystemTableViewController.m */; };
+		0E88ED981CAA282400D06A95 /* MyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ED971CAA282400D06A95 /* MyTabBarController.m */; };
+		5CEA4DFEACEB5EE52E790E29 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61CCA0D5333E23E8966B28E6 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +147,19 @@
 		0E88ED711CA9103700D06A95 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		0E88ED721CA9103700D06A95 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		0E88ED731CA9103700D06A95 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		0E88ED851CA938E900D06A95 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		0E88ED881CA947C000D06A95 /* MapsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsViewController.h; sourceTree = "<group>"; };
+		0E88ED891CA947C000D06A95 /* MapsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapsViewController.m; sourceTree = "<group>"; };
+		0E88ED8B1CA9849300D06A95 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0E88ED8D1CA9919800D06A95 /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Path.h; sourceTree = "<group>"; };
+		0E88ED8E1CA9919800D06A95 /* Path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Path.m; sourceTree = "<group>"; };
+		0E88ED921CAA102600D06A95 /* SystemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemTableViewController.h; sourceTree = "<group>"; };
+		0E88ED931CAA102600D06A95 /* SystemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemTableViewController.m; sourceTree = "<group>"; };
+		0E88ED961CAA282400D06A95 /* MyTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTabBarController.h; sourceTree = "<group>"; };
+		0E88ED971CAA282400D06A95 /* MyTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTabBarController.m; sourceTree = "<group>"; };
+		61CCA0D5333E23E8966B28E6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB487A4AD26B8997DFF64313 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		ECB8BAA84CEF5DCC639441D5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +167,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E88ED8C1CA9849300D06A95 /* CoreLocation.framework in Frameworks */,
+				5CEA4DFEACEB5EE52E790E29 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,11 +192,15 @@
 		0E88ECDF1CA8CB9700D06A95 = {
 			isa = PBXGroup;
 			children = (
+				0E88ED851CA938E900D06A95 /* Podfile */,
+				0E88ED2D1CA9011200D06A95 /* SDWebImage */,
 				0E88ED601CA9103000D06A95 /* AFNetworking */,
 				0E88ECEA1CA8CB9700D06A95 /* MazuMarchAdmin */,
 				0E88ED071CA8CB9700D06A95 /* MazuMarchAdminTests */,
 				0E88ED121CA8CB9700D06A95 /* MazuMarchAdminUITests */,
 				0E88ECE91CA8CB9700D06A95 /* Products */,
+				9DC9E7F2676F53E247EB8A0D /* Pods */,
+				DEC3967F325CC1BCD399B563 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -191,19 +217,16 @@
 		0E88ECEA1CA8CB9700D06A95 /* MazuMarchAdmin */ = {
 			isa = PBXGroup;
 			children = (
+				0E88ED951CAA280400D06A95 /* TabBar */,
+				0E88ED911CAA0FE900D06A95 /* Navigation */,
+				0E88ED901CAA0E7B00D06A95 /* Maps */,
+				0E88ED871CA947A800D06A95 /* Message */,
 				0E88ED5F1CA90FA100D06A95 /* Header.h */,
-				0E88ED2D1CA9011200D06A95 /* SDWebImage */,
 				0E88ECEE1CA8CB9700D06A95 /* AppDelegate.h */,
 				0E88ECEF1CA8CB9700D06A95 /* AppDelegate.m */,
 				0E88ECF41CA8CB9700D06A95 /* Main.storyboard */,
-				0E88ED211CA8CD8600D06A95 /* MyNavigationController.h */,
-				0E88ED221CA8CD8600D06A95 /* MyNavigationController.m */,
-				0E88ED241CA8CF0300D06A95 /* MessageTableViewController.h */,
-				0E88ED251CA8CF0300D06A95 /* MessageTableViewController.m */,
-				0E88ED271CA8D03D00D06A95 /* Message.h */,
-				0E88ED281CA8D03D00D06A95 /* Message.m */,
-				0E88ED2A1CA8DFA900D06A95 /* MessageTableViewCell.h */,
-				0E88ED2B1CA8DFA900D06A95 /* MessageTableViewCell.m */,
+				0E88ED921CAA102600D06A95 /* SystemTableViewController.h */,
+				0E88ED931CAA102600D06A95 /* SystemTableViewController.m */,
 				0E88ECFA1CA8CB9700D06A95 /* Assets.xcassets */,
 				0E88ECFC1CA8CB9700D06A95 /* LaunchScreen.storyboard */,
 				0E88ECFF1CA8CB9700D06A95 /* Info.plist */,
@@ -277,6 +300,7 @@
 				0E88ED4E1CA9012400D06A95 /* UIView+WebCacheOperation.m */,
 			);
 			name = SDWebImage;
+			path = MazuMarchAdmin;
 			sourceTree = "<group>";
 		};
 		0E88ED601CA9103000D06A95 /* AFNetworking */ = {
@@ -305,6 +329,66 @@
 			name = AFNetworking;
 			sourceTree = "<group>";
 		};
+		0E88ED871CA947A800D06A95 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				0E88ED241CA8CF0300D06A95 /* MessageTableViewController.h */,
+				0E88ED251CA8CF0300D06A95 /* MessageTableViewController.m */,
+				0E88ED271CA8D03D00D06A95 /* Message.h */,
+				0E88ED281CA8D03D00D06A95 /* Message.m */,
+				0E88ED2A1CA8DFA900D06A95 /* MessageTableViewCell.h */,
+				0E88ED2B1CA8DFA900D06A95 /* MessageTableViewCell.m */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		0E88ED901CAA0E7B00D06A95 /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				0E88ED881CA947C000D06A95 /* MapsViewController.h */,
+				0E88ED891CA947C000D06A95 /* MapsViewController.m */,
+				0E88ED8D1CA9919800D06A95 /* Path.h */,
+				0E88ED8E1CA9919800D06A95 /* Path.m */,
+			);
+			name = Maps;
+			sourceTree = "<group>";
+		};
+		0E88ED911CAA0FE900D06A95 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				0E88ED211CA8CD8600D06A95 /* MyNavigationController.h */,
+				0E88ED221CA8CD8600D06A95 /* MyNavigationController.m */,
+			);
+			name = Navigation;
+			sourceTree = "<group>";
+		};
+		0E88ED951CAA280400D06A95 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				0E88ED961CAA282400D06A95 /* MyTabBarController.h */,
+				0E88ED971CAA282400D06A95 /* MyTabBarController.m */,
+			);
+			name = TabBar;
+			sourceTree = "<group>";
+		};
+		9DC9E7F2676F53E247EB8A0D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ECB8BAA84CEF5DCC639441D5 /* Pods.debug.xcconfig */,
+				AB487A4AD26B8997DFF64313 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DEC3967F325CC1BCD399B563 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E88ED8B1CA9849300D06A95 /* CoreLocation.framework */,
+				61CCA0D5333E23E8966B28E6 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -312,9 +396,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0E88ED181CA8CB9700D06A95 /* Build configuration list for PBXNativeTarget "MazuMarchAdmin" */;
 			buildPhases = (
+				B458331B0F6D7E7DE8086EE8 /* Check Pods Manifest.lock */,
 				0E88ECE41CA8CB9700D06A95 /* Sources */,
 				0E88ECE51CA8CB9700D06A95 /* Frameworks */,
 				0E88ECE61CA8CB9700D06A95 /* Resources */,
+				408A89CD08FABB9431723914 /* Embed Pods Frameworks */,
+				85FA2911CA64E57DDD4E3AF6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -372,6 +459,12 @@
 				TargetAttributes = {
 					0E88ECE71CA8CB9700D06A95 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = V6T9TGS4ET;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					0E88ED031CA8CB9700D06A95 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -410,6 +503,7 @@
 			files = (
 				0E88ECFE1CA8CB9700D06A95 /* LaunchScreen.storyboard in Resources */,
 				0E88ECFB1CA8CB9700D06A95 /* Assets.xcassets in Resources */,
+				0E88ED861CA938E900D06A95 /* Podfile in Resources */,
 				0E88ECF61CA8CB9700D06A95 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,6 +523,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		408A89CD08FABB9431723914 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		85FA2911CA64E57DDD4E3AF6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B458331B0F6D7E7DE8086EE8 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0E88ECE41CA8CB9700D06A95 /* Sources */ = {
@@ -455,15 +597,19 @@
 				0E88ED741CA9103700D06A95 /* AFHTTPRequestOperation.m in Sources */,
 				0E88ED531CA9012400D06A95 /* SDWebImageDecoder.m in Sources */,
 				0E88ED2C1CA8DFA900D06A95 /* MessageTableViewCell.m in Sources */,
+				0E88ED8F1CA9919800D06A95 /* Path.m in Sources */,
 				0E88ED5C1CA9012400D06A95 /* UIImageView+HighlightedWebCache.m in Sources */,
 				0E88ED501CA9012400D06A95 /* NSData+ImageContentType.m in Sources */,
+				0E88ED941CAA102600D06A95 /* SystemTableViewController.m in Sources */,
 				0E88ED541CA9012400D06A95 /* SDWebImageDownloader.m in Sources */,
 				0E88ED771CA9103700D06A95 /* AFNetworkReachabilityManager.m in Sources */,
 				0E88ED261CA8CF0300D06A95 /* MessageTableViewController.m in Sources */,
 				0E88ED231CA8CD8600D06A95 /* MyNavigationController.m in Sources */,
 				0E88ECF01CA8CB9700D06A95 /* AppDelegate.m in Sources */,
+				0E88ED981CAA282400D06A95 /* MyTabBarController.m in Sources */,
 				0E88ED561CA9012400D06A95 /* SDWebImageManager.m in Sources */,
 				0E88ECED1CA8CB9700D06A95 /* main.m in Sources */,
+				0E88ED8A1CA947C000D06A95 /* MapsViewController.m in Sources */,
 				0E88ED7A1CA9103700D06A95 /* AFURLRequestSerialization.m in Sources */,
 				0E88ED511CA9012400D06A95 /* SDImageCache.m in Sources */,
 				0E88ED761CA9103700D06A95 /* AFHTTPSessionManager.m in Sources */,
@@ -603,8 +749,10 @@
 		};
 		0E88ED191CA8CB9700D06A95 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECB8BAA84CEF5DCC639441D5 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MazuMarchAdmin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.ioa.MazuMarchAdmin;
@@ -614,8 +762,10 @@
 		};
 		0E88ED1A1CA8CB9700D06A95 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB487A4AD26B8997DFF64313 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MazuMarchAdmin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.ioa.MazuMarchAdmin;
@@ -690,6 +840,7 @@
 				0E88ED1A1CA8CB9700D06A95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E88ED1B1CA8CB9700D06A95 /* Build configuration list for PBXNativeTarget "MazuMarchAdminTests" */ = {
 			isa = XCConfigurationList;
@@ -698,6 +849,7 @@
 				0E88ED1D1CA8CB9700D06A95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E88ED1E1CA8CB9700D06A95 /* Build configuration list for PBXNativeTarget "MazuMarchAdminUITests" */ = {
 			isa = XCConfigurationList;
@@ -706,6 +858,7 @@
 				0E88ED201CA8CB9700D06A95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -32,12 +32,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="txc-Jy-QPW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1028" y="1820"/>
+            <point key="canvasLocation" x="-1082" y="1996"/>
         </scene>
         <!--討論區-->
         <scene sceneID="bBt-oU-yvU">
             <objects>
-                <navigationController id="Ds2-hf-S81" customClass="MyNavigationController" sceneMemberID="viewController">
+                <navigationController hidesBarsOnSwipe="YES" id="Ds2-hf-S81" customClass="MyNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="討論區" id="AIf-mu-2Bb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="exW-cZ-kPj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -49,64 +49,108 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dMa-zd-Yw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1028" y="1003"/>
+            <point key="canvasLocation" x="-1063" y="1174"/>
         </scene>
-        <!--地圖-->
-        <scene sceneID="G5o-iq-5NI">
+        <!--媽祖位置-->
+        <scene sceneID="KpC-qC-fvl">
             <objects>
-                <viewController id="INs-CF-0Ym" sceneMemberID="viewController">
+                <navigationController id="pqk-SC-QM0" customClass="MyNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="媽祖位置" id="TdB-2c-ceu"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fti-yR-I4f">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="drY-Nh-d6w" kind="relationship" relationship="rootViewController" id="Q96-Ib-fZB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bbd-Ns-jAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-316" y="1193"/>
+        </scene>
+        <!--系統狀態-->
+        <scene sceneID="95u-Qt-Lff">
+            <objects>
+                <tableViewController id="hVQ-gp-Z6x" customClass="SystemTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ymD-Td-Inr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cel" id="UZG-br-YIP">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UZG-br-YIP" id="rgI-NR-0Oy">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hVQ-gp-Z6x" id="ryF-CT-Rt4"/>
+                            <outlet property="delegate" destination="hVQ-gp-Z6x" id="LW5-5z-hAz"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="系統狀態" id="Zlb-Xo-t1v"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z3l-8F-jnZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="376" y="2061"/>
+        </scene>
+        <!--系統狀態-->
+        <scene sceneID="1E1-F8-ymr">
+            <objects>
+                <navigationController id="5WK-CG-ISg" customClass="MyNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="系統狀態" id="KoL-aU-17f"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MeJ-hH-VQp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="hVQ-gp-Z6x" kind="relationship" relationship="rootViewController" id="Ypv-fa-Yms"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dJy-AH-sma" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="362" y="1193"/>
+        </scene>
+        <!--神轎定位-->
+        <scene sceneID="n6a-F5-S2Q">
+            <objects>
+                <viewController id="drY-Nh-d6w" customClass="MapsViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="e8U-og-FXr"/>
-                        <viewControllerLayoutGuide type="bottom" id="KE4-Z8-ZAB"/>
+                        <viewControllerLayoutGuide type="top" id="yT2-5G-TVR"/>
+                        <viewControllerLayoutGuide type="bottom" id="E33-L0-oka"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="WRm-sZ-OLp">
+                    <view key="view" contentMode="scaleToFill" id="dcV-Sk-dVi">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="地圖" id="XBl-09-gfP"/>
+                    <navigationItem key="navigationItem" title="神轎定位" id="DHU-eS-fFE"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UJ6-yJ-j3a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KV3-7j-q4m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-271" y="1180"/>
+            <point key="canvasLocation" x="-316" y="2061"/>
         </scene>
-        <!--GPS狀態-->
-        <scene sceneID="Sxv-bu-YEM">
-            <objects>
-                <viewController id="Qga-E3-Z5s" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="O3Z-0O-P7m"/>
-                        <viewControllerLayoutGuide type="bottom" id="wWW-ng-X6C"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="baG-VE-l1n">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="GPS狀態" id="qyi-Cf-l5y"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IFi-S6-l6P" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="382" y="1180"/>
-        </scene>
-        <!--Tab Bar Controller-->
+        <!--My Tab Bar Controller-->
         <scene sceneID="mz8-IU-kyJ">
             <objects>
-                <tabBarController id="0eS-4S-Ras" sceneMemberID="viewController">
+                <tabBarController id="0eS-4S-Ras" customClass="MyTabBarController" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="i5e-9x-yp6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="INs-CF-0Ym" kind="relationship" relationship="viewControllers" id="pBa-lN-3XP"/>
+                        <segue destination="5WK-CG-ISg" kind="relationship" relationship="viewControllers" id="hP8-CS-F10"/>
+                        <segue destination="pqk-SC-QM0" kind="relationship" relationship="viewControllers" id="ZAV-qF-gfm"/>
                         <segue destination="Ds2-hf-S81" kind="relationship" relationship="viewControllers" id="O4Z-Yj-sHc"/>
-                        <segue destination="Qga-E3-Z5s" kind="relationship" relationship="viewControllers" id="Hr1-cb-9uR"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iK8-nP-VvB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-271" y="401"/>
+            <point key="canvasLocation" x="-316" y="435"/>
         </scene>
     </scenes>
 </document>

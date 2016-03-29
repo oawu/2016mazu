@@ -11,6 +11,7 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 
+ios/MazuMarchAdmin/Pods
 application/config/database.php
 application/config/setting/mail_gun.php
 application/config/setting/facebook.php

@@ -17,13 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationBar.barTintColor = [UIColor colorWithRed:0.67 green:0.19 blue:0.18 alpha:1.00];
+    self.navigationBar.barTintColor = [UIColor colorWithRed:0.85 green:0.21 blue:0.20 alpha:1.00];
     [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]}];
     [self.navigationBar setTranslucent:NO];
     [self.navigationBar setBarStyle:UIBarStyleBlack];
-    
-    
-
 }
 
 - (void)didReceiveMemoryWarning {

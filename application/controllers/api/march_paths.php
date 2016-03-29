@@ -36,6 +36,7 @@ class March_paths extends Api_controller {
       if (!(isset ($post['l']) && is_numeric ($post['l'] = trim ($post['l'])))) return null;
       if (!(isset ($post['s']) && is_numeric ($post['s'] = trim ($post['s'])))) return null;
       if (!(isset ($post['i']) && is_numeric ($post['i'] = trim ($post['i'])))) return null;
+      if (!(isset ($post['b']) && is_numeric ($post['b'] = trim ($post['b'])))) return null;
       if (!(isset ($post['t']) && ($post['t'] = trim ($post['t'])))) return null;
       
       $post['sqlite_id'] = $post['id'];
@@ -46,12 +47,13 @@ class March_paths extends Api_controller {
       $post['altitude'] = $post['l'];
       $post['speed'] = $post['s'];
       $post['is_ios'] = $post['i'];
+      $post['battery'] = $post['b'];
       $post['time_at'] = $post['t'];
       $post['latitude2'] = $post['latitude'];
       $post['longitude2'] = $post['longitude'];
       $post['is_enabled'] = $post['accuracy_horizontal'] < 100 ? 1 : 0;
 
-      unset ($post['id'], $post['a'], $post['n'], $post['h'], $post['v'], $post['l'], $post['s'], $post['t']);
+      unset ($post['id'], $post['a'], $post['n'], $post['h'], $post['v'], $post['l'], $post['s'], $post['i'], $post['b'], $post['t']);
 
       return !$last || $post['time_at'] > $last->time_at ? $post : null;
     }, $paths));
