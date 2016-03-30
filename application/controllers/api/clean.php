@@ -12,7 +12,7 @@ class Clean extends Api_controller {
     parent::__construct ();
   }
 
-  private function _path () {
+  private function _paths () {
     $marches = March::find ('all', array ('select' => 'id', 'conditions' => array ('is_enabled = 1')));
 
     foreach ($marches as $march)
