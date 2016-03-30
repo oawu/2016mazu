@@ -26,6 +26,7 @@ class Mail extends OaModel {
     $html = "<article style='font-size:15px;line-height:22px;color:rgb(85,85,85)'><p style='margin-bottom:0'>Hi 管理員,</p><section style='padding:5px 20px'><p>剛剛發生了系統異常的狀況，以下是錯誤訊息：</p><table style='width:100%;border-collapse:collapse'><tbody>";
     foreach ($this->messages () as $title => $message)
       $html .= "<tr><th style='width:100px;text-align:right;padding:11px 5px 10px 0;border-bottom:1px dashed rgba(200,200,200,1)'>" . $title . "：</th><td style='text-align:left;text-align:left;padding:11px 0 10px 5px;border-bottom:1px dashed rgba(200,200,200,1)'>" . $message . "</td></tr>";
+    $html .= "<tr><th style='width:100px;text-align:right;padding:11px 5px 10px 0;border-bottom:1px dashed rgba(200,200,200,1)'>目前時間：</th><td style='text-align:left;text-align:left;padding:11px 0 10px 5px;border-bottom:1px dashed rgba(200,200,200,1)'>" . $this->created_at->format ('Y-m-d H:i:s') . "</td></tr>";
     $html .= "</tbody></table><br/><p style='text-align:right'>如果有任何問題，可以向管理員 - <a href='http://www.facebook.com/comdan66' style='color:rgba(96,156,255,1);margin:0 2px'>吳政賢</a>詢問。</p></section></article>";
     
     return $html;

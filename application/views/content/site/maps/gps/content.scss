@@ -833,11 +833,15 @@ $w: 225px;
             + span {
               border: 1px solid rgba(235, 85, 30, .45);
               color: rgba(198, 56, 47, 1.00);
+              max-width: calc(100% - 25px - 5px - 3px);
               &:before {
                 border-right-color: rgba(235, 85, 30, .4);
               }
               + a {
                 display: none;
+                + div {
+                  display: none;
+                }
               }
             }
           }
@@ -847,10 +851,10 @@ $w: 225px;
           max-width: calc(100% - 25px - 30px - 5px - 3px);
           margin: 0 5px;
           margin-left: 3px;
-          font-size: 10px;
+          font-size: 12px;
           line-height: 16px;
           text-align: left;
-          padding: 3px;
+          padding: 3px 6px;
           border: 1px solid rgba(180, 180, 180, 1.00);
           min-height: 26px;
           background-color: rgba(255, 255, 255, 1.00);

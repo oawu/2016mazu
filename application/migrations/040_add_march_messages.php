@@ -14,10 +14,12 @@ class Migration_Add_march_messages extends CI_Migration {
         `ip` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0.0.0.0' COMMENT 'IP',
         `message` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '訊息',
         `black_count` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '黑名單次數',
+        `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT 'Token',
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
         PRIMARY KEY (`id`),
-        KEY `ip_index` (`ip`)
+        KEY `ip_index` (`ip`),
+        KEY `token_index` (`token`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
     );
   }

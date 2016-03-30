@@ -35,6 +35,7 @@ class MarchMessage extends OaModel {
     if (file_exists ($path)) return self::mail (array (
         '錯誤問題' => '放置 Message 到 s3 錯誤。',
         '錯誤原因' => '上一次的 .json 檔案尚未刪除！',
+        '刪除鏈結' => base_url ('api', 'clean', 'messages'),
       ));
 
     $CI =& get_instance ();

@@ -3,9 +3,6 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 $(function () {
-  // var ;
-  // var 
-  // var 
   var _url1 = 'http://pic.mazu.ioa.tw/api/march/1/paths.json';
   var _url2 = 'http://pic.mazu.ioa.tw/api/march/messages.json';
   var _url3 = $('#url3').val ();
