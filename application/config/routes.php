@@ -52,10 +52,12 @@ Route::group ('admin', function () {
 Route::group ('api', function () {
   // Route::post ('/marches/', 'marches@create()');
   Route::resource (array ('march', 'paths'), 'march_paths');
+  Route::get ('march/(:id)/paths/last', 'march_paths@last($1)');
+
   Route::resource ('march_messages', 'march_messages');
   Route::post ('march_messages/report', 'march_messages@report');
 });
 
 // echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-// var_dump (Route::getRoute ());
+// echo json_encode(Route::getRoute ());
 // exit ();

@@ -25,7 +25,8 @@ class Clean extends Api_controller {
     return true;
   }
   private function _heatmaps () {
-    // @unlink (FCPATH . 'temp/march_messages.json');
+    for ($i = 0; $i < 10; $i++)
+      @unlink (FCPATH . 'temp/march_' . $i . '_heatmaps.json');
     return true;
   }
   public function paths () {
@@ -41,7 +42,6 @@ class Clean extends Api_controller {
     return $this->output_json (array ('s' => $this->_paths () && $this->_messages () && $this->_heatmaps ()));
   }
   public function temp () {
-
-    return $this->output_json (array ('s' => true));
+    $this->load->helper ('directory'); directory_delete (FCPATH . 'temp', false); return $this->output_json (array ('s' => true));
   }
 }

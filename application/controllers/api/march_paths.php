@@ -16,11 +16,16 @@ class March_paths extends Api_controller {
       return $this->disable ($this->output_error_json ('Parameters error!'));
   }
 
+  public function last () {
+    $is_ios = 1;
+    if (!$last = MarchPath::last (array ('conditions' => array ('march_id = ? AND is_ios = ?', $this->march->id,  $is_ios)))) return $this->output_error_json ('No Any Data！');
+
+    return $this->output_json (array ('last' => $last->to_array ()));
+  }
   public function create () {
     $paths = ($paths = OAInput::post ('p')) ? $paths : array ();
     if (!$paths) return $this->output_json (array ('ids' => array ()));
-// var_dump ($paths);
-// exit ();
+
     $march = $this->march;
     $last = MarchPath::find ('one', array (
         'select' => 'time_at',
