@@ -254,6 +254,11 @@
                                                              zoom:16]];
     [self.mazu setPosition:CLLocationCoordinate2DMake([[data objectForKey:@"latitude2"] doubleValue], [[data objectForKey:@"longitude2"] doubleValue])];
 }
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self setHidden];
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setHidden];

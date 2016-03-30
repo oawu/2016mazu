@@ -6,9 +6,14 @@
  */
 
 class March_message_blacklists extends Api_controller {
-  
+  private $black = null;
   public function __construct () {
     parent::__construct ();
+
+
+    if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy', 'sort')))
+      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->black = MarchMessageBlacklist::find ('one', array ('conditions' => array ('id = ?', $id))))))
+        return $this->disable ($this->output_error_json ('Parameters error!'));
   }
 
   public function index () {
@@ -19,5 +24,13 @@ class March_message_blacklists extends Api_controller {
     }, $list);
 
     return $this->output_json (array ('l' => $list));
+  }
+  public function destroy () {
+    $black = $this->black;
+    $delete = ArticleTag::transaction (function () use ($black) {
+      return $black->destroy ();
+    });
+
+    return $this->output_json (array ('s' => true));
   }
 }

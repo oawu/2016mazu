@@ -25,12 +25,21 @@
     self.list = [NSMutableArray new];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self.tableView reloadData];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.list = [NSMutableArray new];
+    [self reloadData];
+}
 - (void)reloadData {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"取得資料中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
     
     [self.parentViewController presentViewController:alert animated:YES completion:^{
         [self loadData:alert];
-//        self.timer = [NSTimer scheduledTimerWithTimeInterval:LOAD_MESSAGE_TIMER target:self selector:@selector(loadDataByTimer) userInfo:nil repeats:YES];
     }];
 }
 - (void)loadData:(UIAlertController *)alert {
@@ -38,34 +47,18 @@
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
-    [httpManager GET:LOAD_MESSAGE_API_URL
+    [httpManager GET:BLACK_LIST_API_URL
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 self.isLoading = NO;
-                 
-                 if (![[responseObject objectForKey:@"s"] boolValue]) {
-                     if (alert) [alert dismissViewControllerAnimated:YES completion:nil];
-                     return;
-                 }
-                 
-                 int i = 0;
-                 for (NSDictionary *msg in [responseObject objectForKey:@"m"])
-                     if (self.maxId == 0)
-                         [self.messages addObject: [[Message alloc] initWithDictionary: msg]];
-                     else if ([[msg objectForKey:@"d"] integerValue] > self.maxId)
-                         [self.messages insertObject: [[Message alloc] initWithDictionary: msg] atIndex: i++];
-                 
-                 
-                 self.maxId = (int)[[self.messages firstObject].id integerValue];
+                for (NSDictionary *l in [responseObject objectForKey:@"l"])
+                     [self.list addObject: l];
                  
                  [self.tableView reloadData];
                  
                  if (alert) [alert dismissViewControllerAnimated:YES completion:nil];
              }
              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 self.isLoading = NO;
                  if (alert) [alert dismissViewControllerAnimated:YES completion:nil];
-                 //                 NSLog(@"=======>Failure!Error:%@", [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding]);
              }
      ];
 }
@@ -74,22 +67,34 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return [self.list count];
 }
 
-/*
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return true;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.list removeObjectAtIndex:indexPath.row];
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    NSString *identifier = [NSString stringWithFormat:@"BlackListCell_%@", [[self.list objectAtIndex:indexPath.row] objectForKey:@"id"]];
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+
+    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+
+    [cell.textLabel setText:[[self.list objectAtIndex:indexPath.row] objectForKey:@"ip"]];
+
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

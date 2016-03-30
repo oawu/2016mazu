@@ -56,6 +56,8 @@ Route::group ('api', function () {
 
   Route::resource ('march_messages', 'march_messages');
   Route::post ('march_messages/report', 'march_messages@report');
+  
+  Route::resource ('march_message_blacklists', 'march_message_blacklists');
 });
 
 // echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';

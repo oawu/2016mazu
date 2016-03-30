@@ -92,7 +92,8 @@
     
     [cell.textLabel setText:text];
     [cell.imageView setImage:[UIImage imageNamed:image]];
-    
+    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+
     return cell;
 }
 
