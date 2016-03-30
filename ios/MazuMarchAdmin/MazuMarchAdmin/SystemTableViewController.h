@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Header.h"
+#import "AFHTTPRequestOperationManager.h"
 
 
 @interface SystemTableViewController : UITableViewController
 
 @property NSMutableArray *features;
+@property NSString *batteryIcon;
 @end

@@ -23,17 +23,31 @@
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
     
     self.list = [NSMutableArray new];
+    
+    
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(refreshAction) forControlEvents:UIControlEventValueChanged];
+    
 }
 
+- (void)refreshAction {
+    [self.refreshControl endRefreshing];
+    
+    [self clean];
+    [self reloadData];
+}
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
-    [self.tableView reloadData];
+    [self clean];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.list = [NSMutableArray new];
     [self reloadData];
+}
+- (void)clean {
+    self.list = [NSMutableArray new];
+    [self.tableView reloadData];
 }
 - (void)reloadData {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"取得資料中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
@@ -80,8 +94,26 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.list removeObjectAtIndex:indexPath.row];
-    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    [self deleteBlack:[NSString stringWithFormat:@"%@", [[self.list objectAtIndex:indexPath.row] objectForKey:@"id"]] callback: ^{
+        [self.list removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        
+    }];
+}
+-(void)deleteBlack:(NSString *)blackId callback:(void (^)())finish {
+    
+    AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+    [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+    [httpManager DELETE:[NSString stringWithFormat:DELETE_BLACK_API_URL, (int)[blackId integerValue]]
+           parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  finish ();
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  finish ();
+              }
+     ];
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = [NSString stringWithFormat:@"BlackListCell_%@", [[self.list objectAtIndex:indexPath.row] objectForKey:@"id"]];

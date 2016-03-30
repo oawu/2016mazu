@@ -5,6 +5,14 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
+if (!function_exists ('put_s3')) {
+  function put_s3 ($path, $s3_path) {
+    $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
+    $CI =& get_instance ();
+    $CI->load->library ('S3', Cfg::system ('s3', 'buckets', $bucket));
+    return S3::putObjectFile ($path, $bucket, $s3_path, S3::ACL_PUBLIC_READ, array (), array ('Cache-Control' => 'max-age=315360000', 'Expires' => gmdate ('D, d M Y H:i:s T', strtotime ('+5 years'))));
+  }
+}
 if (!function_exists ('rand_x')) {
   function rand_x ($t) {
     return array (

@@ -229,6 +229,7 @@
 		0E88ECEA1CA8CB9700D06A95 /* MazuMarchAdmin */ = {
 			isa = PBXGroup;
 			children = (
+				0EADDBED1CABDBF6006AE497 /* System */,
 				0E88ED951CAA280400D06A95 /* TabBar */,
 				0E88ED911CAA0FE900D06A95 /* Navigation */,
 				0E88ED901CAA0E7B00D06A95 /* Maps */,
@@ -237,16 +238,6 @@
 				0E88ECEE1CA8CB9700D06A95 /* AppDelegate.h */,
 				0E88ECEF1CA8CB9700D06A95 /* AppDelegate.m */,
 				0E88ECF41CA8CB9700D06A95 /* Main.storyboard */,
-				0E88ED921CAA102600D06A95 /* SystemTableViewController.h */,
-				0E88ED931CAA102600D06A95 /* SystemTableViewController.m */,
-				0EADDBDE1CAAA917006AE497 /* MarchViewController.h */,
-				0EADDBDF1CAAA917006AE497 /* MarchViewController.m */,
-				0EADDBE11CAAB29D006AE497 /* ClearTempViewController.h */,
-				0EADDBE21CAAB29D006AE497 /* ClearTempViewController.m */,
-				0EADDBE71CAB9775006AE497 /* GPSStatusViewController.h */,
-				0EADDBE81CAB9775006AE497 /* GPSStatusViewController.m */,
-				0EADDBEA1CABC71B006AE497 /* BlackListTableViewController.h */,
-				0EADDBEB1CABC71B006AE497 /* BlackListTableViewController.m */,
 				0E88ECFA1CA8CB9700D06A95 /* Assets.xcassets */,
 				0E88ECFC1CA8CB9700D06A95 /* LaunchScreen.storyboard */,
 				0E88ECFF1CA8CB9700D06A95 /* Info.plist */,
@@ -389,6 +380,23 @@
 				0E88ED971CAA282400D06A95 /* MyTabBarController.m */,
 			);
 			name = TabBar;
+			sourceTree = "<group>";
+		};
+		0EADDBED1CABDBF6006AE497 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				0E88ED921CAA102600D06A95 /* SystemTableViewController.h */,
+				0E88ED931CAA102600D06A95 /* SystemTableViewController.m */,
+				0EADDBDE1CAAA917006AE497 /* MarchViewController.h */,
+				0EADDBDF1CAAA917006AE497 /* MarchViewController.m */,
+				0EADDBE11CAAB29D006AE497 /* ClearTempViewController.h */,
+				0EADDBE21CAAB29D006AE497 /* ClearTempViewController.m */,
+				0EADDBE71CAB9775006AE497 /* GPSStatusViewController.h */,
+				0EADDBE81CAB9775006AE497 /* GPSStatusViewController.m */,
+				0EADDBEA1CABC71B006AE497 /* BlackListTableViewController.h */,
+				0EADDBEB1CABC71B006AE497 /* BlackListTableViewController.m */,
+			);
+			name = System;
 			sourceTree = "<group>";
 		};
 		9DC9E7F2676F53E247EB8A0D /* Pods */ = {

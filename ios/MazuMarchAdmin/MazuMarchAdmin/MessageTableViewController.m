@@ -188,6 +188,11 @@
 {
     [self.messages removeObjectAtIndex:indexPath.row];
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
+//    ;
+    [self toBlock:[self.messages objectAtIndex:indexPath.row].ip];
+}
+- (void)toBlock: (NSString *) ip {
+    
 }
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"黑名單";

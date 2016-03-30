@@ -55,7 +55,7 @@
                                       @"image": @"system_100"
                                       }]
                           }];
-    [self.navigationController pushViewController:[NSClassFromString(@"BlackListTableViewController") new] animated:YES];
+//    [self.navigationController pushViewController:[NSClassFromString(@"BlackListTableViewController") new] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,14 +89,31 @@
 
     NSString *text = [[[[self.features objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"name"];
     NSString *image = [[[[self.features objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"image"];
+    NSString *action = [[[[self.features objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"action"];
     
+
     [cell.textLabel setText:text];
-    [cell.imageView setImage:[UIImage imageNamed:image]];
+    [cell.imageView setImage:[UIImage imageNamed:[action isEqualToString:@"GPSStatusViewController"] && self.batteryIcon ? self.batteryIcon : image]];
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 
     return cell;
 }
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+    [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+    [httpManager GET:[NSString stringWithFormat:LAST_API_URL, (int)[[USER_DEFAULTS objectForKey:@"march_id"] integerValue]]
+          parameters:nil
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 int i = (int)[[[responseObject objectForKey:@"last"] objectForKey:@"battery"] integerValue] / 25;
+                 self.batteryIcon = [NSString stringWithFormat:@"system_10%d", i];
+                 [self.tableView reloadData];
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {}
+     ];
+    
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *action = [[[[self.features objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"action"];
     
