@@ -17,7 +17,7 @@ class March_paths extends Api_controller {
   }
 
   public function last () {
-    $is_ios = 1;
+    $is_ios = $this->march->is_ios;
     if (!$last = MarchPath::last (array ('conditions' => array ('march_id = ? AND is_ios = ?', $this->march->id,  $is_ios)))) return $this->output_error_json ('No Any Data！');
 
     return $this->output_json (array ('last' => $last->to_array ()));

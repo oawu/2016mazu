@@ -71,7 +71,7 @@ class Cli_march extends Site_controller {
   }
 
   private function _get_paths ($march) {
-    $is_ios = 0;
+    $is_ios = $march->is_ios;
     
     $first = MarchPath::first (array ('select' => 'id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND is_ios = ?', $march->id,  $is_ios)));
     $last = MarchPath::last (array ('select' => 'id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND is_ios = ?', $march->id,  $is_ios)));
