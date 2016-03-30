@@ -52,6 +52,8 @@
 		0E88ED981CAA282400D06A95 /* MyTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ED971CAA282400D06A95 /* MyTabBarController.m */; };
 		0EADDBE01CAAA917006AE497 /* MarchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EADDBDF1CAAA917006AE497 /* MarchViewController.m */; };
 		0EADDBE31CAAB29D006AE497 /* ClearTempViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EADDBE21CAAB29D006AE497 /* ClearTempViewController.m */; };
+		0EADDBE91CAB9775006AE497 /* GPSStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EADDBE81CAB9775006AE497 /* GPSStatusViewController.m */; };
+		0EADDBEC1CABC71B006AE497 /* BlackListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EADDBEB1CABC71B006AE497 /* BlackListTableViewController.m */; };
 		5CEA4DFEACEB5EE52E790E29 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61CCA0D5333E23E8966B28E6 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -163,6 +165,10 @@
 		0EADDBDF1CAAA917006AE497 /* MarchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarchViewController.m; sourceTree = "<group>"; };
 		0EADDBE11CAAB29D006AE497 /* ClearTempViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearTempViewController.h; sourceTree = "<group>"; };
 		0EADDBE21CAAB29D006AE497 /* ClearTempViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearTempViewController.m; sourceTree = "<group>"; };
+		0EADDBE71CAB9775006AE497 /* GPSStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSStatusViewController.h; sourceTree = "<group>"; };
+		0EADDBE81CAB9775006AE497 /* GPSStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSStatusViewController.m; sourceTree = "<group>"; };
+		0EADDBEA1CABC71B006AE497 /* BlackListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackListTableViewController.h; sourceTree = "<group>"; };
+		0EADDBEB1CABC71B006AE497 /* BlackListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackListTableViewController.m; sourceTree = "<group>"; };
 		61CCA0D5333E23E8966B28E6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB487A4AD26B8997DFF64313 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		ECB8BAA84CEF5DCC639441D5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -237,6 +243,10 @@
 				0EADDBDF1CAAA917006AE497 /* MarchViewController.m */,
 				0EADDBE11CAAB29D006AE497 /* ClearTempViewController.h */,
 				0EADDBE21CAAB29D006AE497 /* ClearTempViewController.m */,
+				0EADDBE71CAB9775006AE497 /* GPSStatusViewController.h */,
+				0EADDBE81CAB9775006AE497 /* GPSStatusViewController.m */,
+				0EADDBEA1CABC71B006AE497 /* BlackListTableViewController.h */,
+				0EADDBEB1CABC71B006AE497 /* BlackListTableViewController.m */,
 				0E88ECFA1CA8CB9700D06A95 /* Assets.xcassets */,
 				0E88ECFC1CA8CB9700D06A95 /* LaunchScreen.storyboard */,
 				0E88ECFF1CA8CB9700D06A95 /* Info.plist */,
@@ -604,6 +614,7 @@
 				0E88ED291CA8D03D00D06A95 /* Message.m in Sources */,
 				0E88ED551CA9012400D06A95 /* SDWebImageDownloaderOperation.m in Sources */,
 				0E88ED7B1CA9103700D06A95 /* AFURLResponseSerialization.m in Sources */,
+				0EADDBE91CAB9775006AE497 /* GPSStatusViewController.m in Sources */,
 				0E88ED751CA9103700D06A95 /* AFHTTPRequestOperationManager.m in Sources */,
 				0E88ED741CA9103700D06A95 /* AFHTTPRequestOperation.m in Sources */,
 				0E88ED531CA9012400D06A95 /* SDWebImageDecoder.m in Sources */,
@@ -611,6 +622,7 @@
 				0E88ED8F1CA9919800D06A95 /* Path.m in Sources */,
 				0E88ED5C1CA9012400D06A95 /* UIImageView+HighlightedWebCache.m in Sources */,
 				0E88ED501CA9012400D06A95 /* NSData+ImageContentType.m in Sources */,
+				0EADDBEC1CABC71B006AE497 /* BlackListTableViewController.m in Sources */,
 				0E88ED941CAA102600D06A95 /* SystemTableViewController.m in Sources */,
 				0E88ED541CA9012400D06A95 /* SDWebImageDownloader.m in Sources */,
 				0E88ED771CA9103700D06A95 /* AFNetworkReachabilityManager.m in Sources */,

@@ -41,7 +41,7 @@
                                       },
                                   @{
                                       @"name": @"黑名單列表",
-                                      @"action": @"BlackListViewController",
+                                      @"action": @"BlackListTableViewController",
                                       @"image": @"system_02"
                                       }
                                   ]
@@ -50,17 +50,12 @@
                           @"name": @"定位系統",
                           @"items": @[
                                   @{
-                                      @"name": @"GPS電量",
-                                      @"action": @"BatteryViewController",
+                                      @"name": @"GPS狀態",
+                                      @"action": @"GPSStatusViewController",
                                       @"image": @"system_100"
-                                      },
-                                  @{
-                                      @"name": @"上次上傳",
-                                      @"action": @"LastTimeViewController",
-                                      @"image": @"system_11"
                                       }]
                           }];
-    
+    [self.navigationController pushViewController:[NSClassFromString(@"BlackListTableViewController") new] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,7 +88,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cel" forIndexPath:indexPath];
 
     NSString *text = [[[[self.features objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"name"];
-    NSString *action = [[[[self.features objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"action"];
     NSString *image = [[[[self.features objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"image"];
     
     [cell.textLabel setText:text];
@@ -106,50 +100,8 @@
     NSString *action = [[[[self.features objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"action"];
     
     [self.navigationController pushViewController:[NSClassFromString(action) new] animated:YES];
+
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
