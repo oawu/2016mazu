@@ -20,6 +20,8 @@ application/config/setting/google.php
 application/config/system/orm_uploader.php
 application/config/system/s3.php
 
+ENV.php
+
 temp/*
 
 upload/*

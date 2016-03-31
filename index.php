@@ -22,7 +22,8 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define ('ENVIRONMENT', 'production');
+  // 載入環境變數
+  require_once 'ENV.php';
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
