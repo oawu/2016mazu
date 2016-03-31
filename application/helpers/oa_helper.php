@@ -7,10 +7,11 @@
 
 if (!function_exists ('put_s3')) {
   function put_s3 ($path, $s3_path) {
+    $mime = ($mime = get_mime_by_extension ($path)) ? $mime : 'text/plain';
     $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
     $CI =& get_instance ();
     $CI->load->library ('S3', Cfg::system ('s3', 'buckets', $bucket));
-    return S3::putObjectFile ($path, $bucket, $s3_path, S3::ACL_PUBLIC_READ, array (), array ('Cache-Control' => 'max-age=315360000', 'Expires' => gmdate ('D, d M Y H:i:s T', strtotime ('+5 years'))));
+    return S3::putObjectFile ($path, $bucket, $s3_path, S3::ACL_PUBLIC_READ, array (), array ('Content-Type' => $mime, 'Cache-Control' => 'max-age=315360000', 'Expires' => gmdate ('D, d M Y H:i:s T', strtotime ('+5 years'))));
   }
 }
 if (!function_exists ('rand_x')) {
@@ -29,7 +30,7 @@ if (!function_exists ('oa_url_encode')) {
 if (!function_exists ('resource_url')) {
   function resource_url () {
     $uris = array_filter (func_get_args ());
-    return base_url ($uris);
+    return ENVIRONMENT == 'production' ? 'http://pic.mazu.ioa.tw/' . implode ('/', $uris) : base_url ($uris);
   }
 }
 if (!function_exists ('color_hex')) {

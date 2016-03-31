@@ -23,7 +23,6 @@ class Cli_march extends Site_controller {
     if (file_exists ($path))
       return array ('march' => $march, 'msg' => '上一次還沒完成，或還沒清除檔案！');
 
-    $this->load->helper ('file');
     if (!write_file ($path, json_encode (array ())))
       return array ('march' => $march, 'msg' => '寫入 json 檔案錯誤或失敗(1)！');
 

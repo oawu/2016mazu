@@ -27,7 +27,6 @@ class Cli_baishatun extends Site_controller {
 // </CORSConfiguration>
   public function clean_query () {
     $log = CrontabLog::start ('每 30 分鐘，清除 query logs');
-    $this->load->helper ('file');
     write_file (FCPATH . 'application/logs/query.log', '', FOPEN_READ_WRITE_CREATE_DESTRUCTIVE);
     $log->finish ();
   }
@@ -40,7 +39,6 @@ class Cli_baishatun extends Site_controller {
     if (file_exists ($path))
       return $this->_error ($log, '上一次還沒完成，或還沒清除檔案！', base_url ('api', 'baishatun', 'clear_api'));
 
-    $this->load->helper ('file');
     if (!write_file ($path, json_encode (array ())))
       return $this->_error ($log, '寫入 json 檔案錯誤或失敗！');
 
@@ -195,7 +193,6 @@ class Cli_baishatun extends Site_controller {
 
     if (count ($datas) != count ($qs)) return $this->_error ($log, '上一次還沒完成，或還沒清除檔案！', base_url ('api', 'baishatun', 'clear_heatmaps'));
 
-    $this->load->helper ('file');
     $ws = array_filter ($datas, function ($data) { return write_file ($data['p'], json_encode (array ())); });
 
     if (count ($ws) != count ($datas))

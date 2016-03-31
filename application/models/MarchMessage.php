@@ -38,8 +38,6 @@ class MarchMessage extends OaModel {
         '刪除鏈結' => base_url ('api', 'clean', 'messages'),
       ));
 
-    $CI =& get_instance ();
-    $CI->load->helper ('file');
     if (!write_file ($path, json_encode (array ()))) return self::mail (array (
         '錯誤問題' => '放置 Message 到 s3 錯誤。',
         '錯誤原因' => '第一次寫入 .json 失敗！',

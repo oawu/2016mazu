@@ -59,7 +59,6 @@ class Baishatun extends Api_controller {
     if (file_exists ($path))
       return ;
 
-    $this->load->helper ('file');
     if (!write_file ($path, json_encode (array ())))
       return ;
 

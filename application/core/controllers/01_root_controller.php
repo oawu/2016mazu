@@ -29,6 +29,7 @@ class Root_controller extends CI_Controller {
     $this->load->helper ('oa');
     $this->load->helper ('upload_file');
     $this->load->helper ('cell');
+    $this->load->helper ('file');
     $this->load->library ('cfg');
     $this->load->library ('session');
     $this->load->library ('fb');

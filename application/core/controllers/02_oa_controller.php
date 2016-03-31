@@ -168,13 +168,16 @@ class Oa_controller extends Root_controller {
     $file_name = (Cfg::system ('static', 'is_md5') ? md5 ($file_name) : $file_name) . '.' .  $format;
     $bom = pack ('H*','EFBBBF');
 
+    $return = true;
     if (!is_readable ($folder_path . $file_name) && !($data = '')) {
       foreach ($temp as $key => $value)
         $data .= (($file = preg_replace("/^$bom/", '', read_file ($path = FCPATH . preg_replace ("|^(" . preg_quote (base_url ('')) . ")|", '', $value)))) ? Cfg::system ('static', 'minify') ? $this->minify->$format->min ($file) : $file : '') . "\n";
       write_file ($folder_path . $file_name, $data, 'w+');
-    }
 
-    return base_url (array_merge (Cfg::system ('static', 'assets_folder'), array ($file_name)));
+      $return = put_s3 ($folder_path . $file_name, 'static/' . $file_name, pathinfo ($file_name, PATHINFO_EXTENSION) == 'css' ? 'text/css' : 'application/javascript');
+    }
+    $return = $return ? 'http://pic.mazu.ioa.tw/static/' . $file_name : base_url (array_merge (Cfg::system ('static', 'assets_folder'), array ($file_name)));
+    return $return;
   }
   private function _combine_static_files () {
     if ((ENVIRONMENT !== 'production') && Cfg::system ('static', 'enable'))

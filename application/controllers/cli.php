@@ -673,5 +673,22 @@ class Cli extends Site_controller {
     $this->other ();
     $this->store ();
   }
-  
+  private function _directory_map ($files, &$a, $k = null) {
+    foreach ($files as $key => $file)
+      if (is_array ($file)) $key . $this->_directory_map ($file, $a, ($k ? $k . DIRECTORY_SEPARATOR : '') . $key);
+      else array_push ($a, ($k ? $k . DIRECTORY_SEPARATOR : '') . $file);
+  }
+  public function put_resource () {
+    $dir = FCPATH . 'resource' . DIRECTORY_SEPARATOR;
+    $this->load->helper ('directory');
+
+    $files = array ();
+    $this->_directory_map (directory_map ($dir), $files);
+    foreach ($files as $i => $file) {
+      // echo $dir . $file . "\n";
+      // echo 'resource' . DIRECTORY_SEPARATOR . $file . "\n";
+      echo $i . ': ' . $file . "\n";;
+      put_s3 ($dir . $file, 'resource' . DIRECTORY_SEPARATOR . $file);
+    }
+  }
 }
