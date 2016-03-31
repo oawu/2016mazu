@@ -11,5 +11,6 @@ class Youtubes extends Delay_controller {
       return ;
 
     $picture->update_cover_color_and_dimension ();
+    $picture->cover->compressor ();
   }
 }

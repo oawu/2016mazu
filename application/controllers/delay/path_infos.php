@@ -11,5 +11,6 @@ class Path_infos extends Delay_controller {
       return ;
 
     $info->update_cover_color_and_dimension ();
+    $info->cover->compressor ();
   }
 }
