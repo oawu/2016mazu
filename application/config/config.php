@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url'] = ENVIRONMENT === 'production' ? 'http://dev.mazu.ioa.tw/' : 'http://dev.mazu.ioa.tw/';
+$config['base_url'] = ENVIRONMENT === 'production' ? 'http://mazu.ioa.tw/' : 'http://dev.mazu.ioa.tw/';
 
 /*
 |--------------------------------------------------------------------------
