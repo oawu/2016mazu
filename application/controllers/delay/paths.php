@@ -12,6 +12,7 @@ class Paths extends Delay_controller {
 
     $path->update_image ();
     $path->update_length ();
-    $path->image->compressor ();
+    if (ENVIRONMENT == 'production')
+      $path->image->compressor ();
   }
 }

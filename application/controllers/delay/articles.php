@@ -11,6 +11,7 @@ class Articles extends Delay_controller {
       return ;
 
     $article->update_cover_color_and_dimension ();
-    $article->cover->compressor ();
+    if (ENVIRONMENT == 'production')
+      $article->cover->compressor ();
   }
 }
