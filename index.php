@@ -3,7 +3,7 @@
  * Set timezone to Asia taipei.
  */
 	date_default_timezone_set ('Asia/Taipei');
-phpinfo();exit;
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
