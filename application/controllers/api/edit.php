@@ -7,6 +7,13 @@
 
 class Edit extends Api_controller {
   
+  public function xox () {
+    $a = Article::find_by_id (16);
+    // echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+    // var_dump ($a->cover->put (FCPATH . 'temp/a.jpg'));
+    // exit ();
+    $a->cover->compressor ();
+  }
   public function aaa () {
     // 新增使用者
       // 資料庫新增一筆帳號 aaa 密碼 xxx 的資料

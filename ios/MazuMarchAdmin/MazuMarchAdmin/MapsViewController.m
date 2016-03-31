@@ -97,7 +97,7 @@
     
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"text/plain"]];
+    [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
     [httpManager GET:[NSString stringWithFormat:LOAD_PATHS_API_URL, (int)[[USER_DEFAULTS objectForKey:@"march_id"] integerValue]]
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {

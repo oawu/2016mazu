@@ -16,7 +16,7 @@
 
 #define API_POST_MARCH_PAYHS (API_URL @"march/%d/paths")
 
-#define PATH_FETCH_TIMER 5 //sec
+#define PATH_FETCH_TIMER 50 //sec
 
 
 #endif /* Header_h */
