@@ -42,7 +42,7 @@ class Cli_march extends Site_controller {
 
     $msg = array ();
 
-    if (!$this->_put_s3 ($path, $s3_path))
+    if (!put_s3 ($path, $s3_path))
       $msg = array ('march' => $march, 'msg' => '丟到 S3 失敗！');
 
     if (!@unlink ($path))
@@ -63,11 +63,6 @@ class Cli_march extends Site_controller {
     return $log->finish ();
   }
 
-  private function _put_s3 ($path, $s3_path) {
-    $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
-    $this->load->library ('S3', Cfg::system ('s3', 'buckets', $bucket));
-    return S3::putObjectFile ($path, $bucket, $s3_path, S3::ACL_PUBLIC_READ, array (), array ('Cache-Control' => 'max-age=315360000', 'Expires' => gmdate ('D, d M Y H:i:s T', strtotime ('+5 years'))));
-  }
 
   private function _get_paths ($march) {
     $is_ios = $march->is_ios;
