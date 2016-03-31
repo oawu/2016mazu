@@ -47,6 +47,6 @@ class Main extends Site_controller {
             'polyline' => $polyline,
             'prev' => $prev,
             'next' => $next,
-          ));
+          ), false, 60);
   }
 }
