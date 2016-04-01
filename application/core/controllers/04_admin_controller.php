@@ -43,6 +43,7 @@ class Admin_controller extends Oa_controller {
          ->_add_meta ()->_add_css ()->_add_js ()
 
          ->add_hidden (array ('id' => 'tools_ckeditors_upload_image_url', 'value' => base_url ('admin', 'tools', 'ckeditors_upload_image')))
+         ->add_hidden (array ('id' => 'tools_ckeditors_browser_image_url', 'value' => base_url ('admin', 'tools', 'ckeditors_browser_image')))
          ->add_hidden (array ('id' => 'tools_scws_url', 'value' => base_url ('admin', 'tools', 'scws')))
          ->add_param ('_menus_list', $menus_list)
          ;

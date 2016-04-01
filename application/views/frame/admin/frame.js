@@ -9,6 +9,7 @@ $(function () {
   CKEDITOR.env.isCompatible = true;
   $('textarea.cke').ckeditor ({
     filebrowserUploadUrl: $('#tools_ckeditors_upload_image_url').val (),
+    filebrowserImageBrowseUrl: $('#tools_ckeditors_browser_image_url').val (),
     height: 400,
   });
 

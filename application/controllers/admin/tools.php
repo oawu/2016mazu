@@ -7,6 +7,14 @@
 
 class Tools extends Admin_controller {
 
+  public function ckeditors_browser_image () {
+    $ckes = CkeditorPicture::all (array ('order' => 'id DESC'));
+
+    return $this->set_frame_path ('frame', 'pure')
+                ->load_view (array (
+                    'ckes' => $ckes
+                  ));
+  }
   public function ckeditors_upload_image () {
     $funcNum = $_GET['CKEditorFuncNum'];
     $upload = OAInput::file ('upload');

@@ -1,0 +1,38 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+.ckes {
+  @include clearfix();
+  > div {
+    
+    &:not(.cke) {
+      @include alert;
+      display: inline-block;
+      margin: 20px;
+    }
+    &.cke {
+      float: left;
+      width: 200px;
+      height: 200px;
+      margin: 5px;
+      overflow: hidden;
+      display: inline-block;
+      visibility: visible;
+      cursor: pointer;
+      @include box-shadow(0 0 1px rgba(39, 40, 34, .50));
+      @include border-radius(2px);
+      @include transition(box-shadow .3s);
+      
+      &:hover {
+        @include box-shadow(0 0 5px rgba(39, 40, 34, .70));
+      }
+      img {
+        width: 400px;
+      }
+    }
+  }
+}
