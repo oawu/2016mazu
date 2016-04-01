@@ -80,7 +80,7 @@
   margin-left: -22px;
   background-position: 0 -108px;
   cursor: pointer;
-  z-index: 999999999999;
+  z-index: 999;
   @include opacity(.8);
 }
 
@@ -97,7 +97,7 @@
   width: 36px;
   height: 36px;
   cursor: pointer;
-  z-index: 9999;
+  z-index: 999;
 }
 
 .fancybox-nav {
@@ -457,8 +457,8 @@
   }
 }
 .fancybox-type-iframe, .fancybox-type-image {
-  z-index: 999999999999 !important;
+  z-index: 999 !important;
 }
 .fancybox-overlay {
-  z-index: 999999999998 !important;
+  z-index: 998 !important;
 }

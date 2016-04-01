@@ -152,7 +152,6 @@ class OrmImageUploader extends OrmUploader {
 
       switch ($this->getDriver ()) {
         case 'local':
-
           foreach ($files as $file) {
             if (($source = \Tinify\fromFile ($file)) && $source->toFile ($file))
               array_push ($newFiles, $file);

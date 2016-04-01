@@ -76,7 +76,7 @@ class Path extends OaModel {
       return $point_ids;
 
     $c = count ($all_point_ids);
-    $unit = $c < 10000 ? $c < 5000 ? $c < 2500 ? $c < 1500 ? $c < 1000 ? $c < 500 ? $c < 200 ? $c < 100 ? $c < 10 ? 0 : 0.01 : 0.05 : 0.15 : 0.3 : 0.46 : 1 : 1.5 : 2.3 : 3;
+    $unit = $c < 10000 ? $c < 5000 ? $c < 2500 ? $c < 1500 ? $c < 1000 ? $c < 500 ? $c < 200 ? $c < 100 ? $c < 10 ? 0 : 0.02 : 0.07 : 0.17 : 0.5 : 0.5 : 1.2 : 1.7 : 2.5 : 3.2;
     for ($i = 0; ($key = $is_GS ? round (($i * (2 + ($i - 1) * $unit)) / 2) : $i) < $all_point_ids[0]; $i++)
       if ($temp = array_slice ($all_point_ids, $key, 1))
         array_push ($point_ids, array_shift ($temp));

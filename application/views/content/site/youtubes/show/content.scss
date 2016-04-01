@@ -202,15 +202,19 @@
         border-bottom-color: rgba(42, 90, 149, 0.25);
       }
       img {
-        width: auto !important;
-        height: auto !important;
+        // width: auto !important;
+        // height: auto !important;
 
         max-width: 100% !important;
-        max-height: 350px !important;
+        // max-height: 350px !important;
         @include border-radius(2px);
         margin-bottom: 15px;
         cursor: pointer;
 
+        @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+          width: 100% !important;
+          height: auto !important;
+        }
       }
     }
     ul {

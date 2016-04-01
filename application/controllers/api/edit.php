@@ -8,11 +8,15 @@
 class Edit extends Api_controller {
   
   public function xox () {
-    $a = Article::find_by_id (16);
+    $a = Path::find_by_id (1);
+    $a->update_image ();
+    // $a = Article::create (array (
+    //   'user_id' => 1,
+    //   'title' => 'xxx'));
     // echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
     // var_dump ($a->cover->put (FCPATH . 'temp/a.jpg'));
     // exit ();
-    $a->cover->compressor ();
+    // $a->cover->compressor ();
   }
   public function aaa () {
     // 新增使用者
