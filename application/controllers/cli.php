@@ -662,7 +662,7 @@ class Cli extends Site_controller {
     // $this->dintao ();
     // $this->picture ();
     // $this->youtube ();
-    $this->path ();
+    // $this->path ();
     $this->other ();
     $this->store ();
   }
