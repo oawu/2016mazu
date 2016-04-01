@@ -11,7 +11,7 @@ class Pictures extends Delay_controller {
       return ;
 
     $picture->update_name_color_and_dimension ();
-    if (ENVIRONMENT == 'production')
-      $picture->name->compressor ();
+    // if (ENVIRONMENT == 'production')
+    //   $picture->name->compressor ();
   }
 }

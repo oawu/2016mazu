@@ -11,7 +11,7 @@ class Others extends Delay_controller {
       return ;
 
     $other->update_cover_color_and_dimension ();
-    if (ENVIRONMENT == 'production')
-      $other->cover->compressor ();
+    // if (ENVIRONMENT == 'production')
+    //   $other->cover->compressor ();
   }
 }

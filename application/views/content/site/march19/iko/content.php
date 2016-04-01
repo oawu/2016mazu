@@ -1,5 +1,5 @@
 <article>
-  <h2>遊行時間<div class="fb-like" data-href="<?php echo base_url ('march19', 'dintao');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></h2>
+  <h2>遊行時間<div class="fb-like" data-href="<?php echo base_url ('march19', 'iko');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></h2>
   <p>農曆三月十九、二十日每日中午十二時０分，依編排號次以國樂車為首，停廟西側民主路口，其他藝閣依號次排列於後，中午十二時三十分進入遊行路線。晚間六時三十分依號次集合於廟西側民主路指定地點，晚間七時準時進入遊行路線。</p>
   <p>農曆三月廿一、廿二、廿三日晚間六時三十分，依號次集合於廟西側民主路指定地點，晚間七時準時進入遊行路線，遊行完畢後解散。</p>
 </article>

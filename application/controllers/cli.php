@@ -684,4 +684,30 @@ class Cli extends Site_controller {
       put_s3 ($dir . $file, 'resource' . DIRECTORY_SEPARATOR . $file);
     }
   }
+
+  public function sitmap () {
+    $this->load->library ('Sitemap');
+
+    // 基礎設定
+    $domain = rtrim (base_url (), '/');
+    $sit_map = new Sitemap ($domain);
+    $sit_map->setPath (FCPATH . 'sitemap' . DIRECTORY_SEPARATOR);
+    $sit_map->setDomain ($domain);
+
+    $list = array ();
+    $menus_list = array_filter (array_map (function ($group) use ($domain, &$list) {
+      return array_filter ($group, function ($item) use ($domain, &$list) {
+        if (!(!(isset ($item['no_show']) && $item['no_show']) && (in_array ('all', $item['roles']) || (User::current () && User::current ()->in_roles ($item['roles'])))))
+          return false;
+        array_push ($list, str_replace ($domain, '', $item['href']));
+        return true;
+      });
+    }, Cfg::setting ('site', 'menu')));
+
+    // main pages
+    foreach ($list as $link)
+      $sit_map->addItem ($link, '0.5', 'weekly', date ('c'));
+
+    $sit_map->createSitemapIndex ($domain . '/sitemap/', date ('c'));
+  }
 }

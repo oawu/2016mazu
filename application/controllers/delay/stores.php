@@ -11,7 +11,7 @@ class Stores extends Delay_controller {
       return ;
 
     $store->update_cover_color_and_dimension ();
-    if (ENVIRONMENT == 'production')
-      $store->cover->compressor ();
+    // if (ENVIRONMENT == 'production')
+    //   $store->cover->compressor ();
   }
 }

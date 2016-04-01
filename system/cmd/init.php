@@ -27,7 +27,7 @@
   if (!is_writable ($path_logs = FCPATH . 'application/logs/'))
     console_error ("無法有 application/logs/ 的寫入權限!");
 
-  $directories = array ('assets', 'temp', 'upload', 'application/cell/cache', 'application/cache/file', 'application/cache/config', 'application/cache/output', 'application/cache/model');
+  $directories = array ('assets', 'temp', 'sitemap', 'upload', 'application/cell/cache', 'application/cache/file', 'application/cache/config', 'application/cache/output', 'application/cache/model');
   $results = array_merge ($results, array_map (function ($directory) {
     $oldmask = umask (0);
     @mkdir ($path = FCPATH . $directory . '/', 0777, true);

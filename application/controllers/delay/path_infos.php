@@ -11,7 +11,7 @@ class Path_infos extends Delay_controller {
       return ;
 
     $info->update_cover_color_and_dimension ();
-    if (ENVIRONMENT == 'production')
-      $info->cover->compressor ();
+    // if (ENVIRONMENT == 'production')
+    //   $info->cover->compressor ();
   }
 }

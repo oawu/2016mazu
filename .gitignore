@@ -29,6 +29,8 @@ upload/*
 
 assets/*
 
+sitemap/*
+
 /cmd
 
 system/cmd/.sass-cache/*

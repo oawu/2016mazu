@@ -11,7 +11,7 @@ class Youtubes extends Delay_controller {
       return ;
 
     $picture->update_cover_color_and_dimension ();
-    if (ENVIRONMENT == 'production')
-      $picture->cover->compressor ();
+    // if (ENVIRONMENT == 'production')
+    //   $picture->cover->compressor ();
   }
 }

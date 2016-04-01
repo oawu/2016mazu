@@ -12,22 +12,22 @@ class Maps extends Site_controller {
     parent::__construct ();
 
     $this->dintao_tabs = array (
-        array ('id' => 1, 'title' => '十九上午'),
-        array ('id' => 2, 'title' => '十九下午'),
-        array ('id' => 3, 'title' => '十九晚上'),
-        array ('id' => 4, 'title' => '二十上午'),
-        array ('id' => 4, 'title' => '二十下午'),
+        // array ('id' => 1, 'title' => '十九上午'),
+        array ('id' => 1, 'title' => '十九下午'),
+        array ('id' => 2, 'title' => '十九晚上'),
+        // array ('id' => 4, 'title' => '二十上午'),
+        array ('id' => 3, 'title' => '二十下午'),
         array ('id' => 4, 'title' => '二十晚上')
       );
 
     $this->iko_tabs = array (
-        array ('id' => 4, 'title' => '十九下午'),
-        array ('id' => 4, 'title' => '十九晚間'),
-        array ('id' => 4, 'title' => '二十下午'),
-        array ('id' => 4, 'title' => '二十晚間'),
-        array ('id' => 4, 'title' => '廿一晚間'),
-        array ('id' => 4, 'title' => '廿二晚間'),
-        array ('id' => 4, 'title' => '廿三晚間'),
+        array ('id' => 5, 'title' => '十九下午'),
+        array ('id' => 6, 'title' => '十九晚間'),
+        array ('id' => 7, 'title' => '二十下午'),
+        array ('id' => 8, 'title' => '二十晚間'),
+        array ('id' => 9, 'title' => '廿一晚間'),
+        array ('id' => 10, 'title' => '廿二晚間'),
+        array ('id' => 11, 'title' => '廿三晚間'),
       );
 
     $this->add_js (Cfg::setting ('google', 'client_js_url'), false);

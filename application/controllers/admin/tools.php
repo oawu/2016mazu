@@ -26,8 +26,8 @@ class Tools extends Admin_controller {
       return $cke->name->put ($upload);
     });
 
-    if (ENVIRONMENT == 'production')
-      delay_job ('ckeditors', 'compressor', array ('id' => $cke->id));
+    // if (ENVIRONMENT == 'production')
+    //   delay_job ('ckeditors', 'compressor', array ('id' => $cke->id));
 
     if (!($create && $cke))
       echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction ($funcNum, '', '上傳失敗！');</script>";
