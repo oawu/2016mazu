@@ -742,7 +742,7 @@ class Cli extends Site_controller {
       );
     require_once ('vendor/autoload.php');
 
-    $ss = array ('500w', '');;
+    $ss = array ('500w', '2048w');;
     foreach ($pics as $i => $pic) {
       echo str_repeat ('=', 60) . "\n";
       echo $i . ': ' . $pic->id . "\n";
