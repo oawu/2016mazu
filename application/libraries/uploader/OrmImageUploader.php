@@ -121,83 +121,83 @@ class OrmImageUploader extends OrmUploader {
     return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '未知的 driver，系統尚未支援 ' . $this->getDriver () . ' 的空間！', '請檢查 config/system/orm_uploader.php 設定檔！') : false;
   }
 
-  // return boolean
-  public function compressor ($exceptionVersion = array (''), $includeVirtual = false) {
-    if ($this->error)
-      return $this->getDebug () ? call_user_func_array ('error', $this->error) : array ();
+  // // return boolean
+  // public function compressor ($exceptionVersion = array (''), $includeVirtual = false) {
+  //   if ($this->error)
+  //     return $this->getDebug () ? call_user_func_array ('error', $this->error) : array ();
 
-    $versions = array_merge ($this->getVersions (), $includeVirtual ? $this->getVirtualVersions () : array ());
-    if ($exceptionVersion)
-      foreach ($versions as $key => $value)
-        if (in_array ($key, $exceptionVersion))
-          unset ($versions[$key]);
+  //   $versions = array_merge ($this->getVersions (), $includeVirtual ? $this->getVirtualVersions () : array ());
+  //   if ($exceptionVersion)
+  //     foreach ($versions as $key => $value)
+  //       if (in_array ($key, $exceptionVersion))
+  //         unset ($versions[$key]);
 
-    $files = array ();
-    foreach ($versions as $key => $version)
-      $files[$name = $key . $this->configs['separate_symbol'] . $this->getValue ()] = download_web_file ($this->url ($key), FCPATH . implode (DIRECTORY_SEPARATOR, $fileName = array_merge ($this->getTempDirectory (), array ($name))));
+  //   $files = array ();
+  //   foreach ($versions as $key => $version)
+  //     $files[$name = $key . $this->configs['separate_symbol'] . $this->getValue ()] = download_web_file ($this->url ($key), FCPATH . implode (DIRECTORY_SEPARATOR, $fileName = array_merge ($this->getTempDirectory (), array ($name))));
 
-    if (!($files = array_filter ($files)))
-      return true;
+  //   if (!($files = array_filter ($files)))
+  //     return true;
     
-    $newFiles = array ();
+  //   $newFiles = array ();
 
-    try {
-      $this->CI->load->library ('Tinypng');
-      require_once ('vendor/autoload.php');
+  //   try {
+  //     $this->CI->load->library ('Tinypng');
+  //     require_once ('vendor/autoload.php');
 
 
-      $info = Tinypng::key ();
-      \Tinify\setKey ($info['key']);
-      \Tinify\validate ();
+  //     $info = Tinypng::key ();
+  //     \Tinify\setKey ($info['key']);
+  //     \Tinify\validate ();
 
-      switch ($this->getDriver ()) {
-        case 'local':
-          foreach ($files as $file) {
-            if (($source = \Tinify\fromFile ($file)) && $source->toFile ($file))
-              array_push ($newFiles, $file);
-            $info['quota'] -= 1;
-            Tinypng::updateQuota ($info);
+  //     switch ($this->getDriver ()) {
+  //       case 'local':
+  //         foreach ($files as $file) {
+  //           if (($source = \Tinify\fromFile ($file)) && $source->toFile ($file))
+  //             array_push ($newFiles, $file);
+  //           $info['quota'] -= 1;
+  //           Tinypng::updateQuota ($info);
 
-            if ($info['quota'] <= 0) {
-              $info = Tinypng::key ();
-              \Tinify\setKey ($info['key']);
-              \Tinify\validate ();
-            }
-          }
+  //           if ($info['quota'] <= 0) {
+  //             $info = Tinypng::key ();
+  //             \Tinify\setKey ($info['key']);
+  //             \Tinify\validate ();
+  //           }
+  //         }
 
-          $path = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge ($this->getBaseDirectory (), $this->getSavePath ())) . DIRECTORY_SEPARATOR;
-          foreach ($files as $file)
-            if (file_exists ($file) && is_writable ($file))
-              @rename ($file, $path . pathinfo ($file, PATHINFO_BASENAME));
-          return true;
-          break;
+  //         $path = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge ($this->getBaseDirectory (), $this->getSavePath ())) . DIRECTORY_SEPARATOR;
+  //         foreach ($files as $file)
+  //           if (file_exists ($file) && is_writable ($file))
+  //             @rename ($file, $path . pathinfo ($file, PATHINFO_BASENAME));
+  //         return true;
+  //         break;
 
-        case 's3':
-          $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
-          $path = $bucket . DIRECTORY_SEPARATOR . implode (DIRECTORY_SEPARATOR, array_merge ($this->getBaseDirectory (), $this->getSavePath ())) . DIRECTORY_SEPARATOR;
+  //       case 's3':
+  //         $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
+  //         $path = $bucket . DIRECTORY_SEPARATOR . implode (DIRECTORY_SEPARATOR, array_merge ($this->getBaseDirectory (), $this->getSavePath ())) . DIRECTORY_SEPARATOR;
 
-          foreach ($files as $file) {
-            if (!(($source = \Tinify\fromFile ($file)) && ($source->store (array ('service' => 's3', 'aws_access_key_id' => Cfg::system ('s3', 'buckets', $bucket, 'access_key'), 'aws_secret_access_key' => Cfg::system ('s3', 'buckets', $bucket, 'secret_key'), 'region' => Cfg::system ('s3', 'buckets', $bucket, 'region'), 'path' => $path . pathinfo ($file, PATHINFO_BASENAME)))) && (@unlink ($file))))
-              return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '不明原因錯誤！', '請程式設計者確認狀況！') : false;
+  //         foreach ($files as $file) {
+  //           if (!(($source = \Tinify\fromFile ($file)) && ($source->store (array ('service' => 's3', 'aws_access_key_id' => Cfg::system ('s3', 'buckets', $bucket, 'access_key'), 'aws_secret_access_key' => Cfg::system ('s3', 'buckets', $bucket, 'secret_key'), 'region' => Cfg::system ('s3', 'buckets', $bucket, 'region'), 'path' => $path . pathinfo ($file, PATHINFO_BASENAME)))) && (@unlink ($file))))
+  //             return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '不明原因錯誤！', '請程式設計者確認狀況！') : false;
 
-            $info['quota'] -= 1;
-            Tinypng::updateQuota ($info);
+  //           $info['quota'] -= 1;
+  //           Tinypng::updateQuota ($info);
 
-            if ($info['quota'] <= 0) {
-              $info = Tinypng::key ();
-              \Tinify\setKey ($info['key']);
-              \Tinify\validate ();
-            }
-          }
-          return true;
-          break;
-      }
-    } catch (Exception $e) {
-      return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '未知的 driver，系統尚未支援 ' . $this->getDriver () . ' 的空間！', '請檢查 config/system/orm_uploader.php 設定檔！') : array ();
-    }
+  //           if ($info['quota'] <= 0) {
+  //             $info = Tinypng::key ();
+  //             \Tinify\setKey ($info['key']);
+  //             \Tinify\validate ();
+  //           }
+  //         }
+  //         return true;
+  //         break;
+  //     }
+  //   } catch (Exception $e) {
+  //     return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '未知的 driver，系統尚未支援 ' . $this->getDriver () . ' 的空間！', '請檢查 config/system/orm_uploader.php 設定檔！') : array ();
+  //   }
 
-    return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '未知的 driver，系統尚未支援 ' . $this->getDriver () . ' 的空間！', '請檢查 config/system/orm_uploader.php 設定檔！') : array ();
-  }
+  //   return $this->getDebug () ? error ('OrmImageUploader 錯誤！', '未知的 driver，系統尚未支援 ' . $this->getDriver () . ' 的空間！', '請檢查 config/system/orm_uploader.php 設定檔！') : array ();
+  // }
 
   // return array
   public function save_as ($key, $version) {

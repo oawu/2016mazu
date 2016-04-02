@@ -29,7 +29,7 @@ class ImageImagickUtility extends ImageBaseUtility {
       throw new ImageUtilityException ('ImageImagickUtility 錯誤！', '取不到檔案的 mime！', '請確認你的檔案格式正確性！');
 
     if (!(isset ($this->configs['mime_formats'][$this->mime]) && ($this->format = $this->configs['mime_formats'][$this->mime]) && in_array ($this->format, $this->configs['allow_formats'])))
-      throw new ImageUtilityException ('ImageImagickUtility 錯誤！', '找尋不到符合的 mime，或者不支援處理的檔案格式！mime：' . $mime, '請檢查 config/system/image_imgk_utility.php 設定檔！');
+      throw new ImageUtilityException ('ImageImagickUtility 錯誤！', '找尋不到符合的 mime，或者不支援處理的檔案格式！mime：' . $this->mime, '請檢查 config/system/image_imgk_utility.php 設定檔！');
 
     if (!$this->image = new Imagick ($this->getFileName()))
       throw new ImageUtilityException ('ImageImagickUtility 錯誤！', 'Create image 失敗！', '請程式設計者確認狀況！');

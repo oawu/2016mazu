@@ -26,6 +26,7 @@ class Migration_Add_pictures extends CI_Migration {
         `name_height` smallint(11) unsigned NOT NULL DEFAULT 0 COMMENT '原始高度',
 
         `is_enabled` tinyint(1) unsigned NOT NULL DEFAULT 1 COMMENT '上下架，1 上架，0 下架',
+        `is_compressor` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '是否壓縮過，1 是，0 否',
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
         PRIMARY KEY (`id`),

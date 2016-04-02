@@ -711,100 +711,8 @@ class Cli extends Site_controller {
     $sit_map->createSitemapIndex ($domain . '/sitemap/', date ('c'));
   }
 
-  public function resize () {
-    // $year = 2016;
-    // $pic = Picture::create (array (
-    //     'user_id' => 1,
-    //     'title' => $year . ' 北港迎媽祖',
-    //     'keywords' => '北港迎媽祖 北港廟會 農曆三月十九 朝天宮 遶境',
-    //     'content' => $year . ' 北港迎媽祖 農曆三月十九 北港廟會',
-    //     'is_enabled' => 0
-    //   ));
-    //     return $pic->name->put (FCPATH . '/temp/IMG_0139.jpg');
-
-    $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'limit' => 40, 'conditions' => array ('is_compressor = 0')));
-    
-    foreach ($pics as $pic) {
-      echo $pic->id . "\n";
-      if ($pic->name->put_url ($pic->name->url ()) && ($pic->is_compressor = 1))
-        $pic->save ();
-    }
-  }
   public function compressor () {
-    $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'limit' => 10, 'conditions' => array ('is_compressor = 0')));
-
-    $keys = array (
-        'bbh9hX2_P6O8ZJFbsFsBXE8T9NJLSLgG' => 152,
-        'CEzB_7LBQLEuL1auQwmhGsAFixGv5LTP' => 0,
-        '4fxgbklWFEJ6YdfiRxac4ZF6YZwHrxvQ' => 0,
-        'BcumbKabN3NgmRYL8m-fn6fBb89tqC-C' => 0,
-        'ITPuxzFFmEPnJHnE-O3PjwvyElbNz6ii' => 0,
-      );
-    require_once ('vendor/autoload.php');
-
-    $ss = array ('500w', '2048w');;
-    foreach ($pics as $i => $pic) {
-      echo str_repeat ('=', 60) . "\n";
-      echo $i . ': ' . $pic->id . "\n";
-
-      foreach ($ss as $s) {
-        echo str_repeat ('-', 60) . "\n";
-        echo "Size: " . ($s ? $s : 'ori') . "\n";
-        download_web_file ($pic->name->url ($s), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $s . '_' . $pic->name);
-        echo "Download！\n";
-
-        if (!file_exists ($path)) {
-          echo $this->color ("Error！", 'r') . "Download Error!\n";
-          return;
-        }
-        if (!$tinypng = TinypngKey::find ('one', array ('conditions' => array ('quantity < 500')))) {
-          echo $this->color ("Error！", 'r') . "No any key Error!\n";
-          return; 
-        }
-
-        try {
-          \Tinify\setKey ($tinypng->key);
-          \Tinify\validate ();
-
-          if (!(($source = \Tinify\fromFile ($path)) && ($source->toFile ($path)))) {
-            echo $this->color ("Error！", 'r') . "Tinify toFile Error!\n";
-            return; 
-          }
-        } catch (Exception $e) {
-          echo $this->color ("Error！", 'r') . "Tinify try catch Error!\n";
-          return; 
-        }
-
-        $tinypng->quantity += 1;
-        $tinypng->save ();
-        echo "Key + 1, Key:" . $tinypng->key . " quantity: " . $tinypng->quantity . "！\n";
-
-        $s3_path = implode (DIRECTORY_SEPARATOR, array_merge ($pic->name->getBaseDirectory (), $pic->name->getSavePath ())) . DIRECTORY_SEPARATOR . $s . '_' . $pic->name;
-        $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
-        if (!($source->store (
-          array ('service' => 's3', 
-            'aws_access_key_id' => Cfg::system ('s3', 'buckets', $bucket, 'access_key'), 
-            'aws_secret_access_key' => Cfg::system ('s3', 'buckets', $bucket, 'secret_key'), 
-            'region' => Cfg::system ('s3', 'buckets', $bucket, 'region'), 
-            'path' => $bucket . DIRECTORY_SEPARATOR . $s3_path)))) {
-          echo $this->color ("Error！", 'r') . "Put s3 Error!\n";
-          return; 
-        }
-
-        // if (!put_s3 ($path, $s3_path)) {
-        //   echo $this->color ("Error！", 'r') . "Put s3 Error!\n";
-        //   return; 
-        // }
-
-        @unlink ($path);
-      }
-
-      $pic->is_compressor = 1;
-      if (!$pic->save ())
-        echo $this->color ("Error！", 'r') . "Save Error!\n";
-      else
-        echo $this->color ("Sessus！", 'g') . "\n";
-    }
+    
   }
   public function set_pics () {
     $pics = Picture::find ('all', array ('select' => 'id, name, name_color_r, name_color_g, name_color_b, name_width, name_height, is_enabled', 'conditions' => array ('is_enabled = 0')));
@@ -847,20 +755,23 @@ class Cli extends Site_controller {
     $files = array ();
     $this->_directory_map (directory_map ($dir), $files);
     uasort ($files, function ($a, $b) {
-      return pathinfo ($a, PATHINFO_FILENAME) > pathinfo ($b, PATHINFO_FILENAME);
+      return pathinfo ($a, PATHINFO_FILENAME) < pathinfo ($b, PATHINFO_FILENAME);
     });
 
+    $j = 0;
     foreach ($files as $i => $file) {
+      if ($j++ > 30) break;
+
       $path = $dir . $file;
       echo str_repeat ('-', 60) . "\n";
-      echo $i . ': ' . $path . "\n";
+      echo $j . ': ' . $path . "\n";
       $pic = null;
       $create = Picture::transaction (function () use ($year, $path, &$pic) {
         if (!verifyCreateOrm ($pic = Picture::create (array (
                   'user_id' => 1,
-                  'title' => $year . ' 北港迎媽祖',
+                  'title' => $year . '年 北港迎媽祖',
                   'keywords' => '北港迎媽祖 北港廟會 農曆三月十九 朝天宮 遶境',
-                  'content' => $year . ' 北港迎媽祖 農曆三月十九 北港廟會',
+                  'content' => $year . '年 北港迎媽祖 農曆三月十九 北港廟會',
                   'is_enabled' => 0
                 )))) {
           echo $this->color ("Error！", 'r') . ' create pic error！' . "\n";

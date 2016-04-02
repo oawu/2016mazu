@@ -58,7 +58,7 @@ class Pictures extends Site_controller {
     $conditions = conditions ($columns, $configs);
     Picture::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', Picture::IS_ENABLED);
 
-    $limit = 12;
+    $limit = 24;
     $total = Picture::count (array ('conditions' => $conditions));
     $offset = $offset < $total ? $offset : 0;
 

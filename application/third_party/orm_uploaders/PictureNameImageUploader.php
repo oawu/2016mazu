@@ -9,7 +9,7 @@ class PictureNameImageUploader extends OrmImageUploader {
 
   public function getVersions () {
     return array (
-        '' => array (),
+        'ori_ioa_mazu' => array (),
         '100x100c'  => array ('adaptiveResizeQuadrant', 100, 100, 't'),
         '500w' => array ('resize', 500, 500, 'width'),
         '2048w' => array ('resize', 2048, 2048, 'width'),

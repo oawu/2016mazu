@@ -11,7 +11,5 @@ class Dintaos extends Delay_controller {
       return ;
 
     $dintao->update_cover_color_and_dimension ();
-    // if (ENVIRONMENT == 'production')
-    //   $dintao->cover->compressor ();
   }
 }

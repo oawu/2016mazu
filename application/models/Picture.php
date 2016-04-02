@@ -129,14 +129,14 @@ class Picture extends OaModel {
     if (!$image_utility)
       switch (Cfg::system ('orm_uploader', 'uploader', 'driver')) {
         case 'local':
-          if (!file_exists ($fileName = FCPATH . implode ('/', $this->name->path ())))
+          if (!file_exists ($fileName = FCPATH . implode ('/', $this->name->path ('ori_ioa_mazu'))))
             return false;
 
           $image_utility = ImageUtility::create ($fileName);
           break;
 
         case 's3':
-          if (!(@S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $this->name->path ()), FCPATH . implode (DIRECTORY_SEPARATOR, $fileName = array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$this->name)))) && file_exists ($fileName = FCPATH . implode ('/', $fileName))))
+          if (!(@S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $this->name->path ('ori_ioa_mazu')), FCPATH . implode (DIRECTORY_SEPARATOR, $fileName = array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$this->name)))) && file_exists ($fileName = FCPATH . implode ('/', $fileName))))
             return false;
           $image_utility = ImageUtility::create ($fileName);
           break;
@@ -159,14 +159,14 @@ class Picture extends OaModel {
     if (!$image_utility)
       switch (Cfg::system ('orm_uploader', 'uploader', 'driver')) {
         case 'local':
-          if (!file_exists ($fileName = FCPATH . implode ('/', $this->name->path ())))
+          if (!file_exists ($fileName = FCPATH . implode ('/', $this->name->path ('ori_ioa_mazu'))))
             return false;
 
           $image_utility = ImageUtility::create ($fileName);
           break;
 
         case 's3':
-          if (!(@S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $this->name->path ()), FCPATH . implode (DIRECTORY_SEPARATOR, $fileName = array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$this->name)))) && file_exists ($fileName = FCPATH . implode ('/', $fileName))))
+          if (!(@S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $this->name->path ('ori_ioa_mazu')), FCPATH . implode (DIRECTORY_SEPARATOR, $fileName = array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$this->name)))) && file_exists ($fileName = FCPATH . implode ('/', $fileName))))
             return false;
           $image_utility = ImageUtility::create ($fileName);
           break;
@@ -193,14 +193,14 @@ class Picture extends OaModel {
     if (!$image_utility)
       switch (Cfg::system ('orm_uploader', 'uploader', 'driver')) {
         case 'local':
-          if (!file_exists ($fileName = FCPATH . implode ('/', $this->name->path ())))
+          if (!file_exists ($fileName = FCPATH . implode ('/', $this->name->path ('ori_ioa_mazu'))))
             return false;
 
           $image_utility = ImageUtility::create ($fileName);
           break;
 
         case 's3':
-          if (!(@S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $this->name->path ()), FCPATH . implode (DIRECTORY_SEPARATOR, $fileName = array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$this->name)))) && file_exists ($fileName = FCPATH . implode ('/', $fileName))))
+          if (!(@S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $this->name->path ('ori_ioa_mazu')), FCPATH . implode (DIRECTORY_SEPARATOR, $fileName = array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$this->name)))) && file_exists ($fileName = FCPATH . implode ('/', $fileName))))
             return false;
           $image_utility = ImageUtility::create ($fileName);
           break;

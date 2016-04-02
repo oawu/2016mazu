@@ -75,7 +75,7 @@ class Tag_pictures extends Site_controller {
     else
       Picture::addConditions ($conditions, 'id = ?', -1);
 
-    $limit = 12;
+    $limit = 24;
     $total = Picture::count (array ('conditions' => $conditions));
     $offset = $offset < $total ? $offset : 0;
 
