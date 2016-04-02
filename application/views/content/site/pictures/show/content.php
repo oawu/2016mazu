@@ -1,7 +1,7 @@
 <figure>
-  <img alt='<?php echo $picture->title;?> - <?php echo Cfg::setting ('site', 'title');?>' src='<?php echo $picture->name->url ();?>' />
+  <img alt='<?php echo $picture->title;?> - <?php echo Cfg::setting ('site', 'title');?>' src='<?php echo $picture->name->url ('2048w');?>' />
   <figcaption><?php echo $picture->title;?> - <?php echo Cfg::setting ('site', 'title');?></figcaption>
-  <a href='<?php echo $picture->name->url ();?>' class='icon-zoomin'></a>
+  <a href='<?php echo $picture->name->url ('2048w');?>' class='icon-zoomin'></a>
 </figure>
 
 <h2>
