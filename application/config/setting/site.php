@@ -33,7 +33,6 @@ $site['menu'] = array (
     '相簿紀錄' => array (
         '所有照片' => array ('roles' => array ('all'), 'icon' => 'icon-images', 'href' => base_url ('pictures'), 'class' => 'pictures', 'method' => '', 'target' => '_self'),
         '三月十九' => array ('roles' => array ('all'), 'icon' => 'icon-images', 'href' => base_url ('tag', 1, 'pictures'), 'class' => 'tag_pictures', 'method' => '', 'uri' => 1, 'target' => '_self'),
-        '笨港舊照片' => array ('roles' => array ('all'), 'icon' => 'icon-images', 'href' => base_url ('tag', 2, 'pictures'), 'class' => 'tag_pictures', 'method' => '', 'uri' => 2, 'target' => '_self'),
       ),
     '影音欣賞' => array (
         '所有影片' => array ('roles' => array ('all'), 'icon' => 'icon-youtube', 'href' => base_url ('youtubes'), 'class' => 'youtubes', 'method' => '', 'target' => '_self'),
