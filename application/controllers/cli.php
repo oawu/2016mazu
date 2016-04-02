@@ -724,9 +724,11 @@ class Cli extends Site_controller {
 
     $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'limit' => 10, 'conditions' => array ('is_compressor = 0')));
     
-    foreach ($pics as $pic)
+    foreach ($pics as $pic) {
+      echo $pic->id . "\n";
       if ($pic->name->put_url ($pic->name->url ()) && ($pic->is_compressor = 1))
         $pic->save ();
+    }
   }
   public function compressor () {
     $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'limit' => 10, 'conditions' => array ('is_compressor = 0')));
