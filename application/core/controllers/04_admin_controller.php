@@ -32,6 +32,7 @@ class Admin_controller extends Oa_controller {
       });
     }, Cfg::setting ('admin', 'menu'))));
 
+    uasort ($menus_list, function ($a, $b) { return count (array_filter ($a, function ($menu) { return isset ($menu['active']) && $menu['active']; })) <= count (array_filter ($b, function ($menu) { return isset ($menu['active']) && $menu['active']; })); });
 
     $this
          ->set_componemt_path ('component', 'admin')

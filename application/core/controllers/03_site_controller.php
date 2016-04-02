@@ -27,7 +27,6 @@ class Site_controller extends Oa_controller {
       });
     }, Cfg::setting ('site', 'menu'))));
 
-    // uasort ($menus_list, function ($a, $b) { return count (array_filter ($a, function ($menu) { return isset ($menu['active']) && $menu['active']; })) <= count (array_filter ($b, function ($menu) { return isset ($menu['active']) && $menu['active']; })); });
 
     if (!$has_active && (($class != 'main') || ($method != 'index')))
       return redirect_message (array (), array (
