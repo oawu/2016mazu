@@ -767,13 +767,13 @@ class Cli extends Site_controller {
         }
 
         @unlink ($path);
-
-        $pic->is_compressor = 1;
-        if (!$pic->save ())
-          echo $this->color ("Error！", 'r') . "Save Error!\n";
-        else
-          echo $this->color ("Sessus！", 'g') . "\n";
       }
+      
+      $pic->is_compressor = 1;
+      if (!$pic->save ())
+        echo $this->color ("Error！", 'r') . "Save Error!\n";
+      else
+        echo $this->color ("Sessus！", 'g') . "\n";
     }
   }
   public function set_pics () {
