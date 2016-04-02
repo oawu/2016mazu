@@ -711,6 +711,23 @@ class Cli extends Site_controller {
     $sit_map->createSitemapIndex ($domain . '/sitemap/', date ('c'));
   }
 
+  public function resize () {
+    // $year = 2016;
+    // $pic = Picture::create (array (
+    //     'user_id' => 1,
+    //     'title' => $year . ' 北港迎媽祖',
+    //     'keywords' => '北港迎媽祖 北港廟會 農曆三月十九 朝天宮 遶境',
+    //     'content' => $year . ' 北港迎媽祖 農曆三月十九 北港廟會',
+    //     'is_enabled' => 0
+    //   ));
+    //     return $pic->name->put (FCPATH . '/temp/IMG_0139.jpg');
+
+    $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'limit' => 10, 'conditions' => array ('is_compressor = 0')));
+    
+    foreach ($pics as $pic)
+      if ($pic->name->put_url ($pic->name->url ()) && ($pic->is_compressor = 1))
+        $pic->save ();
+  }
   public function compressor () {
     $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'limit' => 10, 'conditions' => array ('is_compressor = 0')));
 
@@ -768,7 +785,7 @@ class Cli extends Site_controller {
 
         @unlink ($path);
       }
-      
+
       $pic->is_compressor = 1;
       if (!$pic->save ())
         echo $this->color ("Error！", 'r') . "Save Error!\n";

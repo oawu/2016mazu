@@ -12,6 +12,7 @@ class PictureNameImageUploader extends OrmImageUploader {
         '' => array (),
         '100x100c'  => array ('adaptiveResizeQuadrant', 100, 100, 't'),
         '500w' => array ('resize', 500, 500, 'width'),
+        '2048w' => array ('resize', 2048, 2048, 'width'),
         '1200x630c' => array ('adaptiveResizeQuadrant', 1200, 630, 't'),
       );
   }
