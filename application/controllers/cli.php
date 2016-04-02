@@ -712,9 +712,8 @@ class Cli extends Site_controller {
   }
 
   public function compressor () {
-    $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'conditions' => array ('is_compressor = 0')));
+    $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'limit' => 10, 'conditions' => array ('is_compressor = 0')));
 
-    $j = 0;
     $keys = array (
         'bbh9hX2_P6O8ZJFbsFsBXE8T9NJLSLgG' => 152,
         'CEzB_7LBQLEuL1auQwmhGsAFixGv5LTP' => 0,
@@ -726,8 +725,6 @@ class Cli extends Site_controller {
 
     $ss = array ('500w', '');;
     foreach ($pics as $i => $pic) {
-      if ($j++ > 10) break;
-
       echo str_repeat ('=', 60) . "\n";
       echo $i . ': ' . $pic->id . "\n";
 
