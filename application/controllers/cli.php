@@ -711,8 +711,72 @@ class Cli extends Site_controller {
     $sit_map->createSitemapIndex ($domain . '/sitemap/', date ('c'));
   }
 
+  public function compressor () {
+    $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'conditions' => array ('is_compressor = 0')));
+
+    $j = 0;
+    $keys = array (
+        'bbh9hX2_P6O8ZJFbsFsBXE8T9NJLSLgG' => 152,
+        'CEzB_7LBQLEuL1auQwmhGsAFixGv5LTP' => 0,
+        '4fxgbklWFEJ6YdfiRxac4ZF6YZwHrxvQ' => 0,
+        'BcumbKabN3NgmRYL8m-fn6fBb89tqC-C' => 0,
+        'ITPuxzFFmEPnJHnE-O3PjwvyElbNz6ii' => 0,
+      );
+    require_once ('vendor/autoload.php');
+
+    $ss = array ('500w', '');;
+    foreach ($pics as $i => $pic) {
+      if ($j++ > 10) break;
+
+      echo str_repeat ('=', 60) . "\n";
+      echo $i . ': ' . $pic->id . "\n";
+
+      foreach ($ss as $s) {
+        echo str_repeat ('-', 60) . "\n";
+        echo "Size: " . ($s ? $s : 'ori') . "\n";
+        download_web_file ($pic->name->url ($s), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $s . '_' . $pic->name);
+        echo "Download！\n";
+
+        if (!file_exists ($path)) {
+          echo $this->color ("Error！", 'r') . "Download Error!\n";
+          return;
+        }
+        if (!$tinypng = TinypngKey::find ('one', array ('conditions' => array ('quantity < 500')))) {
+          echo $this->color ("Error！", 'r') . "No any key Error!\n";
+          return; 
+        }
+        \Tinify\setKey ($tinypng->key);
+        \Tinify\validate ();
+
+
+        if (!(($source = \Tinify\fromFile ($path)) && ($source->toFile ($path)))) {
+          echo $this->color ("Error！", 'r') . "Tinify toFile Error!\n";
+          return; 
+        }
+
+        $tinypng->quantity += 1;
+        $tinypng->save ();
+        echo "Key + 1, Key:" . $tinypng->key . " quantity: " . $tinypng->quantity . "！\n";
+
+        $s3_path = implode (DIRECTORY_SEPARATOR, array_merge ($pic->name->getBaseDirectory (), $pic->name->getSavePath ())) . DIRECTORY_SEPARATOR . $s . '_' . $pic->name;
+        if (!put_s3 ($path, $s3_path)) {
+          echo $this->color ("Error！", 'r') . "Put s3 Error!\n";
+          return; 
+        }
+
+        @unlink ($path);
+
+        $pic->is_compressor = 1;
+        if (!$pic->save ())
+          echo $this->color ("Error！", 'r') . "Save Error!\n";
+        else
+          echo $this->color ("Sessus！", 'g') . "\n";
+      }
+    }
+  }
   public function set_pics () {
     $pics = Picture::find ('all', array ('select' => 'id, name, name_color_r, name_color_g, name_color_b, name_width, name_height, is_enabled', 'conditions' => array ('is_enabled = 0')));
+    
     $j = 0;
     foreach ($pics as $i => $pic) {
       if ($j++ > 30) break;

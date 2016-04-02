@@ -75,7 +75,7 @@ class OrmUploader {
     return $this->configs['d4_url'];
   }
   // return array
-  protected function getSavePath () {
+  public function getSavePath () {
     return ($id = $this->getColumnValue ($this->configs['unique_column'])) ? array ($this->getTableName (), $this->getColumnName (), floor ($id / 1000000), floor (($id % 1000000) / 10000), floor ((($id % 1000000) % 10000) / 100), ($id % 100)) : array ($this->getTableName (), $this->getColumnName ());
   }
   // return sring
@@ -103,7 +103,7 @@ class OrmUploader {
     return uniqid (rand () . '_');
   }
   // return array
-  protected function getBaseDirectory () {
+  public function getBaseDirectory () {
     return $this->configs[$this->getDriver ()]['base_directory'];
   }
   // return array
