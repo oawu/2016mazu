@@ -722,7 +722,7 @@ class Cli extends Site_controller {
     //   ));
     //     return $pic->name->put (FCPATH . '/temp/IMG_0139.jpg');
 
-    $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'limit' => 20, 'conditions' => array ('is_compressor = 0')));
+    $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'limit' => 40, 'conditions' => array ('is_compressor = 0')));
     
     foreach ($pics as $pic) {
       echo $pic->id . "\n";
@@ -780,10 +780,21 @@ class Cli extends Site_controller {
         echo "Key + 1, Key:" . $tinypng->key . " quantity: " . $tinypng->quantity . "！\n";
 
         $s3_path = implode (DIRECTORY_SEPARATOR, array_merge ($pic->name->getBaseDirectory (), $pic->name->getSavePath ())) . DIRECTORY_SEPARATOR . $s . '_' . $pic->name;
-        if (!put_s3 ($path, $s3_path)) {
+        $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
+        if (!($source->store (
+          array ('service' => 's3', 
+            'aws_access_key_id' => Cfg::system ('s3', 'buckets', $bucket, 'access_key'), 
+            'aws_secret_access_key' => Cfg::system ('s3', 'buckets', $bucket, 'secret_key'), 
+            'region' => Cfg::system ('s3', 'buckets', $bucket, 'region'), 
+            'path' => $bucket . DIRECTORY_SEPARATOR . $s3_path)))) {
           echo $this->color ("Error！", 'r') . "Put s3 Error!\n";
           return; 
         }
+
+        // if (!put_s3 ($path, $s3_path)) {
+        //   echo $this->color ("Error！", 'r') . "Put s3 Error!\n";
+        //   return; 
+        // }
 
         @unlink ($path);
       }
