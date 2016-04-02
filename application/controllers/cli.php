@@ -722,7 +722,7 @@ class Cli extends Site_controller {
     //   ));
     //     return $pic->name->put (FCPATH . '/temp/IMG_0139.jpg');
 
-    $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'limit' => 10, 'conditions' => array ('is_compressor = 0')));
+    $pics = Picture::find ('all', array ('select' => 'id, name, is_compressor', 'order' => 'id DESC', 'limit' => 20, 'conditions' => array ('is_compressor = 0')));
     
     foreach ($pics as $pic) {
       echo $pic->id . "\n";
