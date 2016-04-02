@@ -745,12 +745,17 @@ class Cli extends Site_controller {
           echo $this->color ("Error！", 'r') . "No any key Error!\n";
           return; 
         }
-        \Tinify\setKey ($tinypng->key);
-        \Tinify\validate ();
 
+        try {
+          \Tinify\setKey ($tinypng->key);
+          \Tinify\validate ();
 
-        if (!(($source = \Tinify\fromFile ($path)) && ($source->toFile ($path)))) {
-          echo $this->color ("Error！", 'r') . "Tinify toFile Error!\n";
+          if (!(($source = \Tinify\fromFile ($path)) && ($source->toFile ($path)))) {
+            echo $this->color ("Error！", 'r') . "Tinify toFile Error!\n";
+            return; 
+          }
+        } catch (Exception $e) {
+          echo $this->color ("Error！", 'r') . "Tinify try catch Error!\n";
           return; 
         }
 
