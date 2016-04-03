@@ -62,6 +62,8 @@ class Cli_compressor extends Site_controller {
         @S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $pic->name->path ($s)), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $s . '_' . $pic->name);
 
         if (!file_exists ($path)) return $log->error ('Download Error!');
+        var_dump (keys ('tinypngs', Cfg::setting ('tinypng', 'psw')));
+        exit ();
         if (!$key = keys ('tinypngs', Cfg::setting ('tinypng', 'psw'))) return $log->error ('No any key Error!');
 
         try {
