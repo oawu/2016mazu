@@ -34,11 +34,33 @@ class Main extends Site_controller {
         'n' => $store->longitude
       ));
 
-    $this->set_title ('網站首頁')
-         ->set_subtitle ('網站首頁')
+    if ($tags = array_unique (array_merge (array ('北港迎媽祖'), Cfg::setting ('site', 'keywords'))))
+      foreach ($tags as $i => $tag)
+        if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+        else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+           
+    foreach (array ('articles', 'others', 'march19', 'maps/dintao', 'maps/iko', 'dintaos', 'pictures', 'youtubes', 'stores') as $uri)
+      $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ($uri)));
+
+    $title = '網站首頁';
+    $desc = '烘爐引炮 驚奇火花 驚震全場，輪廓描繪傳承力量 霓彩妝童延續風華，三聲起馬炮 三鼓三哨聲的先鋒中壇開路啟程，兩聲哨鼓的北港黃袍勇士也在砲火花中吞雲吐霧聞炮起舞，四小將鏘鏘響 門一開 青紅將軍開路展威風！';
+    $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
+         ->set_subtitle ($title)
          ->add_css (resource_url ('resource', 'css', 'OA-mobileScrollView', 'OA-mobileScrollView.css'))
          ->add_js (Cfg::setting ('google', 'client_js_url'), false)
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
+         
+         ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_unique (array_merge (Cfg::setting ('site', 'keywords'))))))
+         ->add_meta (array ('name' => 'description', 'content' => $desc))
+         ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:description', 'content' => $desc))
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'larger2.jpg'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+         ->add_meta (array ('property' => 'article:modified_time', 'content' => date ('c')))
+         ->add_meta (array ('property' => 'article:published_time', 'content' => date ('c')))
+        
          ->load_view (array (
             'march19' => $march19,
             'day_count' => $day_count,
