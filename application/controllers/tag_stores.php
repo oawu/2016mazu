@@ -30,7 +30,7 @@ class Tag_stores extends Site_controller {
 
   public function index ($tag_id, $id = 0) {
     if ($id && ($store = Store::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', $id, Store::IS_ENABLED))))) {
-      if ($tags = array_merge (column_array ($store->tags, 'name'), Cfg::setting ('site', 'keywords')))
+      if ($tags = array_unique (array_merge (column_array ($store->tags, 'name'), Cfg::setting ('site', 'keywords'))))
         foreach ($tags as $i => $tag)
           if (!$i) $this->add_meta (array ('property' => 'store:section', 'content' => $tag))->add_meta (array ('property' => 'store:tag', 'content' => $tag));
           else $this->add_meta (array ('property' => 'store:tag', 'content' => $tag));

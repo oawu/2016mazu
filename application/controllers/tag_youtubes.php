@@ -34,7 +34,7 @@ class Tag_youtubes extends Site_controller {
           '_flash_message' => '找不到該筆資料。'
         ));
 
-    if ($tags = array_merge (column_array ($youtube->tags, 'name'), Cfg::setting ('site', 'keywords')))
+    if ($tags = array_unique (array_merge (column_array ($youtube->tags, 'name'), Cfg::setting ('site', 'keywords'))))
       foreach ($tags as $i => $tag)
         if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
         else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
