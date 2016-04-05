@@ -77,7 +77,7 @@ class Tag_youtubes extends Site_controller {
     else
       Youtube::addConditions ($conditions, 'id = ?', -1);
 
-    $limit = 12;
+    $limit = 24;
     $total = Youtube::count (array ('conditions' => $conditions));
     $offset = $offset < $total ? $offset : 0;
 

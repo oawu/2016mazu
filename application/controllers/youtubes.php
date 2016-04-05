@@ -58,7 +58,7 @@ class Youtubes extends Site_controller {
     $conditions = conditions ($columns, $configs);
     Youtube::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', Youtube::IS_ENABLED);
 
-    $limit = 12;
+    $limit = 24;
     $total = Youtube::count (array ('conditions' => $conditions));
     $offset = $offset < $total ? $offset : 0;
 

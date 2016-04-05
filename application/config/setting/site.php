@@ -37,6 +37,7 @@ $site['menu'] = array (
     '影音欣賞' => array (
         '所有影片' => array ('roles' => array ('all'), 'icon' => 'icon-youtube', 'href' => base_url ('youtubes'), 'class' => 'youtubes', 'method' => '', 'target' => '_self'),
         '記錄北港' => array ('roles' => array ('all'), 'icon' => 'icon-youtube', 'href' => base_url ('tag', 1, 'youtubes'), 'class' => 'tag_youtubes', 'method' => '', 'uri' => 1, 'target' => '_self'),
+        '三月十九' => array ('roles' => array ('all'), 'icon' => 'icon-youtube', 'href' => base_url ('tag', 2, 'youtubes'), 'class' => 'tag_youtubes', 'method' => '', 'uri' => 2, 'target' => '_self'),
       ),
     '景點區' => array (
         '所有景點' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('stores'), 'class' => 'stores', 'method' => '', 'target' => '_self'),

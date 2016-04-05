@@ -35,19 +35,19 @@ class Cli_compressor extends Site_controller {
 
     require_once ('vendor/autoload.php');
 
-   foreach ($pics as $i => $pic) {
-    foreach ($sizes as $size) {
-      @S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $pic->$column->path ($size)), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $size . '_' . $pic->$column);
+    foreach ($pics as $i => $pic) {
+      foreach ($sizes as $size) {
+        @S3::getObject (Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket'), implode (DIRECTORY_SEPARATOR, $pic->$column->path ($size)), $path = FCPATH . 'temp' . DIRECTORY_SEPARATOR . $size . '_' . $pic->$column);
 
-      if (!file_exists ($path)) return 'Download Error!';
-      if (!$key = keys ('tinypngs', Cfg::setting ('tinypng', 'psw'))) return 'No any key Error!';
+        if (!file_exists ($path)) return 'Download Error!';
+        if (!$key = keys ('tinypngs', Cfg::setting ('tinypng', 'psw'))) return 'No any key Error!';
 
-      try {
-        \Tinify\setKey ($key);
-        \Tinify\validate ();
+        try {
+          \Tinify\setKey ($key);
+          \Tinify\validate ();
 
-        if (!(($source = \Tinify\fromFile ($path)) && ($source->toFile ($path)))) return 'Tinify toFile Error!';
-      } catch (Exception $e) { return 'Tinify try catch Error!'; }
+          if (!(($source = \Tinify\fromFile ($path)) && ($source->toFile ($path)))) return 'Tinify toFile Error!';
+        } catch (Exception $e) { return 'Tinify try catch Error!'; }
 
         $s3_path = implode (DIRECTORY_SEPARATOR, array_merge ($pic->$column->getBaseDirectory (), $pic->$column->getSavePath ())) . DIRECTORY_SEPARATOR . $size . '_' . $pic->$column;
         $bucket = Cfg::system ('orm_uploader', 'uploader', 's3', 'bucket');
