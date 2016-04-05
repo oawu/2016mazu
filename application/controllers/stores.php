@@ -31,7 +31,7 @@ class Stores extends Site_controller {
       $this->set_title ($store->title . ' - ' . Cfg::setting ('site', 'title'))
            ->set_subtitle ($store->title)
            ->set_back_link (base_url ('stores'))
-           ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge ($store->keywords (), Cfg::setting ('site', 'keywords')))))
+           ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_unique (array_merge ($store->keywords (), Cfg::setting ('site', 'keywords'))))))
            ->add_meta (array ('name' => 'description', 'content' => $store->mini_content (150)))
            ->add_meta (array ('property' => 'og:title', 'content' => $store->title . ' - ' . Cfg::setting ('site', 'title')))
            ->add_meta (array ('property' => 'og:description', 'content' => $store->mini_content (300)))

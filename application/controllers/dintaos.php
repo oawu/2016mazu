@@ -34,7 +34,7 @@ class Dintaos extends Site_controller {
                 ->set_back_link (base_url ('dintaos'))
                 ->add_css (resource_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
                 ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'my.js'))
-                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge ($dintao->keywords (), Cfg::setting ('site', 'keywords')))))
+                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_unique (array_merge ($dintao->keywords (), Cfg::setting ('site', 'keywords'))))))
                 ->add_meta (array ('name' => 'description', 'content' => $dintao->mini_content (150)))
                 ->add_meta (array ('property' => 'og:title', 'content' => $dintao->title . ' - ' . Cfg::setting ('site', 'title')))
                 ->add_meta (array ('property' => 'og:description', 'content' => $dintao->mini_content (300)))

@@ -23,7 +23,7 @@ class Others extends Site_controller {
     $this->set_title ($this->other->title . ' - ' . Cfg::setting ('site', 'title'))
          ->set_subtitle ($this->other->title)
          
-         ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge ($this->other->keywords (), Cfg::setting ('site', 'keywords')))))
+         ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_unique (array_merge ($this->other->keywords (), Cfg::setting ('site', 'keywords'))))))
          ->add_meta (array ('name' => 'description', 'content' => $this->other->mini_content (150)))
          ->add_meta (array ('property' => 'og:title', 'content' => $this->other->title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:description', 'content' => $this->other->mini_content (300)))

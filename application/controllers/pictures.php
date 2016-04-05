@@ -32,7 +32,7 @@ class Pictures extends Site_controller {
     return $this->set_title ($picture->title . ' - ' . Cfg::setting ('site', 'title'))
                 ->set_subtitle ($picture->title)
                 ->set_back_link (base_url ('pictures'))
-                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge ($picture->keywords (), Cfg::setting ('site', 'keywords')))))
+                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_unique (array_merge ($picture->keywords (), Cfg::setting ('site', 'keywords'))))))
                 ->add_meta (array ('name' => 'description', 'content' => $picture->mini_content (150)))
                 ->add_meta (array ('property' => 'og:title', 'content' => $picture->title . ' - ' . Cfg::setting ('site', 'title')))
                 ->add_meta (array ('property' => 'og:description', 'content' => $picture->mini_content (300)))

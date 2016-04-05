@@ -34,7 +34,7 @@ class Articles extends Site_controller {
                 ->set_back_link (base_url ('articles'))
                 ->add_css (resource_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
                 ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'my.js'))
-                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge ($article->keywords (), Cfg::setting ('site', 'keywords')))))
+                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_unique (array_merge ($article->keywords (), Cfg::setting ('site', 'keywords'))))))
                 ->add_meta (array ('name' => 'description', 'content' => $article->mini_content (150)))
                 ->add_meta (array ('property' => 'og:title', 'content' => $article->title . ' - ' . Cfg::setting ('site', 'title')))
                 ->add_meta (array ('property' => 'og:description', 'content' => $article->mini_content (300)))
