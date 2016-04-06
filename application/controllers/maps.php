@@ -88,9 +88,33 @@ class Maps extends Site_controller {
     else
       $next = null;
 
+    
+    $title = '三月' . $this->dintao_tabs[$index]['title'] . ' 陣頭地圖';
+    $desc = '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..';
+    
+    if ($tags = array_unique (array_merge (array ($title), Cfg::setting ('site', 'keywords'))))
+      foreach ($tags as $i => $tag)
+        if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+        else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+           
+    foreach (array ('articles', 'others', '', 'march19', 'march19/dintao', 'march19/kio', 'maps/iko', 'dintaos', 'pictures', 'youtubes', 'stores') as $uri)
+      $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ($uri)));
 
     $this->set_tab_index ($index)
-         ->set_subtitle ('三月' . $this->dintao_tabs[$index]['title'] . ' 陣頭地圖')
+         ->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
+         ->set_subtitle ($title)
+
+         ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
+         ->add_meta (array ('name' => 'description', 'content' => $desc))
+         ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:description', 'content' => $desc))
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'larger2.jpg'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+         ->add_meta (array ('property' => 'article:modified_time', 'content' => date ('c')))
+         ->add_meta (array ('property' => 'article:published_time', 'content' => date ('c')))
+        
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
          ->add_hidden (array ('id' => 'id', 'value' => $path->id))
          ->load_view (array (

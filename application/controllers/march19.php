@@ -114,7 +114,7 @@ class March19 extends Site_controller {
         if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
         else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
            
-    foreach (array ('articles', 'others', '', 'march19', 'march19/kio', 'maps/dintao', 'maps/iko', 'dintaos', 'pictures', 'youtubes', 'stores') as $uri)
+    foreach (array ('articles', 'others', '', 'march19', 'march19/dintao', 'maps/dintao', 'maps/iko', 'dintaos', 'pictures', 'youtubes', 'stores') as $uri)
       $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ($uri)));
 
     $this->set_tab_index (2)
