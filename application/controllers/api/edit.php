@@ -7,9 +7,17 @@
 
 class Edit extends Api_controller {
   
-  public function xox () {
-    $a = Path::find_by_id (1);
-    $a->update_image ();
+  public function xox ($year) {
+    if ($year > 2015)
+    return $this->output_json (array (
+        'title' => 'xxxx'
+      ));
+    else
+    return $this->output_json (array (
+        'title' => '000'
+      ));
+    // $a = Path::find_by_id (1);
+    // $a->update_image ();
     // $a = Article::create (array (
     //   'user_id' => 1,
     //   'title' => 'xxx'));
