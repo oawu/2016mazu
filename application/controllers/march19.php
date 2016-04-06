@@ -21,8 +21,6 @@ class March19 extends Site_controller {
         'title' => '陣頭路關'
       );
 
-
-
     $title = '北港廟會';
     $desc = '農曆三月期間在臺灣各地迎媽祖的廟會活動非常頻繁，而在這段時間的北港鎮更能看到媽祖廟會的盛況非常，它對北港人的意義更是第二個過年一般，多數在外地工作的北港遊子都會回鄉參與！';
 
@@ -52,7 +50,7 @@ class March19 extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ));
+          ), false, 60);
   }
   public function dintao () {
     $prev = array (
@@ -94,7 +92,7 @@ class March19 extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ));
+          ), false, 60);
   }
   public function iko () {
     $prev = array (
@@ -135,6 +133,6 @@ class March19 extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ));
+          ), false, 60);
   }
 }

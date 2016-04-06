@@ -49,7 +49,7 @@ class Pictures extends Site_controller {
                     'picture' => $picture,
                     'prev' => $picture->prev ($this->tag),
                     'next' => $picture->next ($this->tag),
-                  ));
+                  ), false, 60);
   }
   public function index ($offset = 0) {
     $columns = array ();
@@ -104,6 +104,6 @@ class Pictures extends Site_controller {
                     'pagination' => $pagination,
                     'columns' => $columns,
                     'has_photoswipe' => true
-                  ));
+                  ), false, 60);
   }
 }

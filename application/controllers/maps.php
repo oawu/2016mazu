@@ -122,7 +122,7 @@ class Maps extends Site_controller {
             'infos' => $infos,
             'prev' => $prev,
             'next' => $next,
-          ));
+          ), false, 60);
   }
   public function iko ($index = 0) {
     if (!(isset ($this->iko_tabs[$index]) && ($path = Path::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', $this->iko_tabs[$index]['id'], Path::IS_ENABLED))))))
@@ -208,6 +208,6 @@ class Maps extends Site_controller {
             'infos' => $infos,
             'prev' => $prev,
             'next' => $next,
-          ));
+          ), false, 60);
   }
 }

@@ -49,7 +49,7 @@ class Dintaos extends Site_controller {
                     'dintao' => $dintao,
                     'prev' => $dintao->prev ($this->tag),
                     'next' => $dintao->next ($this->tag),
-                  ));
+                  ), false, 60);
   }
   public function index ($offset = 0) {
     $columns = array ();
@@ -101,6 +101,6 @@ class Dintaos extends Site_controller {
                     'dintaos' => $dintaos,
                     'pagination' => $pagination,
                     'columns' => $columns
-                  ));
+                  ), false, 60);
   }
 }

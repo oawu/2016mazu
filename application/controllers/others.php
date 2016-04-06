@@ -52,7 +52,7 @@ class Others extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ));
+          ), false, 60);
   }
   public function developers () {
     $prev = 'author';
@@ -84,15 +84,12 @@ class Others extends Site_controller {
         //   )
       );
 
-
-
-
     $this->set_tab_index (2)
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
             'users' => $users,
-          ));
+          ), false, 60);
   }
   public function license () {
     $prev = 'developers';
@@ -107,6 +104,6 @@ class Others extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ));
+          ), false, 60);
   }
 }
