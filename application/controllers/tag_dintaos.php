@@ -113,9 +113,9 @@ class Tag_dintaos extends Site_controller {
     return $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
                 ->set_subtitle ($title)
                 ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
-                ->add_meta (array ('name' => 'description', 'content' => implode (' ', array_merge (array ($title, Cfg::setting ('site', 'title')), column_array ($dintaos, 'title')))))
+                ->add_meta (array ('name' => 'description', 'content' => implode (' ', array_merge (array (Cfg::setting ('site', 'title'), $title), column_array ($dintaos, 'title')))))
                 ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
-                ->add_meta (array ('property' => 'og:description', 'content' => implode (' ', array_merge (array ($title, Cfg::setting ('site', 'title')), column_array ($dintaos, 'title')))))
+                ->add_meta (array ('property' => 'og:description', 'content' => implode (' ', array_merge (array (Cfg::setting ('site', 'title'), $title), column_array ($dintaos, 'title')))))
                 ->load_view (array (
                     'dintaos' => $dintaos,
                     'pagination' => $pagination,
