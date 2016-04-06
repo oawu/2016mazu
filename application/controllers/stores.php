@@ -43,10 +43,6 @@ class Stores extends Site_controller {
            ->add_meta (array ('name' => 'description', 'content' => $store->mini_content (150)))
            ->add_meta (array ('property' => 'og:title', 'content' => $store->title . ' - ' . Cfg::setting ('site', 'title')))
            ->add_meta (array ('property' => 'og:description', 'content' => $store->mini_content (300)))
-           ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $store->cover->url ('1200x630c'), 'alt' => $store->title . ' - ' . Cfg::setting ('site', 'title')))
-           ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
-           ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
-           ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
            ->add_meta (array ('property' => 'article:modified_time', 'content' => $store->updated_at->format ('c')))
            ->add_meta (array ('property' => 'article:published_time', 'content' => $store->created_at->format ('c')))
            ->add_hidden (array ('id' => 'url', 'value' => base_url ($this->get_class (), 'show', $store->id)));
@@ -63,14 +59,13 @@ class Stores extends Site_controller {
       $this->add_meta (array ('property' => 'article:modified_time', 'content' => $store->updated_at->format ('c')))
            ->add_meta (array ('property' => 'article:published_time', 'content' => $store->created_at->format ('c')));
 
-
       $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
            ->set_subtitle ($title)
            ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
            ->add_meta (array ('name' => 'description', 'content' => implode (' ', array_merge (array (Cfg::setting ('site', 'title'), $title), column_array ($stores, 'title')))))
            ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
            ->add_meta (array ('property' => 'og:description', 'content' => implode (' ', array_merge (array (Cfg::setting ('site', 'title'), $title), column_array ($stores, 'title')))))
-                ;
+      ;
     }
 
 
