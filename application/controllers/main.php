@@ -50,7 +50,7 @@ class Main extends Site_controller {
          ->add_js (Cfg::setting ('google', 'client_js_url'), false)
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
          
-         ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_unique (array_merge (Cfg::setting ('site', 'keywords'))))))
+         ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
          ->add_meta (array ('name' => 'description', 'content' => $desc))
          ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:description', 'content' => $desc))
