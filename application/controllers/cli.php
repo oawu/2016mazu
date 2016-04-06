@@ -693,23 +693,51 @@ class Cli extends Site_controller {
     $sit_map = new Sitemap ($domain);
     $sit_map->setPath (FCPATH . 'sitemap' . DIRECTORY_SEPARATOR);
     $sit_map->setDomain ($domain);
+    
+    $sit_map->addItem ('/', '0.5', 'weekly', date ('c'));
+    $sit_map->addItem ('/others', '0.5', 'weekly', date ('c'));
+    $sit_map->addItem ('/others/developers', '0.5', 'weekly', date ('c'));
+    $sit_map->addItem ('/others/license', '0.5', 'weekly', date ('c'));
+    $sit_map->addItem ('/march19', '0.5', 'weekly', date ('c'));
+    $sit_map->addItem ('/march19/dintao', '0.5', 'weekly', date ('c'));
+    $sit_map->addItem ('/march19/iko', '0.5', 'weekly', date ('c'));
+    $sit_map->addItem ('/maps/dintao', '0.5', 'weekly', date ('c'));
+    $sit_map->addItem ('/maps/iko', '0.5', 'weekly', date ('c'));
 
-    $list = array ();
-    $menus_list = array_filter (array_map (function ($group) use ($domain, &$list) {
-      return array_filter ($group, function ($item) use ($domain, &$list) {
-        if (!(!(isset ($item['no_show']) && $item['no_show']) && (in_array ('all', $item['roles']) || (User::current () && User::current ()->in_roles ($item['roles'])))))
-          return false;
-        array_push ($list, str_replace ($domain, '', $item['href']));
-        return true;
-      });
-    }, Cfg::setting ('site', 'menu')));
+    $items = array (
+        array ('model' => 'Article', 'uri' => 'article', 'tag_ids' => array ()),
+        array ('model' => 'Dintao',  'uri' => 'dintao',  'tag_ids' => array (1, 2, 3)),
+        array ('model' => 'Picture', 'uri' => 'picture', 'tag_ids' => array (1)),
+        array ('model' => 'Youtube', 'uri' => 'youtube', 'tag_ids' => array (1, 2)),
+        array ('model' => 'Store',   'uri' => 'store',   'tag_ids' => array (1, 2, 3)),
+      );
 
-    // main pages
-    foreach ($list as $link)
-      $sit_map->addItem ($link, '0.5', 'weekly', date ('c'));
+    foreach ($items as $item) {
+      $sit_map->addItem ('/' . $item['uri'] . 's', '0.8', 'weekly', date ('c'));
+
+      $conditions = array ();
+      $item['model']::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', $item['model']::IS_ENABLED);
+      
+      foreach ($item['model']::find ('all', array ('conditions' => $conditions)) as $obj)
+        $sit_map->addItem (str_replace ($domain, '', $obj->content_page_url ()), '0.8', 'weekly', date ('c'));
+
+      if ($item['tag_ids'])
+        foreach ($item['tag_ids'] as $tag_id) {
+          $sit_map->addItem ('/tag/' . $tag_id . '/' . $item['uri'] . 's', '0.8', 'weekly', date ('c'));
+          
+          $conditions = array ();
+          $item['model']::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', $item['model']::IS_ENABLED);
+          if (($mapping = $item['model'] . 'TagMapping') && ($obj_ids = column_array ($mapping::find ('all', array ('select' => $item['uri'] . '_id', 'order' => $item['uri'] . '_id DESC', 'conditions' => array ($item['uri'] . '_tag_id = ?', $tag_id))), $item['uri'] . '_id'))) $item['model']::addConditions ($conditions, 'id IN (?)', $obj_ids);
+          else $item['model']::addConditions ($conditions, 'id = ?', -1);
+          
+          foreach ($item['model']::find ('all', array ('conditions' => $conditions)) as $dintao)
+            $sit_map->addItem (str_replace ($domain, '', $dintao->content_page_url ($tag_id)), '0.8', 'weekly', date ('c'));
+        }
+    }
 
     $sit_map->createSitemapIndex ($domain . '/sitemap/', date ('c'));
   }
+
   public function update_cover () {
     foreach (Youtube::find ('all') as $i => $youtube) {
       echo str_repeat ('-', 60) . "\n";

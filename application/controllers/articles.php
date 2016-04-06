@@ -94,9 +94,9 @@ class Articles extends Site_controller {
     return $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
                 ->set_subtitle ($title)
                 ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
-                ->add_meta (array ('name' => 'description', 'content' => implode (' ', (array_map (function ($article) { return $article->title; }, array_merge (array ($title), $articles))))))
+                ->add_meta (array ('name' => 'description', 'content' => implode (' ', array_merge (array ($title), column_array ($articles, 'title')))))
                 ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
-                ->add_meta (array ('property' => 'og:description', 'content' => implode (' ', (array_map (function ($article) { return $article->title; }, array_merge (array ($title), $articles))))))
+                ->add_meta (array ('property' => 'og:description', 'content' => implode (' ', array_merge (array ($title), column_array ($articles, 'title')))))
                 ->load_view (array (
                     'articles' => $articles,
                     'pagination' => $pagination,

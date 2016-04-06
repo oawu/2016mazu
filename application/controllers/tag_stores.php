@@ -29,6 +29,18 @@ class Tag_stores extends Site_controller {
   }
 
   public function index ($tag_id, $id = 0) {
+    Store::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', Store::IS_ENABLED);
+    if ($store_ids = column_array (StoreTagMapping::find ('all', array ('select' => 'store_id', 'order' => 'store_id DESC', 'conditions' => array ('store_tag_id = ?', $this->tag->id))), 'store_id'))
+      Store::addConditions ($conditions, 'id IN (?)', $store_ids);
+    else
+      Store::addConditions ($conditions, 'id = ?', -1);
+
+    $stores = Store::find ('all', array (
+        'order' => 'id DESC',
+        'include' => array ('mappings'),
+        'conditions' => $conditions
+      ));
+
     if ($id && ($store = Store::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', $id, Store::IS_ENABLED))))) {
       if ($tags = array_unique (array_merge (column_array ($store->tags, 'name'), Cfg::setting ('site', 'keywords'))))
         foreach ($tags as $i => $tag)
@@ -54,24 +66,28 @@ class Tag_stores extends Site_controller {
            ->add_meta (array ('property' => 'store:published_time', 'content' => $store->created_at->format ('c')))
            ->add_hidden (array ('id' => 'url', 'value' => base_url ($this->get_class (), 'show', $store->id)));
     } else {
-      $this->set_title ($this->tag->name . ' - ' . Cfg::setting ('site', 'title'))
-           ->set_subtitle ($this->tag->name)
+
+    $title = $this->tag->name;
+    $tag_names = column_array (StoreTag::all (array ('select' => 'name', 'order' => 'RAND()', 'limit' => 10)), 'name');
+    if ($tags = array_unique (array_merge (array ($title), $tag_names, Cfg::setting ('site', 'keywords'))))
+      foreach ($tags as $i => $tag)
+        if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+        else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+
+    if ($stores && ($store = $stores[rand(0, count ($stores) - 1)]))
+      $this->add_meta (array ('property' => 'article:modified_time', 'content' => $store->updated_at->format ('c')))
+           ->add_meta (array ('property' => 'article:published_time', 'content' => $store->created_at->format ('c')));
+
+      $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
+           ->set_subtitle ($title)
+           ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
+           ->add_meta (array ('name' => 'description', 'content' => implode (' ', array_merge (array (Cfg::setting ('site', 'title'), $title), column_array ($stores, 'title')))))
+           ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
+           ->add_meta (array ('property' => 'og:description', 'content' => implode (' ', array_merge (array (Cfg::setting ('site', 'title'), $title), column_array ($stores, 'title')))))
            ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge (array ($this->tag->name), Cfg::setting ('site', 'keywords')))))
            ->add_meta (array ('property' => 'og:title', 'content' => $this->tag->name . ' - ' . Cfg::setting ('site', 'title')))
            ->add_meta (array ('property' => 'article:section', 'content' => $this->tag->name));
     }
-    Store::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', Store::IS_ENABLED);
-    if ($store_ids = column_array (StoreTagMapping::find ('all', array ('select' => 'store_id', 'order' => 'store_id DESC', 'conditions' => array ('store_tag_id = ?', $this->tag->id))), 'store_id'))
-      Store::addConditions ($conditions, 'id IN (?)', $store_ids);
-    else
-      Store::addConditions ($conditions, 'id = ?', -1);
-
-    $limit = 10;
-    $stores = Store::find ('all', array (
-        'order' => 'id DESC',
-        'include' => array ('mappings'),
-        'conditions' => $conditions
-      ));
     
     if ($tags = StoreTag::all (array ('select' => 'id', 'limit' => 5, 'conditions' => array ('id != ? AND is_on_site = ?', $this->tag->id, StoreTag::IS_ON_SITE_NAMES))))
       foreach ($tags as $tag)
