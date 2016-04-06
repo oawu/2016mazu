@@ -101,7 +101,7 @@ class Tag_pictures extends Site_controller {
         else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
 
     if ($pictures)
-      $this->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $pictures[0]->cover->url ('1200x630c'), 'alt' => $pictures[0]->title . ' - ' . Cfg::setting ('site', 'title')))
+      $this->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $pictures[0]->name->url ('1200x630c'), 'alt' => $pictures[0]->title . ' - ' . Cfg::setting ('site', 'title')))
            ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
            ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
            ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
