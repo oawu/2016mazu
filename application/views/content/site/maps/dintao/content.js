@@ -46,8 +46,8 @@ $(function () {
 
     clearTimeout (_timer);
     _timer = setTimeout (function () {
-      // if (!_isMoved && !(i % 10)) mapGo (_map, _points[i]);
-      // markerGo (_mazu, _points[i], loop (i));
+      if (!_isMoved && !(i % 10)) mapGo (_map, _points[i]);
+      markerGo (_mazu, _points[i], loop (i));
     }, 150);
   }
   function initialize () {

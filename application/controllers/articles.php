@@ -76,8 +76,9 @@ class Articles extends Site_controller {
       foreach ($tags as $tag)
         $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ('tag', $tag->id, 'articles')));
 
+    $title = '笨港文化';
     $tag_names = column_array (ArticleTag::all (array ('select' => 'name', 'limit' => 10)), 'name');
-    if ($tags = array_unique (array_merge (array ('笨港文化'), $tag_names, Cfg::setting ('site', 'keywords'))))
+    if ($tags = array_unique (array_merge (array ($title), $tag_names, Cfg::setting ('site', 'keywords'))))
       foreach ($tags as $i => $tag)
         if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
         else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
@@ -90,7 +91,6 @@ class Articles extends Site_controller {
            ->add_meta (array ('property' => 'article:modified_time', 'content' => $articles[0]->updated_at->format ('c')))
            ->add_meta (array ('property' => 'article:published_time', 'content' => $articles[0]->created_at->format ('c')));
 
-    $title = '笨港文化';
     return $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
                 ->set_subtitle ($title)
                 ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))

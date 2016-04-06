@@ -76,11 +76,27 @@ class Dintaos extends Site_controller {
       foreach ($tags as $tag)
         $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ('tag', $tag->id, 'dintaos')));
 
-    return $this->set_title ('所有陣頭' . ' - ' . Cfg::setting ('site', 'title'))
-                ->set_subtitle ('所有陣頭')
-                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge (array ('所有陣頭'), Cfg::setting ('site', 'keywords')))))
-                ->add_meta (array ('property' => 'og:title', 'content' => '所有陣頭' . ' - ' . Cfg::setting ('site', 'title')))
-                ->add_meta (array ('property' => 'article:section', 'content' => '所有陣頭'))
+    $title = '百年藝陣';
+    $tag_names = column_array (DintaoTag::all (array ('select' => 'name', 'limit' => 10)), 'name');
+    if ($tags = array_unique (array_merge (array ($title), $tag_names, Cfg::setting ('site', 'keywords'))))
+      foreach ($tags as $i => $tag)
+        if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+        else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+
+    if ($dintaos)
+      $this->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $dintaos[0]->cover->url ('1200x630c'), 'alt' => $dintaos[0]->title . ' - ' . Cfg::setting ('site', 'title')))
+           ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+           ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+           ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+           ->add_meta (array ('property' => 'article:modified_time', 'content' => $dintaos[0]->updated_at->format ('c')))
+           ->add_meta (array ('property' => 'article:published_time', 'content' => $dintaos[0]->created_at->format ('c')));
+
+    return $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
+                ->set_subtitle ($title)
+                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
+                ->add_meta (array ('name' => 'description', 'content' => implode (' ', (array_map (function ($dintao) { return $dintao->mini_content (150); }, $dintaos)))))
+                ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
+                ->add_meta (array ('property' => 'og:description', 'content' => implode (' ', (array_map (function ($dintao) { return $dintao->mini_content (150); }, $dintaos)))))
                 ->load_view (array (
                     'dintaos' => $dintaos,
                     'pagination' => $pagination,

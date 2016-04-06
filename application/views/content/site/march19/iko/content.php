@@ -34,7 +34,7 @@
   
   <section>
     <h3>農曆三月廿二 晚間</h3>
-    <ul><li>廟前出發</li><li>中山路</li><li>集合後開始評審</li><li>民生路</li><li>益安路</li><li>公民路</li><li>文化路</li><li>民主路</li><li>義民路</li><li>民生路</li><li>中山路</li><li>廟前定點評審</li><li>民主路</li><li>圓環</li></ul>
+    <ul><li>廟前出發</li><li>中山路</li><li>集合後開始評審</li><li>民生路</li><li>益安路</li><li>公民路</li><li>文化路</li><li>民主路</li><li>義民路</li><li>民生路</li><li>中山路</li><li>廟前定點評審</li><li>民主路</li><li>圓環</li><li>休息</li></ul>
   </section>
   
   <section>
