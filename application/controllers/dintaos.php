@@ -77,7 +77,7 @@ class Dintaos extends Site_controller {
         $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ('tag', $tag->id, 'dintaos')));
 
     $title = '百年藝陣';
-    $tag_names = column_array (DintaoTag::all (array ('select' => 'name', 'limit' => 10)), 'name');
+    $tag_names = column_array (DintaoTag::all (array ('select' => 'name', 'order' => 'RAND()', 'limit' => 10)), 'name');
     if ($tags = array_unique (array_merge (array ($title), $tag_names, Cfg::setting ('site', 'keywords'))))
       foreach ($tags as $i => $tag)
         if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
