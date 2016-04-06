@@ -22,8 +22,8 @@ class Stores extends Site_controller {
     if ($id && ($store = Store::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', $id, Store::IS_ENABLED))))) {
       if ($tags = array_merge (column_array ($store->tags, 'name'), Cfg::setting ('site', 'keywords')))
         foreach ($tags as $i => $tag)
-          if (!$i) $this->add_meta (array ('property' => 'store:section', 'content' => $tag))->add_meta (array ('property' => 'store:tag', 'content' => $tag));
-          else $this->add_meta (array ('property' => 'store:tag', 'content' => $tag));
+          if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+          else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
            
       if ($also = $store->also ($this->tag))
         foreach ($also as $i => $a)
@@ -40,15 +40,15 @@ class Stores extends Site_controller {
            ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
            ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
            ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
-           ->add_meta (array ('property' => 'store:modified_time', 'content' => $store->updated_at->format ('c')))
-           ->add_meta (array ('property' => 'store:published_time', 'content' => $store->created_at->format ('c')))
+           ->add_meta (array ('property' => 'article:modified_time', 'content' => $store->updated_at->format ('c')))
+           ->add_meta (array ('property' => 'article:published_time', 'content' => $store->created_at->format ('c')))
            ->add_hidden (array ('id' => 'url', 'value' => base_url ($this->get_class (), 'show', $store->id)));
     } else {
       $this->set_title ('所有景點' . ' - ' . Cfg::setting ('site', 'title'))
            ->set_subtitle ('所有景點')
            ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge (array ('所有景點'), Cfg::setting ('site', 'keywords')))))
            ->add_meta (array ('property' => 'og:title', 'content' => '所有景點' . ' - ' . Cfg::setting ('site', 'title')))
-           ->add_meta (array ('property' => 'store:section', 'content' => '所有景點'));
+           ->add_meta (array ('property' => 'article:section', 'content' => '所有景點'));
     }
 
     Store::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', Store::IS_ENABLED);
