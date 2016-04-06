@@ -25,7 +25,7 @@ class Stores extends Site_controller {
         'include' => array ('mappings'),
         'conditions' => $conditions
       ));
-    
+
     if ($id && ($store = Store::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', $id, Store::IS_ENABLED))))) {
       if ($tags = array_merge (column_array ($store->tags, 'name'), Cfg::setting ('site', 'keywords')))
         foreach ($tags as $i => $tag)
@@ -66,9 +66,11 @@ class Stores extends Site_controller {
 
       $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
            ->set_subtitle ($title)
-           ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge (array ('所有景點'), Cfg::setting ('site', 'keywords')))))
-           ->add_meta (array ('property' => 'og:title', 'content' => '所有景點' . ' - ' . Cfg::setting ('site', 'title')))
-           ->add_meta (array ('property' => 'article:section', 'content' => '所有景點'));
+           ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
+           ->add_meta (array ('name' => 'description', 'content' => implode (' ', array_merge (array (Cfg::setting ('site', 'title'), $title), column_array ($stores, 'title')))))
+           ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
+           ->add_meta (array ('property' => 'og:description', 'content' => implode (' ', array_merge (array (Cfg::setting ('site', 'title'), $title), column_array ($stores, 'title')))))
+                ;
     }
 
 
