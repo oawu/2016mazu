@@ -83,13 +83,13 @@ class Dintaos extends Site_controller {
         if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
         else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
 
-    if ($dintaos)
-      $this->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $dintaos[0]->cover->url ('1200x630c'), 'alt' => $dintaos[0]->title . ' - ' . Cfg::setting ('site', 'title')))
+    if ($dintaos && ($dintao = $dintaos[rand(0, count ($dintaos) - 1)]))
+      $this->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $dintao->cover->url ('1200x630c'), 'alt' => $dintao->title . ' - ' . Cfg::setting ('site', 'title')))
            ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
            ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
            ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
-           ->add_meta (array ('property' => 'article:modified_time', 'content' => $dintaos[0]->updated_at->format ('c')))
-           ->add_meta (array ('property' => 'article:published_time', 'content' => $dintaos[0]->created_at->format ('c')));
+           ->add_meta (array ('property' => 'article:modified_time', 'content' => $dintao->updated_at->format ('c')))
+           ->add_meta (array ('property' => 'article:published_time', 'content' => $dintao->created_at->format ('c')));
 
     return $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
                 ->set_subtitle ($title)

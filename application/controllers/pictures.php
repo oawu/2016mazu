@@ -83,13 +83,13 @@ class Pictures extends Site_controller {
         if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
         else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
 
-    if ($pictures)
-      $this->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $pictures[0]->name->url ('1200x630c'), 'alt' => $pictures[0]->title . ' - ' . Cfg::setting ('site', 'title')))
+    if ($pictures && ($picture = $pictures[rand(0, count ($pictures) - 1)]))
+      $this->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $picture->name->url ('1200x630c'), 'alt' => $picture->title . ' - ' . Cfg::setting ('site', 'title')))
            ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
            ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
            ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
-           ->add_meta (array ('property' => 'article:modified_time', 'content' => $pictures[0]->updated_at->format ('c')))
-           ->add_meta (array ('property' => 'article:published_time', 'content' => $pictures[0]->created_at->format ('c')));
+           ->add_meta (array ('property' => 'article:modified_time', 'content' => $picture->updated_at->format ('c')))
+           ->add_meta (array ('property' => 'article:published_time', 'content' => $picture->created_at->format ('c')));
 
     return $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
                 ->set_subtitle ($title)
