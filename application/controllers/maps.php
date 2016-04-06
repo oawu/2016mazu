@@ -12,22 +12,22 @@ class Maps extends Site_controller {
     parent::__construct ();
 
     $this->dintao_tabs = array (
-        // array ('id' => 1, 'title' => '十九上午'),
-        array ('id' => 1, 'title' => '十九下午'),
-        array ('id' => 2, 'title' => '十九晚上'),
-        // array ('id' => 4, 'title' => '二十上午'),
-        array ('id' => 3, 'title' => '二十下午'),
-        array ('id' => 4, 'title' => '二十晚上')
+        // array ('id' => 1, 'title' => '十九上午', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
+        array ('id' => 1, 'title' => '十九下午', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
+        array ('id' => 2, 'title' => '十九晚上', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
+        // array ('id' => 4, 'title' => '二十上午', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
+        array ('id' => 3, 'title' => '二十下午', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
+        array ('id' => 4, 'title' => '二十晚上', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
       );
 
     $this->iko_tabs = array (
-        array ('id' => 5, 'title' => '十九下午'),
-        array ('id' => 6, 'title' => '十九晚間'),
-        array ('id' => 7, 'title' => '二十下午'),
-        array ('id' => 8, 'title' => '二十晚間'),
-        array ('id' => 9, 'title' => '廿一晚間'),
-        array ('id' => 10, 'title' => '廿二晚間'),
-        array ('id' => 11, 'title' => '廿三晚間'),
+        array ('id' => 5, 'title' => '十九下午', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
+        array ('id' => 6, 'title' => '十九晚間', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
+        array ('id' => 7, 'title' => '二十下午', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
+        array ('id' => 8, 'title' => '二十晚間', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
+        array ('id' => 9, 'title' => '廿一晚間', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
+        array ('id' => 10, 'title' => '廿二晚間', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
+        array ('id' => 11, 'title' => '廿三晚間', 'desc' => '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..'),
       );
 
     $this->add_js (Cfg::setting ('google', 'client_js_url'), false);
@@ -89,9 +89,9 @@ class Maps extends Site_controller {
       $next = null;
 
     
-    $title = '三月' . $this->dintao_tabs[$index]['title'] . ' 陣頭地圖';
-    $desc = '出廟➜中山路➜民生路➜益安路➜信義路➜捷發街➜光明路➜益安路➜東興街➜中秋路➜東勢街➜東華巷➜彌陀寺➜前中央市場後➜厚生路➜媽祖廟後➜國宮旅社前➜仁和路➜三連街➜公館街➜大同路➜博愛路➜大復戲院前➜賜福街➜義民路➜復興街➜文化路➜民有路..';
-    
+    $title = '三月' . $this->dintao_tabs[$index]['title'] . ' 陣頭遶境 Google Maps 路線地圖';
+    $desc = $this->dintao_tabs[$index]['desc'];
+
     if ($tags = array_unique (array_merge (array ($title), Cfg::setting ('site', 'keywords'))))
       foreach ($tags as $i => $tag)
         if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
@@ -108,7 +108,7 @@ class Maps extends Site_controller {
          ->add_meta (array ('name' => 'description', 'content' => $desc))
          ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:description', 'content' => $desc))
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'larger2.jpg'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'map' . $this->dintao_tabs[$index]['id'] . '.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
          ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
