@@ -60,11 +60,7 @@ class Stores extends Site_controller {
         else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
 
     if ($stores && ($store = $stores[rand(0, count ($stores) - 1)]))
-      $this->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $store->cover->url ('1200x630c'), 'alt' => $store->title . ' - ' . Cfg::setting ('site', 'title')))
-           ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
-           ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
-           ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
-           ->add_meta (array ('property' => 'article:modified_time', 'content' => $store->updated_at->format ('c')))
+      $this->add_meta (array ('property' => 'article:modified_time', 'content' => $store->updated_at->format ('c')))
            ->add_meta (array ('property' => 'article:published_time', 'content' => $store->created_at->format ('c')));
 
 
