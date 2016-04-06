@@ -72,15 +72,31 @@ class Articles extends Site_controller {
         'conditions' => $conditions
       ));
 
-    if ($tags = ArticleTag::all (array ('select' => 'id', 'limit' => 5, 'conditions' => array ('is_on_site = ?', ArticleTag::IS_ON_SITE_NAMES))))
+    $tag_names = column_array (ArticleTag::all (array ('select' => 'name', 'limit' => 10)), 'name');
+    if ($tags = array_unique (array_merge (array ('笨港文化'), $tag_names, Cfg::setting ('site', 'keywords'))))
+      foreach ($tags as $i => $tag)
+        if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+        else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+
+    if ($tags = ArticleTag::all (array ('select' => 'id, name', 'limit' => 5, 'conditions' => array ('is_on_site = ?', ArticleTag::IS_ON_SITE_NAMES))))
       foreach ($tags as $tag)
         $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ('tag', $tag->id, 'articles')));
 
-    return $this->set_title ('所有文章' . ' - ' . Cfg::setting ('site', 'title'))
-                ->set_subtitle ('所有文章')
-                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge (array ('所有文章'), Cfg::setting ('site', 'keywords')))))
-                ->add_meta (array ('property' => 'og:title', 'content' => '所有文章' . ' - ' . Cfg::setting ('site', 'title')))
-                ->add_meta (array ('property' => 'article:section', 'content' => '所有文章'))
+    if ($articles)
+      $this->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $articles[0]->cover->url ('1200x630c'), 'alt' => $articles[0]->title . ' - ' . Cfg::setting ('site', 'title')))
+           ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+           ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+           ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+           ->add_meta (array ('property' => 'article:modified_time', 'content' => $articles[0]->updated_at->format ('c')))
+           ->add_meta (array ('property' => 'article:published_time', 'content' => $articles[0]->created_at->format ('c')));
+
+    $title = '笨港文化';
+    return $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
+                ->set_subtitle ($title)
+                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge (column_array ($tags, 'name'), Cfg::setting ('site', 'keywords')))))
+                ->add_meta (array ('name' => 'description', 'content' => implode (' ', (array_map (function ($article) { return $article->mini_content (150); }, $articles)))))
+                ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
+                ->add_meta (array ('property' => 'og:description', 'content' => implode (' ', (array_map (function ($article) { return $article->mini_content (150); }, $articles)))))
                 ->load_view (array (
                     'articles' => $articles,
                     'pagination' => $pagination,
