@@ -46,10 +46,9 @@ class Main extends Site_controller {
     $desc = '烘爐引炮 驚奇火花 驚震全場，輪廓描繪傳承力量 霓彩妝童延續風華，三聲起馬炮 三鼓三哨聲的先鋒中壇開路啟程，兩聲哨鼓的北港黃袍勇士也在砲火花中吞雲吐霧聞炮起舞，四小將鏘鏘響 門一開 青紅將軍開路展威風！';
     $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
          ->set_subtitle ($title)
-         ->add_css (resource_url ('resource', 'css', 'OA-mobileScrollView', 'OA-mobileScrollView.css'))
          ->add_js (Cfg::setting ('google', 'client_js_url'), false)
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
-         
+
          ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
          ->add_meta (array ('name' => 'description', 'content' => $desc))
          ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
