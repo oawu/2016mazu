@@ -103,9 +103,8 @@ class Tag_stores extends Site_controller {
                 ->add_js (Cfg::setting ('google', 'client_js_url'), false)
                 ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
                 ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'my.js'))
-                
                 ->load_view (array (
                     'stores' => $stores,
-                  ));
+                  ), false, 60);
   }
 }
