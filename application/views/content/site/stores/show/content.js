@@ -5,5 +5,6 @@
 
 $(function () {
   $('body figure a').imgLiquid ({verticalAlign: 'center'});
+  addPv ('Store', $('#id').val ());
   window.hideLoading ();
 });

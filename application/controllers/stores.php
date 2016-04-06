@@ -13,6 +13,7 @@ class Stores extends Site_controller {
       $store = null;
 
     return $this->set_frame_path ('frame', 'pure')
+                ->add_hidden (array ('id' => 'id', 'value' => $store->id))
                 ->load_view (array (
                     'store' => $store
                   ));
@@ -79,41 +80,4 @@ class Stores extends Site_controller {
                     'stores' => $stores,
                   ));
   }
-  // public function index ($offset = 0) {
-  //   $columns = array ();
-
-  //   $configs = array ('stores', '%s');
-  //   $conditions = conditions ($columns, $configs);
-  //   Store::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', Store::IS_ENABLED);
-
-  //   $limit = 10;
-  //   $total = Store::count (array ('conditions' => $conditions));
-  //   $offset = $offset < $total ? $offset : 0;
-
-  //   $this->load->library ('pagination');
-  //   $pagination = $this->pagination->initialize (array_merge (array ('total_rows' => $total, 'num_links' => 3, 'per_page' => $limit, 'uri_segment' => 0, 'base_url' => '', 'page_query_string' => false, 'first_link' => '第一頁', 'last_link' => '最後頁', 'prev_link' => '上一頁', 'next_link' => '下一頁', 'full_tag_open' => '<ul class="pagination">', 'full_tag_close' => '</ul>', 'first_tag_open' => '<li class="f">', 'first_tag_close' => '</li>', 'prev_tag_open' => '<li class="p">', 'prev_tag_close' => '</li>', 'num_tag_open' => '<li>', 'num_tag_close' => '</li>', 'cur_tag_open' => '<li class="active"><a href="#">', 'cur_tag_close' => '</a></li>', 'next_tag_open' => '<li class="n">', 'next_tag_close' => '</li>', 'last_tag_open' => '<li class="l">', 'last_tag_close' => '</li>'), $configs))->create_links ();
-  //   $stores = Store::find ('all', array (
-  //       'offset' => $offset,
-  //       'limit' => $limit,
-  //       'order' => 'id DESC',
-  //       'include' => array ('mappings'),
-  //       'conditions' => $conditions
-  //     ));
-
-  //   if ($tags = StoreTag::all (array ('select' => 'id', 'limit' => 5, 'conditions' => array ('is_on_site = ?', StoreTag::IS_ON_SITE_NAMES))))
-  //     foreach ($tags as $tag)
-  //       $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ('tag', $tag->id, 'stores')));
-
-  //   return $this->set_title ('所有景點' . ' - ' . Cfg::setting ('site', 'title'))
-  //               ->set_subtitle ('所有景點')
-  //               ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge (array ('所有景點'), Cfg::setting ('site', 'keywords')))))
-  //               ->add_meta (array ('property' => 'og:title', 'content' => '所有景點' . ' - ' . Cfg::setting ('site', 'title')))
-  //               ->add_meta (array ('property' => 'store:section', 'content' => '所有景點'))
-  //               ->add_js (Cfg::setting ('google', 'client_js_url'), false)
-  //               ->load_view (array (
-  //                   'stores' => $stores,
-  //                   'pagination' => $pagination,
-  //                   'columns' => $columns
-  //                 ));
-  // }
 }
