@@ -95,11 +95,27 @@ class Tag_youtubes extends Site_controller {
       foreach ($tags as $tag)
         $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ('tag', $tag->id, 'youtubes')));
 
-    return $this->set_title ($this->tag->name . ' - ' . Cfg::setting ('site', 'title'))
-                ->set_subtitle ($this->tag->name)
-                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', array_merge (array ($this->tag->name), Cfg::setting ('site', 'keywords')))))
-                ->add_meta (array ('property' => 'og:title', 'content' => $this->tag->name . ' - ' . Cfg::setting ('site', 'title')))
-                ->add_meta (array ('property' => 'article:section', 'content' => $this->tag->name))
+    $title = $this->tag->name;
+    $tag_names = column_array (PictureTag::all (array ('select' => 'name', 'order' => 'RAND()', 'limit' => 10)), 'name');
+    if ($tags = array_unique (array_merge (array ($title), $tag_names, Cfg::setting ('site', 'keywords'))))
+      foreach ($tags as $i => $tag)
+        if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+        else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+
+    if ($youtubes && ($youtube = $youtubes[rand(0, count ($youtubes) - 1)]))
+      $this->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $youtube->cover->url ('1200x630c'), 'alt' => $youtube->title . ' - ' . Cfg::setting ('site', 'title')))
+           ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+           ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+           ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+           ->add_meta (array ('property' => 'article:modified_time', 'content' => $youtube->updated_at->format ('c')))
+           ->add_meta (array ('property' => 'article:published_time', 'content' => $youtube->created_at->format ('c')));
+
+    return $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
+                ->set_subtitle ($title)
+                ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
+                ->add_meta (array ('name' => 'description', 'content' => implode (' ', array_merge (array (Cfg::setting ('site', 'title'), $title), column_array ($youtubes, 'title')))))
+                ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
+                ->add_meta (array ('property' => 'og:description', 'content' => implode (' ', array_merge (array (Cfg::setting ('site', 'title'), $title), column_array ($youtubes, 'title')))))
                 ->load_view (array (
                     'youtubes' => $youtubes,
                     'pagination' => $pagination,
