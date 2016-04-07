@@ -14,9 +14,24 @@
     background-color: rgba(255, 255, 255, 1.00);
     overflow: hidden;
     margin: 10px;
+    position: relative;
     @include box-shadow(0 0 1px rgba(39, 40, 34, .300));
     @include border-radius(2px);
-    
+
+    &:after {
+      content: attr(data-id);
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      line-height: 26px;
+      border: 1px solid rgba(255, 255, 255, .50);;
+      text-align: center;
+      color: rgba(255, 255, 255, 1.00);
+      @include border-radius(50%);
+    }
     .i {
       width: 100%;
       height: 200px;
