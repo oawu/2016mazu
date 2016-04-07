@@ -1,19 +1,11 @@
+<figure>
+  <a href='<?php echo current_url ();?>'>
+    <img alt='<?php echo $other->title;?> - <?php echo Cfg::setting ('site', 'title');?>' src='<?php echo $other->cover->url ('1200x630c');?>' />
+  </a>
+  <figcaption><?php echo $other->title;?> - <?php echo Cfg::setting ('site', 'title');?></figcaption>
+</figure>
 
 <article><?php echo preg_replace ('/<br\s*\/?>\n+/', '<br/>', $other->content);?></article>
-
-<?php
-  if ($users) { ?>
-    <div class='i'>
-<?php foreach ($users as $user) { ?>
-        <figure>
-          <a href='<?php echo $user['href'];?>' target='_blank'><img src='<?php echo $user['src'];?>' /></a>
-          <figcaption data-title='<?php echo $user['title'];?>'><?php echo $user['name'];?></figcaption>
-        </figure>
-<?php } ?>
-    </div>
-<?php
-  }
-?>
 
 <?php
   if ($other->sources) { ?>
