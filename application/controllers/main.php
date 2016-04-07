@@ -43,7 +43,7 @@ class Main extends Site_controller {
       $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ($uri)));
 
     $title = '網站首頁';
-    $desc = '烘爐引炮 驚奇火花 驚震全場，輪廓描繪傳承力量 霓彩妝童延續風華，三聲起馬炮 三鼓三哨聲的先鋒中壇開路啟程，兩聲哨鼓的北港黃袍勇士也在砲火花中吞雲吐霧聞炮起舞，四小將鏘鏘響 門一開 青紅將軍開路展威風！';
+    $desc = '烘爐引炮驚奇火花驚震全場，輪廓描繪傳承力量霓彩妝童延續風華… 不變的開場詞，是的，又一年了！這個慶典對於北港人，就像如候鳥的季節，是一個返鄉的時刻… 在外地的北港囝仔，還記得北港的鞭炮味嗎？還記得小時候期待三月十九到來的期待與喜悅感嗎？這是我們北港人最榮耀的過年，今年要記得回來，再忙都要回來幫媽祖婆逗熱鬧一下吧！';
     $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
          ->set_subtitle ($title)
          ->add_js (Cfg::setting ('google', 'client_js_url'), false)
