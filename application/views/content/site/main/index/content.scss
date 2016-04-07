@@ -120,7 +120,6 @@ article {
       position: relative;
       overflow: hidden;
       display: inline-block;
-      color: rgba(55, 55, 55, 1);
       // border: px solid rgba(255, 255, 255, 1);
       @include border-radius(2px);
       @include box-shadow(0 0 3px rgba(0, 0, 0, .3));
@@ -308,6 +307,7 @@ $ih: 115px;
     overflow: hidden;
     z-index: 4;
     background-color: rgba(255, 255, 255, 1);
+    color: rgba(55, 55, 55, 1);
     @include border-radius(2px);
 
     > div {
