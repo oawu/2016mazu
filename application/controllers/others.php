@@ -76,12 +76,12 @@ class Others extends Site_controller {
             'src' => resource_url ('resource', 'image', 'users', 'teresa.jpg'),
             'href' => 'https://www.facebook.com/teresa.chu.3348'
           ),
-        // array (
-        //     'title' => '文章編輯',
-        //     'name' => '吳慧萱',
-        //     'src' => resource_url ('resource', 'image', 'users', 'teresa.jpg'),
-        //     'href' => 'https://www.facebook.com/teresa.chu.3348'
-        //   )
+        array (
+            'title' => '文章編輯',
+            'name' => '吳慧萱',
+            'src' => resource_url ('resource', 'image', 'users', '100000834456708.jpg'),
+            'href' => 'https://www.facebook.com/profile.php?id=100000834456708'
+          )
       );
 
     $this->set_tab_index (2)
