@@ -21,8 +21,8 @@ $site['menu'] = array (
         '北港廟會' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('march19'), 'class' => 'march19', 'method' => 'index', 'target' => '_self'),
         '媽祖定位' => array ('no_show' => true, 'roles' => array ('all'), 'icon' => 'icon-gps_fixed', 'href' => base_url ('maps', 'gps'), 'class' => 'maps', 'method' => 'gps', 'target' => '_self'),
         '路關簡介' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('march19', 'dintao'), 'class' => 'march19', 'method' => array ('dintao', 'iko'), 'target' => '_self'),
-        '陣頭地圖' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('maps', 'dintao'), 'class' => 'maps', 'method' => 'dintao', 'target' => '_self'),
-        '藝閣地圖' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('maps', 'iko'), 'class' => 'maps', 'method' => 'iko', 'target' => '_self'),
+        '陣頭路線圖<span>(Google Maps)</span>' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('maps', 'dintao'), 'class' => 'maps', 'method' => 'dintao', 'target' => '_self'),
+        '藝閣路線圖<span>(Google Maps)</span>' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('maps', 'iko'), 'class' => 'maps', 'method' => 'iko', 'target' => '_self'),
       ),
     '百年藝陣' => array (
         '所有陣頭' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('dintaos'), 'class' => 'dintaos', 'method' => '', 'target' => '_self'),

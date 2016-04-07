@@ -137,6 +137,11 @@
           line-height: 28px;
           padding-left: 15px;
           font-size: 15px;
+          span {
+            font-size: 10px;
+            display: inline-block;
+            margin-left: 3px;
+          }
           &.l {
             display: none;
             + a {
