@@ -66,7 +66,7 @@
   <section class='r'>
     <h2>美食地圖</h2>
 
-    <a class='food' title='<?php echo $store['t'];?>'>
+    <a class='food'>
       <div id='food' data-store='<?php echo $store;?>'></div>
     </a>
 

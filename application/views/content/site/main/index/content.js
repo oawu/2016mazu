@@ -107,6 +107,7 @@ $(function () {
     return '<div class="c"><div><img src="' + i.o + '"/><span>' + i.t + '</span></div><div>' + i.c + '</div></div><div class="b"></div>';
   }
   function initialize_food () {
+    $food.parent ().attr ('title', $food.data ('store').t);
     _food = new google.maps.Map ($food.get (0), {
         zoom: 16,
         draggable: false,
