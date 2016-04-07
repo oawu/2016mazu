@@ -40,7 +40,7 @@
     .t, .c {
       position: relative;
       &:before {
-        font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+        @include icomoon-font();
         position: absolute;
         right: 0;
         top: 5px;
@@ -52,19 +52,19 @@
       }
       &.l {
         &:before {
-          content: "\e979";
+          @include icomoon-font() { content: "\e979"; };
           color: rgba(55, 55, 55, .600);
         }
       }
       &.ok {
         &:before {
-          content: "\e624";
+          @include icomoon-font() { content: "\e624"; };
           color: rgba(65, 207, 72, 1.00);
         }
       }
       &.nok {
         &:before {
-          content: "\e117";
+          @include icomoon-font() { content: "\e117"; };
           color: rgba(255, 128, 128, 1.00);
         }
       }

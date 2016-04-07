@@ -25,7 +25,7 @@ body {
 
         #zoom {
           &:before {
-            content: "\e909";
+            @include icomoon-font() { content: "\e909"; };
           }
         }
       }
@@ -99,8 +99,7 @@ body {
     &:before {
       display: inline-block;
       font-size: 20px;
-      content: "\e90a";
-      font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+      @include icomoon-font() { content: "\e90a"; };
     }
     &:after {
       content: "";

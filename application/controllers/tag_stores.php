@@ -111,6 +111,6 @@ class Tag_stores extends Site_controller {
                 ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'my.js'))
                 ->load_view (array (
                     'stores' => $stores,
-                  ), false, 60);
+                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
   }
 }

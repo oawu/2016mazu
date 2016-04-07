@@ -37,7 +37,7 @@ body {
         }
         #zoom {
           &:before {
-            content: "\e90a";
+            @include icomoon-font() { content: "\e90a"; };
           }
         }
       }
@@ -63,7 +63,7 @@ body {
 
         #zoom {
           &:before {
-            content: "\e909";
+            @include icomoon-font() { content: "\e909"; };
           }
         }
         #other {
@@ -121,8 +121,7 @@ body {
       @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
         font-size: 25px;
       }
-      content: "\e90a";
-      font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+      @include icomoon-font() { content: "\e90a"; };
     }
     &:after {
       content: "";
@@ -331,7 +330,7 @@ body {
       }
       #zoom {
         &:before {
-          content: "\e909";
+          @include icomoon-font() { content: "\e909"; };
         }
       }
     }

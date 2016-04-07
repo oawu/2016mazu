@@ -73,7 +73,7 @@ ul.pagination {
         color: rgba(42, 90, 149, 0.7);
 
         &:before {
-          font-family: 'icomoon', "微軟正黑體", "Microsoft JhengHei", Monaco;
+          @include icomoon-font();
           position: absolute;
           top: 5px;
           font-size: 16px;
@@ -105,7 +105,7 @@ ul.pagination {
         padding-left: 10px;
 
         &:before {
-          content: "\e60b";
+          @include icomoon-font() { content: "\e60b"; };
           left: 0;
         }
       }
@@ -115,7 +115,7 @@ ul.pagination {
         padding-right: 10px;
 
         &:before {
-          content: "\e60a";
+          @include icomoon-font() { content: "\e60a"; };
           right: 0;
         }
       }

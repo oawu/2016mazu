@@ -52,8 +52,7 @@ article {
       }
       &:after {
         $w: 40px;
-        content: "\e907";
-        font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+        @include icomoon-font() { content: "\e907"; };
         position: absolute;
         z-index: 7;
         top: calc(50% - #{$w / 2});

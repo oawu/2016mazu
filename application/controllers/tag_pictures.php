@@ -61,7 +61,7 @@ class Tag_pictures extends Site_controller {
                     'picture' => $picture,
                     'prev' => $picture->prev ($this->tag),
                     'next' => $picture->next ($this->tag),
-                  ), false, 60);
+                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
   }
   public function index ($tag_id, $offset = 0) {
     $columns = array ();
@@ -121,6 +121,6 @@ class Tag_pictures extends Site_controller {
                     'pagination' => $pagination,
                     'columns' => $columns,
                     'has_photoswipe' => true
-                  ), false, 60);
+                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
   }
 }

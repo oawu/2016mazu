@@ -12,6 +12,10 @@
 
 @import "functions/_oa-material";
 
+@mixin icomoon-font () {
+  @content;
+  font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+}
 @mixin font-smoothing ($val: antialiased) {
   -moz-osx-font-smoothing: $val;
    -webkit-font-smoothing: $val;

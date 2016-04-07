@@ -423,16 +423,15 @@ table.table-form {
           + * {
             display: inline-block;
             &:before {
-              content: "\e624";
               color: rgba(255, 255, 255, 1);
               width: 18px;
               height: 18px;
               line-height: 16px;
               display: inline-block;
-              font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
               border: 1px solid rgba(39, 39, 34, .3);
               margin-right: 3px;
               text-align: center;
+              @include icomoon-font() { content: "\e624"; };
               @include border-radius(2px);
               @include transition(color .3s);
             }
@@ -463,15 +462,14 @@ table.table-form {
               @include transition(all .3s);
             }
             &:before {
-              content: '';
               width: 18px;
               height: 18px;
               line-height: 16px;
               display: inline-block;
-              font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
               border: 1px solid rgba(39, 39, 34, .5);
               margin-right: 3px;
               text-align: center;
+              @include icomoon-font() { content: ""; };
               @include border-radius(50%);
             }
           }

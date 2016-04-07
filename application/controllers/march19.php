@@ -50,7 +50,7 @@ class March19 extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ), false, 60);
+          ), false, ENVIRONMENT == 'production' ? 60 : 0);
   }
   public function dintao () {
     $prev = array (
@@ -92,7 +92,7 @@ class March19 extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ), false, 60);
+          ), false, ENVIRONMENT == 'production' ? 60 : 0);
   }
   public function iko () {
     $prev = array (
@@ -133,6 +133,6 @@ class March19 extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ), false, 60);
+          ), false, ENVIRONMENT == 'production' ? 60 : 0);
   }
 }

@@ -63,7 +63,7 @@ class Tag_dintaos extends Site_controller {
                     'dintao' => $dintao,
                     'prev' => $dintao->prev ($this->tag->id),
                     'next' => $dintao->next ($this->tag->id),
-                  ), false, 60);
+                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
   }
   public function index ($tag_id, $offset = 0) {
     $columns = array ();
@@ -120,6 +120,6 @@ class Tag_dintaos extends Site_controller {
                     'dintaos' => $dintaos,
                     'pagination' => $pagination,
                     'columns' => $columns
-                  ), false, 60);
+                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
   }
 }

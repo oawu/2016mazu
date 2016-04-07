@@ -304,15 +304,15 @@
     @include box-shadow(0 0 10px rgba(39, 40, 34, .5), 0 0 10px 1px rgba(39, 40, 34, .5));
   }
   &:before {
-    content: "\e117";
     display: inline-block;
     width: 100%;
     height: 100%;
     line-height: 35px;
     font-size: 20px;
-    font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+    @include icomoon-font();
     @include transition(all .3s);
     @include transform(rotate(0));
+    @include icomoon-font() { content: "\e117"; };
   }
   &:active {
     &:before {

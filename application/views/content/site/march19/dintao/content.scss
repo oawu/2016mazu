@@ -109,7 +109,7 @@ article {
     &:before {
       margin-right: 5px;
       @include opacity(.5);
-      font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+      @include icomoon-font();
     }
   }
   > section {
@@ -210,8 +210,7 @@ article {
 
         + li {
           &:before {
-            content: "\e90b";
-            font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+            @include icomoon-font() { content: "\e90b"; };
             margin-right: 5px;
             margin-left: 0;
             padding-left: 0;

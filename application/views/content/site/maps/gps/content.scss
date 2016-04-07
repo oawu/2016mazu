@@ -81,8 +81,7 @@
       color: rgba(55, 55, 55, .8);
 
       &:after {
-        content: '\e61f';
-        font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+        @include icomoon-font() { content: "\e61f"; };
         position: absolute;
         right: 5px;
         top: 5px;
@@ -121,8 +120,7 @@
           font-weight: bold;
 
           &:after {
-            content: '\e624';
-            font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+            @include icomoon-font() { content: "\e624"; };
             
             position: absolute;
             right: 5px;
@@ -188,14 +186,13 @@
     }
     &.min {
       &:before {
-        content: "\e909";
+        @include icomoon-font() { content: "\e909"; };
       }
     }
     &:before {
       display: inline-block;
       font-size: 20px;
-      content: "\e90a";
-      font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+      @include icomoon-font() { content: "\e90a"; };
     }
     &:after {
       content: "";
@@ -210,13 +207,13 @@
   #add_zoom {
     bottom: 86px;
     &:before {
-      content: "\e900";
+      @include icomoon-font() { content: "\e900"; };
     }
   }
   #sub_zoom {
     bottom: 48px;
     &:before {
-      content: "\e901";
+      @include icomoon-font() { content: "\e901"; };
     }
   }
   #btns {
@@ -259,13 +256,12 @@
       }
 
       &:before {
-        content: "\e90d";
         display: inline-block;
         padding-top: 0;
         font-size: 20px;
         font-weight: normal;
         margin-right: 5px;
-        font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+        @include icomoon-font() { content: "\e90d"; };
       }
       &:after {
         content: '顯示工具';
@@ -301,7 +297,7 @@
         position: absolute;
         top: 2px;
         left: -10px;
-        font-family: 'icomoon', "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+        @include icomoon-font();
         display: inline-block;
         width: 25px;
         height: 25px;
@@ -315,25 +311,25 @@
     }
     #location {
       &:before {
-        content: "\f124";
+        @include icomoon-font() { content: "\f124"; };
         background-color: rgba(33, 150, 243, 1);
       }
     }
     #position {
       &:before {
-        content: "\e630";
+        @include icomoon-font() { content: "\e630"; };
         background-color: rgba(174, 48, 41, 1);
       }
     }
     #traffic {
       &:before {
-        content: "\e565";
+        @include icomoon-font() { content: "\e565"; };
         background-color: rgba(76, 175, 80, 1);
       }
     }
     #navigation {
       &:before {
-        content: "\f1b9";
+        @include icomoon-font() { content: "\f1b9"; };
         background-color: rgba(255, 152, 0, 1);
       }
     }

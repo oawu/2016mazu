@@ -52,7 +52,7 @@ class Others extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ), false, 60);
+          ), false, ENVIRONMENT == 'production' ? 60 : 0);
   }
   public function developers () {
     $prev = 'author';
@@ -89,7 +89,7 @@ class Others extends Site_controller {
             'prev' => $prev,
             'next' => $next,
             'users' => $users,
-          ), false, 60);
+          ), false, ENVIRONMENT == 'production' ? 60 : 0);
   }
   public function license () {
     $prev = 'developers';
@@ -104,6 +104,6 @@ class Others extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ), false, 60);
+          ), false, ENVIRONMENT == 'production' ? 60 : 0);
   }
 }
