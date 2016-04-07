@@ -21,16 +21,16 @@
     &:after {
       content: attr(data-id);
       position: absolute;
-      top: 5px;
-      right: 5px;
+      top: 0;
+      right: 0;
       display: inline-block;
-      width: 30px;
-      height: 30px;
+      padding: 1px 5px;
       line-height: 26px;
-      border: 1px solid rgba(255, 255, 255, .50);;
+      border: 1px solid rgba(255, 255, 255, .50);
+      border-width: 0 0 1px 1px;
       text-align: center;
       color: rgba(255, 255, 255, 1.00);
-      @include border-radius(50%);
+      @include border-bottom-left-radius(5px);
       background-color: rgba(0, 0, 0, .50);
     }
     .i {
