@@ -25,7 +25,7 @@ $(function () {
       // }, 1500);
     });
   }
-  $('.t').dblclick (function () {
+  $('.t').click (function () {
     var val = $(this).text ();
     
     $(this).removeClass ('l ok uok').empty ().append ($('<input />').attr ('type', 'text').val (val).focusout (function () {
