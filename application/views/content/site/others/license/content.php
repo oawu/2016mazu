@@ -5,18 +5,6 @@
   <figcaption><?php echo $other->title;?> - <?php echo Cfg::setting ('site', 'title');?></figcaption>
 </figure>
 
-<div class='i'>
-  <div>
-    <figure>
-      <a href='<?php echo $other->user->facebook_link ();?>' target='_blank'><img src='<?php echo $other->user->avatar ();?>' /></a>
-    </figure>
-    <a href='<?php echo $other->user->facebook_link ();?>' target='_blank'><?php echo $other->user->name;?></a>
-    <span>·</span>
-    <time><?php echo $other->created_at->format ('Y.m.d');?></time>
-  </div>
-  <div class="fb-like" data-href="<?php echo base_url ('others', 'author');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-</div>
-
 <article><?php echo preg_replace ('/<br\s*\/?>\n+/', '<br/>', $other->content);?></article>
 
 <?php
