@@ -55,90 +55,19 @@
     }
   }
 
-  .i {
-    font-size: 13px;
-    color: rgba(157, 157, 170, 1);
 
-    @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
-      > div {
-        display: inline-block;
-        width: 100%;
-
-        &:last-child {
-          margin-top: 25px;
-          min-height: 20px;
-          text-align: left !important;
-        }
-      }
-    }
-    @media screen and (min-width: $mediaMiniMobileWidth) {
-      @include split-right(150px, '>div:first-child', '>div:last-child');
-    }
-    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-      margin-top: $figureMinHeight;
-    }
-    @media screen and (min-width: $mediaMobileWidth) {
-      margin-top: $figureHeight + 20px;
-    }
-
-    
-    > div {
-      &:first-child {
-        @include clearfix();
-        
-        > * {
-          float: left;
-          display: inline-block;
-          margin: 0 3px;
-        }
-        > a {
-          @include a(1px, false, rgba(137, 137, 150, 1), rgba(117, 117, 130, 1));
-          padding: 0;
-          font-size: 16px;
-        }
-
-        figure {
-          $d: 25px;
-          margin: 0;
-          margin-top: 0;
-          margin-right: 4px;
-          padding: 0;
-          width: $d;
-          height: $d;
-
-          a {
-            display: inline-block;
-            width: $d;
-            height: $d;
-            overflow: hidden;
-            @include border-radius(50%);
-
-            img {
-              width: 100%;
-            }
-          }
-        }
-        span {
-          color: rgba(137, 137, 150, .8);
-          margin-top: 4px;
-        }
-        time {
-          color: rgba(137, 137, 150, .6);
-          font-size: 13px;
-          margin-top: 3px;
-        }
-      }
-      &:last-child {
-        text-align: right;
-      }
-    }
-  }
   > article {
     word-wrap: break-word; 
     word-break: break-all;
     margin-top: 40px;
     @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
       margin-top: 30px;
+    }
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+      margin-top: $figureMinHeight;
+    }
+    @media screen and (min-width: $mediaMobileWidth) {
+      margin-top: $figureHeight + 20px;
     }
     &, * {
       font-family: "微軟正黑體", "Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, Monaco !important;
