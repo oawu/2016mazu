@@ -32,7 +32,7 @@ $(function () {
       var val = $(this).find ('input').val ();
       $(this).empty ().text (val);
       update ($(this).data ('id'), val, 'title', $(this));
-    }.bind ($(this))));
+    }.bind ($(this)))).find ('input').focus ();
   });
   $('.c').dblclick (function () {
     var val = $(this).text ();
