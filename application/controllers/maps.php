@@ -7,6 +7,7 @@
 
 class Maps extends Site_controller {
   private $dintao_tabs = array ();
+  private $iko_tabs = array ();
 
   public function __construct () {
     parent::__construct ();
@@ -170,9 +171,8 @@ class Maps extends Site_controller {
     else
       $next = null;
 
-
-    $title = '三月' . $this->ikos_tabs[$index]['title'] . ' 藝閣遶境 Google Maps 路線地圖';
-    $desc = $this->ikos_tabs[$index]['desc'];
+    $title = '三月' . $this->iko_tabs[$index]['title'] . ' 藝閣遶境 Google Maps 路線地圖';
+    $desc = $this->iko_tabs[$index]['desc'];
 
     if ($tags = array_unique (array_merge (array ($title), Cfg::setting ('site', 'keywords'))))
       foreach ($tags as $i => $tag)
@@ -192,7 +192,7 @@ class Maps extends Site_controller {
          ->add_meta (array ('name' => 'description', 'content' => $desc))
          ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:description', 'content' => $desc))
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'map' . $this->ikos_tabs[$index]['id'] . '.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'map' . $this->iko_tabs[$index]['id'] . '.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
          ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
