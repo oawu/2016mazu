@@ -28,7 +28,7 @@ class Tools extends Admin_controller {
     return $this->output_json (array ('status' => $update));
   }
   public function pictures () {
-    $pictures = Picture::all (array ('order' => 'id DESC'));
+    $pictures = Picture::all (array ('order' => 'id DESC', 'conditions' => array ('destroy_user_id IS NULL')));
     return $this->set_frame_path ('frame', 'pure')
                 ->add_hidden (array ('id' => 'update_url', 'value' => base_url ('admin', $this->get_class (), 'update')))
                 ->load_view (array (
