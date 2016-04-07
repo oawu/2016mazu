@@ -14,8 +14,8 @@ class Migration_Add_stores extends CI_Migration {
         `destroy_user_id` int(11) unsigned DEFAULT NULL COMMENT '刪除此筆的 User ID',
 
         `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
-        `keywords` text  COMMENT 'SEO 關鍵字',
-        `content` text  COMMENT '內容',
+        `keywords` text COMMENT 'SEO 關鍵字',
+        `content` text COMMENT '內容',
         `pv` int(11) unsigned NOT NULL DEFAULT 0 COMMENT 'Page View',
 
         `latitude` DOUBLE NOT NULL COMMENT '緯度',

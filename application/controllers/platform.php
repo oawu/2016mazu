@@ -20,13 +20,14 @@ class Platform extends Site_controller {
         ));
 
     if (!($user = User::find ('one', array ('conditions' => array ('uid = ?', $id)))))
-      if (!User::transaction (function () use (&$user, $id) { return verifyCreateOrm ($user = User::create (array_intersect_key (array ('uid' => $id), User::table ()->columns))); }))
+      if (!User::transaction (function () use (&$user, $id) { return verifyCreateOrm ($user = User::create (array_intersect_key (array ('uid' => $id, 'facebook_url' => ''), User::table ()->columns))); }))
         return redirect_message (array (), array (
             '_flash_message' => 'Facebook 登入錯誤，請通知程式設計人員!(2)'
           ));
 
     $user->name = $name;
     $user->email = $email;
+    $user->login_count += 1;
     $user->logined_at = date ('Y-m-d H:i:s');
 
     if (!User::transaction (function () use ($user) { return $user->save (); }))

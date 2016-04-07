@@ -15,7 +15,7 @@ class Migration_Add_path_infos extends CI_Migration {
         `destroy_user_id` int(11) unsigned DEFAULT NULL COMMENT '刪除此筆的 User ID',
 
         `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
-        `content` text  COMMENT '內容',
+        `content` text COMMENT '內容',
         `latitude` DOUBLE NOT NULL COMMENT '緯度',
         `longitude` DOUBLE NOT NULL COMMENT '經度',
         `type` tinyint(1) unsigned NOT NULL DEFAULT 1 COMMENT 'Marker 樣式，1: 預設紅，2: 紫色，3: 黃色，4: 藍色，5: 灰色，6: 綠色',

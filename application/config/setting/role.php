@@ -16,7 +16,7 @@ $role['role_names'] = array (
     'article' => '管理文章',
     'other' => '管理介紹',
     'store' => '管理店家',
-    'baishatun' => '白沙屯',
+    'baishatun' => '管理白沙屯',
     'root' => '最高權限',
   );
 

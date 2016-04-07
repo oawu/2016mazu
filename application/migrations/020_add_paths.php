@@ -14,7 +14,7 @@ class Migration_Add_paths extends CI_Migration {
         `destroy_user_id` int(11) unsigned DEFAULT NULL COMMENT '刪除此筆的 User ID',
 
         `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
-        `keywords` text  COMMENT 'SEO 關鍵字',
+        `keywords` text COMMENT 'SEO 關鍵字',
         `pv` int(11) unsigned NOT NULL DEFAULT 0 COMMENT 'Page View',
         `length` DOUBLE NOT NULL DEFAULT 0 COMMENT '總長度(m)',
         `image` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Map 靜態圖檔',

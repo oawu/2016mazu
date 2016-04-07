@@ -24,6 +24,7 @@ Route::site_store ();
 Route::group ('admin', function () {
   Route::get ('/', 'main');
   Route::get ('/tag', 'main');
+  Route::resourcePagination (array ('users'), 'users');
 
   Route::resourcePagination_is_on_site (array ('article-tags'), 'article_tags');
   Route::resourcePagination_is_on_site (array ('dintao-tags'), 'dintao_tags');

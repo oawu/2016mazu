@@ -14,8 +14,8 @@ class Migration_Add_youtubes extends CI_Migration {
         `destroy_user_id` int(11) unsigned DEFAULT NULL COMMENT '刪除此筆的 User ID',
         
         `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
-        `keywords` text  COMMENT 'SEO 關鍵字',
-        `content` text  COMMENT '內容',
+        `keywords` text COMMENT 'SEO 關鍵字',
+        `content` text COMMENT '內容',
         `pv` int(11) unsigned NOT NULL DEFAULT 0 COMMENT 'Page View',
 
         `cover` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '封面',
@@ -25,7 +25,7 @@ class Migration_Add_youtubes extends CI_Migration {
         `cover_width` smallint(11) unsigned NOT NULL DEFAULT 0 COMMENT 'Cover 原始寬度',
         `cover_height` smallint(11) unsigned NOT NULL DEFAULT 0 COMMENT 'Cover 原始高度',
 
-        `url` text  COMMENT '原來網址',
+        `url` text COMMENT '原來網址',
         `vid` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Yotube video ID',
 
         `is_enabled` tinyint(1) unsigned NOT NULL DEFAULT 1 COMMENT '上下架，1 上架，0 下架',

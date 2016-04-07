@@ -4,3 +4,19 @@
  */
 
 @import "_oa";
+
+._c {
+  text-align: left;
+  div {
+    font-size: 16px;
+    padding: 5px;
+    border-bottom: 1px solid rgba(39, 40, 34, .100);
+
+    b {
+      display: inline-block;
+    }
+  }
+  ul {
+    font-size: 16px;
+  }
+}
