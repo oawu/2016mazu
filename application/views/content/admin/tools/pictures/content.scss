@@ -31,6 +31,7 @@
       text-align: center;
       color: rgba(255, 255, 255, 1.00);
       @include border-radius(50%);
+      background-color: rgba(0, 0, 0, .50);
     }
     .i {
       width: 100%;
