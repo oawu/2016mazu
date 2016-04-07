@@ -8,7 +8,7 @@
 <?php } else { ?>
         <span>歲次丙申年 農曆</span>三月十九<span>日</span>已完滿落幕！
 <?php }?>
-      <div class="fb-like" data-href="<?php echo base_url ('march19', 'dintao');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></h2>
+      <div class="fb-like" data-href="<?php echo base_url ('');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></h2>
     
     <figure>
       <a href='<?php echo base_url ('pictures');?>'>
