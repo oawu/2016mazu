@@ -10,7 +10,7 @@ $(function () {
 
   var $fmm = function (i, t, h) {
     return $('<div />').addClass ('mm').append (
-      $('<div />').append ($('<a />').addClass ('icon-triangle-ups').click (function () {
+      $('<div />').append ($('<a />').addClass ('icon-triangle-up').click (function () {
         var $p = $(this).parents ('.mm');
         $p.clone (true).insertBefore ($p.index () > 0 ? $p.prev () : mam);
         $p.remove ();

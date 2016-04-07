@@ -40,11 +40,11 @@ $(function () {
 
   var $fm = function (i, t, h) {
     return $('<div />').addClass ('m').append (
-      $('<div />').append ($('<a />').addClass ('icon-triangle-up2').click (function () {
+      $('<div />').append ($('<a />').addClass ('icon-triangle-up').click (function () {
         var $p = $(this).parents ('.m');
         $p.clone (true).insertBefore ($p.index () > 0 ? $p.prev () : $ma);
         $p.remove ();
-      })).append ($('<a />').addClass ('icon-triangle-down2').click (function () {
+      })).append ($('<a />').addClass ('icon-triangle-down').click (function () {
         var $p = $(this).parents ('.m'), $x = $p.next (), $n = $p.clone (true);
         if ($x.hasClass ('ma')) $n.prependTo ($tds);
         else $n.insertAfter ($x);
