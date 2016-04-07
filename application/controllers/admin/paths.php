@@ -129,6 +129,7 @@ class Paths extends Admin_controller {
             ), PathTagMapping::table ()->columns)));
         });
 
+    $this->_clean ();
     return redirect_message (array ('admin', $this->uri_1), array (
         '_flash_message' => '新增成功！'
       ));
@@ -213,6 +214,7 @@ class Paths extends Admin_controller {
             ), PathTagMapping::table ()->columns)));
         });
 
+    $this->_clean ();
     return redirect_message (array ('admin', $this->uri_1), array (
         '_flash_message' => '更新成功！'
       ));
@@ -242,6 +244,7 @@ class Paths extends Admin_controller {
           '_flash_message' => '刪除失敗！',
         ));
 
+    $this->_clean ();
     return redirect_message (array ('admin', $this->uri_1), array (
         '_flash_message' => '刪除成功！'
       ));
@@ -265,6 +268,7 @@ class Paths extends Admin_controller {
     if (!$update)
       return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => Path::$isIsEnabledNames[$path->is_enabled]));
 
+    $this->_clean ();
     return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => Path::$isIsEnabledNames[$path->is_enabled]));
   }
 
@@ -290,5 +294,8 @@ class Paths extends Admin_controller {
     if (!(isset ($posts['is_enabled']) && is_numeric ($posts['is_enabled']) && in_array ($posts['is_enabled'], array_keys (Path::$isIsEnabledNames))))
       return '參數錯誤！';
     return '';
+  }
+  private function _clean () {
+    $this->output->delete_all_cache ();
   }
 }

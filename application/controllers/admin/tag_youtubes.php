@@ -153,6 +153,7 @@ class Tag_youtubes extends Admin_controller {
 
     delay_job ('youtubes', 'update_cover_color_and_dimension', array ('id' => $youtube->id));
 
+    $this->_clean ();
     return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2), array (
         '_flash_message' => '新增成功！'
       ));
@@ -247,6 +248,7 @@ class Tag_youtubes extends Admin_controller {
     if ($is_update)
       delay_job ('youtubes', 'update_cover_color_and_dimension', array ('id' => $youtube->id));
 
+    $this->_clean ();
     return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2), array (
         '_flash_message' => '更新成功！'
       ));
@@ -276,6 +278,7 @@ class Tag_youtubes extends Admin_controller {
           '_flash_message' => '刪除失敗！',
         ));
 
+    $this->_clean ();
     return redirect_message (array ('admin', $this->uri_1, $this->tag->id, $this->uri_2), array (
         '_flash_message' => '刪除成功！'
       ));
@@ -299,6 +302,7 @@ class Tag_youtubes extends Admin_controller {
     if (!$update)
       return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => Youtube::$isIsEnabledNames[$youtube->is_enabled]));
 
+    $this->_clean ();
     return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => Youtube::$isIsEnabledNames[$youtube->is_enabled]));
   }
   private function _validation_posts (&$posts) {
@@ -340,5 +344,8 @@ class Tag_youtubes extends Admin_controller {
     if (!(isset ($posts['is_enabled']) && is_numeric ($posts['is_enabled']) && in_array ($posts['is_enabled'], array_keys (Youtube::$isIsEnabledNames))))
       return '參數錯誤！';
     return '';
+  }
+  private function _clean () {
+    $this->output->delete_all_cache ();
   }
 }

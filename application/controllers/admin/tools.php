@@ -7,6 +7,34 @@
 
 class Tools extends Admin_controller {
 
+  public function update () {
+    if (!$this->has_post ())
+      return $this->output_json (array ('status' => false));
+
+    if (!(($id = OAInput::post ('id')) && ($picture = Picture::find ('one', array ('conditions' => array ('id = ?', $id))))))
+      return $this->output_json (array ('status' => false));
+    
+    if (!(($val = OAInput::post ('val')) && ($val = trim ($val))))
+      return $this->output_json (array ('status' => false));
+
+    if (!(($column = OAInput::post ('column')) && ($column = trim ($column)) && isset ($picture->$column)))
+      return $this->output_json (array ('status' => false));
+
+    $picture->$column = $val;
+    $update = Picture::transaction (function () use ($picture) {
+      return $picture->save ();
+    });
+
+    return $this->output_json (array ('status' => $update));
+  }
+  public function pictures () {
+    $pictures = Picture::all ();
+    return $this->set_frame_path ('frame', 'pure')
+                ->add_hidden (array ('id' => 'update_url', 'value' => base_url ('admin', $this->get_class (), 'update')))
+                ->load_view (array (
+                    'pictures' => $pictures
+                  ));
+  }
   public function ckeditors_browser_image () {
     $ckes = CkeditorPicture::all (array ('order' => 'id DESC'));
 

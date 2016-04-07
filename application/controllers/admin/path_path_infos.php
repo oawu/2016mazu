@@ -127,6 +127,7 @@ class Path_path_infos extends Admin_controller {
 
     delay_job ('path_infos', 'update_cover_color_and_dimension', array ('id' => $info->id));
 
+    $this->_clean ();
     return redirect_message (array ('admin', $this->uri_1, $this->path->id, $this->uri_2), array (
         '_flash_message' => '新增成功！'
       ));
@@ -192,6 +193,7 @@ class Path_path_infos extends Admin_controller {
     if ($cover || $posts['url'])
       delay_job ('path_infos', 'update_cover_color_and_dimension', array ('id' => $info->id));
 
+    $this->_clean ();
     return redirect_message (array ('admin', $this->uri_1, $this->path->id, $this->uri_2), array (
         '_flash_message' => '更新成功！'
       ));
@@ -221,6 +223,7 @@ class Path_path_infos extends Admin_controller {
           '_flash_message' => '刪除失敗！',
         ));
 
+    $this->_clean ();
     return redirect_message (array ('admin', $this->uri_1, $this->path->id, $this->uri_2), array (
         '_flash_message' => '刪除成功！'
       ));
@@ -243,5 +246,8 @@ class Path_path_infos extends Admin_controller {
       return '沒有經度，請點選地圖決定地點！';
 
     return '';
+  }
+  private function _clean () {
+    $this->output->delete_all_cache ();
   }
 }

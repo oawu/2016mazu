@@ -39,7 +39,7 @@
               </label>
             </td>
             <td data-title='編輯' width='120'>
-              <a href='<?php echo base_url ('admin', 'tag', $tag->id, 'stores');?>' class='icon-images'></a>
+              <!-- <a href='<?php echo base_url ('admin', 'tag', $tag->id, 'stores');?>' class='icon-images'></a> -->
               <a href='<?php echo base_url ('admin', $uri_1, $tag->id, 'edit');?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', $uri_1, $tag->id);?>' data-method='delete' class='icon-bin destroy'></a>
             </td>

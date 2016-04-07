@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:    url('fonts/icomoon.eot?mezu6y');
-    src:    url('fonts/icomoon.eot?mezu6y#iefix') format('embedded-opentype'),
-        url('fonts/icomoon.ttf?mezu6y') format('truetype'),
-        url('fonts/icomoon.woff?mezu6y') format('woff'),
-        url('fonts/icomoon.svg?mezu6y#icomoon') format('svg');
+    src:    url('fonts/icomoon.eot?u4q8vi');
+    src:    url('fonts/icomoon.eot?u4q8vi#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?u4q8vi') format('truetype'),
+        url('fonts/icomoon.woff?u4q8vi') format('woff'),
+        url('fonts/icomoon.svg?u4q8vi#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -24,8 +24,20 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-minus:before {
+    content: "\e115";
+}
+.icon-cross:before {
+    content: "\e117";
+}
+.icon-gps_fixed:before {
+    content: "\e1b3";
+}
 .icon-pin_drop:before {
     content: "\e1f6";
+}
+.icon-traffic:before {
+    content: "\e565";
 }
 .icon-github:before {
     content: "\e603";
@@ -87,59 +99,53 @@
 .icon-youtube:before {
     content: "\e802";
 }
-.icon-pencil2:before {
-    content: "\e906";
-}
-.icon-bin:before {
-    content: "\e9ac";
-}
-.icon-eye2:before {
-    content: "\e903";
-}
-.icon-play:before {
-    content: "\e907";
-}
 .icon-zoomin:before {
     content: "\e900";
 }
 .icon-zoomout:before {
     content: "\e901";
 }
-.icon-flame:before {
-    content: "\f0d2";
-}
-.icon-enlarge:before {
-    content: "\e90a";
-}
-.icon-shrink:before {
-    content: "\e909";
-}
-.icon-film:before {
-    content: "\e908";
-}
 .icon-alarm-cancel:before {
     content: "\e902";
 }
-.icon-tools:before {
-    content: "\e90d";
+.icon-eye2:before {
+    content: "\e903";
 }
-.icon-arrow-right:before {
+.icon-chevron-thin-left2:before {
+    content: "\e906";
+}
+.icon-chevron-thin-right2:before {
+    content: "\e907";
+}
+.icon-pencil2:before {
+    content: "\e908";
+}
+.icon-play:before {
+    content: "\e909";
+}
+.icon-film:before {
+    content: "\e90a";
+}
+.icon-shrink:before {
     content: "\e90b";
 }
-.icon-gps_fixed:before {
-    content: "\e1b3";
+.icon-enlarge:before {
+    content: "\e90c";
 }
-.icon-traffic:before {
-    content: "\e565";
-}
-.icon-minus:before {
-    content: "\e115";
-}
-.icon-cross:before {
-    content: "\e117";
+.icon-arrow-right:before {
+    content: "\e90d";
 }
 .icon-chat-3:before {
-    content: "\e90c";
+    content: "\e90e";
+}
+.icon-tools:before {
+    content: "\e90f";
+}
+.icon-bin:before {
+    content: "\e9ac";
+}
+.icon-flame:before {
+    content: "\f0d2";
 }
 .icon-location-arrow:before {
     content: "\f124";
@@ -147,8 +153,14 @@
 .icon-automobile:before {
     content: "\f1b9";
 }
-.icon-car:before {
-    content: "\f1b9";
+.icon-hour-glass:before {
+    content: "\e979";
+}
+.icon-rewind:before {
+    content: "\e051";
+}
+.icon-fast-forward:before {
+    content: "\e055";
 }
 .icon-chevron-thin-left:before {
     content: "\e904";
