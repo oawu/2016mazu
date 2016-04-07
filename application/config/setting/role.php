@@ -8,7 +8,6 @@
 // key 不准亂更改！
 $role['role_names'] = array (
     'member' => '登入後台',
-    'march19' => '編輯三月十九',
     'picture' => '管理相簿',
     'youtube' => '管理影音',
     'dintao' => '管理藝陣',
@@ -17,6 +16,7 @@ $role['role_names'] = array (
     'other' => '管理介紹',
     'store' => '管理店家',
     'baishatun' => '管理白沙屯',
+    'user' => '管理會員',
     'root' => '最高權限',
   );
 
