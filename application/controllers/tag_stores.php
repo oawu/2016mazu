@@ -51,7 +51,7 @@ class Tag_stores extends Site_controller {
         foreach ($also as $i => $a)
           $this->add_meta (array ('property' => 'og:see_also', 'content' => $a->content_page_url ($this->tag)));
 
-      if (in_array ($store->id, 4))
+      if (in_array ($store->id, array (4)))
         $this->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $store->cover->url ('1200x630c'), 'alt' => $store->title . ' - ' . Cfg::setting ('site', 'title')))
              ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
              ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
