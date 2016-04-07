@@ -57,6 +57,7 @@
       height: 40px;
       line-height: 38px;
       padding: 0 5px;
+      @include overflow-docx3();
 
       input {
         @include input;
