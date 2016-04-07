@@ -11,7 +11,7 @@
       <div class="fb-like" data-href="<?php echo base_url ('march19', 'dintao');?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></h2>
     
     <figure>
-      <a href=''>
+      <a href='<?php echo base_url ('pictures');?>'>
         <img alt="農曆三月熱鬧北港 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '05.jpg');?>" />
       </a>
       <figcaption>農曆三月熱鬧北港</figcaption>
@@ -26,7 +26,7 @@
   <section>
     <h2>三月十九遶境路線圖</h2>
 
-    <a class='map' title='<?php echo $path->title;?>'>
+    <a class='map' title='<?php echo $path->title;?>' href='<?php echo base_url ('maps', 'dintao');?>'>
       <div id='map' data-icon='<?php echo resource_url ('resource', 'image', 'map', 'mazu.png');?>' data-polyline='<?php echo $polyline;?>'></div>
     </a>
 
@@ -39,7 +39,7 @@
     <h2>鄉土文化</h2>
 
     <figure>
-      <a href=''>
+      <a href='<?php echo base_url ('pictures');?>'>
         <img alt="觀音殿的龍柱 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '04.png');?>" />
       </a>
       <figcaption>觀音殿的龍柱</figcaption>
@@ -52,7 +52,7 @@
 
   <section>
     <figure>
-      <a href=''>
+      <a href='<?php echo base_url ('pictures');?>'>
         <img alt="2013年 北港迎媽祖 - <?php echo Cfg::setting ('site', 'title');?>" src="<?php echo resource_url ('resource', 'image', 'static-article', '01.jpg');?>" />
       </a>
       <figcaption>2013年 北港迎媽祖</figcaption>
@@ -66,8 +66,8 @@
   <section class='r'>
     <h2>美食地圖</h2>
 
-    <a class='food'>
-      <div id='food' data-store='<?php echo $store;?>'></div>
+    <a class='food' title='<?php echo $store->title;?>' href='<?php echo $store->content_page_url ();?>'>
+      <div id='food' data-store='<?php echo $store_json;?>'></div>
     </a>
 
     <p>古鎮，當然的會想到美食！北港當然少不了在地美味的小吃，百年小鎮就代表著這塊土地上孕育著多樣佳餚，也相對的經過多少年的歷練，所以很多很多北港的美味料理都會記錄在這地圖上。</p>

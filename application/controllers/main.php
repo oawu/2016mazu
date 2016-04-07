@@ -24,7 +24,7 @@ class Main extends Site_controller {
       );
 
     $store = Store::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', 4, Store::IS_ENABLED)));
-    $store = json_encode (array (
+    $store_json = json_encode (array (
         'u' => base_url ('stores', $store->id),
         't' => $store->title,
         'c' => $store->mini_content (50),
@@ -65,6 +65,7 @@ class Main extends Site_controller {
             'day_count' => $day_count,
             'path' => $path,
             'store' => $store,
+            'store_json' => $store_json,
             'polyline' => $polyline,
             'prev' => $prev,
             'next' => $next,
