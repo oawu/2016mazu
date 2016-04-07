@@ -60,9 +60,7 @@
     word-wrap: break-word; 
     word-break: break-all;
     margin-top: 40px;
-    @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
-      margin-top: 30px;
-    }
+
     @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
       margin-top: $figureMinHeight;
     }
