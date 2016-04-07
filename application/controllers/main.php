@@ -23,7 +23,7 @@ class Main extends Site_controller {
         'title' => '笨港文化'
       );
 
-    $store = Store::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', 1, Store::IS_ENABLED)));
+    $store = Store::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', 4, Store::IS_ENABLED)));
     $store = json_encode (array (
         'u' => base_url ('stores', $store->id),
         't' => $store->title,
