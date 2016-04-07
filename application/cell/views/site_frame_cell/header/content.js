@@ -27,21 +27,21 @@ $(function () {
     return false;
   });
 
-  var $tab = $('._t');
-  $(window).scroll (function () {
-    var t = $(this).scrollTop ();
-    var l = $(this).get (0).l ? $(this).get (0).l : 0;
-    if (t < 60 || t < l) {
-      if ($tab.hasClass ('h'))
-        $tab.removeClass ('h');
-      if ($nav.hasClass ('h'))
-        $nav.removeClass ('h');
-    } else {
-      if (!$tab.hasClass ('h'))
-        $tab.addClass('h');
-      if (!$nav.hasClass ('h'))
-        $nav.addClass('h');
-    }
-    $(this).get (0).l = t;
-  });
+  // var $tab = $('._t');
+  // $(window).scroll (function () {
+  //   var t = $(this).scrollTop ();
+  //   var l = $(this).get (0).l ? $(this).get (0).l : 0;
+  //   if (t < 60 || t < l) {
+  //     if ($tab.hasClass ('h'))
+  //       $tab.removeClass ('h');
+  //     if ($nav.hasClass ('h'))
+  //       $nav.removeClass ('h');
+  //   } else {
+  //     if (!$tab.hasClass ('h'))
+  //       $tab.addClass('h');
+  //     if (!$nav.hasClass ('h'))
+  //       $nav.addClass('h');
+  //   }
+  //   $(this).get (0).l = t;
+  // });
 });
