@@ -9,12 +9,12 @@ class Baishatun extends Api_controller {
   private $version = 1;
   public function __construct () {
     parent::__construct ();
-    header ('Content-type: text/html');
+    // header ('Content-type: text/html');
 
-    if (ENVIRONMENT == 'production')
-      header ('Access-Control-Allow-Origin: http://comdan66.github.io');
-    else
-      header ('Access-Control-Allow-Origin: *');
+    // if (ENVIRONMENT == 'production')
+    //   header ('Access-Control-Allow-Origin: http://comdan66.github.io');
+    // else
+    //   header ('Access-Control-Allow-Origin: *');
 
     $this->version = 25;
   }
