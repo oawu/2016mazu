@@ -15,8 +15,8 @@
       <div class='r fi-mr'>
         <div class='c'></div>
         <div class='menu i2'>
-          <a>原始碼資源</a>
-          <a class='tl'>網站作者</a>
+          <a href='https://github.com/comdan66/mazu' target='_blank'>原始碼資源</a>
+          <a href='https://www.facebook.com/comdan66' target='_blank' class='tl'>網站作者</a>
         </div>
       </div>
 
