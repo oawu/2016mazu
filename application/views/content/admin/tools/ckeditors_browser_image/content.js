@@ -17,7 +17,7 @@ $(function () {
       var dialog = this.getDialog ();
       if (dialog.getName () == 'image') {
         var element = dialog.getContentElement ('info', 'txtAlt');
-        if (element) element.setValue ('alt text');
+        if (element) element.setValue ('');
       }
       return url && url.length ? true : false;
     });
