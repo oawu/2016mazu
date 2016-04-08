@@ -8,6 +8,18 @@
 <article><?php echo preg_replace ('/<br\s*\/?>\n+/', '<br/>', $other->content);?></article>
 
 <?php
+  if ($users) { ?>
+    <div class='i'>
+<?php foreach ($users as $user) { ?>
+        <figure>
+          <a href='<?php echo $user['href'];?>' target='_blank'><img src='<?php echo $user['src'];?>' /></a>
+          <figcaption data-title='<?php echo $user['title'];?>'><?php echo $user['name'];?></figcaption>
+        </figure>
+<?php } ?>
+    </div>
+<?php
+  }
+  
   if ($other->sources) { ?>
     <ul>
 <?php foreach ($other->sources as $source) { ?>
