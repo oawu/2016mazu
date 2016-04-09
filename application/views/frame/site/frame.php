@@ -5,6 +5,15 @@
     <title><?php echo isset ($title) ? $title : ''; ?></title>
     <link rel="alternate" href="<?php echo current_url ();?>" hreflang="zh-Hant" />
     <meta name="msvalidate.01" content="337867F91709D9322F7258F220946159" />
+<?php 
+    if (isset ($json_ld) && $json_ld) { ?>
+      <script type="application/ld+json">
+        <?php //echo json_encode ($json_ld, JSON_UNESCAPED_SLASHES);?>
+        <?php echo json_encode ($json_ld, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);?>
+      </script>
+<?php 
+    }?>
+
 <?php echo isset ($css_list) ? $css_list : ''; ?>
 <?php echo isset ($js_list) ? $js_list : ''; ?>
   </head>

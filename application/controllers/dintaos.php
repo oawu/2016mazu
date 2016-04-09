@@ -29,6 +29,36 @@ class Dintaos extends Site_controller {
       foreach ($also as $i => $a)
         $this->add_meta (array ('property' => 'og:see_also', 'content' => $a->content_page_url ($this->tag)));
 
+    $json_ld = array (
+      "@context" => "http://schema.org",
+      "@type" => "Article",
+      "mainEntityOfPage" => array (
+          "@type" => "WebPage",
+          "@id" => base_url ('dintaos'),
+        ),
+      "headline" => $dintao->title,
+      "image" => array (
+          "@type" => "ImageObject",
+          "url" => $dintao->cover->url ('1200x630c'),
+          "height" => 1200,
+          "width" => 630
+        ),
+      "datePublished" => $dintao->created_at->format ('c'),
+      "dateModified" => $dintao->updated_at->format ('c'),
+      "author" => array (
+          "@type" => "Person",
+          "name" => "吳政賢",
+          "url" => "https://www.facebook.com/comdan66",
+          "image" => array (
+              "@type" => "ImageObject",
+              "url" => $dintao->user->avatar (),
+              "height" => 100,
+              "width" => 100
+            )
+        ),
+      "description" => $dintao->mini_content (150)
+      );
+
     return $this->set_title ($dintao->title . ' - ' . Cfg::setting ('site', 'title'))
                 ->set_subtitle ($dintao->title)
                 ->set_back_link (base_url ('dintaos'))
@@ -46,6 +76,7 @@ class Dintaos extends Site_controller {
                 ->add_meta (array ('property' => 'article:published_time', 'content' => $dintao->created_at->format ('c')))
                 ->add_hidden (array ('id' => 'id', 'value' => $dintao->id))
                 ->load_view (array (
+                    'json_ld' => $json_ld,
                     'dintao' => $dintao,
                     'prev' => $dintao->prev ($this->tag),
                     'next' => $dintao->next ($this->tag),
