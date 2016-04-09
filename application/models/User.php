@@ -68,7 +68,10 @@ class User extends OaModel {
     return 'https://graph.facebook.com/' . $this->uid . '/picture' . (($size = implode ('&', array_filter ($size))) ? '?' . $size : '');
   }
   public function facebook_link () {
-    if (!isset ($this->uid)) return '';
-    return 'https://www.facebook.com/' . $this->uid;
+    if (isset ($this->facebook_url))
+      return $this->facebook_url;
+    if (isset ($this->uid))
+      return 'https://www.facebook.com/' . $this->uid;
+    return '';
   }
 }

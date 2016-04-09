@@ -47,6 +47,17 @@ class Dintaos extends Site_controller {
       "dateModified" => $dintao->updated_at->format ('c'),
       "author" => array (
           "@type" => "Person",
+          "name" => $dintao->user->name,
+          "url" => $dintao->user->facebook_link (),
+          "image" => array (
+              "@type" => "ImageObject",
+              "url" => $dintao->user->avatar (300, 300),
+              "height" => 300,
+              "width" => 300
+            )
+        ),
+      "publisher" => array (
+          "@type" => "Person",
           "name" => "吳政賢",
           "url" => "https://www.facebook.com/comdan66",
           "image" => array (
@@ -55,16 +66,6 @@ class Dintaos extends Site_controller {
               "height" => 100,
               "width" => 100
             )
-        ),
-      "publisher" => array (
-          "@type" => "Organization",
-          "name" => "Google",
-          "logo" => array (
-            "@type" => "ImageObject",
-            "url" => "https://google.com/logo.jpg",
-            "width" => 600,
-            "height" => 60
-          )
         ),
       "description" => $dintao->mini_content (150)
       );
@@ -84,6 +85,10 @@ class Dintaos extends Site_controller {
                 ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
                 ->add_meta (array ('property' => 'article:modified_time', 'content' => $dintao->updated_at->format ('c')))
                 ->add_meta (array ('property' => 'article:published_time', 'content' => $dintao->created_at->format ('c')))
+
+                ->add_meta (array ('property' => 'article:author', 'content' => $dintao->user->facebook_link ()))
+                ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'author', 'link')))
+
                 ->add_hidden (array ('id' => 'id', 'value' => $dintao->id))
                 ->load_view (array (
                     'json_ld' => $json_ld,
