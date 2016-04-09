@@ -9,7 +9,7 @@
     foreach ($menus_list as $menus_text => $menus) { ?>
 <?php if ($menus = array_filter ($menus, function ($menu) { return !(isset ($menu['no_show']) && $menu['no_show']); })) { ?>
         <h4><?php echo $menus_text;?></h4>
-        <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        <div>
     <?php foreach ($menus as $menu_text => $menu) {
             if ($menu == 'line') { ?>
               <a class='l'></a>
@@ -17,7 +17,7 @@
               $a = ((((isset ($menu['class']) && $menu['class']) && ($c == $menu['class']) && (isset ($menu['method']) && $menu['method']) && ($m == $menu['method'])) || (((isset ($menu['class']) && $menu['class'])) && ($c == $menu['class']) && !((isset ($menu['method']) && $menu['method']))) || (!(isset ($menu['class']) && $menu['class']) && (isset ($menu['method']) && $menu['method']) && ($m == $menu['method']))) && (!isset ($menu['uri']) || ($uri && ($menu['uri'] == $uri))));
               $icon = $menu['active'] || $a ? $menu['icon'] ? $menu['icon'] . ' a' : 'a' : $menu['icon'];
             ?>
-              <a href='<?php echo $menu['href'];?>'<?php echo $icon ? " class='" . $icon . "'" : '';?><?php echo $a ? 'itemprop="url"' : '';?><?php echo $menu['target'] == '_blank' ? 'target="_blank"' : '';?>><?php echo $menu_text;?></a>
+              <a href='<?php echo $menu['href'];?>'<?php echo $icon ? " class='" . $icon . "'" : '';?><?php echo $a ? '' : '';?><?php echo $menu['target'] == '_blank' ? 'target="_blank"' : '';?>><?php echo $menu_text;?></a>
       <?php }?>
     <?php } ?>
         </div>
