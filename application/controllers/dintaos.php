@@ -62,8 +62,8 @@ class Dintaos extends Site_controller {
           "logo" => array (
               "@type" => "ImageObject",
               "url" => resource_url ('resource', 'image', 'og', 'larger.jpg'),
-              "height" => 630,
-              "width" => 1200
+              "width" => 1200,
+              "height" => 630
             )
         ),
       "description" => $dintao->mini_content (150)
