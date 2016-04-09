@@ -16,8 +16,14 @@
       <?php } else { 
               $a = ((((isset ($menu['class']) && $menu['class']) && ($c == $menu['class']) && (isset ($menu['method']) && $menu['method']) && ($m == $menu['method'])) || (((isset ($menu['class']) && $menu['class'])) && ($c == $menu['class']) && !((isset ($menu['method']) && $menu['method']))) || (!(isset ($menu['class']) && $menu['class']) && (isset ($menu['method']) && $menu['method']) && ($m == $menu['method']))) && (!isset ($menu['uri']) || ($uri && ($menu['uri'] == $uri))));
               $icon = $menu['active'] || $a ? $menu['icon'] ? $menu['icon'] . ' a' : 'a' : $menu['icon'];
-            ?>
-              <a href='<?php echo $menu['href'];?>'<?php echo $icon ? " class='" . $icon . "'" : '';?><?php echo $a ? '' : '';?><?php echo $menu['target'] == '_blank' ? 'target="_blank"' : '';?>><?php echo $menu_text;?></a>
+              
+              if ($a) { ?>
+                <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                  <a  itemprop="url" href='<?php echo $menu['href'];?>'<?php echo $icon ? " class='" . $icon . "'" : '';?><?php echo $a ? '' : '';?><?php echo $menu['target'] == '_blank' ? 'target="_blank"' : '';?>><div itemprop="title"><?php echo $menu_text;?></div></a>
+                </div>
+        <?php } else { ?>
+                <a href='<?php echo $menu['href'];?>'<?php echo $icon ? " class='" . $icon . "'" : '';?><?php echo $a ? '' : '';?><?php echo $menu['target'] == '_blank' ? 'target="_blank"' : '';?>><?php echo $menu_text;?></a>
+        <?php } ?>
       <?php }?>
     <?php } ?>
         </div>

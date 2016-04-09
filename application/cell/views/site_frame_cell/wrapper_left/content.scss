@@ -137,6 +137,9 @@
           line-height: 28px;
           padding-left: 15px;
           font-size: 15px;
+          div {
+            display: inline;
+          }
           span {
             font-size: 10px !important;
             display: inline-block;
