@@ -61,9 +61,9 @@ class Dintaos extends Site_controller {
           "name" => Cfg::setting ('site', 'title'),
           "logo" => array (
               "@type" => "ImageObject",
-              "url" => resource_url ('resource', 'image', 'og', 'larger.jpg'),
+              "url" => resource_url ('resource', 'image', 'og', 'small.jpg'),
               "width" => 600,
-              "height" => 60
+              "height" => 315
             )
         ),
       "description" => $dintao->mini_content (150)
