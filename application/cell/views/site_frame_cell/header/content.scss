@@ -87,7 +87,9 @@ nav {
         display: none;
       }
       @include split-left(95px, '> div:first-child', '> div:last-child');
-      
+      > span {
+        display: none;
+      }
       > div {
         overflow: hidden;
 
@@ -97,7 +99,7 @@ nav {
           letter-spacing: 10px;
           white-space: nowrap;
         }
-        &:last-child {
+        &:not(:first-child) {
           padding-left: 2px;
           margin-top: 1px;
           text-align: right;

@@ -1,6 +1,6 @@
 <nav>
-  <div>
-    <a href='<?php echo base_url ();?>' class='o'><div>北港</div><div><div>迎媽祖</div><div>Beigang Mazu</div></div></a>
+  <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <a itemprop="url" href='<?php echo base_url ();?>' class='o'><div>北港</div><div><div>迎媽祖</div><div>Beigang Mazu</div></div><span itemprop="title">北港迎媽祖</span></a>
 
     <div>
 <?php if ($back_link) { ?>

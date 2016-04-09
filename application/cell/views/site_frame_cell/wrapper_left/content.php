@@ -19,7 +19,7 @@
               
               if ($a) { ?>
                 <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                  <a  itemprop="url" href='<?php echo $menu['href'];?>'<?php echo $icon ? " class='" . $icon . "'" : '';?><?php echo $a ? '' : '';?><?php echo $menu['target'] == '_blank' ? 'target="_blank"' : '';?>><div itemprop="title"><?php echo $menu_text;?></div></a>
+                  <a itemprop="url" href='<?php echo $menu['href'];?>'<?php echo $icon ? " class='" . $icon . "'" : '';?><?php echo $a ? '' : '';?><?php echo $menu['target'] == '_blank' ? 'target="_blank"' : '';?>><div itemprop="title"><?php echo $menu_text;?></div></a>
                 </div>
         <?php } else { ?>
                 <a href='<?php echo $menu['href'];?>'<?php echo $icon ? " class='" . $icon . "'" : '';?><?php echo $a ? '' : '';?><?php echo $menu['target'] == '_blank' ? 'target="_blank"' : '';?>><?php echo $menu_text;?></a>
