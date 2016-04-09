@@ -60,11 +60,11 @@ class Dintaos extends Site_controller {
           "@type" => "Person",
           "name" => "吳政賢",
           "url" => "https://www.facebook.com/comdan66",
-          "logo" => array (
+          "image" => array (
               "@type" => "ImageObject",
               "url" => $dintao->user->avatar (),
-              "height" => 100,
-              "width" => 100
+              "width" => 100,
+              "height" => 100
             )
         ),
       "description" => $dintao->mini_content (150)
