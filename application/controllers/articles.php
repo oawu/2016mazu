@@ -29,6 +29,46 @@ class Articles extends Site_controller {
       foreach ($also as $i => $a)
         $this->add_meta (array ('property' => 'og:see_also', 'content' => $a->content_page_url ($this->tag)));
 
+    $json_ld = array (
+      "@context" => "http://schema.org",
+      "@type" => "Article",
+      "mainEntityOfPage" => array (
+          "@type" => "WebPage",
+          "@id" => base_url ('articles'),
+        ),
+      "headline" => $article->title,
+      "image" => array (
+          "@type" => "ImageObject",
+          "url" => $article->cover->url ('1200x630c'),
+          "height" => 630,
+          "width" => 1200
+        ),
+      "datePublished" => $article->created_at->format ('c'),
+      "dateModified" => $article->updated_at->format ('c'),
+      "author" => array (
+          "@type" => "Person",
+          "name" => $article->user->name,
+          "url" => $article->user->facebook_link (),
+          "image" => array (
+              "@type" => "ImageObject",
+              "url" => $article->user->avatar (300, 300),
+              "height" => 300,
+              "width" => 300
+            )
+        ),
+      "publisher" => array (
+          "@type" => "Organization",
+          "name" => Cfg::setting ('site', 'title'),
+          "logo" => array (
+              "@type" => "ImageObject",
+              "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'),
+              "width" => 600,
+              "height" => 60
+            )
+        ),
+      "description" => $article->mini_content (150)
+      );
+
     return $this->set_title ($article->title . ' - ' . Cfg::setting ('site', 'title'))
                 ->set_subtitle ($article->title)
                 ->set_back_link (base_url ('articles'))
@@ -44,8 +84,13 @@ class Articles extends Site_controller {
                 ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
                 ->add_meta (array ('property' => 'article:modified_time', 'content' => $article->updated_at->format ('c')))
                 ->add_meta (array ('property' => 'article:published_time', 'content' => $article->created_at->format ('c')))
+
+                ->add_meta (array ('property' => 'article:author', 'content' => $article->user->facebook_link ()))
+                ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'author', 'link')))
+
                 ->add_hidden (array ('id' => 'id', 'value' => $article->id))
                 ->load_view (array (
+                    'json_ld' => $json_ld,
                     'article' => $article,
                     'prev' => $article->prev ($this->tag),
                     'next' => $article->next ($this->tag),
