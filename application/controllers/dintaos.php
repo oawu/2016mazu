@@ -40,8 +40,8 @@ class Dintaos extends Site_controller {
       "image" => array (
           "@type" => "ImageObject",
           "url" => $dintao->cover->url ('1200x630c'),
-          "height" => 1200,
-          "width" => 630
+          "height" => 630,
+          "width" => 1200
         ),
       "datePublished" => $dintao->created_at->format ('c'),
       "dateModified" => $dintao->updated_at->format ('c'),
@@ -55,6 +55,16 @@ class Dintaos extends Site_controller {
               "height" => 100,
               "width" => 100
             )
+        ),
+      "publisher" => array (
+          "@type" => "Organization",
+          "name" => "Google",
+          "logo" => array (
+            "@type" => "ImageObject",
+            "url" => "https://google.com/logo.jpg",
+            "width" => 600,
+            "height" => 60
+          )
         ),
       "description" => $dintao->mini_content (150)
       );
