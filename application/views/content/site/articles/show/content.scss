@@ -53,6 +53,9 @@
       width: 100%;
       @include opacity(0);
     }
+    span {
+      display: none;
+    }
   }
 
   > h2 {
