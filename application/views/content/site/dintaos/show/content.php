@@ -1,8 +1,9 @@
-<figure>
-  <a href='<?php echo $dintao->content_page_url ($tag);?>'>
+<figure itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+  <a itemprop="url" href='<?php echo $dintao->content_page_url ($tag);?>'>
     <img alt='<?php echo $dintao->title;?> - <?php echo Cfg::setting ('site', 'title');?>' src='<?php echo $dintao->cover->url ('1200x630c');?>' />
   </a>
   <figcaption><?php echo $dintao->title;?> - <?php echo Cfg::setting ('site', 'title');?></figcaption>
+  <span itemprop="title"><?php echo $dintao->title;?></span>
 </figure>
 
 <h2>
