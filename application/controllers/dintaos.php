@@ -57,14 +57,13 @@ class Dintaos extends Site_controller {
             )
         ),
       "publisher" => array (
-          "@type" => "Person",
-          "name" => "吳政賢",
-          "url" => "https://www.facebook.com/comdan66",
-          "image" => array (
+          "@type" => "Organization",
+          "name" => Cfg::setting ('site', 'title'),
+          "logo" => array (
               "@type" => "ImageObject",
-              "url" => $dintao->user->avatar (),
-              "width" => 100,
-              "height" => 100
+              "url" => resource_url ('resource', 'image', 'og', 'larger.jpg'),
+              "height" => 630,
+              "width" => 1200
             )
         ),
       "description" => $dintao->mini_content (150)
