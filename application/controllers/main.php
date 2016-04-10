@@ -48,32 +48,16 @@ class Main extends Site_controller {
 
     $json_ld = array (
       "@context" => "http://schema.org",
-      "@type" => "Article",
-      "headline" => '',
-      "image" => array (
-          "@type" => "ImageObject",
-          "url" => $img = resource_url ('resource', 'image', 'og', 'larger2.jpg'),
-          "height" => 630,
-          "width" => 1200
-        ),
-      "datePublished" => date ('c'),
-      "dateModified" => date ('c'),
-      "author" => array (
-          "@type" => "Person",
-          "name" => '吳政賢',
-          "url" => 'https://www.facebook.com/comdan66',
-          "image" => array (
-              "@type" => "ImageObject",
-              "url" => resource_url ('resource', 'image', 'users', 'comdan66_300x300.jpg'),
-              "height" => 300, "width" => 300
-            )
-        ),
-      "publisher" => array (
-          "@type" => "Organization",
-          "name" => Cfg::setting ('site', 'title'),
-          "logo" => array ("@type" => "ImageObject", "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'), "width" => 600, "height" => 60)
-        ),
-      "description" => $desc
+      "@type" => "Organization",
+      "name" => Cfg::setting ('site', 'title'),
+      "@url" => base_url (),
+      "logo" => array ("@type" => "ImageObject", "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'), "width" => 600, "height" => 60),
+      "description" => $desc,
+      "sameAs" => array (
+          "https://www.facebook.com/comdan66",
+          "http://www.ioa.tw/",
+          "http://comdan66.github.io/"
+        )
       );
 
     $this->set_title (Cfg::setting ('site', 'title'))
