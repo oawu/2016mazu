@@ -108,10 +108,32 @@ class Maps extends Site_controller {
          ->add_meta (array ('name' => 'description', 'content' => $desc))
          ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:description', 'content' => $desc))
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'map' . $this->dintao_tabs[$index]['id'] . '.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'dintao', 'larger.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
          ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+         
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'story', 'content' => $img = resource_url ('resource', 'image', 'og', 'dintao', 'story.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'story', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'story', 'content' => '600'))
+         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'story', 'content' => '600'))
+         
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'small', 'content' => $img = resource_url ('resource', 'image', 'og', 'dintao', 'small.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'small', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'small', 'content' => '600'))
+         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'small', 'content' => '315'))
+         
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'mini', 'content' => $img = resource_url ('resource', 'image', 'og', 'dintao', 'mini.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'mini', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'mini', 'content' => '200'))
+         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'mini', 'content' => '200'))
+         
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'non-stoty', 'content' => $img = resource_url ('resource', 'image', 'og', 'dintao', 'non-stoty.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'non-stoty', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'non-stoty', 'content' => '600'))
+         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'non-stoty', 'content' => '314'))
+         
          ->add_meta (array ('property' => 'article:modified_time', 'content' => date ('c')))
          ->add_meta (array ('property' => 'article:published_time', 'content' => date ('c')))
         
@@ -193,10 +215,32 @@ class Maps extends Site_controller {
          ->add_meta (array ('name' => 'description', 'content' => $desc))
          ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:description', 'content' => $desc))
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'map' . $this->iko_tabs[$index]['id'] . '.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'iko', 'larger.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
          ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+         
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'story', 'content' => $img = resource_url ('resource', 'image', 'og', 'iko', 'story.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'story', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'story', 'content' => '600'))
+         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'story', 'content' => '600'))
+         
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'small', 'content' => $img = resource_url ('resource', 'image', 'og', 'iko', 'small.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'small', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'small', 'content' => '600'))
+         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'small', 'content' => '315'))
+         
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'mini', 'content' => $img = resource_url ('resource', 'image', 'og', 'iko', 'mini.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'mini', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'mini', 'content' => '200'))
+         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'mini', 'content' => '200'))
+         
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'non-stoty', 'content' => $img = resource_url ('resource', 'image', 'og', 'iko', 'non-stoty.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'non-stoty', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'non-stoty', 'content' => '600'))
+         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'non-stoty', 'content' => '314'))
+
          ->add_meta (array ('property' => 'article:modified_time', 'content' => date ('c')))
          ->add_meta (array ('property' => 'article:published_time', 'content' => date ('c')))
           
