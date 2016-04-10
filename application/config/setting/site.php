@@ -8,7 +8,7 @@
 $site['title'] = '北港迎媽祖';
 $site['footer']['title'] = '北港迎媽祖 © 2016';
 $site['footer']['description'] = '如有相關問題歡迎與<a href="https://www.facebook.com/comdan66" target="_blank">作者</a>討論。';
-$site['keywords'] = array ('北港迎媽祖', '北港', '朝天宮', '媽祖', '迎媽祖', '笨港');
+$site['keywords'] = array ('北港迎媽祖', '農曆三月十九', '北港', '朝天宮', '媽祖', '迎媽祖', '笨港', '農曆3月19', '319');
 $site['description'] = '北港迎媽祖 © 2016';
 
 $site['menu'] = array (
