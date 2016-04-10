@@ -36,12 +36,7 @@ class Youtubes extends Site_controller {
           "@id" => base_url ('youtubes'),
         ),
       "name" => $youtube->title,
-      "thumbnailUrl" => array (
-          "@type" => "ImageObject",
-          "url" => $youtube->cover->url ('1200x630c'),
-          "height" => 630,
-          "width" => 1200
-        ),
+      "thumbnailUrl" => $youtube->cover->url ('500w'),
       "datePublished" => $youtube->created_at->format ('c'),
       "dateModified" => $youtube->updated_at->format ('c'),
       "uploadDate" => $youtube->updated_at->format ('c'),
