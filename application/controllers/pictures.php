@@ -29,6 +29,45 @@ class Pictures extends Site_controller {
       foreach ($also as $i => $a)
         $this->add_meta (array ('property' => 'og:see_also', 'content' => $a->content_page_url ($this->tag)));
 
+    $json_ld = array (
+        "@context" => "http://schema.org", "@type" => "Article",
+        "mainEntityOfPage" => array (
+            "@type" => "WebPage",
+            "@id" => base_url ('pictures'),
+          ),
+        "headline" => $picture->title,
+        "image" => array (
+            "@type" => "ImageObject",
+            "url" => $picture->cover->url ('1200x630c'),
+            "height" => 630,
+            "width" => 1200
+          ),
+        "datePublished" => $picture->created_at->format ('c'),
+        "dateModified" => $picture->updated_at->format ('c'),
+        "author" => array (
+            "@type" => "Person",
+            "name" => $picture->user->name,
+            "url" => $picture->user->facebook_link (),
+            "image" => array (
+                "@type" => "ImageObject",
+                "url" => $picture->user->avatar (300, 300),
+                "height" => 300,
+                "width" => 300
+              )
+          ),
+        "publisher" => array (
+            "@type" => "Organization",
+            "name" => Cfg::setting ('site', 'title'),
+            "logo" => array (
+                "@type" => "ImageObject",
+                "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'),
+                "width" => 600,
+                "height" => 60
+              )
+          ),
+        "description" => $picture->mini_content (150)
+      );
+
     return $this->set_title ($picture->title . ' - ' . Cfg::setting ('site', 'title'))
                 ->set_subtitle ($picture->title)
                 ->set_back_link (base_url ('pictures'))
@@ -42,10 +81,15 @@ class Pictures extends Site_controller {
                 ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
                 ->add_meta (array ('property' => 'article:modified_time', 'content' => $picture->updated_at->format ('c')))
                 ->add_meta (array ('property' => 'article:published_time', 'content' => $picture->created_at->format ('c')))
+                
+                ->add_meta (array ('property' => 'article:author', 'content' => $picture->user->facebook_link ()))
+                ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'author', 'link')))
+
                 ->add_css (resource_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
                 ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'my.js'))
                 ->add_hidden (array ('id' => 'id', 'value' => $picture->id))
                 ->load_view (array (
+                    'json_ld' => $json_ld,
                     'picture' => $picture,
                     'prev' => $picture->prev ($this->tag),
                     'next' => $picture->next ($this->tag),
