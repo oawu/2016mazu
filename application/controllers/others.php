@@ -20,6 +20,47 @@ class Others extends Site_controller {
           '_flash_message' => '找不到該筆資料。'
         ));
 
+    $other = $this->other;
+    $json_ld = array (
+        "@context" => "http://schema.org", "@type" => "Article",
+        "mainEntityOfPage" => array (
+            "@type" => "WebPage",
+            "@id" => base_url ('others'),
+          ),
+        "headline" => $other->title,
+        "image" => array (
+            "@type" => "ImageObject",
+            "url" => $other->cover->url ('1200x630c'),
+            "height" => 630,
+            "width" => 1200
+          ),
+        "datePublished" => $other->created_at->format ('c'),
+        "dateModified" => $other->updated_at->format ('c'),
+        "author" => array (
+            "@type" => "Person",
+            "name" => $other->user->name,
+            "url" => $other->user->facebook_link (),
+            "image" => array (
+                "@type" => "ImageObject",
+                "url" => $other->user->avatar (300, 300),
+                "height" => 300,
+                "width" => 300
+              )
+          ),
+        "publisher" => array (
+            "@type" => "Organization",
+            "name" => Cfg::setting ('site', 'title'),
+            "logo" => array (
+                "@type" => "ImageObject",
+                "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'),
+                "width" => 600,
+                "height" => 60
+              )
+          ),
+        "description" => $other->mini_content (150)
+      );
+
+
     $this->set_title ($this->other->title . ' - ' . Cfg::setting ('site', 'title'))
          ->set_subtitle ($this->other->title)
          
@@ -33,11 +74,15 @@ class Others extends Site_controller {
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
          ->add_meta (array ('property' => 'article:modified_time', 'content' => $this->other->updated_at->format ('c')))
          ->add_meta (array ('property' => 'article:published_time', 'content' => $this->other->created_at->format ('c')))
-         
+ 
+         ->add_meta (array ('property' => 'article:author', 'content' => $other->user->facebook_link ()))
+         ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'author', 'link')))
+
          ->add_css (resource_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
          ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'my.js'))
          ->add_hidden (array ('id' => 'id', 'value' => $this->other->id))
-         ->add_param ('other', $this->other);
+         ->add_param ('other', $this->other)
+         ->add_param ('json_ld', $json_ld);
   }
   public function author () {
     $prev = 'license';
