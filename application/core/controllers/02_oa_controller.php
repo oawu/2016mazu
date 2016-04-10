@@ -19,6 +19,7 @@ class Oa_controller extends Root_controller {
   private $tabs        = array ();
   private $append_js_list     = array ();
   private $append_css_list    = array ();
+  private $static_file_version = 0;
 
   public function __construct () {
     parent::__construct ();
@@ -177,7 +178,7 @@ class Oa_controller extends Root_controller {
       $return = put_s3 ($folder_path . $file_name, 'static/' . $file_name, pathinfo ($file_name, PATHINFO_EXTENSION) == 'css' ? 'text/css' : 'application/javascript');
     }
     $return = $return ? 'http://pic.mazu.ioa.tw/static/' . $file_name : base_url (array_merge (Cfg::system ('static', 'assets_folder'), array ($file_name)));
-    return $return;
+    return $return . '?v=' . $this->static_file_version;
   }
   private function _combine_static_files () {
     if ((ENVIRONMENT !== 'production') && Cfg::system ('static', 'enable'))
