@@ -24,6 +24,45 @@ class March19 extends Site_controller {
     $title = '北港廟會';
     $desc = '農曆三月期間在臺灣各地迎媽祖的廟會活動非常頻繁，而在這段時間的北港鎮更能看到媽祖廟會的盛況非常，它對北港人的意義更是第二個過年一般，多數在外地工作的北港遊子都會回鄉參與！';
 
+    $json_ld = array (
+        "@context" => "http://schema.org", "@type" => "Article",
+        "mainEntityOfPage" => array (
+            "@type" => "WebPage",
+            "@id" => base_url (),
+          ),
+        "headline" => $title,
+        "image" => array (
+            "@type" => "ImageObject",
+            "url" => $img = resource_url ('resource', 'image', 'og', 'larger2.jpg'),
+            "height" => 630,
+            "width" => 1200
+          ),
+        "datePublished" => date ('c'),
+        "dateModified" => date ('c'),
+        "author" => array (
+            "@type" => "Person",
+            "name" => '吳政賢',
+            "url" => 'https://www.facebook.com/comdan66',
+            "image" => array (
+                "@type" => "ImageObject",
+                "url" => resource_url ('resource', 'image', 'users', 'comdan66_300x300.jpg'),
+                "height" => 300,
+                "width" => 300
+              )
+          ),
+        "publisher" => array (
+            "@type" => "Organization",
+            "name" => Cfg::setting ('site', 'title'),
+            "logo" => array (
+                "@type" => "ImageObject",
+                "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'),
+                "width" => 600,
+                "height" => 60
+              )
+          ),
+        "description" => $desc
+      );
+
     if ($tags = array_unique (array_merge (array ($title), Cfg::setting ('site', 'keywords'))))
       foreach ($tags as $i => $tag)
         if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
@@ -35,19 +74,22 @@ class March19 extends Site_controller {
     $this->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
          ->set_subtitle ($title)
 
-
          ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
          ->add_meta (array ('name' => 'description', 'content' => $desc))
          ->add_meta (array ('property' => 'og:title', 'content' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:description', 'content' => $desc))
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'larger2.jpg'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img, 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
          ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
          ->add_meta (array ('property' => 'article:modified_time', 'content' => date ('c')))
          ->add_meta (array ('property' => 'article:published_time', 'content' => date ('c')))
-        
+  
+         ->add_meta (array ('property' => 'article:author', 'content' => 'https://www.facebook.com/comdan66'))
+         ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'author', 'link')))
+
          ->load_view (array (
+            'json_ld' => $json_ld,
             'prev' => $prev,
             'next' => $next,
           ), false, ENVIRONMENT == 'production' ? 60 : 0);
