@@ -1,7 +1,6 @@
 <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
   <div>
-    <div><div>北港</div><div>迎媽祖</div></div>
-    <div><div>Beigang</div><div>迎媽祖</div></div>
+    <div><div>北港</div><div>迎媽祖<span>Beigang Mazu</span></div></div>
   </div>
 
 <?php
