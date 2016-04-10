@@ -1,4 +1,4 @@
-<div>
+<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
   <div>
     <div><div>北港</div><div>Mazu</div></div>
     <div><div>Beigang</div><div>迎媽祖</div></div>
@@ -18,7 +18,7 @@
               $icon = $menu['active'] || $a ? $menu['icon'] ? $menu['icon'] . ' a' : 'a' : $menu['icon'];
               
               if ($a) { ?>
-                <a itemscope itemtype="http://data-vocabulary.org/Breadcrumb" href='<?php echo $menu['href'];?>'<?php echo $icon ? " class='" . $icon . "'" : '';?><?php echo $a ? '' : '';?><?php echo $menu['target'] == '_blank' ? 'target="_blank"' : '';?>><a itemprop="url" href='<?php echo $menu['href'];?>'></a><div itemprop="title"><?php echo $menu_text;?></div></a>
+                <a itemprop="url" href='<?php echo $menu['href'];?>'<?php echo $icon ? " class='" . $icon . "'" : '';?><?php echo $a ? '' : '';?><?php echo $menu['target'] == '_blank' ? 'target="_blank"' : '';?>><div itemprop="title"><?php echo $menu_text;?></div></a>
         <?php } else { ?>
                 <a href='<?php echo $menu['href'];?>'<?php echo $icon ? " class='" . $icon . "'" : '';?><?php echo $a ? '' : '';?><?php echo $menu['target'] == '_blank' ? 'target="_blank"' : '';?>><?php echo $menu_text;?></a>
         <?php } ?>
