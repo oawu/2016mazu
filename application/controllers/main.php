@@ -50,7 +50,7 @@ class Main extends Site_controller {
       "@context" => "http://schema.org",
       "@type" => "Organization",
       "name" => Cfg::setting ('site', 'title'),
-      "@url" => base_url (),
+      "url" => base_url (),
       "logo" => array ("@type" => "ImageObject", "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'), "width" => 600, "height" => 60),
       "description" => $desc,
       "sameAs" => array (
