@@ -38,7 +38,7 @@ class Pictures extends Site_controller {
         "headline" => $picture->title,
         "image" => array (
             "@type" => "ImageObject",
-            "url" => $picture->cover->url ('1200x630c'),
+            "url" => $picture->name->url ('1200x630c'),
             "height" => 630,
             "width" => 1200
           ),
@@ -81,7 +81,7 @@ class Pictures extends Site_controller {
                 ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
                 ->add_meta (array ('property' => 'article:modified_time', 'content' => $picture->updated_at->format ('c')))
                 ->add_meta (array ('property' => 'article:published_time', 'content' => $picture->created_at->format ('c')))
-                
+
                 ->add_meta (array ('property' => 'article:author', 'content' => $picture->user->facebook_link ()))
                 ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'author', 'link')))
 
