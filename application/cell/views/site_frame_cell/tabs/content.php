@@ -5,9 +5,10 @@
 <div class='_t'>
   <a class='icon-chevron-left'></a>
   <div>
-    <div>
-<?php foreach ($tabs as $text => $tab) { ?>
-        <a<?php echo isset ($tab['href']) ? " href='" . $tab['href'] . "'" : '';?><?php echo ($index !== null) && isset ($tab['index']) && ($tab['index'] == $index) ? " class='a'": '';?>><?php echo $text;?></a>
+    <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+<?php foreach ($tabs as $text => $tab) { 
+        $a = ($index !== null) && isset ($tab['index']) && ($tab['index'] == $index);?>
+        <a<?php echo isset ($tab['href']) ? " href='" . $tab['href'] . "'" : '';?><?php echo $a ? " class='a' itemprop='url'": '';?>><?php echo $a ? '<span itemprop="title">' . $text . '</span>' : $text;?></a>
 <?php } ?>
     </div>
   </div>
