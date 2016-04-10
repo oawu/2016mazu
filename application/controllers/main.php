@@ -69,7 +69,7 @@ class Main extends Site_controller {
          ->add_meta (array ('name' => 'description', 'content' => $desc))
          ->add_meta (array ('property' => 'og:title', 'content' => $title))
          ->add_meta (array ('property' => 'og:description', 'content' => $desc))
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img, 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'larger2.jpg'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
          ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
