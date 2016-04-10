@@ -8,8 +8,7 @@
 <?php 
     if (isset ($json_ld) && $json_ld) { ?>
       <script type="application/ld+json">
-        <?php //echo json_encode ($json_ld, JSON_UNESCAPED_SLASHES);?>
-        <?php echo json_encode ($json_ld, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);?>
+        <?php echo json_encode ($json_ld, ENVIRONMENT == 'production' ? JSON_UNESCAPED_SLASHES : JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);?>
       </script>
 <?php 
     }?>
