@@ -30,7 +30,7 @@ class Pictures extends Site_controller {
         $this->add_meta (array ('property' => 'og:see_also', 'content' => $a->content_page_url ($this->tag)));
 
     $json_ld = array (
-        "@context" => "http://schema.org", "@type" => "Article",
+        "@context" => "http://schema.org", "@type" => "ImageObject",
         "mainEntityOfPage" => array (
             "@type" => "WebPage",
             "@id" => base_url ('pictures'),
