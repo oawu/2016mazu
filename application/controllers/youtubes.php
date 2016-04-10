@@ -30,38 +30,38 @@ class Youtubes extends Site_controller {
         $this->add_meta (array ('property' => 'og:see_also', 'content' => $a->content_page_url ($this->tag)));
 
     $json_ld = array (
-      "@context" => "http://schema.org", "@type" => "VideoObject",
-      "mainEntityOfPage" => array (
-          "@type" => "WebPage",
-          "@id" => base_url ('youtubes'),
-        ),
-      "name" => $youtube->title,
-      "thumbnailUrl" => $youtube->cover->url ('500w'),
-      "datePublished" => $youtube->created_at->format ('c'),
-      "dateModified" => $youtube->updated_at->format ('c'),
-      "uploadDate" => $youtube->updated_at->format ('c'),
-      "author" => array (
-          "@type" => "Person",
-          "name" => $youtube->user->name,
-          "url" => $youtube->user->facebook_link (),
-          "image" => array (
-              "@type" => "ImageObject",
-              "url" => $youtube->user->avatar (300, 300),
-              "height" => 300,
-              "width" => 300
-            )
-        ),
-      "publisher" => array (
-          "@type" => "Organization",
-          "name" => Cfg::setting ('site', 'title'),
-          "logo" => array (
-              "@type" => "ImageObject",
-              "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'),
-              "width" => 600,
-              "height" => 60
-            )
-        ),
-      "description" => $youtube->mini_content (150)
+        "@context" => "http://schema.org", "@type" => "VideoObject",
+        "mainEntityOfPage" => array (
+            "@type" => "WebPage",
+            "@id" => base_url ('youtubes'),
+          ),
+        "name" => $youtube->title,
+        "thumbnailUrl" => $youtube->cover->url ('500w'),
+        "datePublished" => $youtube->created_at->format ('c'),
+        "dateModified" => $youtube->updated_at->format ('c'),
+        "uploadDate" => $youtube->updated_at->format ('c'),
+        "author" => array (
+            "@type" => "Person",
+            "name" => $youtube->user->name,
+            "url" => $youtube->user->facebook_link (),
+            "image" => array (
+                "@type" => "ImageObject",
+                "url" => $youtube->user->avatar (300, 300),
+                "height" => 300,
+                "width" => 300
+              )
+          ),
+        "publisher" => array (
+            "@type" => "Organization",
+            "name" => Cfg::setting ('site', 'title'),
+            "logo" => array (
+                "@type" => "ImageObject",
+                "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'),
+                "width" => 600,
+                "height" => 60
+              )
+          ),
+        "description" => $youtube->mini_content (150)
       );
     return $this->set_title ($youtube->title . ' - ' . Cfg::setting ('site', 'title'))
                 ->set_subtitle ($youtube->title)

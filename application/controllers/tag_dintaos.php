@@ -44,42 +44,42 @@ class Tag_dintaos extends Site_controller {
         $this->add_meta (array ('property' => 'og:see_also', 'content' => $a->content_page_url ($this->tag)));
 
     $json_ld = array (
-      "@context" => "http://schema.org", "@type" => "Article",
-      "mainEntityOfPage" => array (
-          "@type" => "WebPage",
-          "@id" => base_url ('tags', $$this->tag->id, 'dintaos'),
-        ),
-      "headline" => $dintao->title,
-      "image" => array (
-          "@type" => "ImageObject",
-          "url" => $dintao->cover->url ('1200x630c'),
-          "height" => 630,
-          "width" => 1200
-        ),
-      "datePublished" => $dintao->created_at->format ('c'),
-      "dateModified" => $dintao->updated_at->format ('c'),
-      "author" => array (
-          "@type" => "Person",
-          "name" => $dintao->user->name,
-          "url" => $dintao->user->facebook_link (),
-          "image" => array (
-              "@type" => "ImageObject",
-              "url" => $dintao->user->avatar (300, 300),
-              "height" => 300,
-              "width" => 300
-            )
-        ),
-      "publisher" => array (
-          "@type" => "Organization",
-          "name" => Cfg::setting ('site', 'title'),
-          "logo" => array (
-              "@type" => "ImageObject",
-              "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'),
-              "width" => 600,
-              "height" => 60
-            )
-        ),
-      "description" => $dintao->mini_content (150)
+        "@context" => "http://schema.org", "@type" => "Article",
+        "mainEntityOfPage" => array (
+            "@type" => "WebPage",
+            "@id" => base_url ('tags', $$this->tag->id, 'dintaos'),
+          ),
+        "headline" => $dintao->title,
+        "image" => array (
+            "@type" => "ImageObject",
+            "url" => $dintao->cover->url ('1200x630c'),
+            "height" => 630,
+            "width" => 1200
+          ),
+        "datePublished" => $dintao->created_at->format ('c'),
+        "dateModified" => $dintao->updated_at->format ('c'),
+        "author" => array (
+            "@type" => "Person",
+            "name" => $dintao->user->name,
+            "url" => $dintao->user->facebook_link (),
+            "image" => array (
+                "@type" => "ImageObject",
+                "url" => $dintao->user->avatar (300, 300),
+                "height" => 300,
+                "width" => 300
+              )
+          ),
+        "publisher" => array (
+            "@type" => "Organization",
+            "name" => Cfg::setting ('site', 'title'),
+            "logo" => array (
+                "@type" => "ImageObject",
+                "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'),
+                "width" => 600,
+                "height" => 60
+              )
+          ),
+        "description" => $dintao->mini_content (150)
       );
 
     return $this->set_title ($dintao->title . ' - ' . Cfg::setting ('site', 'title'))

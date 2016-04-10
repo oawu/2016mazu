@@ -47,17 +47,17 @@ class Main extends Site_controller {
     $desc = '是的，又一年了！這個慶典對於北港人，就像如候鳥的季節，是一個返鄉的時刻！這是一個屬於北港囝仔的春節、北港人的過年！十幾年過去了 不曾改變的習慣還依然繼續！不曾冷卻的期待也依然澎湃！在外地的北港囝仔，還記得北港的鞭炮味嗎？還記得小時候期待三月十九到來的期待與喜悅感嗎？這是我們北港人最榮耀的過年，今年要記得回來，再忙都要回來幫媽祖婆逗熱鬧一下吧！';
 
     $json_ld = array (
-      "@context" => "http://schema.org",
-      "@type" => "Organization",
-      "name" => Cfg::setting ('site', 'title'),
-      "url" => base_url (),
-      "logo" => array ("@type" => "ImageObject", "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'), "width" => 600, "height" => 60),
-      "description" => $desc,
-      "sameAs" => array (
-          "https://www.facebook.com/comdan66",
-          "http://www.ioa.tw/",
-          "http://comdan66.github.io/"
-        )
+        "@context" => "http://schema.org",
+        "@type" => "Organization",
+        "name" => Cfg::setting ('site', 'title'),
+        "url" => base_url (),
+        "logo" => array ("@type" => "ImageObject", "url" => resource_url ('resource', 'image', 'og', 'amp_logo_600x60.png'), "width" => 600, "height" => 60),
+        "description" => $desc,
+        "sameAs" => array (
+            "https://www.facebook.com/comdan66",
+            "http://www.ioa.tw/",
+            "http://comdan66.github.io/"
+          )
       );
 
     $this->set_title (Cfg::setting ('site', 'title'))
