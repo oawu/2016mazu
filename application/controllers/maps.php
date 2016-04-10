@@ -117,6 +117,7 @@ class Maps extends Site_controller {
         
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
          ->add_hidden (array ('id' => 'id', 'value' => $path->id))
+         ->set_method ('index')
          ->load_view (array (
             'path' => $path,
             'polyline' => $polyline,
@@ -201,7 +202,7 @@ class Maps extends Site_controller {
           
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
          ->add_hidden (array ('id' => 'id', 'value' => $path->id))
-         ->set_method ('dintao')
+         ->set_method ('index')
          ->load_view (array (
             'path' => $path,
             'polyline' => $polyline,
