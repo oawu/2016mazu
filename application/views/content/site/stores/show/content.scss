@@ -180,7 +180,7 @@ html {
           color: rgba(100, 100, 100, 1);
 
           a {
-            @include a(1px, true);
+            @include a(0, true);
           }
           + li {
             margin-top: 5px;
