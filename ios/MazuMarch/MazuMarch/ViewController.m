@@ -225,10 +225,11 @@
 //        self.isUpload = NO;
         [self uploadLog:@"----------------------------------------"];
         [self uploadLog:@"沒有節點！"];
-        [self locationManager: self.locationManager didUpdateLocations: @[self.locationManager.location]];
-        [self uploadLog:@"強制取點！"];
-
+//        [self locationManager: self.locationManager didUpdateLocations: @[self.locationManager.location]];
+//        [self uploadLog:@"強制取點！"];
         
+        self.isUpload = NO;
+        return;
     }
     
     NSMutableDictionary *parameters = [NSMutableDictionary new];
