@@ -269,7 +269,10 @@ html {
       width: 100%;
       text-align: right;
       color: rgba(85, 85, 85, .7);
-      margin-top: 0;
+      margin-top: 10px;
+      margin-bottom: 25px;
+      border-top: 1px dashed rgba(220, 220, 220, 1);
+      padding-top: 10px;
 
       &:before {
         display: inline-block;

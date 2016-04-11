@@ -36,4 +36,4 @@
     </ul>
   <?php
   } ?>
-  <div class='pv icon-eye2'><?php echo $store->pv;?> 人</div>
+<div class='pv icon-eye2'><?php echo $store->pv;?> 人</div>

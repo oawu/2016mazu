@@ -10,7 +10,7 @@ class Stores extends Site_controller {
 
   public function show ($id = 0) {
     if (!($id && ($store = Store::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', $id, Store::IS_ENABLED))))))
-      $store = null;
+      return '沒有任何資料。';
 
     return $this->set_frame_path ('frame', 'pure')
                 ->add_hidden (array ('id' => 'id', 'value' => $store->id))
