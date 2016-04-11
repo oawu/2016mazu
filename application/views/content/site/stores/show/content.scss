@@ -179,6 +179,9 @@ html {
         li {
           color: rgba(100, 100, 100, 1);
 
+          a {
+            @include a(1px, true);
+          }
           + li {
             margin-top: 5px;
           }
