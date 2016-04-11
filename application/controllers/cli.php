@@ -713,17 +713,17 @@ class Cli extends Site_controller {
       );
 
     foreach ($items as $item) {
-      $sit_map->addItem ('/' . $item['uri'] . 's', '0.8', 'weekly', date ('c'));
+      $sit_map->addItem ('/' . $item['uri'] . 's', '0.8', 'daily', date ('c'));
 
       $conditions = array ();
       $item['model']::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', $item['model']::IS_ENABLED);
       
       foreach ($item['model']::find ('all', array ('conditions' => $conditions)) as $obj)
-        $sit_map->addItem (str_replace ($domain, '', $obj->content_page_url ()), '0.8', 'weekly', date ('c'));
+        $sit_map->addItem (str_replace ($domain, '', $obj->content_page_url ()), '0.8', 'daily', date ('c'));
 
       if ($item['tag_ids'])
         foreach ($item['tag_ids'] as $tag_id) {
-          $sit_map->addItem ('/tag/' . $tag_id . '/' . $item['uri'] . 's', '0.8', 'weekly', date ('c'));
+          $sit_map->addItem ('/tag/' . $tag_id . '/' . $item['uri'] . 's', '0.8', 'daily', date ('c'));
           
           $conditions = array ();
           $item['model']::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', $item['model']::IS_ENABLED);
@@ -731,7 +731,7 @@ class Cli extends Site_controller {
           else $item['model']::addConditions ($conditions, 'id = ?', -1);
           
           foreach ($item['model']::find ('all', array ('conditions' => $conditions)) as $dintao)
-            $sit_map->addItem (str_replace ($domain, '', $dintao->content_page_url ($tag_id)), '0.8', 'weekly', date ('c'));
+            $sit_map->addItem (str_replace ($domain, '', $dintao->content_page_url ($tag_id)), '0.8', 'daily', date ('c'));
         }
     }
 
