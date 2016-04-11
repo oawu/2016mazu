@@ -12,7 +12,7 @@ $admin['footer']['description'] = '如有相關問題歡迎與<a href="https://w
 
 $admin['menu'] = array (
     '會員管理' => array (
-        '文章列表' => array ('roles' => array ('user'), 'icon' => 'icon-user', 'href' => base_url ('admin', 'users'), 'class' => 'users', 'method' => '', 'target' => '_self'),
+        '會員列表' => array ('roles' => array ('user'), 'icon' => 'icon-user', 'href' => base_url ('admin', 'users'), 'class' => 'users', 'method' => '', 'target' => '_self'),
       ),
     '文章管理' => array (
         '文章分類' => array ('roles' => array ('article'), 'icon' => 'icon-price-tag', 'href' => base_url ('admin', 'article-tags'), 'class' => 'article_tags', 'method' => '', 'target' => '_self'),
