@@ -40,7 +40,7 @@ Route::group ('admin', function () {
   Route::resourcePagination_is_enabled (array ('paths'), 'paths');
   Route::resourcePagination_is_enabled (array ('others'), 'others');
   Route::resourcePagination_is_enabled (array ('stores'), 'stores');
-  Route::resourcePagination_is_enabled (array ('baishatun-path-infos'), 'baishatun_path_infos');
+  Route::resourcePagination_is_enabled (array ('march-infos'), 'march_infos');
 
   Route::resourcePagination_is_enabled (array ('tag', 'articles'), 'tag_articles');
   Route::resourcePagination_is_enabled (array ('tag', 'dintaos'), 'tag_dintaos');
@@ -59,6 +59,8 @@ Route::group ('api', function () {
   Route::post ('march_messages/report', 'march_messages@report');
   
   Route::resource ('march_message_blacklists', 'march_message_blacklists');
+  
+  Route::resource ('march_users', 'march_users');
 });
 
 // echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';

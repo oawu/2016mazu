@@ -7,7 +7,8 @@ $(function () {
   var _url2 = 'http://pic.mazu.ioa.tw/api/march/messages.json';
   var _url3 = $('#url3').val ();
   var _url4 = $('#url4').val ();
-
+  var _url5 = $('#url5').val ();
+  var _url6 = 'http://pic.mazu.ioa.tw/api/heatmap/';
 
   var $map = $('#map'),
       $myLocation = $('#location'),
@@ -29,21 +30,23 @@ $(function () {
       _markers = [],
       _directionsDisplay = null,
       _isLoadPath = false,
-      _p = 0,
-      _pl = 36,
       _v = 0,
       _addresss = null,
       _polyline = null,
       _isMoved = false,
       _mazu = null,
-      _loadDataTime = 10000,
-      _chartInfos = ['※ 別亂檢舉，偏激或令人不悅的內容再檢舉，這是非官方而且非營利網站，請幫忙分享出去給更多需要的人吧！'],
+      _loadDataTime = 70000,
+      _chartInfos = ['※ 這是非官方而且非營利網站，請幫忙分享出去給更多人吧，然後內容偏激或令人不悅的內容再檢舉！'],
       _chartTimer = null,
-      _chartTime = 5000,
+      _chartTime = 10000,
       _isLoadChart = false,
       _chartId = 0,
+      _p = 0,
+      _pl = 36,
       _c = 0,
-      _cp = 30;
+      _cp = 30,
+      _heatmap = null
+      ;
 
 
 
@@ -55,7 +58,7 @@ $(function () {
 
   function circlePath (r) { return 'M 0 0 m -' + r + ', 0 '+ 'a ' + r + ',' + r + ' 0 1,0 ' + (r * 2) + ',0 ' + 'a ' + r + ',' + r + ' 0 1,0 -' + (r * 2) + ',0';}
   function setLoation (a, n) {
-    // $.ajax ({url: _url4,data: { a: a, n: n },async: true, cache: false, dataType: 'json', type: 'POST'});
+    $.ajax ({url: _url5,data: { a: a, n: n },async: true, cache: false, dataType: 'json', type: 'POST'});
   }
 
   function initMap () {
@@ -238,8 +241,19 @@ $(function () {
     });
     $('#add_zoom').click (function () { _map.setZoom (_map.zoom + 1); });
     $('#sub_zoom').click (function () { _map.setZoom (_map.zoom - 1); });
+    
+    _heatmap = new google.maps.visualization.HeatmapLayer ({ map: _map, radius: 20, opacity: 0.9 });
     $('#heatmap').click (function () {
       $(this).toggleClass ('s');
+    }).find ('a').click (function () {
+      var $span = $(this).parents ('label').find ('span').text ($(this).text ());
+      $(this).addClass ('a').siblings ().removeClass ('a');
+      if (!$(this).attr ('val')) return _heatmap.setData ([]);
+
+      $.ajax ({ url: _url6 + $(this).attr ('val'), async: true, cache: false, dataType: 'json', type: 'GET', beforeSend: function () { _heatmap.setData ([]); $span.text ('取得資料中..'); }})
+      .done (function (result) { $span.text ($(this).text ()); if (!result.length) return ; _heatmap.setData (result.map (function (t) { return new google.maps.LatLng (t.a, t.n); })); }.bind ($(this)))
+      .fail (function () { $('#heatmap').remove (); })
+      .complete (function (result) {});
     });
 
     initMyLocation ();

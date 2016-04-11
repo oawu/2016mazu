@@ -15,14 +15,13 @@
     <label><input type='checkbox' /></label>
   </div>
 
-
   <label id='heatmap' class='n5'>
     <span>不顯示用戶分佈</span>
     <div>
-      <a>目前用戶分佈</a>
-      <a>1 小時前分佈</a>
-      <a>2 小時前分佈</a>
-      <a>3 小時前分佈</a>
+      <a val='0.json'>目前用戶分佈</a>
+      <a val='1.json'>1 小時前分佈</a>
+      <a val='2.json'>2 小時前分佈</a>
+      <a val='3.json'>3 小時前分佈</a>
       <a class='a'>不顯示用戶分佈</a>
     </div>
   </label>

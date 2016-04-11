@@ -39,6 +39,7 @@ class Maps extends Site_controller {
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
          ->add_hidden (array ('id' => 'url3', 'value' => base_url ('api', 'march_messages')))
          ->add_hidden (array ('id' => 'url4', 'value' => base_url ('api', 'march_messages', 'report')))
+         ->add_hidden (array ('id' => 'url5', 'value' => base_url ('api', 'march_users')))
          ->load_view (array (
           ));
   }
