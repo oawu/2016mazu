@@ -782,4 +782,36 @@ class Cli extends Site_controller {
       });
     }
   }
+  public function o () {
+    $url = 'https://roads.googleapis.com/v1/snapToRoads';
+    echo $url .= '?' . http_build_query (array ('key' => Cfg::setting ('google', ENVIRONMENT, 'server_key'), 'interpolate' => true, 'path' => '25.071151,121.57106|25.077989,121.574612|25.072007,121.571504'));
+    exit ();
+    $res = file_get_contents ($url);
+    $res = json_decode ($res, true);
+    var_dump ($res['snappedPoints']);
+    exit ();
+  }
+  public function x () {
+    $ps = array ();
+  
+    $url = 'http://dev.mazu.ioa.tw/api/march/1/paths';
+
+    for ($i=0; $i < count ($ps); $i += 10) { 
+      $vars = array ('p' => array_splice ($ps, 0, $i));
+      $options = array (
+        CURLOPT_URL => $url, CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => http_build_query ($vars),
+        CURLOPT_TIMEOUT => 120, CURLOPT_HEADER => false, CURLOPT_MAXREDIRS => 10,
+        CURLOPT_AUTOREFERER => true, CURLOPT_CONNECTTIMEOUT => 30, CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_USERAGENT => "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.76 Safari/537.36",
+      );
+
+      $ch = curl_init ($url);
+      curl_setopt_array ($ch, $options);
+      $data = curl_exec ($ch);
+      curl_close ($ch);
+      echo $data . "\n";
+      sleep(5);
+    }
+  }
 }

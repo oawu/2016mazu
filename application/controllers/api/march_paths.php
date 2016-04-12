@@ -22,6 +22,44 @@ class March_paths extends Api_controller {
 
     return $this->output_json (array ('last' => $last->to_array ()));
   }
+
+  private function _o ($paths) {
+    if (!$paths) return $paths;
+    $tmp_path = array_filter ($paths, function ($path) {
+      return $path['accuracy_horizontal'] < 31;
+    });
+
+    if (!$tmp_path) return $paths;
+    $url = 'https://roads.googleapis.com/v1/snapToRoads';
+    $url .= '?' . http_build_query (array ('key' => Cfg::setting ('google', ENVIRONMENT, 'server_key'), 'interpolate' => true, 'path' => implode ('|', array_map (function ($path) {
+          return $path['latitude'] . ',' . $path['longitude'];
+        }, $tmp_path))));
+
+    $res = file_get_contents ($url);
+    $res = json_decode ($res, true);
+    if (!(isset ($res['snappedPoints']) && is_array ($res['snappedPoints']) && $res['snappedPoints']))
+      return $paths;
+
+    foreach ($res['snappedPoints'] as $i => $point) {
+      if (!(isset ($point['location']['latitude']) && isset ($point['location']['longitude'])))
+        continue;
+
+      if (isset ($paths[$i])) {
+        $paths[$i]['latitude2'] = $point['location']['latitude'];
+        $paths[$i]['longitude2'] = $point['location']['longitude'];
+        $paths[$i]['is_enabled'] = 1;
+      } else {
+        array_push ($paths, array_merge ($paths[count ($paths) - 1], array (
+            'latitude2' => $point['location']['latitude'],
+            'longitude2' => $point['location']['longitude'],
+            'is_enabled' => 1,
+          )));
+      }
+    }
+
+    return $paths;
+  }
+
   public function create () {
     $paths = ($paths = OAInput::post ('p')) ? $paths : array ();
     if (!$paths) return $this->output_json (array ('ids' => array ()));
@@ -57,7 +95,8 @@ class March_paths extends Api_controller {
       $post['time_at'] = $post['t'];
       $post['latitude2'] = $post['latitude'];
       $post['longitude2'] = $post['longitude'];
-      $post['is_enabled'] = $post['accuracy_horizontal'] < 100 ? 1 : 0;
+      $post['is_enabled'] = 0;
+      // $post['is_enabled'] = $post['accuracy_horizontal'] <= 30 ? 1 : 0;
 
       unset ($post['id'], $post['a'], $post['n'], $post['h'], $post['v'], $post['l'], $post['s'], $post['i'], $post['b'], $post['t']);
 
@@ -65,10 +104,12 @@ class March_paths extends Api_controller {
     }, $paths));
   
     if (!$paths) return $this->output_json (array ('ids' => array ()));
-  
+
     usort ($paths, function ($a, $b) {
       return $a['time_at'] > $b['time_at'];
     });
+
+    $paths = $this->_o ($paths);
 
     $paths = array_filter ($paths, function ($path) use ($march) {
       return MarchPath::transaction (function () use ($path, $march) {

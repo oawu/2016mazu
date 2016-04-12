@@ -22,10 +22,10 @@ class March extends OaModel {
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
   }
-  public function paths ($is_GPS = false) {
+  public function paths ($is_GPS = true, $type = 0) {
     $is_ios = $this->is_ios;
     
-    if (!$is_GPS) {
+    if ($is_GPS) {
       $first = MarchPath::first (array ('select' => 'id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND is_ios = ?', $this->id,  $is_ios)));
       $last = MarchPath::last (array ('select' => 'id,latitude2,longitude2,time_at', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND is_ios = ?', $this->id,  $is_ios)));
 
@@ -33,13 +33,22 @@ class March extends OaModel {
       if (!($all_ids = column_array (MarchPath::find ('all', array ('select' => 'id', 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND is_ios = ?', $this->id, $is_ios))), 'id')))
         return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
 
-      $c = count ($all_ids);
-      $unit = $c < 10000 ? $c < 5000 ? $c < 2500 ? $c < 1500 ? $c < 1000 ? $c < 500 ? $c < 200 ? $c < 100 ? $c < 10 ? 0 : 0.01 : 0.05 : 0.15 : 0.3 : 0.46 : 1 : 1.5 : 2.3 : 3;
-      for ($i = 0; ($key = round (($i * (2 + ($i - 1) * $unit)) / 2)) < $all_ids[0]; $i++)
-        if ($temp = array_slice ($all_ids, $key, 1))
-          array_push ($point_ids, array_shift ($temp));
-      if (!$point_ids) return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
-
+      if ($type) {
+        $c = count ($all_ids);
+        $unit = $c < 10000 ? $c < 5000 ? $c < 2500 ? $c < 1500 ? $c < 1000 ? $c < 500 ? $c < 200 ? $c < 100 ? $c < 10 ? 0 : 0.01 : 0.05 : 0.15 : 0.3 : 0.46 : 1 : 1.5 : 2.3 : 3;
+        for ($i = 0; ($key = round (($i * (2 + ($i - 1) * $unit)) / 2)) < $all_ids[0]; $i++)
+          if ($temp = array_slice ($all_ids, $key, 1))
+            array_push ($point_ids, array_shift ($temp));
+        if (!$point_ids) return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
+      } else {
+        $c = count ($all_ids);
+        $unit = $c / 90;
+        for ($i = 0; ($key = round ($unit * $i)) < $all_ids[0]; $i++)
+          if ($temp = array_slice ($all_ids, $key, 1))
+            array_push ($point_ids, array_shift ($temp));
+        if (!$point_ids) return array ('s' => false, 'p' => array (), 'l' => 0, 'i' => array ());
+      }
+      
       $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'order' => 'id DESC', 'conditions' => array ('id IN (?) AND march_id = ? AND is_enabled = 1 AND is_ios = ?', $point_ids, $this->id, $is_ios)));
 
       if ($paths[0]->id != $last->id) array_unshift ($paths, $last);

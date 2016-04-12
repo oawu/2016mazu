@@ -16,6 +16,35 @@ class Cli_march extends Site_controller {
     }
   }
 
+  private function _o ($paths) {
+    if (!$paths) return $paths;
+    $url = 'https://roads.googleapis.com/v1/snapToRoads';
+    $url .= '?' . http_build_query (array ('key' => Cfg::setting ('google', ENVIRONMENT, 'server_key'), 'interpolate' => true, 'path' => implode ('|', array_map (function ($path) {
+          return $path['a'] . ',' . $path['n'];
+        }, $paths))));
+
+    $res = file_get_contents ($url);
+    $res = json_decode ($res, true);
+    if (!(isset ($res['snappedPoints']) && is_array ($res['snappedPoints']) && $res['snappedPoints']))
+      return $paths;
+
+    foreach ($res['snappedPoints'] as $i => $point) {
+      if (!(isset ($point['location']['latitude']) && isset ($point['location']['longitude'])))
+        continue;
+
+      if (isset ($paths[$i])) {
+        $paths[$i]['a'] = $point['location']['latitude'];
+        $paths[$i]['n'] = $point['location']['longitude'];
+      } else {
+        array_push ($paths, array_merge ($paths[count ($paths) - 1], array (
+            'a' => $point['location']['latitude'],
+            'n' => $point['location']['longitude'],
+          )));
+      }
+    }
+
+    return $paths;
+  }
   private function _update_paths ($march) {
     $path = FCPATH . 'temp/march_' . $march->id . '_paths.json';
     $s3_path = 'api/march/' . $march->id . '/paths.json';
@@ -26,7 +55,9 @@ class Cli_march extends Site_controller {
     if (!write_file ($path, json_encode (array ())))
       return array ('march' => $march, 'msg' => '寫入 json 檔案錯誤或失敗(1)！');
 
-    $r = $march->paths ();
+    $r = $march->paths (false, 1);
+    // $r['p'] = $this->_o ($r['p']);
+
     $r = array (
         's' => $r['s'],
         'v' => $march->version,
