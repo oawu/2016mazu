@@ -1,7 +1,0 @@
-{
-    "require": {
-        "tinify/tinify": "*",
-        "facebook/php-sdk-v4" : "~5.0",
-        "mailgun/mailgun-php": "~1.7.2"
-    }
-}
