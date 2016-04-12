@@ -33,6 +33,18 @@ sitemap/*
 
 /cmd
 
+/BingSiteAuth.xml
+/clean
+/composer.json
+/composer.lock
+/composer.phar
+/create
+/delete
+/googlefabb4040c4c7f309.html
+/init
+/migration
+/robots.txt
+
 system/cmd/.sass-cache/*
 system/cmd/node_modules/*
 system/cmd/npm-debug.log
