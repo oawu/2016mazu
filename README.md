@@ -14,7 +14,8 @@
 
 <br/>
 ## 聲明
-本作品授權採用 姓名標示-非商業性 2.0 台灣 (CC BY-NC 2.0 TW) 授權，詳見 [http://creativecommons.org/licenses/by-nc/2.0/tw/](http://creativecommons.org/licenses/by-nc/2.0/tw/)
+* 本網站非官方網站，一切資訊以[北港朝天宮](http://www.matsu.org.tw/)官方公佈資訊為主。
+* 本作品授權採用 姓名標示-非商業性 2.0 台灣 (CC BY-NC 2.0 TW) 授權，詳見 [http://creativecommons.org/licenses/by-nc/2.0/tw/](http://creativecommons.org/licenses/by-nc/2.0/tw/)
 
 <br/>
 ## 網站作者
