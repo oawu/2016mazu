@@ -96,7 +96,7 @@ class March_paths extends Api_controller {
       $post['latitude2'] = $post['latitude'];
       $post['longitude2'] = $post['longitude'];
       $post['is_enabled'] = 0;
-      // $post['is_enabled'] = $post['accuracy_horizontal'] <= 30 ? 1 : 0;
+      $post['is_enabled'] = $post['accuracy_horizontal'] <= 100 ? 1 : 0;
 
       unset ($post['id'], $post['a'], $post['n'], $post['h'], $post['v'], $post['l'], $post['s'], $post['i'], $post['b'], $post['t']);
 
@@ -109,7 +109,7 @@ class March_paths extends Api_controller {
       return $a['time_at'] > $b['time_at'];
     });
 
-    $paths = $this->_o ($paths);
+    // $paths = $this->_o ($paths);
 
     $paths = array_filter ($paths, function ($path) use ($march) {
       return MarchPath::transaction (function () use ($path, $march) {

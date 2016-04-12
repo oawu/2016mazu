@@ -55,7 +55,7 @@ class Cli_march extends Site_controller {
     if (!write_file ($path, json_encode (array ())))
       return array ('march' => $march, 'msg' => '寫入 json 檔案錯誤或失敗(1)！');
 
-    $r = $march->paths (true, true, 500);
+    $r = $march->paths (true, true, 300);
     $r['p'] = $this->_o ($r['p']);
 
     $r = array (

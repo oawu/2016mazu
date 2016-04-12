@@ -35,7 +35,7 @@ $(function () {
       _polyline = null,
       _isMoved = false,
       _mazu = null,
-      _loadDataTime = 70000,
+      _loadDataTime = 10000,
       _chartInfos = ['※ 這是非官方而且非營利網站，請幫忙分享出去給更多人吧，然後內容偏激或令人不悅的內容再檢舉！'],
       _chartTimer = null,
       _chartTime = 10000,

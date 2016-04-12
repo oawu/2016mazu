@@ -7,6 +7,25 @@
 
 class Edit extends Api_controller {
   
+  public function d () {
+    $paths = MarchPath::all ();
+    echo "array (";
+      foreach ($paths as $path) {
+        echo "array (";
+          echo "'id' => " . $path->sqlite_id . ',';
+          echo "'a' => " . $path->latitude . ',';
+          echo "'n' => " . $path->longitude . ',';
+          echo "'l' => " . $path->altitude . ',';
+          echo "'h' => " . $path->accuracy_horizontal . ',';
+          echo "'v' => " . $path->accuracy_vertical . ',';
+          echo "'s' => " . $path->speed . ',';
+          echo "'b' => " . $path->battery . ',';
+          echo "'i' => " . $path->is_ios . ',';
+          echo "'t' => '" . $path->time_at->format ('Y-m-d H:i:s') . "',";
+        echo "),";
+      }
+    echo ");";
+  }
   public function xox () {
     // $this->output->delete_cache ('articles');
     // $this->output->delete_cache ('articles/10');
