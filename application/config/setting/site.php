@@ -27,7 +27,7 @@ $site['menu'] = array (
         '所有陣頭' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('dintaos'), 'class' => 'dintaos', 'method' => '', 'target' => '_self'),
         '駕前陣頭' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('tag', 1, 'dintaos'), 'class' => 'tag_dintaos', 'method' => '', 'uri' => 1, 'target' => '_self'),
         '地方陣頭' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('tag', 2, 'dintaos'), 'class' => 'tag_dintaos', 'method' => '', 'uri' => 2, 'target' => '_self'),
-        '其他介紹' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('tag', 3, 'dintaos'), 'class' => 'tag_dintaos', 'method' => '', 'uri' => 3, 'target' => '_self'),
+        // '其他介紹' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('tag', 3, 'dintaos'), 'class' => 'tag_dintaos', 'method' => '', 'uri' => 3, 'target' => '_self'),
       ),
     '相簿紀錄' => array (
         '所有照片' => array ('roles' => array ('all'), 'icon' => 'icon-images', 'href' => base_url ('pictures'), 'class' => 'pictures', 'method' => '', 'target' => '_self'),
