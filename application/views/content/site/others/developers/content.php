@@ -6,9 +6,9 @@
 </figure>
 
 <article><?php echo preg_replace ('/<br\s*\/?>\n+/', '<br/>', $other->content);?></article>
-
+<br/>
 <?php
-  if ($users) { ?>
+  if (false && $users) { ?>
     <div class='i'>
 <?php foreach ($users as $user) { ?>
         <figure>
