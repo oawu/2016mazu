@@ -69,14 +69,41 @@
     <section>
       <h3>地方陣頭</h3>
       <ol>
-        <li>報馬仔</li><li>開路鼓（路關）</li><li>大燈車</li><li>金聲順開路鼓</li><li>菜鋪金義順大旗</li><li>北港東榮國小宋江陣</li><li>北港建國國中管樂隊、龍隊、旗隊</li><li>北港育英國小一輪車隊</li><li>北港國中管樂隊</li><li>雲林縣北港鎮德義堂龍鳳獅協會</li><li>北港集雅軒（北管）</li><li>北港勤習堂</li><li>北港新龍團</li><li>北港老塗獅</li><li>北港聚英社玄龍陣</li><li>新街錦陞社</li><li>武德堂國術館</li><li>北港濟世會</li><li>北港武德堂本館</li><li>誠心宮神童團</li><li>國立北港高中龍鳳閣</li><li>北港飛龍團</li><li>聖濟宮神童團</li><li>北港嘉北會大鼓</li><li>北港太子會</li><li>北港童聯會</li><li>北港忠義堂神童團</li><li>五聯境聖佛堂</li><li>北港都城隍廟</li><li>光星綜藝團</li><li>雲林縣彌勒團協會</li>
+        <li><a href='http://mazu.ioa.tw/dintao/1-報馬仔'>報馬仔</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/3-路關牌 爐主燈'>開路鼓（路關）</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/3-路關牌 爐主燈'>大燈車</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/9-金聲順'>金聲順開路鼓</a></li>
+        <li>菜鋪金義順大旗</li><li>北港東榮國小宋江陣</li>
+        <li>北港建國國中管樂隊、龍隊、旗隊</li><li>北港育英國小一輪車隊</li>
+        <li>北港國中管樂隊</li><li>雲林縣北港鎮德義堂龍鳳獅協會</li>
+        <li>北港集雅軒（北管）</li><li>北港勤習堂</li><li>北港新龍團</li>
+        <li>北港老塗獅</li><li>北港聚英社玄龍陣</li><li>新街錦陞社</li>
+        <li>武德堂國術館</li><li>北港濟世會</li><li>北港武德堂本館</li>
+        <li>誠心宮神童團</li><li>國立北港高中龍鳳閣</li><li>北港飛龍團</li>
+        <li>聖濟宮神童團</li><li>北港嘉北會大鼓</li><li>北港太子會</li><li>北港童聯會</li><li>北港忠義堂神童團</li><li>五聯境聖佛堂</li><li>北港都城隍廟</li><li>光星綜藝團</li><li>雲林縣彌勒團協會</li>
       </ol>
     </section>
 
     <section>
       <h3>駕前陣頭</h3>
       <ol>
-        <li>聖震聲開路鼓</li><li>哨角震威團</li><li>執事牌</li><li>鑾駕儀仗隊（點心鋪誠心順七十二隊）</li><li>閭山堂神童團</li><li>太子爺金垂髫轎班會</li><li>虎爺</li><li>笨港境主、福德正神金福綏轎班會</li><li>註生娘娘 金瑞昭轎班會</li><li>莊儀團、千里眼、順風耳將軍</li><li>六媽金順崇轎班會</li><li>五媽金豐隆轎班會</li><li>四媽金安瀾轎班會</li><li>三媽金盛豐轎班會</li><li>二媽金順安轎班會</li><li>祖媽金順盛轎班會</li><li>新街碧水寺</li><li>北港彌陀寺</li>
+        <li><a href='http://mazu.ioa.tw/dintao/10-聖震聲'>聖震聲開路鼓</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/12-震威團'>哨角震威團</a></li>
+        <li>執事牌</li>
+        <li><a href='http://mazu.ioa.tw/dintao/4-鑾駕'>鑾駕儀仗隊（點心鋪誠心順七十二隊）</a></li>
+        <li>閭山堂神童團</li>
+        <li><a href='http://mazu.ioa.tw/dintao/2-金垂髫'>太子爺金垂髫轎班會</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/11-虎爺會'>虎爺</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/13-金福綏 土地公會'>笨港境主、福德正神金福綏轎班會</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/14-金瑞昭 註生娘娘'>註生娘娘 金瑞昭轎班會</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/15-莊儀團 千順將軍'>莊儀團、千里眼、順風耳將軍</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/16-六媽 金順崇 轎班會'>六媽金順崇轎班會</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/17-五媽 金豐隆 轎班會'>五媽金豐隆轎班會</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/18-四媽 金安瀾 轎班會'>四媽金安瀾轎班會</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/19-三媽 金盛豐 轎班會'>三媽金盛豐轎班會</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/20-二媽 金順安 轎班會'>二媽金順安轎班會</a></li>
+        <li><a href='http://mazu.ioa.tw/dintao/21-祖媽 金順盛 轎班會'>祖媽金順盛轎班會</a></li>
+        <li>新街碧水寺</li><li>北港彌陀寺</li>
       </ol>
     </section>
   </div>

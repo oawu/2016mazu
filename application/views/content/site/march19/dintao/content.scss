@@ -285,3 +285,7 @@ article {
     }
   }
 }
+
+li a {
+  @include a(1px);
+}
