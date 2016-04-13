@@ -93,7 +93,7 @@ class Articles extends Site_controller {
                     'article' => $article,
                     'prev' => $article->prev ($this->tag),
                     'next' => $article->next ($this->tag),
-                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
+                  ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
   public function index ($offset = 0) {
     $columns = array ();
@@ -145,6 +145,6 @@ class Articles extends Site_controller {
                     'articles' => $articles,
                     'pagination' => $pagination,
                     'columns' => $columns
-                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
+                  ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
 }

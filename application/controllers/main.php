@@ -86,6 +86,6 @@ class Main extends Site_controller {
             'polyline' => $polyline,
             'prev' => $prev,
             'next' => $next,
-          ), false, ENVIRONMENT == 'production' ? 60 : 0);
+          ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
 }

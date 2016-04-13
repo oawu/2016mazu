@@ -92,7 +92,7 @@ class March19 extends Site_controller {
             'json_ld' => $json_ld,
             'prev' => $prev,
             'next' => $next,
-          ), false, ENVIRONMENT == 'production' ? 60 : 0);
+          ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
   public function dintao () {
     $prev = array (
@@ -177,7 +177,7 @@ class March19 extends Site_controller {
             'json_ld' => $json_ld,
             'prev' => $prev,
             'next' => $next,
-          ), false, ENVIRONMENT == 'production' ? 60 : 0);
+          ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
   public function iko () {
     $prev = array (
@@ -261,6 +261,6 @@ class March19 extends Site_controller {
             'json_ld' => $json_ld,
             'prev' => $prev,
             'next' => $next,
-          ), false, ENVIRONMENT == 'production' ? 60 : 0);
+          ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
 }

@@ -93,7 +93,7 @@ class Dintaos extends Site_controller {
                     'dintao' => $dintao,
                     'prev' => $dintao->prev ($this->tag),
                     'next' => $dintao->next ($this->tag),
-                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
+                  ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
   public function index ($offset = 0) {
     $columns = array ();
@@ -145,6 +145,6 @@ class Dintaos extends Site_controller {
                     'dintaos' => $dintaos,
                     'pagination' => $pagination,
                     'columns' => $columns
-                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
+                  ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
 }

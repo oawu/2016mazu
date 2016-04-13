@@ -97,7 +97,7 @@ class Others extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ), false, ENVIRONMENT == 'production' ? 60 : 0);
+          ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
   public function developers () {
     $prev = 'author';
@@ -134,7 +134,7 @@ class Others extends Site_controller {
             'prev' => $prev,
             'next' => $next,
             'users' => $users,
-          ), false, ENVIRONMENT == 'production' ? 60 : 0);
+          ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
   public function license () {
     $prev = 'developers';
@@ -149,6 +149,6 @@ class Others extends Site_controller {
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
-          ), false, ENVIRONMENT == 'production' ? 60 : 0);
+          ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
 }

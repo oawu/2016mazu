@@ -16,7 +16,7 @@ class Stores extends Site_controller {
                 ->add_hidden (array ('id' => 'id', 'value' => $store->id))
                 ->load_view (array (
                     'store' => $store
-                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
+                  ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
   public function index ($id = 0) {
     Store::addConditions ($conditions, 'destroy_user_id IS NULL AND is_enabled = ?', Store::IS_ENABLED);
@@ -95,6 +95,6 @@ class Stores extends Site_controller {
                 ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'my.js'))
                 ->load_view (array (
                     'stores' => $stores,
-                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
+                  ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
 }

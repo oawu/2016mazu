@@ -103,7 +103,7 @@ class Tag_youtubes extends Site_controller {
                     'youtube' => $youtube,
                     'prev' => $youtube->prev ($this->tag->id),
                     'next' => $youtube->next ($this->tag->id),
-                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
+                  ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
   public function index ($tag_id, $offset = 0) {
     $columns = array ();
@@ -160,6 +160,6 @@ class Tag_youtubes extends Site_controller {
                     'youtubes' => $youtubes,
                     'pagination' => $pagination,
                     'columns' => $columns
-                  ), false, ENVIRONMENT == 'production' ? 60 : 0);
+                  ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
 }
