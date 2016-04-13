@@ -15,7 +15,6 @@ $site['menu'] = array (
     '首頁' => array (
         '網站首頁' => array ('roles' => array ('all'), 'icon' => 'fi-h', 'href' => base_url (), 'class' => 'main', 'method' => 'index', 'target' => '_self'),
         '笨港文化' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('articles'), 'class' => 'articles', 'method' => '', 'target' => '_self'),
-        '開發作者' => array ('roles' => array ('all'), 'icon' => 'icon-user', 'href' => base_url ('others'), 'class' => 'others', 'method' => '', 'target' => '_self'),
       ),
     '三月十九' => array (
         '北港廟會' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('march19'), 'class' => 'march19', 'method' => 'index', 'target' => '_self'),
@@ -46,6 +45,7 @@ $site['menu'] = array (
         '名勝古蹟' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('tag', 3, 'stores'), 'class' => 'tag_stores', 'method' => '', 'uri' => 3, 'target' => '_self'),
       ),
     '其他' => array (
+        '開發作者' => array ('roles' => array ('all'), 'icon' => 'icon-user', 'href' => base_url ('others'), 'class' => 'others', 'method' => '', 'target' => '_self'),
         'PV' => array ('no_show' => true, 'roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('ajax', 'pv'), 'class' => 'ajax', 'method' => 'pv', 'target' => '_self'),
         '登入' => array ('no_show' => true, 'roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('platform', 'login'), 'class' => 'platform', 'method' => 'login', 'target' => '_self'),
         'ＦＢ登入' => array ('no_show' => true, 'roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('platform', 'fb_sign_in'), 'class' => 'platform', 'method' => 'fb_sign_in', 'target' => '_self'),

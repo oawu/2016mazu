@@ -288,7 +288,7 @@ $(function () {
       });
 
       if (!_polyline) _polyline = new google.maps.Polyline ({ map: _map, strokeColor: 'rgba(249, 39, 114, .45)', strokeWeight: 5 });
-      _polyline.setPath (_markers.map (function (t) { return t.position; }));
+      _polyline.setPath (_markers.column ('position'));
 
       if (!_mazu) _mazu = new MarkerWithLabel ({ map: _map, draggable: false, optimized: false, labelContent: '<img src="' + result.c + '" />', icon: {path: 'M 0 0'}, labelAnchor: new google.maps.Point (40 / 2, 70), labelClass: 'mazu_icon'});
       _mazu.setPosition (_markers.last ().position);
@@ -312,11 +312,11 @@ $(function () {
 
       if (isFirst) {
         _map.setCenter (_markers.last ().position);
-        if (!_isMoved) mapGo (_map, _markers.last ().position);
         // initHeatmap ();
         // if (getStorage (_storage_key3)) $s.click ();
         window.hideLoading ();
       }
+      if (!_isMoved) mapGo (_map, _markers.last ().position);
     });
   }
   function initialize () {
