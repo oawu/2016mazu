@@ -13,7 +13,8 @@ class Others extends Site_controller {
   
     $this->add_tab ('網站作者', array ('href' => base_url ($this->get_class (), 'author'), 'index' => 1))
          ->add_tab ('製作人員', array ('href' => base_url ($this->get_class (), 'developers'), 'index' => 2))
-         ->add_tab ('網站聲明', array ('href' => base_url ($this->get_class (), 'license'), 'index' => 3));
+         ->add_tab ('網站聲明', array ('href' => base_url ($this->get_class (), 'license'), 'index' => 3))
+         ->add_tab ('資源引用', array ('href' => base_url ($this->get_class (), 'resources'), 'index' => 5));
 
     if (!$this->other = Other::find ('one', array ('conditions' => array ('type = ? AND is_enabled = ? AND destroy_user_id IS NULL', $this->get_method (), Other::IS_ENABLED))))
       return redirect_message (array (), array (
@@ -141,11 +142,26 @@ class Others extends Site_controller {
     if ($prev = Other::find ('one', array ('conditions' => array ('type = ? AND is_enabled = ? AND destroy_user_id IS NULL', $prev, Other::IS_ENABLED))))
       $this->add_meta (array ('property' => 'og:see_also', 'content' => $prev->content_page_url ()));
 
-    $next = 'author';
+    $next = 'resources';
     if ($next = Other::find ('one', array ('conditions' => array ('type = ? AND is_enabled = ? AND destroy_user_id IS NULL', $next, Other::IS_ENABLED))))
       $this->add_meta (array ('property' => 'og:see_also', 'content' => $next->content_page_url ()));
 
     $this->set_tab_index (3)
+         ->load_view (array (
+            'prev' => $prev,
+            'next' => $next,
+          ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
+  }
+  public function resources () {
+    $prev = 'license';
+    if ($prev = Other::find ('one', array ('conditions' => array ('type = ? AND is_enabled = ? AND destroy_user_id IS NULL', $prev, Other::IS_ENABLED))))
+      $this->add_meta (array ('property' => 'og:see_also', 'content' => $prev->content_page_url ()));
+
+    $next = 'author';
+    if ($next = Other::find ('one', array ('conditions' => array ('type = ? AND is_enabled = ? AND destroy_user_id IS NULL', $next, Other::IS_ENABLED))))
+      $this->add_meta (array ('property' => 'og:see_also', 'content' => $next->content_page_url ()));
+
+    $this->set_tab_index (5)
          ->load_view (array (
             'prev' => $prev,
             'next' => $next,
