@@ -259,6 +259,7 @@
                   self.isUpload = NO;
                   [self uploadLog:@"----------------------------------------"];
                   [self uploadLog:@"上傳失敗"];
+                  NSLog(@"=======>Failure!Error:%@", [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding]);
               }
      ];
 }
