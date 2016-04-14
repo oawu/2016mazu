@@ -86,7 +86,7 @@ class Others extends Site_controller {
          ->add_param ('json_ld', $json_ld);
   }
   public function author () {
-    $prev = 'license';
+    $prev = 'resources';
     if ($prev = Other::find ('one', array ('conditions' => array ('type = ? AND is_enabled = ? AND destroy_user_id IS NULL', $prev, Other::IS_ENABLED))))
       $this->add_meta (array ('property' => 'og:see_also', 'content' => $prev->content_page_url ()));
 
