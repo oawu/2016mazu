@@ -1,3 +1,9 @@
+<figure>
+  <a href='<?php echo current_url ();?>'>
+    <img alt='<?php echo $other->title;?> - <?php echo Cfg::setting ('site', 'title');?>' src='<?php echo $other->cover->url ('1200x630c');?>' />
+  </a>
+  <figcaption><?php echo $other->title;?> - <?php echo Cfg::setting ('site', 'title');?></figcaption>
+</figure>
 
 <article><?php echo preg_replace ('/<br\s*\/?>\n+/', '<br/>', $other->content);?></article>
 
