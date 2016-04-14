@@ -64,9 +64,6 @@ class March_paths extends Api_controller {
     $paths = ($paths = OAInput::post ('p')) ? $paths : array ();
     $same = is_numeric ($same = OAInput::post ('s')) && $same ? true : false;
 
-    echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-    var_dump ($same ? "1" : "0");
-    exit ();
     if (!$paths) return $this->output_json (array ('ids' => array ()));
 
     $march = $this->march;
@@ -76,7 +73,7 @@ class March_paths extends Api_controller {
         'conditions' => array ('march_id = ?', $march->id)
       ));
 
-    $paths = array_filter (array_map (function ($post) use ($last) {
+    $paths = array_filter (array_map (function ($post) use ($last, $same) {
       if (!(isset ($post['id']) && is_numeric ($post['id'] = trim ($post['id'])))) return null;
       if (!(isset ($post['a']) && is_numeric ($post['a'] = trim ($post['a'])))) return null;
       if (!(isset ($post['n']) && is_numeric ($post['n'] = trim ($post['n'])))) return null;
@@ -101,7 +98,7 @@ class March_paths extends Api_controller {
       $post['latitude2'] = $post['latitude'];
       $post['longitude2'] = $post['longitude'];
       $post['is_enabled'] = 0;
-      $post['is_enabled'] = $post['accuracy_horizontal'] <= 100 ? 1 : 0;
+      $post['is_enabled'] = $same ? $post['accuracy_horizontal'] <= 100 ? 1 : 0 : 0;
 
       unset ($post['id'], $post['a'], $post['n'], $post['h'], $post['v'], $post['l'], $post['s'], $post['i'], $post['b'], $post['t']);
 

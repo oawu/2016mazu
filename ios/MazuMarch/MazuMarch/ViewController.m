@@ -227,11 +227,11 @@
         [self uploadLog:@"沒有節點！"];
         [self locationManager: self.locationManager didUpdateLocations: @[self.locationManager.location]];
         [self uploadLog:@"強制取點！"];
-//        [data setValue:@"1" forKey:@"s"];
+        [data setValue:@"1" forKey:@"s"];
     } else {
-//        [data setValue:@"0" forKey:@"s"];
+        [data setValue:@"0" forKey:@"s"];
     }
-[data setValue:@"1" forKey:@"s"];
+
     NSMutableDictionary *parameters = [NSMutableDictionary new];
 
     int i = 0;
