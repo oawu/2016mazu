@@ -218,26 +218,24 @@
     
     [self uploadLog:@"----------------------------------------"];
     [self uploadLog:[NSString stringWithFormat:@"上傳路徑: %@", t]];
-
+    
+    NSMutableDictionary *data = [NSMutableDictionary new];
     NSArray *paths = [Path findAll: @{@"order": @"id DESC", @"limit": @UPLOAD_PATHS_LIMIT}];
 
     if (((int)[paths count]) < 1) {
-//        self.isUpload = NO;
         [self uploadLog:@"----------------------------------------"];
         [self uploadLog:@"沒有節點！"];
         [self locationManager: self.locationManager didUpdateLocations: @[self.locationManager.location]];
         [self uploadLog:@"強制取點！"];
-        
-//        self.isUpload = NO;
-//        return;
+        [data setValue:@"true" forKey:@"s"];
+    } else {
+        [data setValue:@"false" forKey:@"s"];
     }
     
     NSMutableDictionary *parameters = [NSMutableDictionary new];
 
     int i = 0;
     for (Path* path in paths) [parameters setValue:[path toDictionary] forKey:[NSString stringWithFormat:@"%d", i++]];
-
-    NSMutableDictionary *data = [NSMutableDictionary new];
     [data setValue:parameters forKey:@"p"];
     
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
