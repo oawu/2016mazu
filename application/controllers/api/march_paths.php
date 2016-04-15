@@ -63,7 +63,7 @@ class March_paths extends Api_controller {
   public function create () {
     $paths = ($paths = OAInput::post ('p')) ? $paths : array ();
 echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-var_dump ($same = OAInput::post ('s'));
+var_dump (is_numeric($same = OAInput::post ('s')));
 exit ();
     $same = ($same = OAInput::post ('s')) && $same ? true : false;
 
