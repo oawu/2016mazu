@@ -65,7 +65,7 @@ class March_paths extends Api_controller {
     $same = OAInput::post ('s');
     // $same = is_numeric ($same = OAInput::post ('s')) && $same ? true : false;
 echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-var_dump ($same ? 1 : 2);
+var_dump ($same, $same ? 1 : 2);
 exit ();
     if (!$paths) return $this->output_json (array ('ids' => array ()));
 
