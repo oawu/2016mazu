@@ -91,7 +91,7 @@
         <li><a href='http://mazu.ioa.tw/dintao/12-震威團'>哨角震威團</a></li>
         <li>執事牌</li>
         <li><a href='http://mazu.ioa.tw/dintao/4-鑾駕'>鑾駕儀仗隊（點心鋪誠心順七十二隊）</a></li>
-        <li>閭山堂神童團</li>
+        <li><a href='http://mazu.ioa.tw/dintao/22-閭山堂 神童團'>閭山堂神童團</a></li>
         <li><a href='http://mazu.ioa.tw/dintao/2-金垂髫'>太子爺金垂髫轎班會</a></li>
         <li><a href='http://mazu.ioa.tw/dintao/11-虎爺會'>虎爺</a></li>
         <li><a href='http://mazu.ioa.tw/dintao/13-金福綏 土地公會'>笨港境主、福德正神金福綏轎班會</a></li>
