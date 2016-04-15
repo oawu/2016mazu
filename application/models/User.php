@@ -61,14 +61,14 @@ class User extends OaModel {
   }
 
   public function name () {
-    if (!isset ($this->name)) return '北港人';
+    if (!isset ($this->name)) return '管理員';
     if (in_array ($this->id, array (3)))
-      return '北港人';
+      return '管理員';
     return $this->name;
   }
   public function avatar ($w = 100, $h = 100) {
     if (in_array ($this->id, array (3)))
-      return 'http://pic.mazu.ioa.tw/resource/image/orm_uploader/d42.png';
+      return 'http://pic.mazu.ioa.tw/resource/image/og/larger.jpg';
 
     $size = array ();
     array_push ($size, isset ($w) && $w ? 'width=' . $w : '');
