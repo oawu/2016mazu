@@ -13,7 +13,7 @@
   <figure>
     <a href='<?php echo $picture->user->facebook_link ();?>' target='_blank'><img src='<?php echo $picture->user->avatar ();?>' /></a>
   </figure>
-  <a href='<?php echo $picture->user->facebook_link ();?>' target='_blank'>吳政賢</a>
+  <a href='<?php echo $picture->user->facebook_link ();?>' target='_blank'><?php echo $picture->user->name ();?></a>
   <span>·</span>
   <time><?php echo $picture->created_at->format ('Y.m.d');?></time>
 </div>

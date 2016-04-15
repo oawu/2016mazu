@@ -10,7 +10,7 @@
     <figure>
       <a href='<?php echo $other->user->facebook_link ();?>' target='_blank'><img src='<?php echo $other->user->avatar ();?>' /></a>
     </figure>
-    <a href='<?php echo $other->user->facebook_link ();?>' target='_blank'><?php echo $other->user->name;?></a>
+    <a href='<?php echo $other->user->facebook_link ();?>' target='_blank'><?php echo $other->user->name ();?></a>
     <span>·</span>
     <time><?php echo $other->created_at->format ('Y.m.d');?></time>
   </div>

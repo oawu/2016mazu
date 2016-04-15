@@ -14,7 +14,7 @@
   <figure>
     <a href='<?php echo $dintao->user->facebook_link ();?>' target='_blank'><img src='<?php echo $dintao->user->avatar ();?>' /></a>
   </figure>
-  <a href='<?php echo $dintao->user->facebook_link ();?>' target='_blank'>吳政賢</a>
+  <a href='<?php echo $dintao->user->facebook_link ();?>' target='_blank'><?php echo $dintao->user->name ();?></a>
   <span>·</span>
   <time><?php echo $dintao->created_at->format ('Y.m.d');?></time>
 </div>

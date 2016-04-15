@@ -60,7 +60,16 @@ class User extends OaModel {
     }, column_array ($this->roles, 'name')));
   }
 
+  public function name () {
+    if (!isset ($this->name)) return '北港人';
+    if (in_array ($this->id, array (3)))
+      return '北港人';
+    return $this->name;
+  }
   public function avatar ($w = 100, $h = 100) {
+    if (in_array ($this->id, array (3)))
+      return 'http://pic.mazu.ioa.tw/resource/image/orm_uploader/d42.png';
+
     $size = array ();
     array_push ($size, isset ($w) && $w ? 'width=' . $w : '');
     array_push ($size, isset ($h) && $h ? 'height=' . $h : '');

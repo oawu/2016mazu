@@ -14,7 +14,7 @@
   <figure>
     <a href='<?php echo $article->user->facebook_link ();?>' target='_blank'><img src='<?php echo $article->user->avatar ();?>' /></a>
   </figure>
-  <a href='<?php echo $article->user->facebook_link ();?>' target='_blank'>吳政賢</a>
+  <a href='<?php echo $article->user->facebook_link ();?>' target='_blank'><?php echo $article->user->name ();?></a>
   <span>·</span>
   <time><?php echo $article->created_at->format ('Y.m.d');?></time>
 </div>

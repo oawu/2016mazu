@@ -11,7 +11,7 @@
   <figure>
     <a href='<?php echo $youtube->user->facebook_link ();?>' target='_blank'><img src='<?php echo $youtube->user->avatar ();?>' /></a>
   </figure>
-  <a href='<?php echo $youtube->user->facebook_link ();?>' target='_blank'>吳政賢</a>
+  <a href='<?php echo $youtube->user->facebook_link ();?>' target='_blank'><?php echo $youtube->user->name ();?></a>
   <span>·</span>
   <time><?php echo $youtube->created_at->format ('Y.m.d');?></time>
 </div>
