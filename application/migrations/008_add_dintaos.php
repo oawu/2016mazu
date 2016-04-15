@@ -12,6 +12,7 @@ class Migration_Add_dintaos extends CI_Migration {
         `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
         `user_id` int(11) unsigned NOT NULL COMMENT 'User ID',
         `destroy_user_id` int(11) unsigned DEFAULT NULL COMMENT '刪除此筆的 User ID',
+        `sort` int(1) unsigned NOT NULL DEFAULT 0 COMMENT '上下架，1 上架，0 下架',
 
         `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
         `keywords` text COMMENT 'SEO 關鍵字',

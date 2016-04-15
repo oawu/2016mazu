@@ -130,7 +130,7 @@ class Tag_dintaos extends Site_controller {
     $dintaos = Dintao::find ('all', array (
         'offset' => $offset,
         'limit' => $limit,
-        'order' => 'id DESC',
+        'order' => 'sort DESC',
         'include' => array ('mappings'),
         'conditions' => $conditions
       ));
