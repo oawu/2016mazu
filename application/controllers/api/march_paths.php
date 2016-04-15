@@ -62,7 +62,7 @@ class March_paths extends Api_controller {
 
   public function create () {
     $paths = ($paths = OAInput::post ('p')) ? $paths : array ();
-    $same = is_numeric ($same = OAInput::post ('s')) && $same ? true : false;
+    $same = ($same = OAInput::post ('s')) && $same ? true : false;
 
     if (!$paths) return $this->output_json (array ('ids' => array ()));
 
