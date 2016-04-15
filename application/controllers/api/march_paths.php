@@ -62,11 +62,8 @@ class March_paths extends Api_controller {
 
   public function create () {
     $paths = ($paths = OAInput::post ('p')) ? $paths : array ();
-    $same = OAInput::post ('s');
-    // $same = is_numeric ($same = OAInput::post ('s')) && $same ? true : false;
-echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-var_dump ($same, $same ? 1 : 2);
-exit ();
+    $same = is_numeric ($same = OAInput::post ('s')) && $same ? true : false;
+
     if (!$paths) return $this->output_json (array ('ids' => array ()));
 
     $march = $this->march;
@@ -101,7 +98,7 @@ exit ();
       $post['latitude2'] = $post['latitude'];
       $post['longitude2'] = $post['longitude'];
       $post['is_enabled'] = 0;
-      $post['is_enabled'] = $same ? $post['accuracy_horizontal'] <= 100 ? 1 : 0 : 0;
+      $post['is_enabled'] = !$same ? $post['accuracy_horizontal'] <= 100 ? 1 : 0 : 0;
 
       unset ($post['id'], $post['a'], $post['n'], $post['h'], $post['v'], $post['l'], $post['s'], $post['i'], $post['b'], $post['t']);
 
