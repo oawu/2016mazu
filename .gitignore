@@ -44,6 +44,7 @@ sitemap/*
 /init
 /migration
 /robots.txt
+/baidu_verify_Gk633zpx2i.html
 
 system/cmd/.sass-cache/*
 system/cmd/node_modules/*
