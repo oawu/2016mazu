@@ -26,7 +26,7 @@
 
 - (void)initUI {
     self.marchId = 1;
-    self.distance = 1;
+    self.distance = 3;
 
     self.locationManager = [CLLocationManager new];
     [self.locationManager setDelegate:self];
@@ -81,7 +81,7 @@
     
     
     
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"十九早", @"十九中", @"十九晚", @"二十早", @"二十中", @"二十晚"]];
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10"]];
     [self.segmentedControl setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.segmentedControl addTarget:self action:@selector(chooseOne:) forControlEvents:UIControlEventValueChanged];
     [self.segmentedControl setSelectedSegmentIndex:self.marchId - 1];
@@ -120,6 +120,61 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1 constant:10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:-10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.uploadLogTextView attribute:NSLayoutAttributeTop multiplier:1 constant:-10.0]];
+    
+    self.pswView = [UIView new];
+    [self.pswView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.pswView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.4]];
+    
+    [self.view addSubview:self.pswView];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.pswView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:0.0]];
+    self.left1 = [NSLayoutConstraint constraintWithItem:self.pswView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:0.0];
+    self.left2 = [NSLayoutConstraint constraintWithItem:self.pswView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:0.0001 constant:0.0];
+    [self.view addConstraint: self.left1];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.pswView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1 constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.pswView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:0.0]];
+    
+    UIButton *btn = [UIButton new];
+    [btn setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [btn.layer setBorderColor:[UIColor colorWithRed:0.85 green:0.21 blue:0.20 alpha:1.00].CGColor];
+//    [btn.layer setBorderWidth:1.0f / [UIScreen mainScreen].scale];
+//    [btn.layer setCornerRadius:2];
+//    [btn setClipsToBounds:YES];
+    [btn setTitle:@"解鎖" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(unlock:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.pswView addSubview:btn];
+    
+    [self.pswView addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.pswView attribute:NSLayoutAttributeRight multiplier:1 constant:-10.0]];
+    [self.pswView addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.pswView attribute:NSLayoutAttributeBottom multiplier:1 constant:-10.0]];
+    
+}
+
+
+- (void)unlock:(UIButton *)sender{
+    UIAlertController *inputAlert = [UIAlertController
+                                     alertControllerWithTitle:@"輸入密碼"
+                                     message:nil
+                                     preferredStyle:UIAlertControllerStyleAlert];
+
+    [inputAlert addTextFieldWithConfigurationHandler:^(UITextField *text){
+        [text setPlaceholder:@"請輸入密碼解鎖.."];
+        [text setSecureTextEntry:YES];
+    }];
+    [inputAlert addAction:[UIAlertAction
+                           actionWithTitle:@"確定"
+                           style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction * action) {
+                               if ([((UITextField *)[inputAlert.textFields objectAtIndex:0]).text isEqualToString:@"oa0319"]) {
+                                   [UIView animateWithDuration:0.3f animations:^{
+                                       [self.view addConstraint: self.left1];
+                                       [self.view removeConstraint:self.left2];
+                                       [self.view layoutIfNeeded];
+                                   } completion:nil];
+                               } else {
+//                                   [self presentViewController:inputAlert animated:YES completion:nil];
+                               }
+                           }]];
+    [self presentViewController:inputAlert animated:YES completion:nil];
 }
 
 - (void)stepperChanged:(UIStepper*)sender {
@@ -172,6 +227,12 @@
         [self.switchLabel setText:@"開啟"];
         [self locationLog:@"已開啟"];
         [self uploadLog:@"已開啟"];
+
+        [UIView animateWithDuration:0.3f animations:^{
+            [self.view addConstraint: self.left2];
+            [self.view removeConstraint:self.left1];
+            [self.view layoutIfNeeded];
+        } completion:nil];
     } else {
         [self locationLog:@"==================================="];
         [self locationLog:@"關閉中.."];

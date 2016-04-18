@@ -11,6 +11,7 @@
 #import "Header.h"
 #import "Path.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "LockViewController.h"
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>
 
@@ -28,6 +29,9 @@
 @property int marchId;
 @property int distance;
 @property UIDevice *myDevice;
+
+@property UIView *pswView;
+@property NSLayoutConstraint *left1, *left2;
 
 @property UIBackgroundTaskIdentifier *backgroundTaskIdentifier;
 
