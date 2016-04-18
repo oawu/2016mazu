@@ -47,7 +47,7 @@ class Tag_dintaos extends Site_controller {
         "@context" => "http://schema.org", "@type" => "Article",
         "mainEntityOfPage" => array (
             "@type" => "WebPage",
-            "@id" => base_url ('tags', $$this->tag->id, 'dintaos'),
+            "@id" => base_url ('tags', $this->tag->id, 'dintaos'),
           ),
         "headline" => $dintao->title,
         "image" => array (
