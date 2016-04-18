@@ -29,6 +29,9 @@ Array.prototype.last = function () {
 Array.prototype.first = function () {
   return this[0];
 };
+Array.prototype.find = function (k, a) {
+  return this[this.column (k).indexOf (a)];
+};
 
 window.ajaxError = function (result) {
   console.error (result.responseText);

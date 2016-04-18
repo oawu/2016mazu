@@ -18,7 +18,7 @@ $site['menu'] = array (
       ),
     '三月十九' => array (
         '北港廟會' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('march19'), 'class' => 'march19', 'method' => 'index', 'target' => '_self'),
-        '媽祖定位' => array ('no_show' => true, 'roles' => array ('all'), 'icon' => 'icon-gps_fixed', 'href' => base_url ('maps', 'gps'), 'class' => 'maps', 'method' => 'gps', 'target' => '_self'),
+        '媽祖定位' => array ('no_show' => true, 'roles' => array ('all'), 'icon' => 'icon-gps_fixed', 'href' => base_url ('gps'), 'class' => 'gps', 'method' => '', 'target' => '_self'),
         '路關簡介' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('march19', 'dintao'), 'class' => 'march19', 'method' => array ('dintao', 'iko'), 'target' => '_self'),
         '陣頭路線圖<span>(Google Maps)</span>' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('maps', 'dintao'), 'class' => 'maps', 'method' => 'dintao', 'target' => '_self'),
         '藝閣路線圖<span>(Google Maps)</span>' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('maps', 'iko'), 'class' => 'maps', 'method' => 'iko', 'target' => '_self'),

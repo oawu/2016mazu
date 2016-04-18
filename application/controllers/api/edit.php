@@ -7,21 +7,58 @@
 
 class Edit extends Api_controller {
   
-  public function d () {
-    $paths = MarchPath::all ();
+  public function demox () {
+    $points = OAInput::post ('points');
+
     echo "array (";
-      foreach ($paths as $path) {
+      foreach ($points as $i => $point) {
         echo "array (";
-          echo "'id' => " . $path->sqlite_id . ',';
-          echo "'a' => " . $path->latitude . ',';
-          echo "'n' => " . $path->longitude . ',';
-          echo "'l' => " . $path->altitude . ',';
-          echo "'h' => " . $path->accuracy_horizontal . ',';
-          echo "'v' => " . $path->accuracy_vertical . ',';
-          echo "'s' => " . $path->speed . ',';
-          echo "'b' => " . $path->battery . ',';
-          echo "'i' => " . $path->is_ios . ',';
-          echo "'t' => '" . $path->time_at->format ('Y-m-d H:i:s') . "',";
+          echo "'id' => " . $i . ',';
+          echo "'a' => " . $point['lat'] . ',';
+          echo "'n' => " . $point['lng'] . ',';
+          echo "'l' => " . 10 . ',';
+          echo "'h' => " . 10 . ',';
+          echo "'v' => " . 10 . ',';
+          echo "'s' => " . 5 . ',';
+          echo "'b' => " . 100 . ',';
+          echo "'i' => " . 1 . ',';
+          echo "'t' => '" . date ('Y-m-d H:i:s', strtotime (date ('Y-m-d H:i:s') . ' -' . -$i . ' sec')) . "',";
+        echo "),";
+      }
+    echo ");";
+  }
+  public function demo () {
+    $points = array_map (function ($point) {
+      return array (
+          'a' => $point->latitude,
+          'n' => $point->longitude,
+        );
+    }, PathPoint::find ('all', array ('order' => 'id ASC', 'conditions' => array ('path_id = ?', 1))));
+
+    return $this->set_frame_path ('frame', 'pure')
+                ->add_js (resource_url ('resource', 'javascript', 'jrit.js'))
+                ->add_js (Cfg::setting ('google', 'client_js_url'), false)
+                ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
+                ->load_view (array (
+                    'points' => $points
+                  ));
+  }
+  public function d () {
+    $points = PathPoint::find ('all', array ('order' => 'id ASC', 'conditions' => array ('path_id = ?', 1)));
+
+    echo "array (";
+      foreach ($points as $i => $point) {
+        echo "array (";
+          echo "'id' => " . $i . ',';
+          echo "'a' => " . $point->latitude . ',';
+          echo "'n' => " . $point->longitude . ',';
+          echo "'l' => " . 10 . ',';
+          echo "'h' => " . 10 . ',';
+          echo "'v' => " . 10 . ',';
+          echo "'s' => " . 5 . ',';
+          echo "'b' => " . 100 . ',';
+          echo "'i' => " . 1 . ',';
+          echo "'t' => '" . date ('Y-m-d H:i:s', strtotime ($point->created_at->format ('Y-m-d H:i:s') . ' -' . -$i . ' sec')) . "',";
         echo "),";
       }
     echo ");";

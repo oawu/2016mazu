@@ -22,6 +22,19 @@ class March extends OaModel {
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
   }
+  public function paths2 ($limit = 0) {
+    $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'limit' => $limit, 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND is_ios = ?', $this->id, $this->is_ios)));
+
+    return array (
+        't' => isset ($paths[0]) ? $paths[0]->time_at->format ('Y-m-d H:i:s') : '',
+        'p' => array_map (function ($path) {
+            return array (
+                  'a' => $path->latitude2,
+                  'n' => $path->longitude2,
+                );
+          }, $paths)
+      );
+  }
   public function paths ($is_GPS = true, $is_snap2roads = false, $limit = 0) {
     $is_ios = $this->is_ios;
     
