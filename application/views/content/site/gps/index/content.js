@@ -149,7 +149,7 @@ $(function () {
         if (bounds) $map.get (0)._map.fitBounds (bounds);
     });
   }
-  function initButtons ($map, $container) {
+  function initButtons ($map, $body, $container) {
     $('#menu').click (function () { coverBody ('show', $container); });
     $('#zoom').click (function () { coverBody ('f', $body); google.maps.event.trigger ($map.get (0)._map, 'resize'); });
     $('#add_zoom').click (function () { $map.get (0)._map.setZoom ($map.get (0)._map.zoom + 1); });
@@ -244,7 +244,7 @@ $(function () {
         $messagePanelBottom = $messagePanel.find ('.bottom');
 
     initMap ($map);
-    initButtons ($map, $container);
+    initButtons ($map, $body, $container);
     initMessage ($container, $message, $messagePanelBottom);
 
     loadMarkers ($map, true);
