@@ -22,6 +22,7 @@
 #define BLACK_LIST_API_URL @"http://mazu.ioa.tw/api/march_message_blacklists"
 #define DELETE_BLACK_API_URL @"http://mazu.ioa.tw/api/march_message_blacklists/%d"
 
+#define LOAD_MARCHES_API_URL @"http://mazu.ioa.tw/api/marches"
 
 #define USER_ID @"1"
 #define LOAD_MESSAGE_TIMER 5 //sec

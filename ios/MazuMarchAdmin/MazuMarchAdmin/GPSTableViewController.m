@@ -1,18 +1,18 @@
 //
-//  BlackListTableViewController.m
+//  GPSTableViewController.m
 //  MazuMarchAdmin
 //
-//  Created by OA Wu on 2016/3/30.
+//  Created by OA Wu on 2016/4/22.
 //  Copyright © 2016年 OA Wu. All rights reserved.
 //
 
-#import "BlackListTableViewController.h"
+#import "GPSTableViewController.h"
 
-@interface BlackListTableViewController ()
+@interface GPSTableViewController ()
 
 @end
 
-@implementation BlackListTableViewController
+@implementation GPSTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -21,33 +21,17 @@
     
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
-    
-    self.list = [NSMutableArray new];
-    
-    
-    self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(refreshAction) forControlEvents:UIControlEventValueChanged];
-    
 }
 
-- (void)refreshAction {
-    [self.refreshControl endRefreshing];
-    
-    [self clean];
-    [self reloadData];
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self clean];
-}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.list = [NSMutableArray new];
     [self reloadData];
-}
-- (void)clean {
-    self.list = [NSMutableArray new];
-    [self.tableView reloadData];
 }
 - (void)reloadData {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"取得資料中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
@@ -56,14 +40,19 @@
         [self loadData:alert];
     }];
 }
+
 - (void)loadData:(UIAlertController *)alert {
     
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
-    [httpManager GET:LOAD_MARCHES_API_URL
+    [httpManager GET:BLACK_LIST_API_URL
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 for (NSDictionary *l in [responseObject objectForKey:@"l"])
+                     [self.list addObject: l];
+                 
+                 [self.tableView reloadData];
                  
                  if (alert) [alert dismissViewControllerAnimated:YES completion:nil];
              }
@@ -72,9 +61,8 @@
              }
      ];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
+
+#pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -84,45 +72,15 @@
     return [self.list count];
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return true;
-}
-
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self deleteBlack:[NSString stringWithFormat:@"%@", [[self.list objectAtIndex:indexPath.row] objectForKey:@"id"]] callback: ^{
-        [self.list removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
-        
-    }];
-}
--(void)deleteBlack:(NSString *)blackId callback:(void (^)())finish {
-    
-    AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
-    [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
-    [httpManager DELETE:[NSString stringWithFormat:DELETE_BLACK_API_URL, (int)[blackId integerValue]]
-           parameters:nil
-              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  finish ();
-              }
-              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                  finish ();
-              }
-     ];
-    
-}
+/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *identifier = [NSString stringWithFormat:@"BlackListCell_%@", [[self.list objectAtIndex:indexPath.row] objectForKey:@"id"]];
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-
-    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-
-    [cell.textLabel setText:[[self.list objectAtIndex:indexPath.row] objectForKey:@"ip"]];
-
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    // Configure the cell...
+    
     return cell;
 }
-
+*/
 
 /*
 // Override to support conditional editing of the table view.

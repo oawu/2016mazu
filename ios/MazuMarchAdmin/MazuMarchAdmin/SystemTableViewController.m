@@ -30,8 +30,8 @@
                           @"name": @"管理系統",
                           @"items": @[
                                   @{
-                                      @"name": @"活動選擇",
-                                      @"action": @"MarchViewController",
+                                      @"name": @"GPS 列表",
+                                      @"action": @"GPSTableViewController",
                                       @"image": @"system_00"
                                       },
                                   @{
@@ -55,7 +55,7 @@
                                       @"image": @"system_100"
                                       }]
                           }];
-//    [self.navigationController pushViewController:[NSClassFromString(@"BlackListTableViewController") new] animated:YES];
+    [self.navigationController pushViewController:[NSClassFromString(@"GPSTableViewController") new] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

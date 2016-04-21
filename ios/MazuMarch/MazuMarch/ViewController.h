@@ -20,17 +20,18 @@
 @property UITextView *uploadLogTextView;
 @property UISwitch *switchButton;
 @property UILabel *switchLabel;
-@property UISegmentedControl *segmentedControl;
 @property UIStepper *stepper;
 @property UIPickerView *picker;
 @property UILabel *stepperLabel;
+@property UITextField *marchTextField;
 
-@property NSMutableArray<March *> *marchs;
+@property NSMutableArray<March *> *marches;
 
 @property CLLocationManager *locationManager;
 @property NSTimer *timer;
 @property BOOL isUpload;
 @property int marchId;
+@property NSString *marchTitle;
 @property int distance;
 @property UIDevice *myDevice;
 

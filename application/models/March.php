@@ -10,6 +10,7 @@ class March extends OaModel {
   static $table_name = 'marches';
 
   static $has_one = array (
+    array ('last_path', 'class_name' => 'MarchPath', 'order' => 'march_paths.id DESC')
   );
 
   static $has_many = array (

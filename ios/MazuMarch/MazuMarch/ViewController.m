@@ -79,29 +79,33 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.stepper attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.stepperLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:-10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.stepper attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeCenterY multiplier:1 constant:0.0]];
     
-    
-//    
-//    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10"]];
-//    [self.segmentedControl setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.segmentedControl addTarget:self action:@selector(chooseOne:) forControlEvents:UIControlEventValueChanged];
-//    [self.segmentedControl setSelectedSegmentIndex:self.marchId - 1];
-//    
-//    [self.view addSubview:self.segmentedControl];
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0.0]];
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.switchLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
-//    
-//    
-//
-    self.marchs = [NSMutableArray new];
-    [self loadMarches];
 
     self.picker = [UIPickerView new];
-    [self.picker setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.picker setDelegate:self];
+    [self loadMarches];
     
-    [self.view addSubview:self.picker];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.picker attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.picker attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.switchLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
+    self.marchTextField = [UITextField new];
+    [self.marchTextField setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    [self.marchTextField.layer setBorderColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.4].CGColor];
+    [self.marchTextField.layer setBorderWidth:1.0f / [UIScreen mainScreen].scale];
+    [self.marchTextField.layer setCornerRadius:2];
+    [self.marchTextField setClipsToBounds:YES];
+
+    [self.marchTextField setInputView: self.picker];
+    [self.view addSubview:self.marchTextField];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.marchTextField attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.marchTextField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.switchLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.marchTextField attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:-10.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.marchTextField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:35.0]];
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(myResignFirstResponder)];
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIToolbar *toolbar = [UIToolbar new];
+    toolbar.items = @[flexibleSpace, doneButton];
+    self.marchTextField.inputAccessoryView = toolbar;
+    [toolbar sizeToFit];
+    
     
     self.uploadLogTextView = [UITextView new];
     [self.uploadLogTextView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -116,7 +120,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.uploadLogTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomLayoutGuide attribute:NSLayoutAttributeTop multiplier:1 constant:-10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.uploadLogTextView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1 constant:10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.uploadLogTextView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:-10.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.uploadLogTextView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.uploadLogTextView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:200.0]];
     
     self.locationLogTextView = [UITextView new];
     [self.locationLogTextView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -128,7 +132,7 @@
     [self.locationLogTextView setClipsToBounds:YES];
     
     [self.view addSubview:self.locationLogTextView];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.picker attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.marchTextField attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1 constant:10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:-10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.uploadLogTextView attribute:NSLayoutAttributeTop multiplier:1 constant:-10.0]];
@@ -160,8 +164,15 @@
     [self.pswView addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.pswView attribute:NSLayoutAttributeBottom multiplier:1 constant:-10.0]];
     
 }
+-(void)myResignFirstResponder {
+    [self.marchTextField setText:[NSString stringWithFormat:@"  %@", self.marchTitle]];
+    [self.marchTextField resignFirstResponder];
+}
+
 - (void) loadMarches {
     
+    self.marches = [NSMutableArray new];
+
     [self uploadLog:@"----------------------------------------"];
     [self uploadLog:@"開始取得活動"];
 
@@ -171,28 +182,21 @@
     [httpManager GET:API_POST_MARCHES
            parameters:nil
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  NSLog(@"%@", responseObject);
-                  //
-//                  self.isUpload = NO;
-//                  
                   [self uploadLog:@"----------------------------------------"];
                   [self uploadLog:@"取得活動成功"];
-//
-//                  if ((int)[(NSArray *)[responseObject objectForKey:@"ids"] count] > 0)
-//                      [Path deleteAll:[NSString stringWithFormat:@"id IN (%@)", [[responseObject objectForKey:@"ids"] componentsJoinedByString:@", "]]];
-//                  
-//                  [self uploadLog:@"----------------------------------------"];
-//                  [self uploadLog:@"清除舊資料"];
-//                  
-//                  int d = (int)[[responseObject objectForKey:@"d"] integerValue];
-//                  if (self.distance != d) {
-//                      self.distance = d;
-//                      [self.stepperLabel setText:[NSString stringWithFormat:@"%d 公尺", self.distance]];
-//                      [self.locationManager setDistanceFilter:self.distance];
-//                      [self locationLog:[NSString stringWithFormat:@"設定 %d 公尺觸發", self.distance]];
-//                      [self locationLog:@"----------------------------------------"];
-//                  }
-//                  
+                  
+                  for (NSDictionary *obj in responseObject) {
+                      [self.marches addObject: [[March alloc] initWithDictionary: obj]];
+                  }
+                  
+                  if (((int)[self.marches count]) > 0) {
+                      self.marchTitle = [self.marches firstObject].title;
+                      self.marchId = [[self.marches firstObject].marchId integerValue];
+                      [self.marchTextField setText:[NSString stringWithFormat:@"  %@", self.marchTitle]];
+                  }
+                                    
+                  [self.picker reloadAllComponents];
+                  
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                   self.isUpload = NO;
@@ -202,17 +206,15 @@
      ];
 }
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    
     return 1;
-    
 }
 
 // returns the # of rows in each component..
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return [self.marchs count];
+    return [self.marches count];
 }
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [self.marchs objectAtIndex:row].title;
+    return [self.marches objectAtIndex:row].title;
 }
 
 - (void)unlock:(UIButton *)sender{
@@ -250,6 +252,12 @@
     [self locationLog:@"----------------------------------------"];
 }
 
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.marchTitle = [self.marches objectAtIndex:row].title;
+    self.marchId = (int)[[self.marches objectAtIndex:row].marchId integerValue];
+    [self.marchTextField setText:[NSString stringWithFormat:@"  %@", self.marchTitle]];
+}
 - (void)chooseOne:(id)sender {
     self.marchId = (int)[sender selectedSegmentIndex] + 1;
 }
@@ -274,8 +282,7 @@
         [self locationLog:@"----------------------------------------"];
         
         
-        [self.picker setUserInteractionEnabled:NO];
-//        [self.picker set]
+        [self.marchTextField setEnabled:NO];
         [self locationLog:@"鎖定選擇器"];
         [self locationLog:@"----------------------------------------"];
         
@@ -316,7 +323,7 @@
         self.timer = nil;
         [self uploadLog:@"關閉計時器"];
         
-        [self.picker setUserInteractionEnabled:YES];
+        [self.marchTextField setEnabled:YES];
         [self locationLog:@"開啟選擇器"];
         [self locationLog:@"----------------------------------------"];
         
