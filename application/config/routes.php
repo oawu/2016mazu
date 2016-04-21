@@ -61,6 +61,7 @@ Route::group ('api', function () {
   Route::resource ('march_message_blacklists', 'march_message_blacklists');
   
   Route::resource ('march_users', 'march_users');
+  Route::resource ('marches', 'marches');
 });
 
 // echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';

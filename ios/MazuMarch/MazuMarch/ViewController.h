@@ -12,8 +12,9 @@
 #import "Path.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "LockViewController.h"
+#import "March.h"
 
-@interface ViewController : UIViewController <CLLocationManagerDelegate>
+@interface ViewController : UIViewController <CLLocationManagerDelegate, UIPickerViewDelegate>
 
 @property UITextView *locationLogTextView;
 @property UITextView *uploadLogTextView;
@@ -21,7 +22,10 @@
 @property UILabel *switchLabel;
 @property UISegmentedControl *segmentedControl;
 @property UIStepper *stepper;
+@property UIPickerView *picker;
 @property UILabel *stepperLabel;
+
+@property NSMutableArray<March *> *marchs;
 
 @property CLLocationManager *locationManager;
 @property NSTimer *timer;

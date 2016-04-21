@@ -80,16 +80,27 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.stepper attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeCenterY multiplier:1 constant:0.0]];
     
     
+//    
+//    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10"]];
+//    [self.segmentedControl setTranslatesAutoresizingMaskIntoConstraints:NO];
+//    [self.segmentedControl addTarget:self action:@selector(chooseOne:) forControlEvents:UIControlEventValueChanged];
+//    [self.segmentedControl setSelectedSegmentIndex:self.marchId - 1];
+//    
+//    [self.view addSubview:self.segmentedControl];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0.0]];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.switchLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
+//    
+//    
+//
+    self.marchs = [NSMutableArray new];
+
+    self.picker = [UIPickerView new];
+    [self.picker setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.picker setDelegate:self];
     
-    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10"]];
-    [self.segmentedControl setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.segmentedControl addTarget:self action:@selector(chooseOne:) forControlEvents:UIControlEventValueChanged];
-    [self.segmentedControl setSelectedSegmentIndex:self.marchId - 1];
-    
-    [self.view addSubview:self.segmentedControl];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.segmentedControl attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.switchLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
-    
+    [self.view addSubview:self.picker];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.picker attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.switchButton attribute:NSLayoutAttributeLeft multiplier:1 constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.picker attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.switchLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
     
     self.uploadLogTextView = [UITextView new];
     [self.uploadLogTextView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -104,7 +115,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.uploadLogTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomLayoutGuide attribute:NSLayoutAttributeTop multiplier:1 constant:-10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.uploadLogTextView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1 constant:10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.uploadLogTextView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:-10.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.uploadLogTextView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:200.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.uploadLogTextView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100.0]];
     
     self.locationLogTextView = [UITextView new];
     [self.locationLogTextView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -116,7 +127,7 @@
     [self.locationLogTextView setClipsToBounds:YES];
     
     [self.view addSubview:self.locationLogTextView];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.segmentedControl attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.picker attribute:NSLayoutAttributeBottom multiplier:1 constant:15.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1 constant:10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:-10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.locationLogTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.uploadLogTextView attribute:NSLayoutAttributeTop multiplier:1 constant:-10.0]];
@@ -148,7 +159,19 @@
     [self.pswView addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.pswView attribute:NSLayoutAttributeBottom multiplier:1 constant:-10.0]];
     
 }
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    
+    return 1;
+    
+}
 
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return [self.marchs count];
+}
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    return [self.marchs objectAtIndex:row].title;
+}
 
 - (void)unlock:(UIButton *)sender{
     UIAlertController *inputAlert = [UIAlertController
@@ -209,7 +232,8 @@
         [self locationLog:@"----------------------------------------"];
         
         
-        [self.segmentedControl setEnabled:NO];
+        [self.picker setUserInteractionEnabled:NO];
+//        [self.picker set]
         [self locationLog:@"鎖定選擇器"];
         [self locationLog:@"----------------------------------------"];
         
@@ -250,7 +274,7 @@
         self.timer = nil;
         [self uploadLog:@"關閉計時器"];
         
-        [self.segmentedControl setEnabled:YES];
+        [self.picker setUserInteractionEnabled:YES];
         [self locationLog:@"開啟選擇器"];
         [self locationLog:@"----------------------------------------"];
         
@@ -315,8 +339,16 @@
                   
                   [self uploadLog:@"----------------------------------------"];
                   [self uploadLog:@"清除舊資料"];
-                  
-                  NSLog(@"%d", (int)[[responseObject objectForKey:@"d"] integerValue]);
+
+                  int d = (int)[[responseObject objectForKey:@"d"] integerValue];
+                  if (self.distance != d) {
+                      self.distance = d;
+                      [self.stepperLabel setText:[NSString stringWithFormat:@"%d 公尺", self.distance]];
+                      [self.locationManager setDistanceFilter:self.distance];
+                      [self locationLog:[NSString stringWithFormat:@"設定 %d 公尺觸發", self.distance]];
+                      [self locationLog:@"----------------------------------------"];
+                  }
+
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                   self.isUpload = NO;
