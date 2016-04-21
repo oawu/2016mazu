@@ -107,6 +107,7 @@ class Maps extends Site_controller {
                   array (23.56600066615, 120.30546426773071),
                   array (23.56548191885183, 120.30532211065292)))
               );
+      $change = array ();
     } else {
       $change = array ();
     }
