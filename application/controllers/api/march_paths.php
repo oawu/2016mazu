@@ -122,7 +122,6 @@ class March_paths extends Api_controller {
     $paths = column_array ($paths, 'sqlite_id');
     $sqlite_ids = array_slice ($paths, 0);
     
-    return $this->output_json (array ('ids' => $sqlite_ids));
+    return $this->output_json (array ('ids' => $sqlite_ids, 'd' => GpsSetting::find_by_id (1)->distance));
   }
-
 }

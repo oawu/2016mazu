@@ -315,6 +315,8 @@
                   
                   [self uploadLog:@"----------------------------------------"];
                   [self uploadLog:@"清除舊資料"];
+                  
+                  NSLog(@"%d", (int)[[responseObject objectForKey:@"d"] integerValue]);
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                   self.isUpload = NO;
