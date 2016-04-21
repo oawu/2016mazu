@@ -21,6 +21,15 @@ class Gps extends Site_controller {
     return $this->output_json (array ('m' => $points));
   }
   public function index () {
+    $march19 = '2016-04-25 00:00:00';
+
+    $temp = new DateTime ($march19);
+    $day_count = $temp->diff (new DateTime (date ('Y-m-d H:i:s')))->format ('%a');
+    $day_count = strtotime ($march19) - strtotime (date ('Y-m-d H:i:s')) < 0 ? 0 - $day_count : $day_count;
+
+    if (ENVIRONMENT == 'production' && $day_count > 0)
+      redirect (base_url ('maps', 'dintao'));
+
     $this->set_subtitle ('三月十九，神轎定位')
          ->add_css (base_url ('application', 'views', 'content', 'site', 'maps', 'gps', 'a.css'))
          ->add_js (Cfg::setting ('google', 'client_js_url'), false)
