@@ -17,7 +17,8 @@ class Marches extends Api_controller {
     $marches = array_map (function ($march) {
       return $march->to_array ();
     }, March::find ('all', array ('select' => 'id AS i,title AS t', 'conditions' => array ('is_enabled = 1'))));
-    return $this->output_json (array ('s' => true, 'm' => $marches));
+
+    return $this->output_json ($marches);
   }
 
 }

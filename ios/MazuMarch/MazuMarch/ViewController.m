@@ -93,6 +93,7 @@
 //    
 //
     self.marchs = [NSMutableArray new];
+    [self loadMarches];
 
     self.picker = [UIPickerView new];
     [self.picker setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -158,6 +159,47 @@
     [self.pswView addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.pswView attribute:NSLayoutAttributeRight multiplier:1 constant:-10.0]];
     [self.pswView addConstraint:[NSLayoutConstraint constraintWithItem:btn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.pswView attribute:NSLayoutAttributeBottom multiplier:1 constant:-10.0]];
     
+}
+- (void) loadMarches {
+    
+    [self uploadLog:@"----------------------------------------"];
+    [self uploadLog:@"開始取得活動"];
+
+    
+    AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+    [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+    [httpManager GET:API_POST_MARCHES
+           parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  NSLog(@"%@", responseObject);
+                  //
+//                  self.isUpload = NO;
+//                  
+                  [self uploadLog:@"----------------------------------------"];
+                  [self uploadLog:@"取得活動成功"];
+//
+//                  if ((int)[(NSArray *)[responseObject objectForKey:@"ids"] count] > 0)
+//                      [Path deleteAll:[NSString stringWithFormat:@"id IN (%@)", [[responseObject objectForKey:@"ids"] componentsJoinedByString:@", "]]];
+//                  
+//                  [self uploadLog:@"----------------------------------------"];
+//                  [self uploadLog:@"清除舊資料"];
+//                  
+//                  int d = (int)[[responseObject objectForKey:@"d"] integerValue];
+//                  if (self.distance != d) {
+//                      self.distance = d;
+//                      [self.stepperLabel setText:[NSString stringWithFormat:@"%d 公尺", self.distance]];
+//                      [self.locationManager setDistanceFilter:self.distance];
+//                      [self locationLog:[NSString stringWithFormat:@"設定 %d 公尺觸發", self.distance]];
+//                      [self locationLog:@"----------------------------------------"];
+//                  }
+//                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  self.isUpload = NO;
+                  [self locationLog:@"----------------------------------------"];
+                  [self locationLog:@"取得活動失敗"];
+              }
+     ];
 }
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     
@@ -354,7 +396,7 @@
                   self.isUpload = NO;
                   [self uploadLog:@"----------------------------------------"];
                   [self uploadLog:@"上傳失敗"];
-                  NSLog(@"=======>Failure!Error:%@", [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding]);
+//                  NSLog(@"=======>Failure!Error:%@", [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding]);
               }
      ];
 }

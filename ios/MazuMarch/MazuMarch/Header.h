@@ -13,6 +13,7 @@
 #define DEV YES
 
 #define API_URL @"http://mazu.ioa.tw/api/"
+#define API_POST_MARCHES @"http://mazu.ioa.tw/api/marches"
 
 #define API_POST_MARCH_PAYHS (API_URL @"march/%d/paths")
 
