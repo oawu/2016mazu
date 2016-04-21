@@ -1,9 +1,19 @@
 <div class='map'>
-  <div id='map' data-icon='<?php echo resource_url ('resource', 'image', 'map', 'mazu.png');?>' data-polyline='<?php echo $polyline;?>' data-infos='<?php echo $infos;?>'></div>
+  <div id='map' data-change='<?php echo json_encode ($change);?>' data-icon='<?php echo resource_url ('resource', 'image', 'map', 'mazu.png');?>' data-polyline='<?php echo $polyline;?>' data-infos='<?php echo $infos;?>'></div>
   <div id='like' class="fb-like" data-href="<?php echo current_url ();?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
   <div id='length'><?php echo $path->length ();?></div>
   <div id='zoom'></div>
 
+  <div id='add_zoom'></div>
+  <div id='sub_zoom'></div>
+  <?php
+  if ($change) {?>
+    <div id='ltip'>
+      <div>淺色為原來路線</div>
+      <div>深色為更改路線</div>
+    </div>
+<?php 
+    }?>
 </div>
 <div id='menu' class='fi-m'></div>
 <div id='tip'>這邊有功能選單喔！</div>

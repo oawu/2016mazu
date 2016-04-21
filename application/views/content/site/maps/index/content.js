@@ -4,18 +4,9 @@
  */
 
 $(function () {
-  var $body = $('body');
-  var $map = $('#map');
-  var $show_info = $('#show_info');
-  var $length = $('#length');
-  var _map = null;
-  var _polyline = null;
-  var _timer = null;
-  var _points = [];
-  var _mazu = null;
-  var _info = null;
-  var _isMoved = false;
-  var _infos = [];
+  window.$body = $('body');
+  window.$map = $('#map');
+  window.$length = $('#length');
 
   function formatFloat (num, pos) {
     var size = Math.pow (10, pos);
@@ -23,7 +14,7 @@ $(function () {
   }
   function calculateLength (points) {
     if (google.maps.geometry.spherical)
-      $length.html (formatFloat (google.maps.geometry.spherical.computeLength (points) / 1000, 2));
+      window.$length.html (formatFloat (google.maps.geometry.spherical.computeLength (points) / 1000, 2));
   }
   
   function info (i) {
@@ -31,27 +22,27 @@ $(function () {
     return '<div class="c"><div><img src="' + i.o + '"/><span>' + i.t + '</span></div><div>' + i.c + '</div></div><div class="b"></div>';
   }
   function infosClickAction () {
-    if (_info.lastMarker)
-      _info.lastMarker.setMap (_map);
-    _info.setPosition (this.getPosition ());
+    if (window.infoMarker.lastMarker)
+      window.infoMarker.lastMarker.setMap (window.map);
+    window.infoMarker.setPosition (this.getPosition ());
 
-    _info.labelContent = info (this.t);
+    window.infoMarker.labelContent = info (this.t);
     this.setMap (null);
-    _info.setMap (_map);
-    _info.lastMarker = this;
-    mapGo (_map, _info.getPosition ());
+    window.infoMarker.setMap (window.map);
+    window.infoMarker.lastMarker = this;
+    mapGo (window.map, window.infoMarker.getPosition ());
   }
   function loop (i) {
-    i = (i !== undefined) && ((i + 1) < _points.length) ? i + 1 : 0;
+    i = (i !== undefined) && ((i + 1) < window.points.length) ? i + 1 : 0;
 
-    clearTimeout (_timer);
-    _timer = setTimeout (function () {
-      if (!_isMoved && !(i % 10)) mapGo (_map, _points[i]);
-      markerGo (_mazu, _points[i], loop (i));
-    }, 150);
+    clearTimeout (window.timer);
+    window.timer = setTimeout (function () {
+      if (!window.isMoved && !(i % 10)) mapGo (window.map, window.points[i]);
+      markerGo (window.mazu, window.points[i], loop (i));
+    }, 250);
   }
   function initialize () {
-    _map = new google.maps.Map ($map.get (0), {
+    window.map = new google.maps.Map (window.$map.get (0), {
         zoom: 16,
         zoomControl: true,
         scrollwheel: true,
@@ -63,18 +54,40 @@ $(function () {
         center: new google.maps.LatLng (23.569396231491233, 120.3030703338623),
       });
 
-    _map.mapTypes.set ('map_style', new google.maps.StyledMapType ([
+    window.map.mapTypes.set ('map_style', new google.maps.StyledMapType ([
       { featureType: 'transit', stylers: [{ visibility: 'simplified' }] },
       { featureType: 'poi', stylers: [{ visibility: 'simplified' }] },
     ]));
-    _map.setMapTypeId ('map_style');
+    window.map.setMapTypeId ('map_style');
     
-    _points = $map.data ('polyline').map (function (t) {
+    window.points = window.$map.data ('polyline').map (function (t) {
         var position = new google.maps.LatLng (t.a, t.n);
         return position;
       });
 
-    _info = new MarkerWithLabel ({
+    window.$map.data ('change').forEach (function (t) {
+      if (t.p.length < 3) return ;
+      
+      new MarkerWithLabel ({
+        map: window.map, draggable: false, optimized: false,
+        labelContent: '<div><div>' + t.t + '</div></div><div></div>',
+        icon: {path: 'M 0 0'},
+        labelAnchor: new google.maps.Point (100 / 2, 30 + 15),
+        labelClass: 'd',
+        position: new google.maps.LatLng (t.p.first ()[0], t.p.first ()[1])
+      });
+
+      new google.maps.Polyline ({
+        map: window.map,
+        strokeColor: 'rgba(255, 3, 0, .2)',
+        strokeWeight: 4,
+        path: t.p.map (function (u) {
+          return new google.maps.LatLng (u[0], u[1]);
+        })
+      });
+    });
+
+    window.infoMarker = new MarkerWithLabel ({
         draggable: false,
         raiseOnDrag: false,
         clickable: true,
@@ -88,16 +101,16 @@ $(function () {
         lastMarker: null
       });
 
-    google.maps.event.addListener (_info, 'click', function (e) {
-      if (this.lastMarker) this.lastMarker.setMap (_map);
+    google.maps.event.addListener (window.infoMarker, 'click', function (e) {
+      if (this.lastMarker) this.lastMarker.setMap (window.map);
       this.setMap (null);
       this.lastMarker = null;
     });
     
-    _infos = $map.data ('infos').map (function (t) {
+    window.$map.data ('infos').map (function (t) {
       var position = new google.maps.LatLng (t.a, t.n);
       var m = new google.maps.Marker ({
-          map: _map,
+          map: window.map,
           draggable: false,
           zIndex: 9,
           optimized: false,
@@ -112,61 +125,63 @@ $(function () {
     
     
     var $zoom = $('#zoom').click (function () {
-      if (!$body.hasClass ('f')) {
-        $body.addClass ('f');
+      if (!window.$body.hasClass ('f')) {
+        window.$body.addClass ('f');
         $(this).attr ('class', 'icon-shrink');
       } else {
-        $body.removeClass ('f');
+        window.$body.removeClass ('f');
         $(this).attr ('class', 'icon-enlarge');
       }
-      google.maps.event.trigger (_map, 'resize');
+      google.maps.event.trigger (window.map, 'resize');
     });
 
     var $container = $('#container');
-    var overflow = $body.css ('overflow');
+    var overflow = window.$body.css ('overflow');
 
     $('#menu').click (function () {
       if ($container.hasClass ('show')) {
         $container.removeClass ('show');
-        $body.css ('overflow', overflow);
+        window.$body.css ('overflow', overflow);
       } else {
         $container.addClass ('show');
-        $body.css ('overflow', 'hidden');
+        window.$body.css ('overflow', 'hidden');
       }
     });
 
-    if (_points.length) {
-      _polyline = new google.maps.Polyline ({
-        map: _map,
+    if (window.points.length) {
+      new google.maps.Polyline ({
+        map: window.map,
         strokeColor: 'rgba(255, 3, 0, .6)',
         strokeWeight: 3,
-        path: _points
+        path: window.points
       });
-      _mazu = new MarkerWithLabel ({
-          position: _points[0],
+      window.mazu = new MarkerWithLabel ({
+          position: window.points[0],
           draggable: false,
           raiseOnDrag: false,
           clickable: true,
           zIndex: 99,
           labelZIndex: 2,
           optimized: false,
-          labelContent: '<div><img src="' + $map.data ('icon') + '" /></div>',
+          labelContent: '<div><img src="' + window.$map.data ('icon') + '" /></div>',
           labelAnchor: new google.maps.Point (20, 70),
           labelClass: 'mazu',
           icon: {path: 'M 0 0'},
-          map: _map,
+          map: window.map,
           initCallback: function (t) {}
         });
-      google.maps.event.addListener (_map, 'click', function () {
-        new google.maps.event.trigger (_info, 'click');
+      google.maps.event.addListener (window.map, 'click', function () {
+        new google.maps.event.trigger (window.infoMarker, 'click');
       });
-      google.maps.event.addListener (_map, 'dragstart', function () {
-        new google.maps.event.trigger (_info, 'click');
-        _isMoved = true;
+      google.maps.event.addListener (window.map, 'dragstart', function () {
+        new google.maps.event.trigger (window.infoMarker, 'click');
+        window.isMoved = true;
       });
-      google.maps.event.addListener (_map, 'zoom_changed', function () {
-        _isMoved = true;
+      google.maps.event.addListener (window.map, 'zoom_changed', function () {
+        window.isMoved = true;
       });
+      $('#add_zoom').click (function () { window.map.setZoom (window.map.zoom + 1); });
+      $('#sub_zoom').click (function () { window.map.setZoom (window.map.zoom - 1); });
       setTimeout (loop, 1000);
     }
     window.hideLoading ();

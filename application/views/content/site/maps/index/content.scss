@@ -5,6 +5,9 @@
 
 @import "_oa";
 
+.gmnoprint {
+  display: none !important;
+}
 body {
   &.f {
     @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
@@ -558,5 +561,160 @@ $ih: 115px;
         line-height: $h - 8px;
       }
     }
+  }
+}
+
+.d {
+  $w: 100px;
+  $h: 30px;
+  $aw: 20px;
+
+  display: inline-block;
+  width: $w;
+  height: $h;
+
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    bottom: 0 - $aw / 2 + 2px;
+    left: calc(50% - #{$aw / 2});
+    display: inline-block;
+    width: $aw;
+    height: $aw;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 1;
+    @include rotate(45deg);
+    @include box-shadow(0 0 2px rgba(39, 40, 34, .5), 0 0 1px rgba(39, 40, 34, .5));
+  }
+  &:after {
+    z-index: 3;
+    @include box-shadow(none);
+  }
+  > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: $w;
+    height: $h;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 1);
+    @include border-radius(2px);
+
+    word-wrap: break-word; 
+    word-break: break-all;
+    z-index: 4;
+
+    &:nth-child(2) {
+      z-index: 2;
+      @include box-shadow(0 0 2px rgba(39, 40, 34, .5), 0 0 1px rgba(39, 40, 34, .5));
+    }
+
+    > div {
+      position: relative;
+      text-align: center;
+      margin-top: 7px;
+      overflow: hidden;
+      font-size: 10px;
+      padding: 0 5px;
+      overflow: hidden;
+      line-height: 1.6em;
+
+      span {
+        display: inline-block;
+        width: 100%;
+
+        border: 1px solid rgba(255, 0, 0, .3);
+      }
+    }
+  }
+}
+
+#sub_zoom, #add_zoom {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: inline-block;
+
+  padding: 5px;
+  font-size: 15px;
+  background-color: rgba(255, 255, 255, .9);
+  cursor: pointer;
+
+  @include border-radius(2px);
+  @include transition(all .3s);
+  @include box-shadow(0 0 5px 1px rgba(0, 0, 0, 0.2), 0 0 1px rgba(39, 40, 34, .4));
+  @include opacity(.8);
+
+  &:before {
+    display: inline-block;
+    font-size: 20px;
+    @include icomoon-font() { content: "\e90a"; };
+  }
+  &:hover {
+    @include opacity(1);
+  }
+}
+
+#sub_zoom {
+  bottom: 10px;
+  &:before {
+    @include icomoon-font() { content: "\e901"; };
+  }
+}
+#add_zoom {
+  bottom: 50px;
+  &:before {
+    @include icomoon-font() { content: "\e900"; };
+  }
+}
+#ltip {
+  position: absolute;
+  bottom: 10px;
+  right: 50px;
+  display: inline-block;
+  padding: 5px;
+  width: 120px;
+
+  background-color: rgba(255, 255, 255, 1);
+  @include border-radius(2px);
+  @include transition(all .3s);
+  @include box-shadow(0 0 5px 1px rgba(0, 0, 0, 0.2), 0 0 1px rgba(39, 40, 34, .4));
+
+  > div {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding-left: 17px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: calc((100% - 7px) / 2);
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      @include border-radius(2px);
+      background-color: red;
+    }
+    &:nth-child(1) {
+      &:before {
+        background-color: rgba(255, 3, 0, .2);
+      }
+    }
+    &:nth-child(2) {
+      &:before {
+        background-color: rgba(255, 3, 0, .6);
+      }
+    }
+  }
+}
+@media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+  #sub_zoom, #add_zoom {
+    display: none;
+  }
+  #ltip {
+    right: 10px;
   }
 }

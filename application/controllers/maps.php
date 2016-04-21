@@ -101,6 +101,15 @@ class Maps extends Site_controller {
     foreach (array ('articles', 'others', '', 'march19', 'march19/dintao', 'march19/kio', 'maps/iko', 'dintaos', 'pictures', 'youtubes', 'stores') as $uri)
       $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ($uri)));
 
+    if ($index == 3) {
+      $change = array (
+                  array ('t' => '更改路線', 'p' => array (array (23.56598837358369, 120.30584782361984),
+                  array (23.56600066615, 120.30546426773071),
+                  array (23.56548191885183, 120.30532211065292)))
+              );
+    } else {
+      $change = array ();
+    }
     $this->set_tab_index ($index)
          ->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
          ->set_subtitle ($title)
@@ -147,6 +156,7 @@ class Maps extends Site_controller {
             'infos' => $infos,
             'prev' => $prev,
             'next' => $next,
+            'change' => $change,
           ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
   public function iko ($index = 0) {
