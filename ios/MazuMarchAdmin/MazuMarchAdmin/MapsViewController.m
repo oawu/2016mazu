@@ -24,34 +24,28 @@
     [self initLocationManager];
     [self initMapView];
     [self initNavigationItem];
-    
-    self.path = [GMSPolyline new];
-    [self.path setStrokeColor:[UIColor colorWithRed:249/255.0f
-                                              green:39/255.0f
-                                               blue:114/255.0f
-                                              alpha:.5f]];
-    [self.path setStrokeWidth:3.0f];
-    
-    
-    self.mazu = [GMSMarker new];
-    [self.mazu setIcon:[[UIImage imageNamed:@"mazu"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [self.mazu setMap:self.mapView];
-    [self.mazu setPosition:[MapsViewController oriLocation]];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self clean];
     [self reloadData];
+    [self loadPolyline];
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self clean];
+
+    [self.polyline setPath:[GMSMutablePath path]];
+    [self.polyline setMap:nil];
 }
 -(void)clean {
     
     self.isLoading = YES;
-    self.paths = [NSMutableArray new];
-    [self.path setMap:nil];
-    [self.mazu setPosition:[MapsViewController oriLocation]];
+    
+    for (Marker *marker in self.markers)
+        [marker cleanAll];
+    
+    self.markers = [NSMutableArray new];
 
     if (self.timer) {
         [self.timer invalidate];
@@ -64,23 +58,11 @@
     [self.parentViewController presentViewController:alert animated:YES completion:^{
 
         self.isLoading = NO;
-        self.paths = [NSMutableArray new];
+        self.markers = [NSMutableArray new];
+        
         [self loadData:alert];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:LOAD_PATH_TIMER target:self selector:@selector(loadDataByTimer) userInfo:nil repeats:YES];
     }];
-}
-- (void)reloadMap {
-    GMSMutablePath *path = [GMSMutablePath path];
-    for (Path *p in self.paths)
-        [path addCoordinate:p.position];
-    
-    if (((int)[self.paths count]) < 1)
-        return;
-
-    [self.path setPath:path];
-    [self.path setMap:self.mapView];
-    
-    [self.mazu setPosition:[self.paths lastObject].position];
 }
 - (void)loadDataByTimer {
     [self loadData: nil];
@@ -92,29 +74,24 @@
     }
     
     self.isLoading = YES;
-    self.paths = [NSMutableArray new];
-    [self.path setMap:nil];
     
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
-    [httpManager GET:[NSString stringWithFormat:LOAD_PATHS_API_URL, (int)[[USER_DEFAULTS objectForKey:@"march_id"] integerValue]]
+    [httpManager GET:LOAD_GPS_API_URL
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  self.isLoading = NO;
-
-                 if (![[responseObject objectForKey:@"s"] boolValue]) {
-                     if (alert) [alert dismissViewControllerAnimated:YES completion:nil];
-                     return;
-                 }
-
-                 for (NSDictionary *p in [responseObject objectForKey:@"p"])
-                     [self.paths addObject: [[Path alloc] initWithDictionary: p]];
                  
-                 [self reloadMap];
+                 if ((int)[[responseObject objectForKey:@"m"] count] > 0) {
+                     
+                     for (Marker *marker in self.markers)
+                         [marker cleanAll];
 
-
-                 if (alert) [alert dismissViewControllerAnimated:YES completion:nil];
+                     for (NSDictionary *m in [responseObject objectForKey:@"m"])
+                         [self.markers addObject:[[Marker alloc] initWithDictionary:m map:self.mapView]];
+                 }
+                  if (alert) [alert dismissViewControllerAnimated:YES completion:nil];
              }
              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  self.isLoading = NO;
@@ -122,16 +99,49 @@
              }
      ];
 }
+- (void)loadPolyline {
+    self.polyline = [GMSPolyline new];
+    [self.polyline setStrokeColor:[UIColor colorWithRed:101/255.0f green:216/255.0f blue:238/255.0f alpha:.4f]];
+    [self.polyline setStrokeWidth:4.0f];
+    
+    AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+    [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+    [httpManager GET:GET_SETTING_API_URL
+          parameters:nil
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+                 [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+                 [httpManager GET:[NSString stringWithFormat:@"%@%@.json", LOAD_PATH_API_URL, [responseObject objectForKey:@"path_id"]]
+                       parameters:nil
+                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
+                              GMSMutablePath *path = [GMSMutablePath path];
+                              for (NSDictionary *p in responseObject)
+                                  [path addCoordinate:CLLocationCoordinate2DMake([[p objectForKey:@"a"] doubleValue], [[p objectForKey:@"n"] doubleValue])];
+
+                              [self.polyline setPath:path];
+                              [self.polyline setMap:self.mapView];
+
+                          }
+                          failure:nil
+                  ];
+             }
+             failure:nil
+     ];
+}
 
 - (void)turnTraffic:(UIBarButtonItem *)sender {
     if (sender.tag == 1) {
         [sender setTitle:self.mapView.trafficEnabled ? @"開啟路況" : @"關閉路況"];
         [self.mapView setTrafficEnabled:!self.mapView.trafficEnabled];
     } else {
-        [self.mapView setCamera:[GMSCameraPosition cameraWithLatitude:self.mazu.position.latitude
-                                                            longitude:self.mazu.position.longitude
-                                                                 zoom:15]];
+        CLLocationCoordinate2D myLocation = [self.markers firstObject].marker.position;
+        GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:myLocation coordinate:myLocation];
+        
+        for (Marker *marker in self.markers)
+            bounds = [bounds includingCoordinate:marker.marker.position];
+        
+        [self.mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:50.0f]];
     }
 }
 -(void)initNavigationItem {
@@ -141,7 +151,7 @@
     [rightButton setTag:1];
     [self.navigationItem setRightBarButtonItem:rightButton];
     
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"媽祖位置" style:UIBarButtonItemStylePlain target:self action:@selector(turnTraffic:)];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"陣頭位置" style:UIBarButtonItemStylePlain target:self action:@selector(turnTraffic:)];
     [leftButton setTintColor:[UIColor colorWithRed:1.00 green:1.00 blue:1.00 alpha:1.00]];
     [leftButton setTag:2];
     [self.navigationItem setLeftBarButtonItem:leftButton];
@@ -152,13 +162,6 @@
     self.locationManager = [CLLocationManager new];
     [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     [self.locationManager requestAlwaysAuthorization];
-    
-
-//    [self.mapView setCamera:[GMSCameraPosition cameraWithLatitude:23.5695962314
-//                                                        longitude:120.30357033
-//                                                             zoom:15]];
-//    [self.mapView setCenter:CGPointMake(23.5695962314, 120.30357033)];
-//    [self.mazu setPosition:CLLocationCoordinate2DMake(23.5694962314, 120.30317033)];
 }
 
 -(void)initMapView {

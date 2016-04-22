@@ -17,6 +17,7 @@
 #define SEND_MESSAGE_API_URL @"http://mazu.ioa.tw/api/march_messages/"
 
 #define LOAD_PATHS_API_URL @"http://pic.mazu.ioa.tw/api/march/%d/paths.json"
+#define LOAD_GPS_API_URL @"http://pic.mazu.ioa.tw/api/march/gps.json"
 
 #define CLEAN_API_URL @"http://mazu.ioa.tw/api/clean/"
 
@@ -29,6 +30,7 @@
 #define PUT_MARCH_API_URL @"http://mazu.ioa.tw/api/marches/%@"
 #define GET_SETTING_API_URL @"http://mazu.ioa.tw/api/settings/1"
 #define PUT_SETTING_API_URL @"http://mazu.ioa.tw/api/settings/1"
+#define LOAD_PATH_API_URL @"http://pic.mazu.ioa.tw/api/path/"
 
 #define USER_ID @"1"
 #define LOAD_MESSAGE_TIMER 5 //sec

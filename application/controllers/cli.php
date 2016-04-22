@@ -867,4 +867,16 @@ class Cli extends Site_controller {
       sleep(60);
     }
   }
+
+  // function xxx (){
+  //   User::transaction (function () {
+  //       User::create (array (
+  //           'uid' => 'xxxxxxx',
+  //           'name' => 'xxxxxxx',
+  //           'email' => 'xxxxxxx',
+  //           'facebook_url' => 'xxxxxxx',
+  //         ));
+  //       return false;
+  //   });
+  // }
 }

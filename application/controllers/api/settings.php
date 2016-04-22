@@ -51,7 +51,7 @@ class Settings extends Api_controller {
         return 'is_crontab 錯誤！';
 
     if (isset ($posts['path_id']))
-      if (!(is_numeric ($posts['path_id']) && in_array ($posts['path_id'], column_array (Path::find ('all', array ('select' => 'id')), 'id'))))
+      if (!(is_numeric ($posts['path_id']) && in_array ($posts['path_id'], array_merge (0, column_array (Path::find ('all', array ('select' => 'id')), 'id')))))
         return 'path_id 錯誤！';
 
     if (isset ($posts['version']))

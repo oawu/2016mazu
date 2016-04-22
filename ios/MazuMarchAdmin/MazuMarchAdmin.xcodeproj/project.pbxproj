@@ -11,6 +11,7 @@
 		0E0476191CC9386900BE48E1 /* March.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0476181CC9386900BE48E1 /* March.m */; };
 		0E04761F1CC93C1200BE48E1 /* GPSMarchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E04761E1CC93C1200BE48E1 /* GPSMarchViewController.m */; };
 		0E0476221CC9F3EB00BE48E1 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0476211CC9F3EB00BE48E1 /* SettingViewController.m */; };
+		0E0476251CCA2E7900BE48E1 /* Marker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0476241CCA2E7900BE48E1 /* Marker.m */; };
 		0E88ECED1CA8CB9700D06A95 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ECEC1CA8CB9700D06A95 /* main.m */; };
 		0E88ECF01CA8CB9700D06A95 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ECEF1CA8CB9700D06A95 /* AppDelegate.m */; };
 		0E88ECF61CA8CB9700D06A95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E88ECF41CA8CB9700D06A95 /* Main.storyboard */; };
@@ -87,6 +88,8 @@
 		0E04761E1CC93C1200BE48E1 /* GPSMarchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSMarchViewController.m; sourceTree = "<group>"; };
 		0E0476201CC9F3EB00BE48E1 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		0E0476211CC9F3EB00BE48E1 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		0E0476231CCA2E7900BE48E1 /* Marker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marker.h; sourceTree = "<group>"; };
+		0E0476241CCA2E7900BE48E1 /* Marker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Marker.m; sourceTree = "<group>"; };
 		0E88ECE81CA8CB9700D06A95 /* MazuMarchAdmin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazuMarchAdmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E88ECEC1CA8CB9700D06A95 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0E88ECEE1CA8CB9700D06A95 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -383,6 +386,8 @@
 				0E88ED891CA947C000D06A95 /* MapsViewController.m */,
 				0E88ED8D1CA9919800D06A95 /* Path.h */,
 				0E88ED8E1CA9919800D06A95 /* Path.m */,
+				0E0476231CCA2E7900BE48E1 /* Marker.h */,
+				0E0476241CCA2E7900BE48E1 /* Marker.m */,
 			);
 			name = Maps;
 			sourceTree = "<group>";
@@ -667,6 +672,7 @@
 				0E0476221CC9F3EB00BE48E1 /* SettingViewController.m in Sources */,
 				0E88ED231CA8CD8600D06A95 /* MyNavigationController.m in Sources */,
 				0E88ECF01CA8CB9700D06A95 /* AppDelegate.m in Sources */,
+				0E0476251CCA2E7900BE48E1 /* Marker.m in Sources */,
 				0E88ED981CAA282400D06A95 /* MyTabBarController.m in Sources */,
 				0E88ED561CA9012400D06A95 /* SDWebImageManager.m in Sources */,
 				0E88ECED1CA8CB9700D06A95 /* main.m in Sources */,

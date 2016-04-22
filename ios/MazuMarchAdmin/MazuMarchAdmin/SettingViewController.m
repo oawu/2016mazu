@@ -62,7 +62,7 @@
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.crontabTitleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.versionTitleLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     
 
-    self.pathSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"十九下午", @"十九晚間", @"二十下午", @"二十晚間"]];
+    self.pathSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"關閉", @"19下午", @"19晚間", @"20下午", @"20晚間"]];
     [self.pathSegmentedControl setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.pathSegmentedControl addTarget:self action:@selector(chooseOne:) forControlEvents:UIControlEventValueChanged];
     [self.pathSegmentedControl setSelectedSegmentIndex:0];
@@ -104,7 +104,7 @@
 
 }
 - (void)chooseOne:(id)sender {
-    int path_id = (int)[sender selectedSegmentIndex] + 1;
+    int path_id = (int)[sender selectedSegmentIndex];
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更新中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
     
@@ -119,7 +119,7 @@
         [httpManager POST:PUT_SETTING_API_URL
                parameters:data
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      [self.pathSegmentedControl setSelectedSegmentIndex:[[responseObject objectForKey:@"path_id"] integerValue] - 1];
+                      [self.pathSegmentedControl setSelectedSegmentIndex:[[responseObject objectForKey:@"path_id"] integerValue]];
                       
                       [alert dismissViewControllerAnimated:YES completion:nil];
                   }
@@ -208,7 +208,7 @@
     [self.crontabSwitch setHidden:NO];
     
     
-    [self.pathSegmentedControl setSelectedSegmentIndex:[[data objectForKey:@"path_id"] integerValue] - 1];
+    [self.pathSegmentedControl setSelectedSegmentIndex:[[data objectForKey:@"path_id"] integerValue]];
     
     [self.versionSteper setValue:[[data objectForKey:@"version"] integerValue]];
     [self.versionLabel setText:[NSString stringWithFormat:@"%@", [data objectForKey:@"version"]]];

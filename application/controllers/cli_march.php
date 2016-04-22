@@ -35,7 +35,7 @@ class Cli_march extends Site_controller {
     $data = array (
       'v' => $version,
       'm' => array_map (function ($march) {
-          $p = $march->paths2 ();
+          $p = $march->paths2 (5);
           return array (
               'i' => $march->id,
               'n' => $march->title,

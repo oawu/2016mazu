@@ -11,17 +11,20 @@
 #import "UIImageView+WebCache.h"
 #import "Path.h"
 #import "Header.h"
+#import "Marker.h"
 #import "AFHTTPRequestOperationManager.h"
 @import GoogleMaps;
 
 @interface MapsViewController : UIViewController <CLLocationManagerDelegate>
 
 @property GMSMapView *mapView;
-@property GMSMarker *mazu;
+@property NSMutableArray<Marker *> *markers;
+
 @property BOOL isLoading;
-@property NSMutableArray<Path *> *paths;
-@property GMSPolyline *path;
 @property NSTimer *timer;
+
+@property GMSPolyline *polyline;
+
 @property CLLocationManager *locationManager;
 
 + (CLLocationCoordinate2D) oriLocation;
