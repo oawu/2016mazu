@@ -24,12 +24,17 @@
 @property UILabel *latTitleLabel;
 @property UILabel *lngTitleLabel;
 @property UILabel *accuracyTitleLabel;
+@property UILabel *enableTitleLabel;
+@property UILabel *distanceTitleLabel;
+@property UILabel *distanceLabel;
 
 @property UILabel *batteryLabel;
 @property UILabel *lastTimeLabel;
 @property UILabel *latLabel;
 @property UILabel *lngLabel;
 @property UILabel *accuracyLabel;
+@property UISwitch *enableSwitchButton;
+@property UIStepper *stepper;
 
 
 @property GMSMapView *mapView;

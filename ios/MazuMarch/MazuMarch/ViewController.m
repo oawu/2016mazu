@@ -191,7 +191,7 @@
                   
                   if (((int)[self.marches count]) > 0) {
                       self.marchTitle = [self.marches firstObject].title;
-                      self.marchId = [[self.marches firstObject].marchId integerValue];
+                      self.marchId = (int)[[self.marches firstObject].marchId integerValue];
                       [self.marchTextField setText:[NSString stringWithFormat:@"  %@", self.marchTitle]];
                   }
                                     
@@ -246,6 +246,7 @@
 
 - (void)stepperChanged:(UIStepper*)sender {
     self.distance = (int)[sender value];
+//      [self.stepper setValue:self.distance];
     [self.stepperLabel setText:[NSString stringWithFormat:@"%d 公尺", self.distance]];
     [self.locationManager setDistanceFilter:self.distance];
     [self locationLog:[NSString stringWithFormat:@"設定 %d 公尺觸發", self.distance]];
@@ -393,6 +394,7 @@
                   if (self.distance != d) {
                       self.distance = d;
                       [self.stepperLabel setText:[NSString stringWithFormat:@"%d 公尺", self.distance]];
+                      [self.stepper setValue:self.distance];
                       [self.locationManager setDistanceFilter:self.distance];
                       [self locationLog:[NSString stringWithFormat:@"設定 %d 公尺觸發", self.distance]];
                       [self locationLog:@"----------------------------------------"];
