@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0E0476161CC9326700BE48E1 /* GPSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0476151CC9326700BE48E1 /* GPSTableViewController.m */; };
+		0E0476191CC9386900BE48E1 /* March.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0476181CC9386900BE48E1 /* March.m */; };
+		0E04761F1CC93C1200BE48E1 /* GPSMarchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E04761E1CC93C1200BE48E1 /* GPSMarchViewController.m */; };
 		0E88ECED1CA8CB9700D06A95 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ECEC1CA8CB9700D06A95 /* main.m */; };
 		0E88ECF01CA8CB9700D06A95 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ECEF1CA8CB9700D06A95 /* AppDelegate.m */; };
 		0E88ECF61CA8CB9700D06A95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E88ECF41CA8CB9700D06A95 /* Main.storyboard */; };
@@ -78,6 +80,10 @@
 /* Begin PBXFileReference section */
 		0E0476141CC9326700BE48E1 /* GPSTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSTableViewController.h; sourceTree = "<group>"; };
 		0E0476151CC9326700BE48E1 /* GPSTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSTableViewController.m; sourceTree = "<group>"; };
+		0E0476171CC9386900BE48E1 /* March.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = March.h; sourceTree = "<group>"; };
+		0E0476181CC9386900BE48E1 /* March.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = March.m; sourceTree = "<group>"; };
+		0E04761D1CC93C1200BE48E1 /* GPSMarchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSMarchViewController.h; sourceTree = "<group>"; };
+		0E04761E1CC93C1200BE48E1 /* GPSMarchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSMarchViewController.m; sourceTree = "<group>"; };
 		0E88ECE81CA8CB9700D06A95 /* MazuMarchAdmin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazuMarchAdmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E88ECEC1CA8CB9700D06A95 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0E88ECEE1CA8CB9700D06A95 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -408,6 +414,10 @@
 				0E88ED931CAA102600D06A95 /* SystemTableViewController.m */,
 				0E0476141CC9326700BE48E1 /* GPSTableViewController.h */,
 				0E0476151CC9326700BE48E1 /* GPSTableViewController.m */,
+				0E0476171CC9386900BE48E1 /* March.h */,
+				0E0476181CC9386900BE48E1 /* March.m */,
+				0E04761D1CC93C1200BE48E1 /* GPSMarchViewController.h */,
+				0E04761E1CC93C1200BE48E1 /* GPSMarchViewController.m */,
 			);
 			name = System;
 			sourceTree = "<group>";
@@ -656,7 +666,9 @@
 				0E88ECED1CA8CB9700D06A95 /* main.m in Sources */,
 				0E88ED8A1CA947C000D06A95 /* MapsViewController.m in Sources */,
 				0EADDBE31CAAB29D006AE497 /* ClearTempViewController.m in Sources */,
+				0E04761F1CC93C1200BE48E1 /* GPSMarchViewController.m in Sources */,
 				0E88ED7A1CA9103700D06A95 /* AFURLRequestSerialization.m in Sources */,
+				0E0476191CC9386900BE48E1 /* March.m in Sources */,
 				0E88ED511CA9012400D06A95 /* SDImageCache.m in Sources */,
 				0E88ED761CA9103700D06A95 /* AFHTTPSessionManager.m in Sources */,
 			);

@@ -18,7 +18,7 @@
 
 #define LOAD_PATHS_API_URL @"http://pic.mazu.ioa.tw/api/march/%d/paths.json"
 #define CLEAN_API_URL @"http://mazu.ioa.tw/api/clean/"
-#define LAST_API_URL @"http://mazu.ioa.tw/api/march/%d/paths/last"
+#define LAST_API_URL @"http://mazu.ioa.tw/api/march/%@/paths/last"
 #define BLACK_LIST_API_URL @"http://mazu.ioa.tw/api/march_message_blacklists"
 #define DELETE_BLACK_API_URL @"http://mazu.ioa.tw/api/march_message_blacklists/%d"
 

@@ -30,7 +30,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.list = [NSMutableArray new];
+    self.marches = [NSMutableArray new];
     [self reloadData];
 }
 - (void)reloadData {
@@ -46,12 +46,15 @@
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
-    [httpManager GET:BLACK_LIST_API_URL
+    [httpManager GET:LOAD_MARCHES_API_URL
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 for (NSDictionary *l in [responseObject objectForKey:@"l"])
-                     [self.list addObject: l];
+
                  
+                 for (NSDictionary *obj in responseObject) {
+                     [self.marches addObject: [[March alloc] initWithDictionary: obj]];
+                 }
+
                  [self.tableView reloadData];
                  
                  if (alert) [alert dismissViewControllerAnimated:YES completion:nil];
@@ -69,18 +72,24 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.list count];
+    return [self.marches count];
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    NSString *identifier = [NSString stringWithFormat:@"BlackListCell_%@", [self.marches objectAtIndex:indexPath.row].marchId];
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+
+    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@(%.f%%) - %@", [self.marches objectAtIndex:indexPath.row].title, [self.marches objectAtIndex:indexPath.row].battery, [self.marches objectAtIndex:indexPath.row].isEnable ? @"開啟" : @"關閉"]];
+
     return cell;
 }
-*/
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.navigationController pushViewController:[[GPSMarchViewController alloc] initWithId:[self.marches objectAtIndex:indexPath.row].marchId] animated:YES];
+}
 
 /*
 // Override to support conditional editing of the table view.

@@ -61,9 +61,13 @@
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
-    [httpManager GET:LOAD_MARCHES_API_URL
+    [httpManager GET:BLACK_LIST_API_URL
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                for (NSDictionary *l in [responseObject objectForKey:@"l"])
+                     [self.list addObject: l];
+                 
+                 [self.tableView reloadData];
                  
                  if (alert) [alert dismissViewControllerAnimated:YES completion:nil];
              }

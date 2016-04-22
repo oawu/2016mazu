@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Header.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "March.h"
+#import "GPSMarchViewController.h"
 
 @interface GPSTableViewController : UITableViewController
 
-@property NSMutableArray *list;
+@property NSMutableArray<March *> *marches;
 @end

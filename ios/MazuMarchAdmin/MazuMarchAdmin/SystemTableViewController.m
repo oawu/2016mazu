@@ -100,18 +100,18 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
-    [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
-    [httpManager GET:[NSString stringWithFormat:LAST_API_URL, (int)[[USER_DEFAULTS objectForKey:@"march_id"] integerValue]]
-          parameters:nil
-             success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 int i = (int)[[[responseObject objectForKey:@"last"] objectForKey:@"battery"] integerValue] / 25;
-                 self.batteryIcon = [NSString stringWithFormat:@"system_10%d", i];
-                 [self.tableView reloadData];
-             }
-             failure:^(AFHTTPRequestOperation *operation, NSError *error) {}
-     ];
+//    
+//    AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+//    [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+//    [httpManager GET:[[NSString stringWithFormat:LAST_API_URL, [USER_DEFAULTS objectForKey:@"march_id"]]]
+//          parameters:nil
+//             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                 int i = (int)[[[responseObject objectForKey:@"last"] objectForKey:@"battery"] integerValue] / 25;
+//                 self.batteryIcon = [NSString stringWithFormat:@"system_10%d", i];
+//                 [self.tableView reloadData];
+//             }
+//             failure:^(AFHTTPRequestOperation *operation, NSError *error) {}
+//     ];
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
