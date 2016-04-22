@@ -32,16 +32,17 @@ $(function () {
     $map.get (0).loadDataTime = 65 * 1000;
   }
   function loadPath ($map) {
-    $.ajax ({url: window.url.load_path + $('#_path_id').val () + '.json', async: true, cache: false, dataType: 'json', type: 'GET'})
-      .done (function (r) {
-        if (!(r && r.length)) return;
-        $map.get (0).pathPolyline = new google.maps.Polyline ({
-          map: $map.get (0)._map,
-          strokeColor: 'rgba(101, 216, 238, .4)',
-          strokeWeight: 8,
-          path: r.map (function (p) { return new google.maps.LatLng (p.a, p.n); })
+    if ($('#_path_id').val () > 0)
+      $.ajax ({url: window.url.load_path + $('#_path_id').val () + '.json', async: true, cache: false, dataType: 'json', type: 'GET'})
+        .done (function (r) {
+          if (!(r && r.length)) return;
+          $map.get (0).pathPolyline = new google.maps.Polyline ({
+            map: $map.get (0)._map,
+            strokeColor: 'rgba(101, 216, 238, .4)',
+            strokeWeight: 8,
+            path: r.map (function (p) { return new google.maps.LatLng (p.a, p.n); })
+          });
         });
-      });
   }
   function loadMarkers ($map, isFirst) {
     if (window.isLoadMarkers) return ;

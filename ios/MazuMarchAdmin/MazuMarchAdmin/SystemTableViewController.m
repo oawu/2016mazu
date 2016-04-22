@@ -30,6 +30,11 @@
                           @"name": @"管理系統",
                           @"items": @[
                                   @{
+                                      @"name": @"系統設定",
+                                      @"action": @"SettingViewController",
+                                      @"image": @"system_01"
+                                      },
+                                  @{
                                       @"name": @"GPS 列表",
                                       @"action": @"GPSTableViewController",
                                       @"image": @"system_00"
@@ -46,16 +51,7 @@
                                       }
                                   ]
                           }];
-    [self.features addObject:@{
-                          @"name": @"定位系統",
-                          @"items": @[
-                                  @{
-                                      @"name": @"GPS狀態",
-                                      @"action": @"GPSStatusViewController",
-                                      @"image": @"system_100"
-                                      }]
-                          }];
-    [self.navigationController pushViewController:[NSClassFromString(@"GPSTableViewController") new] animated:YES];
+    [self.navigationController pushViewController:[NSClassFromString(@"SettingViewController") new] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -10,6 +10,7 @@
 		0E0476161CC9326700BE48E1 /* GPSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0476151CC9326700BE48E1 /* GPSTableViewController.m */; };
 		0E0476191CC9386900BE48E1 /* March.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0476181CC9386900BE48E1 /* March.m */; };
 		0E04761F1CC93C1200BE48E1 /* GPSMarchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E04761E1CC93C1200BE48E1 /* GPSMarchViewController.m */; };
+		0E0476221CC9F3EB00BE48E1 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0476211CC9F3EB00BE48E1 /* SettingViewController.m */; };
 		0E88ECED1CA8CB9700D06A95 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ECEC1CA8CB9700D06A95 /* main.m */; };
 		0E88ECF01CA8CB9700D06A95 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E88ECEF1CA8CB9700D06A95 /* AppDelegate.m */; };
 		0E88ECF61CA8CB9700D06A95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E88ECF41CA8CB9700D06A95 /* Main.storyboard */; };
@@ -84,6 +85,8 @@
 		0E0476181CC9386900BE48E1 /* March.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = March.m; sourceTree = "<group>"; };
 		0E04761D1CC93C1200BE48E1 /* GPSMarchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSMarchViewController.h; sourceTree = "<group>"; };
 		0E04761E1CC93C1200BE48E1 /* GPSMarchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSMarchViewController.m; sourceTree = "<group>"; };
+		0E0476201CC9F3EB00BE48E1 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		0E0476211CC9F3EB00BE48E1 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		0E88ECE81CA8CB9700D06A95 /* MazuMarchAdmin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazuMarchAdmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E88ECEC1CA8CB9700D06A95 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0E88ECEE1CA8CB9700D06A95 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -219,8 +222,6 @@
 				0EADDBE21CAAB29D006AE497 /* ClearTempViewController.m */,
 				0EADDBE71CAB9775006AE497 /* GPSStatusViewController.h */,
 				0EADDBE81CAB9775006AE497 /* GPSStatusViewController.m */,
-				0EADDBEA1CABC71B006AE497 /* BlackListTableViewController.h */,
-				0EADDBEB1CABC71B006AE497 /* BlackListTableViewController.m */,
 			);
 			name = _tmp;
 			sourceTree = "<group>";
@@ -418,6 +419,10 @@
 				0E0476181CC9386900BE48E1 /* March.m */,
 				0E04761D1CC93C1200BE48E1 /* GPSMarchViewController.h */,
 				0E04761E1CC93C1200BE48E1 /* GPSMarchViewController.m */,
+				0EADDBEA1CABC71B006AE497 /* BlackListTableViewController.h */,
+				0EADDBEB1CABC71B006AE497 /* BlackListTableViewController.m */,
+				0E0476201CC9F3EB00BE48E1 /* SettingViewController.h */,
+				0E0476211CC9F3EB00BE48E1 /* SettingViewController.m */,
 			);
 			name = System;
 			sourceTree = "<group>";
@@ -659,6 +664,7 @@
 				0E88ED541CA9012400D06A95 /* SDWebImageDownloader.m in Sources */,
 				0E88ED771CA9103700D06A95 /* AFNetworkReachabilityManager.m in Sources */,
 				0E88ED261CA8CF0300D06A95 /* MessageTableViewController.m in Sources */,
+				0E0476221CC9F3EB00BE48E1 /* SettingViewController.m in Sources */,
 				0E88ED231CA8CD8600D06A95 /* MyNavigationController.m in Sources */,
 				0E88ECF01CA8CB9700D06A95 /* AppDelegate.m in Sources */,
 				0E88ED981CAA282400D06A95 /* MyTabBarController.m in Sources */,
