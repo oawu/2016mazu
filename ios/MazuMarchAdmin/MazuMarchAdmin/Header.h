@@ -24,7 +24,7 @@
 
 #define LOAD_MARCHES_API_URL @"http://mazu.ioa.tw/api/marches"
 #define PUT_MARCH_API_URL @"http://mazu.ioa.tw/api/marches/%@"
-#define GET_SETTING @"http://mazu.ioa.tw/api/setting/1"
+#define GET_SETTING_API_URL @"http://mazu.ioa.tw/api/setting/1"
 
 #define USER_ID @"1"
 #define LOAD_MESSAGE_TIMER 5 //sec
