@@ -51,7 +51,7 @@
                                       }
                                   ]
                           }];
-    [self.navigationController pushViewController:[NSClassFromString(@"SettingViewController") new] animated:YES];
+    [self.navigationController pushViewController:[NSClassFromString(@"ClearTempViewController") new] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

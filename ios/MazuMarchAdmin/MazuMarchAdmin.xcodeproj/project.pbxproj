@@ -218,8 +218,6 @@
 			children = (
 				0EADDBDE1CAAA917006AE497 /* MarchViewController.h */,
 				0EADDBDF1CAAA917006AE497 /* MarchViewController.m */,
-				0EADDBE11CAAB29D006AE497 /* ClearTempViewController.h */,
-				0EADDBE21CAAB29D006AE497 /* ClearTempViewController.m */,
 				0EADDBE71CAB9775006AE497 /* GPSStatusViewController.h */,
 				0EADDBE81CAB9775006AE497 /* GPSStatusViewController.m */,
 			);
@@ -423,6 +421,8 @@
 				0EADDBEB1CABC71B006AE497 /* BlackListTableViewController.m */,
 				0E0476201CC9F3EB00BE48E1 /* SettingViewController.h */,
 				0E0476211CC9F3EB00BE48E1 /* SettingViewController.m */,
+				0EADDBE11CAAB29D006AE497 /* ClearTempViewController.h */,
+				0EADDBE21CAAB29D006AE497 /* ClearTempViewController.m */,
 			);
 			name = System;
 			sourceTree = "<group>";

@@ -36,16 +36,8 @@
 
     self.list = [NSMutableArray new];
     [self.list addObject:@{
-                           @"title": @"清除 All .json 檔案！",
-                           @"uri": @"all_jsons",
-                           @"label": [UILabel new],
-                           @"button": [UIButton new],
-                           @"result": [UILabel new],
-                           @"line": [UILabel new]
-                           }];
-    [self.list addObject:@{
-                           @"title": @"清除 Path .json 檔案！",
-                           @"uri": @"paths",
+                           @"title": @"清除 GPS .json 檔案！",
+                           @"uri": @"gps",
                            @"label": [UILabel new],
                            @"button": [UIButton new],
                            @"result": [UILabel new],
@@ -60,15 +52,7 @@
                            @"line": [UILabel new]
                            }];
     [self.list addObject:@{
-                           @"title": @"清除 Heatmap .json 檔案！",
-                           @"uri": @"heatmaps",
-                           @"label": [UILabel new],
-                           @"button": [UIButton new],
-                           @"result": [UILabel new],
-                           @"line": [UILabel new]
-                           }];
-    [self.list addObject:@{
-                           @"title": @"清除 Temp .json 檔案！",
+                           @"title": @"清空 Temp 資料夾！",
                            @"uri": @"temp",
                            @"label": [UILabel new],
                            @"button": [UIButton new],

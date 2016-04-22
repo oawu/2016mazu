@@ -12,15 +12,19 @@ class Clean extends Api_controller {
     parent::__construct ();
   }
 
-  public function messages () {
-    if (@unlink (FCPATH . 'temp/march_messages.json'))
+  public function gps () {
+    $file = FCPATH . 'temp/march_gps.json';
+    @unlink ($file);
+    if (!file_exists ($file))
       return $this->output_json ('清除成功');
     else
       return $this->output_error_json ('清除失敗！');
   }
 
-  public function gps () {
-    if (@unlink (FCPATH . 'temp/march_gps.json'))
+  public function messages () {
+    $file = FCPATH . 'temp/march_messages.json';
+    @unlink ($file);
+    if (!file_exists ($file))
       return $this->output_json ('清除成功');
     else
       return $this->output_error_json ('清除失敗！');
