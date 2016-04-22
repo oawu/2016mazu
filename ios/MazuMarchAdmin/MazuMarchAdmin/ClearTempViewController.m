@@ -59,6 +59,15 @@
                            @"result": [UILabel new],
                            @"line": [UILabel new]
                            }];
+
+    [self.list addObject:@{
+                           @"title": @"清空 Output 資料夾！",
+                           @"uri": @"output",
+                           @"label": [UILabel new],
+                           @"button": [UIButton new],
+                           @"result": [UILabel new],
+                           @"line": [UILabel new]
+                           }];
     
     for (int i = 0; i < [self.list count]; i++) {
         
@@ -126,7 +135,7 @@
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  [sender setEnabled:YES];
-                 [self.list[i][@"result"] setText:[NSString stringWithFormat:@"%@", responseObject]];
+                 [self.list[i][@"result"] setText:[NSString stringWithFormat:@"%@", [responseObject objectForKey:@"msg"]]];
              }
              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  [sender setEnabled:YES];
