@@ -19,7 +19,7 @@ class Oa_controller extends Root_controller {
   private $tabs        = array ();
   private $append_js_list     = array ();
   private $append_css_list    = array ();
-  private $static_file_version = 0;
+  private $static_file_version = 1;
 
   public function __construct () {
     parent::__construct ();
