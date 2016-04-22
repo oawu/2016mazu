@@ -16,7 +16,7 @@ class Clean extends Api_controller {
     $file = FCPATH . 'temp/march_gps.json';
     @unlink ($file);
     if (!file_exists ($file))
-      return $this->output_json ('清除成功');
+      return $this->output_json (array ('msg' => '清除成功'));
     else
       return $this->output_error_json ('清除失敗！');
   }
@@ -25,7 +25,7 @@ class Clean extends Api_controller {
     $file = FCPATH . 'temp/march_messages.json';
     @unlink ($file);
     if (!file_exists ($file))
-      return $this->output_json ('清除成功');
+      return $this->output_json (array ('msg' => '清除成功'));
     else
       return $this->output_error_json ('清除失敗！');
   }
@@ -33,7 +33,7 @@ class Clean extends Api_controller {
   public function temp () {
     $this->load->helper ('directory');
     directory_delete (FCPATH . 'temp', false);
-    return $this->output_json ('清除成功');
+    return $this->output_json (array ('msg' => '清除成功'));
   }
 
 

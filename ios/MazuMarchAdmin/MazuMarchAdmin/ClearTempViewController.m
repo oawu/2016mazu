@@ -126,7 +126,7 @@
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  [sender setEnabled:YES];
-                 [self.list[i][@"result"] setText:@"清除完成！"];
+                 [self.list[i][@"result"] setText:[NSString stringWithFormat:@"%@", responseObject]];
              }
              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  [sender setEnabled:YES];
