@@ -68,8 +68,7 @@
     
     [self.scrollView addSubview: self.batteryTitleLabel];
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.batteryTitleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.batteryImage attribute:NSLayoutAttributeBottom multiplier:1 constant:20]];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.batteryTitleLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.batteryImage attribute:NSLayoutAttributeCenterX multiplier:1 constant:-1]];
-    
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.batteryTitleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeLeft multiplier:1 constant:10]];
     
     
     
@@ -102,43 +101,23 @@
     
     
     
-    self.latTitleLabel = [UILabel new];
-    [self.latTitleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.latTitleLabel setText:@"緯度座標："];
-    [self.latTitleLabel setTextColor:[UIColor colorWithRed:0.50 green:0.50 blue:0.52 alpha:1.00]];
+    self.latLngTitleLabel = [UILabel new];
+    [self.latLngTitleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.latLngTitleLabel setText:@"經緯座標："];
+    [self.latLngTitleLabel setTextColor:[UIColor colorWithRed:0.50 green:0.50 blue:0.52 alpha:1.00]];
     
-    [self.scrollView addSubview: self.latTitleLabel];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.latTitleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.lastTimeTitleLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:s]];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.latTitleLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.lastTimeTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-    
-    
-    self.latLabel = [UILabel new];
-    [self.latLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.latLabel setText:@""];
-    
-    [self.scrollView addSubview: self.latLabel];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.latLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.latTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.latLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.latTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:2]];
+    [self.scrollView addSubview: self.latLngTitleLabel];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.latLngTitleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.lastTimeTitleLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:s]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.latLngTitleLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.lastTimeTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
     
     
-    self.lngTitleLabel = [UILabel new];
-    [self.lngTitleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.lngTitleLabel setText:@"經度座標："];
-    [self.lngTitleLabel setTextColor:[UIColor colorWithRed:0.50 green:0.50 blue:0.52 alpha:1.00]];
+    self.latLngLabel = [UILabel new];
+    [self.latLngLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.latLngLabel setText:@""];
     
-    [self.scrollView addSubview: self.lngTitleLabel];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.lngTitleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.latTitleLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:s]];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.lngTitleLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.latTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-    
-    
-    self.lngLabel = [UILabel new];
-    [self.lngLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.lngLabel setText:@""];
-    
-    [self.scrollView addSubview: self.lngLabel];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.lngLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.lngTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.lngLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.lngTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:2]];
-    
+    [self.scrollView addSubview: self.latLngLabel];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.latLngLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.latLngTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.latLngLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.latLngTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:2]];
     
     self.accuracyTitleLabel = [UILabel new];
     [self.accuracyTitleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -146,8 +125,8 @@
     [self.accuracyTitleLabel setTextColor:[UIColor colorWithRed:0.50 green:0.50 blue:0.52 alpha:1.00]];
     
     [self.scrollView addSubview: self.accuracyTitleLabel];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.accuracyTitleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.lngTitleLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:s]];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.accuracyTitleLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.lngTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.accuracyTitleLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.batteryLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.accuracyTitleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.batteryImage attribute:NSLayoutAttributeCenterX multiplier:1 constant:10]];
     
     
     self.enableTitleLabel = [UILabel new];
@@ -156,8 +135,8 @@
     [self.enableTitleLabel setTextColor:[UIColor colorWithRed:0.50 green:0.50 blue:0.52 alpha:1.00]];
     
     [self.scrollView addSubview: self.enableTitleLabel];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.enableTitleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.accuracyTitleLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:s]];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.enableTitleLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.accuracyTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.enableTitleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.latLngTitleLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:s]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.enableTitleLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.latLngTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
     
     self.enableSwitchButton = [UISwitch new];
     [self.enableSwitchButton setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -199,7 +178,7 @@
     
     [self.scrollView addSubview: self.distanceLabel];
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.distanceLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.stepper attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.distanceLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.stepper attribute:NSLayoutAttributeRight multiplier:1 constant:2]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.distanceLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.stepper attribute:NSLayoutAttributeRight multiplier:1 constant:10]];
     
     
     self.accuracyLabel = [UILabel new];
@@ -243,8 +222,7 @@
     [self.batteryImage setHidden:YES];
     [self.batteryTitleLabel setHidden:YES];
     [self.lastTimeTitleLabel setHidden:YES];
-    [self.latTitleLabel setHidden:YES];
-    [self.lngTitleLabel setHidden:YES];
+    [self.latLngTitleLabel setHidden:YES];
     [self.accuracyTitleLabel setHidden:YES];
     [self.enableTitleLabel setHidden:YES];
     [self.distanceTitleLabel setHidden:YES];
@@ -252,8 +230,7 @@
     
     [self.batteryLabel setHidden:YES];
     [self.lastTimeLabel setHidden:YES];
-    [self.latLabel setHidden:YES];
-    [self.lngLabel setHidden:YES];
+    [self.latLngLabel setHidden:YES];
     [self.accuracyLabel setHidden:YES];
     [self.enableSwitchButton setHidden:YES];
     [self.stepper setHidden:YES];
@@ -264,8 +241,7 @@
     [self.batteryImage setHidden:NO];
     [self.batteryTitleLabel setHidden:NO];
     [self.lastTimeTitleLabel setHidden:NO];
-    [self.latTitleLabel setHidden:NO];
-    [self.lngTitleLabel setHidden:NO];
+    [self.latLngTitleLabel setHidden:NO];
     [self.accuracyTitleLabel setHidden:NO];
     [self.enableTitleLabel setHidden:NO];
     [self.distanceTitleLabel setHidden:NO];
@@ -273,8 +249,7 @@
     
     [self.batteryLabel setHidden:NO];
     [self.lastTimeLabel setHidden:NO];
-    [self.latLabel setHidden:NO];
-    [self.lngLabel setHidden:NO];
+    [self.latLngLabel setHidden:NO];
     [self.accuracyLabel setHidden:NO];
     [self.enableSwitchButton setHidden:NO];
     [self.stepper setHidden:NO];
@@ -304,8 +279,7 @@
     [self.batteryLabel setText:[NSString stringWithFormat:@"%@%%", [last objectForKey:@"battery"]]];
     [self.lastTimeLabel setText:[last objectForKey:@"time_at"]];
     
-    [self.latLabel setText:[NSString stringWithFormat:@"%@", [last objectForKey:@"latitude2"]]];
-    [self.lngLabel setText:[NSString stringWithFormat:@"%@", [last objectForKey:@"longitude2"]]];
+    [self.latLngLabel setText:[NSString stringWithFormat:@"%@, %@", [last objectForKey:@"latitude2"], [last objectForKey:@"longitude2"]]];
     [self.accuracyLabel setText:[NSString stringWithFormat:@"%@ 公尺", [last objectForKey:@"accuracy_horizontal"]]];
     [self.mapView setCamera:[GMSCameraPosition cameraWithLatitude:[[last objectForKey:@"latitude2"] doubleValue]
                                                         longitude:[[last objectForKey:@"longitude2"] doubleValue]
@@ -322,11 +296,32 @@
 
 - (void)stepperChanged:(UIStepper*)sender {
     int distance = (int)[sender value];
-   
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更新中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self.parentViewController presentViewController:alert animated:YES completion:^{
+        
+        NSMutableDictionary *data = [NSMutableDictionary new];
+        [data setValue:[NSString stringWithFormat:@"%d", distance] forKey:@"distance"];
+        [data setValue:@"put" forKey:@"_method"];
+        
+        AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+        [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+        [httpManager POST:[NSString stringWithFormat:PUT_MARCH_API_URL, self.marchId]
+               parameters:data
+                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      [self.distanceLabel setText:[NSString stringWithFormat:@"%@ 公尺", [responseObject objectForKey:@"distance"]]];
+                      [alert dismissViewControllerAnimated:YES completion:nil];
+                  }
+                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      [alert dismissViewControllerAnimated:YES completion:nil];
+                  }
+         ];
+    }];
 }
+
 -(void)setState:(id)sender {
     BOOL state = [sender isOn];
-    
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更新中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
     
@@ -344,6 +339,7 @@
                      [alert dismissViewControllerAnimated:YES completion:nil];
                  }
                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     [self.enableSwitchButton setOn:!self.enableSwitchButton.isOn animated:NO];
                      [alert dismissViewControllerAnimated:YES completion:nil];
                  }
          ];

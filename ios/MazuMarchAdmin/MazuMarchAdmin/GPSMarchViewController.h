@@ -21,8 +21,8 @@
 
 @property UILabel *batteryTitleLabel;
 @property UILabel *lastTimeTitleLabel;
-@property UILabel *latTitleLabel;
-@property UILabel *lngTitleLabel;
+@property UILabel *latLngTitleLabel;
+
 @property UILabel *accuracyTitleLabel;
 @property UILabel *enableTitleLabel;
 @property UILabel *distanceTitleLabel;
@@ -30,8 +30,8 @@
 
 @property UILabel *batteryLabel;
 @property UILabel *lastTimeLabel;
-@property UILabel *latLabel;
-@property UILabel *lngLabel;
+@property UILabel *latLngLabel;
+
 @property UILabel *accuracyLabel;
 @property UISwitch *enableSwitchButton;
 @property UIStepper *stepper;
