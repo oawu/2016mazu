@@ -40,6 +40,6 @@ class Gps extends Site_controller {
          ->add_hidden (array ('id' => '_url_set_location', 'value' => base_url ('api', 'march_users')))
          ->add_hidden (array ('id' => '_url_report', 'value' => base_url ('api', 'march_messages', 'report')))
          ->add_hidden (array ('id' => '_url_send_message', 'value' => base_url ('api', 'march_messages')))
-         ->load_view (array (), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
+         ->load_view (array (), false, ENVIRONMENT == 'production' ? 60 * 3 : 60 * 3);
   }
 }

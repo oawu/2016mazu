@@ -39,6 +39,10 @@ class Settings extends Api_controller {
       return true;
     });
 
+    if ($posts['path_id'] || $posts['version'])
+      foreach (array ('gps', 'gps/index', 'gps/index/1') as $key)
+        $this->output->delete_cache ($key);
+
     return $this->output_json ($setting->to_array ());
   }
   private function _validation_posts (&$posts) {

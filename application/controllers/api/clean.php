@@ -57,6 +57,15 @@ class Clean extends Api_controller {
 
 
 
+  // public function gps_page () {
+  //   $file = FCPATH . FCPATH . 'application' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'output' . DIRECTORY_SEPARATOR . 'mazu_|_ioa_|_tw_|_gps_|_index_|_1';
+  //   @unlink ($file);
+  //   if (!file_exists ($file))
+  //     return $this->output_json (array ('msg' => '清除成功'));
+  //   else
+  //     return $this->output_error_json ('清除失敗！');
+  // }
+  
   // private function _paths () {
   //   $marches = March::find ('all', array ('select' => 'id', 'conditions' => array ('is_enabled = 1')));
 
