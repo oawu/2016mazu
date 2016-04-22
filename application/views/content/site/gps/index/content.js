@@ -8,7 +8,7 @@ function setStorage (key, data) { if (typeof (Storage) !== 'undefined') { localS
 
 $(function () {
   window.url = {
-    load_path: $('#_url_load_path').val (),
+    load_path: 'http://pic.mazu.ioa.tw/api/path/',
     set_location: $('#_url_set_location').val (),
     load_markers: 'http://pic.mazu.ioa.tw/api/march/gps.json',
     load_messages: 'http://pic.mazu.ioa.tw/api/march/messages.json',
@@ -31,15 +31,15 @@ $(function () {
     $map.get (0).pl = 15;
     $map.get (0).loadDataTime = 65 * 1000;
   }
-  function loadPath ($map, id) {
-    $.ajax ({url: window.url.load_path, data: { id: id }, async: true, cache: false, dataType: 'json', type: 'GET'})
+  function loadPath ($map) {
+    $.ajax ({url: window.url.load_path + $('#_path_id').val () + '.json', async: true, cache: false, dataType: 'json', type: 'GET'})
       .done (function (r) {
-        if (!(r.m && r.m.length)) return;
+        if (!(r && r.length)) return;
         $map.get (0).pathPolyline = new google.maps.Polyline ({
           map: $map.get (0)._map,
           strokeColor: 'rgba(101, 216, 238, .4)',
           strokeWeight: 8,
-          path: r.m.map (function (p) { return new google.maps.LatLng (p.a, p.n); })
+          path: r.map (function (p) { return new google.maps.LatLng (p.a, p.n); })
         });
       });
   }
@@ -256,6 +256,6 @@ $(function () {
 
     if (getStorage ('_HAS_OPEN_MESSAGES')) $message.click ();
     
-    loadPath ($map, 1);
+    loadPath ($map);
   });
 });

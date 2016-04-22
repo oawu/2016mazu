@@ -16,6 +16,7 @@
     if (self) {
         self.marchId = [dictionary objectForKey:@"id"];
         self.title = [dictionary objectForKey:@"t"];
+        self.enable = [[dictionary objectForKey:@"e"] boolValue] ? @"開啟" : @"關閉";
     }
     return self;
 }

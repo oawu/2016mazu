@@ -10,7 +10,7 @@
 
 @interface March : NSObject
 
-@property NSString *marchId, *title;
+@property NSString *marchId, *title, *enable;
 
 - (March *) initWithDictionary:(NSDictionary *)dictionary;
 

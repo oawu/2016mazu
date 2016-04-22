@@ -214,7 +214,7 @@
     return [self.marches count];
 }
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [self.marches objectAtIndex:row].title;
+    return [NSString stringWithFormat:@"%@ (%@)", [self.marches objectAtIndex:row].title, [self.marches objectAtIndex:row].enable];
 }
 
 - (void)unlock:(UIButton *)sender{
