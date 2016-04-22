@@ -14,14 +14,14 @@ class Settings extends Api_controller {
 
     if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy', 'show')))
       if (!(($id = $this->uri->rsegments (3, 0)) && ($this->setting = GpsSetting::find ('one', array ('conditions' => array ('id = ?', $id))))))
-        return $this->disable ($this->output_error_json ('Parameters error!'));
+        return $this->disable ($this->output_error_json ('Parameters error(1)!'));
   }
   public function show () {
     return $this->output_json ($this->setting->to_array ());
   }
   public function update () {
     if (!$this->has_post ())
-      return $this->disable ($this->output_error_json ('Parameters error!'));
+      return $this->disable ($this->output_error_json ('Parameters error(2)!'));
       
     $posts = OAInput::post ();
 
