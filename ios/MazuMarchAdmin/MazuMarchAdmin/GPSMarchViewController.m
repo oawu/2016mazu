@@ -334,10 +334,11 @@
         
         NSMutableDictionary *data = [NSMutableDictionary new];
         [data setValue:[NSString stringWithFormat:@"%@", state ? @"1" : @"0"] forKey:@"is_enabled"];
+        [data setValue:@"put" forKey:@"_method"];
         
         AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
         [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
-        [httpManager PUT:[NSString stringWithFormat:PUT_MARCH_API_URL, self.marchId]
+        [httpManager POST:[NSString stringWithFormat:PUT_MARCH_API_URL, self.marchId]
               parameters:data
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                      [alert dismissViewControllerAnimated:YES completion:nil];

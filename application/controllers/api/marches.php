@@ -50,7 +50,7 @@ class Marches extends Api_controller {
   public function index () {
     $marches = array_map (function ($march) {
       return array_merge ($march->to_array (), array ('b' => $march->last_path ? $march->last_path->battery : -1));
-    }, March::find ('all', array ('select' => 'id,title AS t,is_enabled AS e', 'conditions' => array ('is_enabled = 1'))));
+    }, March::find ('all', array ('select' => 'id,title AS t,is_enabled AS e')));
 
     return $this->output_json ($marches);
   }
