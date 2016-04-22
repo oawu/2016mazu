@@ -16,9 +16,12 @@ class Cli_march extends Site_controller {
     }
   }
   public function index () {
+    if (!GpsSetting::find_by_id (1)->is_crontab)
+      return;
+
     $log = CrontabLog::start ('每 1 分鐘更新路線');
     
-    $version = 1;
+    $version = GpsSetting::find_by_id (1)->version;
 
     $path = FCPATH . 'temp/march_gps.json';
     $s3_path = 'api/march/gps.json';

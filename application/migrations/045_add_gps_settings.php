@@ -10,7 +10,7 @@ class Migration_Add_gps_settings extends CI_Migration {
     $this->db->query (
       "CREATE TABLE `gps_settings` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
-        `distance` tinyint(1) unsigned NOT NULL DEFAULT 3 COMMENT 'GPS 觸發長度',
+        `is_crontab` tinyint(1) unsigned NOT NULL DEFAULT 1 COMMENT '是否執行 Crontab',
         `path_id` int(11) unsigned NOT NULL DEFAULT 1 COMMENT 'Path ID',
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
