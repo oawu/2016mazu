@@ -56,6 +56,15 @@ class Cli_march extends Site_controller {
 
     return $log->finish ();
   }
+  private function _error ($log, $msg = '不明原因錯誤！', $url = '') {
+    $log->error ($msg);
+    Mail::send ('錯誤', array (
+      'OA <comdan66@gmail.com>',
+    ), array (
+      '訊息內容' => $msg,
+    ));
+    return true;
+  }
 
   // private function _o ($paths) {
   //   if (!$paths) return $paths;
@@ -249,13 +258,4 @@ class Cli_march extends Site_controller {
 
   //   return $qs;
   // }
-  private function _error ($log, $msg = '不明原因錯誤！', $url = '') {
-    $log->error ($msg);
-    Mail::send ('錯誤', array (
-      'OA <comdan66@gmail.com>',
-    ), array (
-      '訊息內容' => $msg,
-    ));
-    return true;
-  }
 }

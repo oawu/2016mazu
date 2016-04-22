@@ -12,36 +12,63 @@ class Clean extends Api_controller {
     parent::__construct ();
   }
 
-  private function _paths () {
-    $marches = March::find ('all', array ('select' => 'id', 'conditions' => array ('is_enabled = 1')));
-
-    foreach ($marches as $march)
-      @unlink (FCPATH . 'temp/march_' . $march->id . '_paths.json');
-
-    return true;
-  }
   private function _messages () {
     @unlink (FCPATH . 'temp/march_messages.json');
     return true;
   }
-  private function _heatmaps () {
-    for ($i = 0; $i < 10; $i++)
-      @unlink (FCPATH . 'temp/march_' . $i . '_heatmaps.json');
+  public function messages () {
+    if ($this->_messages ())
+      return $this->output_json ('清除成功');
+    else
+      return $this->output_error_json ('清除失敗！');
+  }
+
+  private function _gps () {
+    @unlink (FCPATH . 'temp/march_gps.json');
     return true;
   }
-  public function paths () {
-    return $this->output_json (array ('s' => $this->_paths ()));
+  public function gps () {
+    if ($this->_gps ())
+      return $this->output_json ('清除成功');
+    else
+      return $this->output_error_json ('清除失敗！');
   }
-  public function messages () {
-    return $this->output_json (array ('s' => $this->_messages ()));
-  }
-  public function heatmaps () {
-    return $this->output_json (array ('s' => $this->_heatmaps ()));
-  }
-  public function all_jsons () {
-    return $this->output_json (array ('s' => $this->_paths () && $this->_messages () && $this->_heatmaps ()));
-  }
+  
   public function temp () {
-    $this->load->helper ('directory'); directory_delete (FCPATH . 'temp', false); return $this->output_json (array ('s' => true));
+    $this->load->helper ('directory');
+    directory_delete (FCPATH . 'temp', false);
+    return $this->output_json ('清除成功');
   }
+
+
+
+
+
+
+
+
+
+
+  // private function _paths () {
+  //   $marches = March::find ('all', array ('select' => 'id', 'conditions' => array ('is_enabled = 1')));
+
+  //   foreach ($marches as $march)
+  //     @unlink (FCPATH . 'temp/march_' . $march->id . '_paths.json');
+
+  //   return true;
+  // }
+  // private function _heatmaps () {
+  //   for ($i = 0; $i < 10; $i++)
+  //     @unlink (FCPATH . 'temp/march_' . $i . '_heatmaps.json');
+  //   return true;
+  // }
+  // public function paths () {
+  //   return $this->output_json (array ('s' => $this->_paths ()));
+  // }
+  // public function heatmaps () {
+  //   return $this->output_json (array ('s' => $this->_heatmaps ()));
+  // }
+  // public function all_jsons () {
+  //   return $this->output_json (array ('s' => $this->_paths () && $this->_messages () && $this->_heatmaps ()));
+  // }
 }

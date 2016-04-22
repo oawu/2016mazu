@@ -104,22 +104,23 @@
 
 }
 - (void)chooseOne:(id)sender {
-//    self.marchId = (int)[sender selectedSegmentIndex] + 1;
+    int path_id = (int)[sender selectedSegmentIndex] + 1;
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更新中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
     
     [self.parentViewController presentViewController:alert animated:YES completion:^{
         
         NSMutableDictionary *data = [NSMutableDictionary new];
-//        [data setValue:[NSString stringWithFormat:@"%d", distance] forKey:@"distance"];
+        [data setValue:[NSString stringWithFormat:@"%d", path_id] forKey:@"path_id"];
         [data setValue:@"put" forKey:@"_method"];
         
         AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
         [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
-        [httpManager POST:[NSString stringWithFormat:PUT_MARCH_API_URL, self.marchId]
+        [httpManager POST:PUT_SETTING_API_URL
                parameters:data
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      [self.distanceLabel setText:[NSString stringWithFormat:@"%@ 公尺", [responseObject objectForKey:@"distance"]]];
+                      [self.pathSegmentedControl setSelectedSegmentIndex:[[responseObject objectForKey:@"path_id"] integerValue] - 1];
+                      
                       [alert dismissViewControllerAnimated:YES completion:nil];
                   }
                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -127,8 +128,63 @@
                   }
          ];
     }];
-    
 }
+
+- (void)stepperChanged:(UIStepper*)sender {
+    int version = (int)[sender value];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更新中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self.parentViewController presentViewController:alert animated:YES completion:^{
+        
+        NSMutableDictionary *data = [NSMutableDictionary new];
+        [data setValue:[NSString stringWithFormat:@"%d", version] forKey:@"version"];
+        [data setValue:@"put" forKey:@"_method"];
+        
+        AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+        [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+        [httpManager POST:PUT_SETTING_API_URL
+               parameters:data
+                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      [self.versionSteper setValue:[[responseObject objectForKey:@"version"] integerValue]];
+                      [self.versionLabel setText:[NSString stringWithFormat:@"%@", [responseObject objectForKey:@"version"]]];
+
+                      [alert dismissViewControllerAnimated:YES completion:nil];
+                  }
+                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      [alert dismissViewControllerAnimated:YES completion:nil];
+                  }
+         ];
+    }];
+}
+
+-(void)setState:(id)sender {
+    BOOL is_crontab = [sender isOn];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更新中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self.parentViewController presentViewController:alert animated:YES completion:^{
+        
+        NSMutableDictionary *data = [NSMutableDictionary new];
+        [data setValue:[NSString stringWithFormat:@"%@", is_crontab ? @"1" : @"0"] forKey:@"is_crontab"];
+        [data setValue:@"put" forKey:@"_method"];
+        
+        AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+        [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+        [httpManager POST:PUT_SETTING_API_URL
+               parameters:data
+                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      [self.crontabSwitch setOn:[[responseObject objectForKey:@"is_crontab"] boolValue] animated:NO];
+                      
+                      [alert dismissViewControllerAnimated:YES completion:nil];
+                  }
+                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      [alert dismissViewControllerAnimated:YES completion:nil];
+                  }
+         ];
+    }];
+}
+
 
 - (void)setHidden {
     [self.pathTitleLabel setHidden:YES];
