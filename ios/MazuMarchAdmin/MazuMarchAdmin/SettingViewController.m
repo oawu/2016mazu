@@ -21,7 +21,7 @@
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
     
-    int s = 10;
+    int s = 20;
     
     self.scrollView = [UIScrollView new];
     [self.scrollView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -62,21 +62,111 @@
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.crontabTitleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.versionTitleLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     
 
-    self.pathSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"十九下午", @"十九晚間", @"十九晚間"]];
+    self.pathSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"十九下午", @"十九晚間", @"二十下午", @"二十晚間"]];
     [self.pathSegmentedControl setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.pathSegmentedControl addTarget:self action:@selector(chooseOne:) forControlEvents:UIControlEventValueChanged];
     [self.pathSegmentedControl setSelectedSegmentIndex:0];
 
-    [self.view addSubview:self.pathSegmentedControl];
+    [self.scrollView addSubview:self.pathSegmentedControl];
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pathSegmentedControl attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.pathTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pathSegmentedControl attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.pathTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:2]];
     
     
-
+    self.versionSteper = [UIStepper new];
+    [self.versionSteper setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.versionSteper setMinimumValue:0];
+    [self.versionSteper setValue:0];
+    [self.versionSteper addTarget:self action:@selector(stepperChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.scrollView addSubview:self.versionSteper];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.versionSteper attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.versionTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.versionSteper attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.versionTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:2]];
+    
+    self.versionLabel = [UILabel new];
+    [self.versionLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.versionLabel setText:@""];
+    [self.versionLabel setTextColor:[UIColor colorWithRed:0.50 green:0.50 blue:0.52 alpha:1.00]];
+    
+    [self.scrollView addSubview:self.versionLabel];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.versionLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.versionSteper attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.versionLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.versionSteper attribute:NSLayoutAttributeRight multiplier:1 constant:5]];
+    
+    
+    
+    self.crontabSwitch = [UISwitch new];
+    [self.crontabSwitch setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.crontabSwitch addTarget:self action:@selector(setState:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.scrollView addSubview: self.crontabSwitch];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.crontabSwitch attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.crontabTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.crontabSwitch attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.crontabTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:2]];
     
 
 }
+//- (void)chooseOne:(id)sender {
+//    self.marchId = (int)[sender selectedSegmentIndex] + 1;
+//}
 
+- (void)setHidden {
+    [self.pathTitleLabel setHidden:YES];
+    [self.versionTitleLabel setHidden:YES];
+    [self.versionLabel setHidden:YES];
+    [self.crontabTitleLabel setHidden:YES];
+    [self.pathSegmentedControl setHidden:YES];
+    [self.versionSteper setHidden:YES];
+    [self.crontabSwitch setHidden:YES];
+}
+
+
+- (void)setShow:(NSDictionary *) data {
+    [self.pathTitleLabel setHidden:NO];
+    [self.versionTitleLabel setHidden:NO];
+    [self.versionLabel setHidden:NO];
+    [self.crontabTitleLabel setHidden:NO];
+    [self.pathSegmentedControl setHidden:NO];
+    [self.versionSteper setHidden:NO];
+    [self.crontabSwitch setHidden:NO];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self setHidden];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"取得資料中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self.parentViewController presentViewController:alert animated:YES completion:^{
+        
+        AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+        [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+        [httpManager GET:GET_SETTING
+              parameters:nil
+                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     [self setShow: responseObject];
+                     [alert dismissViewControllerAnimated:YES completion:nil];
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     
+                     [alert dismissViewControllerAnimated:YES completion:^{
+                         UIAlertController *backAlert = [UIAlertController
+                                                         alertControllerWithTitle:@"目前沒有任何資料！"
+                                                         message:nil
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+                         
+                         [backAlert addAction:[UIAlertAction
+                                               actionWithTitle:@"確定"
+                                               style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   [self.navigationController popViewControllerAnimated:YES];
+                                               }]];
+                         
+                         [self.parentViewController presentViewController:backAlert animated:YES completion:nil];
+                     }];
+                 }
+         ];
+    }];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -17,13 +17,6 @@ class Marches extends Api_controller {
         return $this->disable ($this->output_error_json ('Parameters error!'));
   }
 
-  // public function enable ($id = 0) {
-  //   $is_enabled = is_numeric ($is_enabled = OAInput::post ('is_enabled')) ? $is_enabled : 0;
-  //   $this->march->is_enabled = $is_enabled;
-  //   $march = $this->march;
-  //   if ($update = March::transaction (function () use ($march) { return $march->save (); }))
-  //     return $this->output_json ($march->to_array ());
-  // }
 
   public function update () {
     if (!$this->has_post ())

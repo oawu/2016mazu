@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Header.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface SettingViewController : UIViewController
 
@@ -14,8 +16,10 @@
 
 @property UILabel *pathTitleLabel;
 @property UILabel *versionTitleLabel;
+@property UILabel *versionLabel;
 @property UILabel *crontabTitleLabel;
 
 @property UISegmentedControl *pathSegmentedControl;
-
+@property UIStepper *versionSteper;
+@property UISwitch *crontabSwitch;
 @end

@@ -62,6 +62,7 @@ Route::group ('api', function () {
   
   Route::resource ('march_users', 'march_users');
   Route::resource ('marches', 'marches');
+  Route::resource ('settings', 'settings');
   // Route::post ('marches/(:id)/enable', 'marches@enable($1)');
 });
 
