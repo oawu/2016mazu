@@ -146,6 +146,7 @@
         [httpManager POST:PUT_SETTING_API_URL
                parameters:data
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      NSLog(@"%@", responseObject);
                       [self.versionSteper setValue:[[responseObject objectForKey:@"version"] integerValue]];
                       [self.versionLabel setText:[NSString stringWithFormat:@"%@", [responseObject objectForKey:@"version"]]];
 

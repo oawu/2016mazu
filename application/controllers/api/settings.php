@@ -39,7 +39,7 @@ class Settings extends Api_controller {
       return true;
     });
 
-    if ($posts['path_id'] || $posts['version'])
+    if (isset ($posts['path_id']) || isset ($posts['version']))
       foreach (array ('gps', 'gps/index', 'gps/index/1') as $key)
         $this->output->delete_cache ($key);
 
