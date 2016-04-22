@@ -66,7 +66,7 @@ $(function () {
       });
 
     window.$map.data ('change').forEach (function (t) {
-      if (t.p.length < 3) return ;
+      if (t.p.length < 1) return ;
       
       new MarkerWithLabel ({
         map: window.map, draggable: false, optimized: false,
