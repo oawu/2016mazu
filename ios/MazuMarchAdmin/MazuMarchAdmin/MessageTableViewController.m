@@ -188,10 +188,25 @@
 {
     [self.messages removeObjectAtIndex:indexPath.row];
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
-//    ;
+
     [self toBlock:[self.messages objectAtIndex:indexPath.row].ip];
 }
 - (void)toBlock: (NSString *) ip {
+
+    NSMutableDictionary *data = [NSMutableDictionary new];
+    [data setValue:ip forKey:@"ip"];
+    
+    AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+    [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+    [httpManager POST:CREATE_BLACK_API_URL
+          parameters:data
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 [self reloadData];
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 [self reloadData];
+             }
+     ];
     
 }
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -201,7 +216,7 @@
 
     NSString *identifier = [NSString stringWithFormat:@"MessageCell_%@", [self.messages objectAtIndex:indexPath.row].id];
     MessageTableViewCell *cell = (MessageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-    
+
     if(cell == nil) {
         cell = [[MessageTableViewCell alloc] initCellWithStyle: [self.messages objectAtIndex:indexPath.row] style:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }

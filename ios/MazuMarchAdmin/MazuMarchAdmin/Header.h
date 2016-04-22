@@ -22,6 +22,7 @@
 
 #define LAST_API_URL @"http://mazu.ioa.tw/api/march/%@/paths/last"
 #define BLACK_LIST_API_URL @"http://mazu.ioa.tw/api/march_message_blacklists"
+#define CREATE_BLACK_API_URL @"http://mazu.ioa.tw/api/march_message_blacklists"
 #define DELETE_BLACK_API_URL @"http://mazu.ioa.tw/api/march_message_blacklists/%d"
 
 #define LOAD_MARCHES_API_URL @"http://mazu.ioa.tw/api/marches"

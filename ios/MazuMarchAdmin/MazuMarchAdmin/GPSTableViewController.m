@@ -30,7 +30,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.marches = [NSMutableArray new];
     [self reloadData];
 }
 - (void)reloadData {
@@ -42,7 +41,8 @@
 }
 
 - (void)loadData:(UIAlertController *)alert {
-    
+    self.marches = [NSMutableArray new];
+
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
@@ -81,10 +81,17 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
 
-    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@(%.f%%) - %@", [self.marches objectAtIndex:indexPath.row].title, [self.marches objectAtIndex:indexPath.row].battery, [self.marches objectAtIndex:indexPath.row].isEnable ? @"開啟" : @"關閉"]];
-
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        [cell.textLabel setText:[self.marches objectAtIndex:indexPath.row].title];
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    }
+    
+    [cell.imageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"battery_0%d", (int)[self.marches objectAtIndex:indexPath.row].battery / 25]]];
+    if (![self.marches objectAtIndex:indexPath.row].isEnable)
+        [cell.textLabel setTextColor:[UIColor colorWithRed:0.00 green:0.00 blue:0.00 alpha:.500]];
+    else
+        [cell.textLabel setTextColor:[UIColor colorWithRed:0.00 green:0.00 blue:0.00 alpha:1.00]];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

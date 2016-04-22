@@ -101,11 +101,13 @@ class Maps extends Site_controller {
     foreach (array ('articles', 'others', '', 'march19', 'march19/dintao', 'march19/kio', 'maps/iko', 'dintaos', 'pictures', 'youtubes', 'stores') as $uri)
       $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ($uri)));
 
-    if ($index == 3) {
+    if ($index == 1) {
       $change = array (
-                  array ('t' => '更改路線', 'p' => array (array (23.56598837358369, 120.30584782361984),
-                  array (23.56600066615, 120.30546426773071),
-                  array (23.56548191885183, 120.30532211065292)))
+                  array ('t' => '更改路線', 'p' => array (
+                    array (23.56436574473355, 120.30493587255478),
+                    array (23.564274778583492, 120.30540525913239),
+                    array (23.56541553871797, 120.30562251806259),
+                    array (23.565513879645046, 120.30514776706696)))
               );
       $change = array ();
     } else {

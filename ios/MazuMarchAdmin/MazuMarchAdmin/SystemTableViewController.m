@@ -51,7 +51,7 @@
                                       }
                                   ]
                           }];
-    [self.navigationController pushViewController:[NSClassFromString(@"ClearTempViewController") new] animated:YES];
+//    [self.navigationController pushViewController:[NSClassFromString(@"GPSTableViewController") new] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,7 +87,6 @@
     NSString *image = [[[[self.features objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"image"];
     NSString *action = [[[[self.features objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row] objectForKey:@"action"];
     
-
     [cell.textLabel setText:text];
     [cell.imageView setImage:[UIImage imageNamed:[action isEqualToString:@"GPSStatusViewController"] && self.batteryIcon ? self.batteryIcon : image]];
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];

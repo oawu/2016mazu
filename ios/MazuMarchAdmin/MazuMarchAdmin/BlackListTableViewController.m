@@ -101,7 +101,6 @@
     }];
 }
 -(void)deleteBlack:(NSString *)blackId callback:(void (^)())finish {
-    
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
     [httpManager DELETE:[NSString stringWithFormat:DELETE_BLACK_API_URL, (int)[blackId integerValue]]

@@ -27,13 +27,13 @@ class Edit extends Api_controller {
       }
     echo ");";
   }
-  public function demo () {
+  public function demo ($id = 2) {
     $points = array_map (function ($point) {
       return array (
           'a' => $point->latitude,
           'n' => $point->longitude,
         );
-    }, PathPoint::find ('all', array ('order' => 'id ASC', 'conditions' => array ('path_id = ?', 1))));
+    }, PathPoint::find ('all', array ('order' => 'id ASC', 'conditions' => array ('path_id = ?', $id))));
 
     return $this->set_frame_path ('frame', 'pure')
                 ->add_js (resource_url ('resource', 'javascript', 'jrit.js'))

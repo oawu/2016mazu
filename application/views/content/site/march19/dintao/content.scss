@@ -171,7 +171,9 @@ article {
         @include transition(all .3s);
         @include border-radius(2px);
         // background-color: rgba(0, 0, 255, 0.2);
-        
+        &.c {
+          color: rgba(184, 61, 48, 1.00);
+        }
         &:after {
           content: attr(title);
           font-size: 12px;
