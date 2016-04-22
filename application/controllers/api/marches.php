@@ -29,8 +29,9 @@ class Marches extends Api_controller {
     // if (!$this->has_post ())
     //   return $this->disable ($this->output_error_json ('Parameters error!'));
       
-    echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
-    var_dump ($_POST);
+var_dump($_SERVER['REQUEST_METHOD']);
+var_dump($_SERVER['REQUEST_URI']);
+var_dump($_SERVER['PATH_INFO']);
     exit ();;
 
     if ($msg = $this->_validation_posts ($posts))
