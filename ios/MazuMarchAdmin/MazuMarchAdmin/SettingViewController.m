@@ -103,9 +103,32 @@
     
 
 }
-//- (void)chooseOne:(id)sender {
+- (void)chooseOne:(id)sender {
 //    self.marchId = (int)[sender selectedSegmentIndex] + 1;
-//}
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更新中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self.parentViewController presentViewController:alert animated:YES completion:^{
+        
+        NSMutableDictionary *data = [NSMutableDictionary new];
+//        [data setValue:[NSString stringWithFormat:@"%d", distance] forKey:@"distance"];
+        [data setValue:@"put" forKey:@"_method"];
+        
+        AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+        [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+        [httpManager POST:[NSString stringWithFormat:PUT_MARCH_API_URL, self.marchId]
+               parameters:data
+                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      [self.distanceLabel setText:[NSString stringWithFormat:@"%@ 公尺", [responseObject objectForKey:@"distance"]]];
+                      [alert dismissViewControllerAnimated:YES completion:nil];
+                  }
+                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      [alert dismissViewControllerAnimated:YES completion:nil];
+                  }
+         ];
+    }];
+    
+}
 
 - (void)setHidden {
     [self.pathTitleLabel setHidden:YES];
@@ -127,6 +150,13 @@
     [self.versionSteper setHidden:NO];
     [self.crontabSwitch setHidden:NO];
     
+    
+    [self.pathSegmentedControl setSelectedSegmentIndex:[[data objectForKey:@"path_id"] integerValue] - 1];
+    
+    [self.versionSteper setValue:[[data objectForKey:@"version"] integerValue]];
+    [self.versionLabel setText:[NSString stringWithFormat:@"%@", [data objectForKey:@"version"]]];
+        
+    [self.crontabSwitch setOn:[[data objectForKey:@"is_crontab"] boolValue] animated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -139,7 +169,7 @@
         
         AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
         [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
-        [httpManager GET:GET_SETTING
+        [httpManager GET:GET_SETTING_API_URL
               parameters:nil
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                      [self setShow: responseObject];
