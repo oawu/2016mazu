@@ -62,7 +62,7 @@ Route::group ('api', function () {
   
   Route::resource ('march_users', 'march_users');
   Route::resource ('marches', 'marches');
-  Route::post ('marches/(:id)/enable', 'marches@enable($1)');
+  // Route::post ('marches/(:id)/enable', 'marches@enable($1)');
 });
 
 // echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';

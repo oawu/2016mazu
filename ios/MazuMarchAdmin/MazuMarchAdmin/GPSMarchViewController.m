@@ -326,6 +326,27 @@
 }
 -(void)setState:(id)sender {
     BOOL state = [sender isOn];
+    
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更新中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self.parentViewController presentViewController:alert animated:YES completion:^{
+        
+        NSMutableDictionary *data = [NSMutableDictionary new];
+        [data setValue:[NSString stringWithFormat:@"%@", state ? @"1" : @"0"] forKey:@"is_enabled"];
+        
+        AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+        [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+        [httpManager PUT:[NSString stringWithFormat:PUT_MARCH_API_URL, self.marchId]
+              parameters:data
+                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     [alert dismissViewControllerAnimated:YES completion:nil];
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     [alert dismissViewControllerAnimated:YES completion:nil];
+                 }
+         ];
+    }];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
