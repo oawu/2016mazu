@@ -59,6 +59,15 @@
                            @"result": [UILabel new],
                            @"line": [UILabel new]
                            }];
+    
+    [self.list addObject:@{
+                           @"title": @"清空 Assets 資料夾！",
+                           @"uri": @"assets",
+                           @"label": [UILabel new],
+                           @"button": [UIButton new],
+                           @"result": [UILabel new],
+                           @"line": [UILabel new]
+                           }];
 
     [self.list addObject:@{
                            @"title": @"清空 Output 資料夾！",

@@ -36,6 +36,12 @@ class Clean extends Api_controller {
     return $this->output_json (array ('msg' => '清除成功'));
   }
 
+  public function assets () {
+    $this->load->helper ('directory');
+    directory_delete (FCPATH . 'assets', false);
+    return $this->output_json (array ('msg' => '清除成功'));
+  }
+
   public function output () {
     $this->load->helper ('directory');
     directory_delete (FCPATH . 'application' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'output', false);
