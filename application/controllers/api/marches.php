@@ -26,13 +26,10 @@ class Marches extends Api_controller {
   // }
 
   public function update () {
-    // if (!$this->has_post ())
-    //   return $this->disable ($this->output_error_json ('Parameters error!'));
+    if (!$this->has_post ())
+      return $this->disable ($this->output_error_json ('Parameters error!'));
       
-var_dump($_SERVER['REQUEST_METHOD']);
-var_dump($_SERVER['REQUEST_URI']);
-var_dump($_SERVER['PATH_INFO']);
-    exit ();;
+    $posts = OAInput::post ();
 
     if ($msg = $this->_validation_posts ($posts))
       return $this->disable ($this->output_error_json ($msg));
