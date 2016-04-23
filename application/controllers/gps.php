@@ -26,7 +26,7 @@ class Gps extends Site_controller {
 
     
     $title = '三月十九陣頭遶境 GPS 定位';
-    $desc = '2016年，農曆三月十九，陣頭GPS定位系統，一起分享，讓大家更快的找到北港各個陣頭的位置，以及追蹤目前北港媽祖的所在地，一起準備恭迎聖駕！';
+    $desc = '2016年，農曆三月十九，陣頭GPS定位系統，一起分享，讓大家更快的找到北港各個陣頭的位置，以及追蹤目前北港媽祖的所在地，一起準備恭迎聖駕！希望大家一起幫忙把這個網站分享給更多的北港人，或者分享給更多想認識北港的朋友吧！';
 
     if ($tags = array_unique (array_merge (array ($title), Cfg::setting ('site', 'keywords'))))
       foreach ($tags as $i => $tag)
