@@ -44,6 +44,54 @@ class Maps extends Site_controller {
           ));
   }
   public function dintao ($index = 0) {
+    $march19 = '2016-04-25 00:00:00';
+
+    $temp = new DateTime ($march19);
+    $day_count = $temp->diff (new DateTime (date ('Y-m-d H:i:s')))->format ('%a');
+    $day_count = strtotime ($march19) - strtotime (date ('Y-m-d H:i:s')) < 0 ? 0 - $day_count : $day_count;
+
+    if ($march19 >= date ('Y-m-d H:i:s')) {
+      $title = '三月十九陣頭遶境 GPS 定位';
+      $desc = '2016年，農曆三月十九，陣頭GPS定位系統，一起分享，讓大家更快的找到北港各個陣頭的位置，以及追蹤目前北港媽祖的所在地，一起準備恭迎聖駕！希望大家一起幫忙把這個網站分享給更多的北港人，或者分享給更多想認識北港的朋友吧！';
+
+      if ($tags = array_unique (array_merge (array ($title), Cfg::setting ('site', 'keywords'))))
+        foreach ($tags as $i => $tag)
+          if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+          else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+             
+      foreach (array ('articles', 'others', '', 'march19', 'march19/dintao', 'march19/kio', 'dintaos', 'pictures', 'youtubes', 'stores') as $uri)
+        $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ($uri)));
+
+      $this->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
+           ->add_meta (array ('name' => 'description', 'content' => $desc))
+           ->add_meta (array ('property' => 'og:title', 'content' => '農曆' . $title . ' - ' . Cfg::setting ('site', 'title')))
+           ->add_meta (array ('property' => 'og:description', 'content' => $desc))
+           ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'gps', 'large.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+           ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+           ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+           ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'));
+    } else {
+      $title = '三月' . $this->dintao_tabs[$index]['title'] . ' 陣頭遶境 Google Maps 路線地圖';
+      $desc = $this->dintao_tabs[$index]['desc'];
+
+      if ($tags = array_unique (array_merge (array ($title), Cfg::setting ('site', 'keywords'))))
+        foreach ($tags as $i => $tag)
+          if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+          else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+             
+      foreach (array ('articles', 'others', '', 'march19', 'march19/dintao', 'march19/kio', 'maps/iko', 'dintaos', 'pictures', 'youtubes', 'stores') as $uri)
+        $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ($uri)));
+
+      $this->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
+           ->add_meta (array ('name' => 'description', 'content' => $desc))
+           ->add_meta (array ('property' => 'og:title', 'content' => '農曆' . $title . ' - ' . Cfg::setting ('site', 'title')))
+           ->add_meta (array ('property' => 'og:description', 'content' => $desc))
+           ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'dintao', 'larger.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+           ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+           ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+           ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'));
+    }
+
     if (!(isset ($this->dintao_tabs[$index]) && ($path = Path::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL AND is_enabled = ?', $this->dintao_tabs[$index]['id'], Path::IS_ENABLED))))))
       return redirect_message (array ('march19'), array (
           '_flash_message' => '找不到該筆資料。'
@@ -53,115 +101,36 @@ class Maps extends Site_controller {
       $this->add_tab ($tab['title'], array ('href' => base_url ($this->get_class (), $this->get_method (), $i), 'index' => $i));
 
     $polyline = json_encode (array_map (function ($p) { return array ('a' => $p->latitude, 'n' => $p->longitude);}, $path->points));
-    $infos = json_encode (array_map (function ($i) {
-      return array (
-        't' => $i->title,
-        'c' => $i->content,
-        'i' => $i->icon_url (),
-        'o' => $i->cover->url ('230x115c'),
-        'a' => $i->latitude,
-        'n' => $i->longitude);
-    }, $path->infos));
+    $infos = json_encode (array_map (function ($i) { return array ('t' => $i->title,'c' => $i->content,'i' => $i->icon_url (),'o' => $i->cover->url ('230x115c'),'a' => $i->latitude,'n' => $i->longitude); }, $path->infos));
 
     if ($index == 0)
-      $prev = array (
-          'url' => base_url ('march19', 'iko'),
-          'title' => '藝閣路關'
-        );
+      $prev = array ('url' => base_url ('march19', 'iko'), 'title' => '藝閣路關');
     else if (isset ($this->dintao_tabs[$index - 1]))
-      $prev = array (
-          'url' => base_url ($this->get_class (), 'dintao', $index - 1),
-          'title' => '三月' . $this->dintao_tabs[$index - 1]['title'] . ' 陣頭地圖'
-        );
+      $prev = array ('url' => base_url ($this->get_class (), 'dintao', $index - 1), 'title' => '三月' . $this->dintao_tabs[$index - 1]['title'] . ' 陣頭地圖');
     else 
       $prev = null;
 
     if (isset ($this->dintao_tabs[$index + 1]))
-      $next = array (
-          'url' => base_url ('maps', 'dintao', $index + 1),
-          'title' => '三月' . $this->dintao_tabs[$index + 1]['title'] . ' 陣頭地圖'
-        );
+      $next = array ('url' => base_url ('maps', 'dintao', $index + 1), 'title' => '三月' . $this->dintao_tabs[$index + 1]['title'] . ' 陣頭地圖');
     else if ($index + 1 == count ($this->dintao_tabs))
-      $next = array (
-          'url' => base_url ('maps', 'iko'),
-          'title' => '三月' . $this->iko_tabs[0]['title'] . ' 藝閣地圖'
-        );
+      $next = array ('url' => base_url ('maps', 'iko'), 'title' => '三月' . $this->iko_tabs[0]['title'] . ' 藝閣地圖');
     else
       $next = null;
 
     
-    $title = '三月' . $this->dintao_tabs[$index]['title'] . ' 陣頭遶境 Google Maps 路線地圖';
-    $desc = $this->dintao_tabs[$index]['desc'];
-
-    if ($tags = array_unique (array_merge (array ($title), Cfg::setting ('site', 'keywords'))))
-      foreach ($tags as $i => $tag)
-        if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
-        else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
-           
-    foreach (array ('articles', 'others', '', 'march19', 'march19/dintao', 'march19/kio', 'maps/iko', 'dintaos', 'pictures', 'youtubes', 'stores') as $uri)
-      $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ($uri)));
-
     $change = array ();
     if ($index == 1)
-      $change = array (
-                  array ('t' => '更改路線', 'p' => array (
-                    array (23.564366974005416, 120.30494257807732),
-                    array (23.5642796956743, 120.30540391802788),
-                    array (23.565421685028067, 120.30562117695808),
-                    array (23.565512650383916, 120.30515044927597)))
-              );
+      $change = array (array ('t' => '更改路線', 'p' => array (array (23.564366974005416, 120.30494257807732),array (23.5642796956743, 120.30540391802788),array (23.565421685028067, 120.30562117695808),array (23.565512650383916, 120.30515044927597))));
     if ($index == 2)
-      $change = array (
-                  array ('t' => '更改路線', 'p' => array (
-                    array (23.565516338167285, 120.30514776706696),
-                    array (23.565420455766063, 120.30561983585358)))
-              );
+      $change = array (array ('t' => '更改路線', 'p' => array (array (23.565516338167285, 120.30514776706696), array (23.565420455766063, 120.30561983585358))));
     if ($index == 3)
-      $change = array (
-                  array ('t' => '更改路線', 'p' => array (
-                    array (23.56548191885183, 120.30531406402588),
-                    array (23.56542291429005, 120.3056252002716),
-                    array (23.564267402946943, 120.30541598796844),
-                    array (23.564373120364568, 120.30493050813675)))
-              );
+      $change = array (array ('t' => '更改路線', 'p' => array (array (23.56548191885183, 120.30531406402588), array (23.56542291429005, 120.3056252002716), array (23.564267402946943, 120.30541598796844), array (23.564373120364568, 120.30493050813675))));
 
     $this->set_tab_index ($index)
          ->set_title ($title . ' - ' . Cfg::setting ('site', 'title'))
          ->set_subtitle ($title)
-
-         ->add_meta (array ('name' => 'keywords', 'content' => implode (',', $tags)))
-         ->add_meta (array ('name' => 'description', 'content' => $desc))
-         ->add_meta (array ('property' => 'og:title', 'content' => '農曆' . $title . ' - ' . Cfg::setting ('site', 'title')))
-         ->add_meta (array ('property' => 'og:description', 'content' => $desc))
-         
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'dintao', 'larger.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
-         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
-         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
-         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
-         
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'story', 'content' => $img = resource_url ('resource', 'image', 'og', 'dintao', 'story.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
-         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'story', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
-         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'story', 'content' => '600'))
-         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'story', 'content' => '600'))
-         
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'small', 'content' => $img = resource_url ('resource', 'image', 'og', 'dintao', 'small.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
-         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'small', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
-         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'small', 'content' => '600'))
-         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'small', 'content' => '315'))
-         
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'mini', 'content' => $img = resource_url ('resource', 'image', 'og', 'dintao', 'mini.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
-         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'mini', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
-         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'mini', 'content' => '200'))
-         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'mini', 'content' => '200'))
-         
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'non-stoty', 'content' => $img = resource_url ('resource', 'image', 'og', 'dintao', 'non-stoty.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
-         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'non-stoty', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
-         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'non-stoty', 'content' => '600'))
-         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'non-stoty', 'content' => '314'))
-         
          ->add_meta (array ('property' => 'article:modified_time', 'content' => date ('c')))
          ->add_meta (array ('property' => 'article:published_time', 'content' => date ('c')))
-        
          ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
          ->add_hidden (array ('id' => 'id', 'value' => $path->id))
          ->set_method ('index')
