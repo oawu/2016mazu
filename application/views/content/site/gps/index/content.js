@@ -30,6 +30,7 @@ $(function () {
     $map.get (0).p = 0;
     $map.get (0).pl = 15;
     $map.get (0).loadDataTime = 65 * 1000;
+    $map.get (0).z = 999;
   }
   function loadPath ($map) {
     if ($('#_path_id').val () > 0)
@@ -60,18 +61,23 @@ $(function () {
           if (t.marker) t.marker.setMap (null);
         });
 
+
       $map.get (0).markers = result.m.map (function (m) {
         var p = m.p.first ();
 
         return {
           id: m.i,
+          title: m.n,
+          time: m.t,
           marker: new MarkerWithLabel ({
               map: $map.get (0)._map, draggable: false, optimized: false,
               position: p ? new google.maps.LatLng (p.a, p.n) : new google.maps.LatLng (23.5676650690051, 120.30458718538284),
-              labelContent: '<div><div>' + m.n + '</div></div><div></div>',
               icon: {path: 'M 0 0'},
-              labelAnchor: new google.maps.Point (100 / 2, 35 + 15),
-              labelClass: 'd'
+              zIndex: 999 - m.i,
+
+              labelAnchor: !m.c.length ? new google.maps.Point (100 / 2, 35 + 15) : new google.maps.Point (40 / 2, 70),
+              labelContent: !m.c.length ? '<div><div>' + m.n + '</div></div><div></div>' : '<img src="' + m.c + '" /><div>' + m.n + '</div><time>' + $.timeago (m.t) + '</time>',
+              labelClass: !m.c.length ? 'd' : 'm',
             }),
           polyline: new google.maps.Polyline ({
               map: $map.get (0)._map,
@@ -86,6 +92,7 @@ $(function () {
         var bounds = null;
         $map.get (0).markers.column ('marker').column ('position').forEach (function (t) { if (!bounds) bounds = new google.maps.LatLngBounds (); bounds.extend (t); });
         $map.get (0)._map.fitBounds (bounds);
+        initDintaoSelect ($map);
         window.hideLoading ();
       }
     });
@@ -107,7 +114,7 @@ $(function () {
               icon: {path: 'M 0 0'},
               labelAnchor: new google.maps.Point (100 / 2, 35 + 15),
               labelClass: 'd',
-              zIndex: 999,
+              zIndex: 9999,
             });
 
         $map.get (0).myMarker.setPosition (new google.maps.LatLng (location.coords.latitude, location.coords.longitude));
@@ -132,23 +139,32 @@ $(function () {
   }
 
   function initDintaoSelect ($map) {
-    $('#marches').click (function () {
-      $(this).toggleClass ('s');
-    }).find ('a').click (function () {
-      var $span = $(this).parents ('label').find ('span').text ($(this).text ());
-      $(this).addClass ('a').siblings ().removeClass ('a');
-        var bounds = null;
-        if (!$(this).attr ('val')) {
-          $map.get (0).markers.column ('marker').column ('position').forEach (function (t) { if (!bounds) bounds = new google.maps.LatLngBounds (); bounds.extend (t); });
-        } else  {
-          var m = $map.get (0).markers.find ('id', parseInt ($(this).attr ('val'), 10));
-          if (m) {
-            bounds = new google.maps.LatLngBounds ();
-            bounds.extend (m.marker.position);
-          }
-        }
-        if (bounds) $map.get (0)._map.fitBounds (bounds);
-    });
+    $('#marches').empty ()
+                 .attr ('class', 'n' + ($map.get (0).markers.length + 1))
+                 .append ($('<span />').text ('所有陣頭位置'))
+                 .append ($('<div />').append ($map.get (0).markers.map (function (t) {
+                   return $('<a />').attr ('val', t.id).text (t.title + ' 目前位置');
+                 })).append ($('<a />').text ('所有陣頭位置').addClass ('a')))
+                 .click (function () {
+                   $(this).toggleClass ('s');
+                 }).on ('click', 'a', function () {
+                   var $span = $(this).parents ('label').find ('span').text ($(this).text ());
+                   $(this).addClass ('a').siblings ().removeClass ('a');
+                     var bounds = null;
+                     if (!$(this).attr ('val')) {
+                       $map.get (0).markers.column ('marker').column ('position').forEach (function (t) { if (!bounds) bounds = new google.maps.LatLngBounds (); bounds.extend (t); });
+                     } else  {
+                       var m = $map.get (0).markers.find ('id', parseInt ($(this).attr ('val'), 10));
+                       if (m) {
+                         bounds = new google.maps.LatLngBounds ();
+                         bounds.extend (m.marker.position);
+                         m.marker.zIndex = $map.get (0).z;
+                         $map.get (0).z++;
+                         console.error (m.marker.zIndex);
+                       }
+                     }
+                     if (bounds) $map.get (0)._map.fitBounds (bounds);
+                 });
   }
   function initButtons ($map, $body, $container) {
     $('#menu').click (function () { coverBody ('show', $container); });
@@ -253,7 +269,7 @@ $(function () {
 
     initMyLocation ($map);
     initTrafficLayer ($map);
-    initDintaoSelect ($map);
+    
 
     if (getStorage ('_HAS_OPEN_MESSAGES')) $message.click ();
     

@@ -4,15 +4,7 @@
   <a id='location'>我的位置</a>
   <a id='traffic'>交通路況</a>
 
-  <label id='marches' class='n<?php echo count ($marches = March::find ('all', array ('select' => 'id,title', 'conditions' => array ('is_enabled = 1')))) + 1;?>'>
-    <span>所有陣頭位置</span>
-    <div>
-<?php foreach ($marches as $march) { ?>
-        <a val='<?php echo $march->id;?>'><?php echo $march->title;?> 目前位置</a>
-<?php }?>
-      <a class='a'>所有陣頭位置</a>
-    </div>
-  </label>
+  <label id='marches'></label>
 
   <div id='add_zoom'></div>
   <div id='sub_zoom'></div>
