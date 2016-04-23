@@ -50,7 +50,7 @@ class Maps extends Site_controller {
     $day_count = $temp->diff (new DateTime (date ('Y-m-d H:i:s')))->format ('%a');
     $day_count = strtotime ($march19) - strtotime (date ('Y-m-d H:i:s')) < 0 ? 0 - $day_count : $day_count;
 
-    if ($march19 >= date ('Y-m-d H:i:s')) {
+    if (date ('Y-m-d H:i:s') >= $march19) {
       $title = '三月十九陣頭遶境 GPS 定位';
       $desc = '2016年，農曆三月十九，陣頭GPS定位系統，一起分享，讓大家更快的找到北港各個陣頭的位置，以及追蹤目前北港媽祖的所在地，一起準備恭迎聖駕！希望大家一起幫忙把這個網站分享給更多的北港人，或者分享給更多想認識北港的朋友吧！';
 
@@ -70,6 +70,8 @@ class Maps extends Site_controller {
            ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
            ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
            ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'));
+
+      // redirect (base_url ('gps'));
     } else {
       $title = '三月' . $this->dintao_tabs[$index]['title'] . ' 陣頭遶境 Google Maps 路線地圖';
       $desc = $this->dintao_tabs[$index]['desc'];
