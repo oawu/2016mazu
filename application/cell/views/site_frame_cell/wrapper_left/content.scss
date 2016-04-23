@@ -75,17 +75,29 @@
                 font-size: 45px;
                 letter-spacing: 5px;
               }
-              &:last-child {
+              &:nth-child(2) {
                 text-align: left;
                 padding-top: 10px;
                 margin-left: 5px;
                 font-family: "微軟正黑體", "Microsoft JhengHei", Monaco;
-
                 span {
                   font-size: 10px;
                   display: inherit;
                 }
               }              
+    //           &:nth-child(3) {
+    //             text-align: center;
+    //             display: inline-block;
+    //             width: 100%;
+
+                
+    // letter-spacing: 3px;
+    // margin-top: 13px;
+    // margin-bottom: 10px;
+    // color: white;
+    // font-weight: bold;
+
+    //           }              
             }
           }
           &:last-child {
