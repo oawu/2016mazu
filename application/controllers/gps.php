@@ -41,7 +41,7 @@ class Gps extends Site_controller {
          ->add_meta (array ('property' => 'og:title', 'content' => '農曆' . $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:description', 'content' => $desc))
          
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'gps', 'larger.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = resource_url ('resource', 'image', 'og', 'gps', 'large.png'), 'alt' => $title . ' - ' . Cfg::setting ('site', 'title')))
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
          ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
