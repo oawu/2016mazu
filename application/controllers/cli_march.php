@@ -39,10 +39,11 @@ class Cli_march extends Site_controller {
           return array (
               'i' => $march->id,
               'n' => $march->title,
+              'c' => $march->icon,
               't' => $p['t'],
               'p' => $p['p']
             );
-        }, March::find ('all', array ('select' => 'id,title,is_ios', 'conditions' => array ('is_enabled = 1')))));
+        }, March::find ('all', array ('select' => 'id,title,is_ios,icon', 'conditions' => array ('is_enabled = 1')))));
 
 
     if (!write_file ($path, json_encode ($data)))

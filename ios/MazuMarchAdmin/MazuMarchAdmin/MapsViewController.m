@@ -109,6 +109,8 @@
     [httpManager GET:GET_SETTING_API_URL
           parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 if ([[NSString stringWithFormat:@"%@", [responseObject objectForKey:@"path_id"]] isEqualToString:@"0"])
+                     return ;
                  AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
                  [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
                  [httpManager GET:[NSString stringWithFormat:@"%@%@.json", LOAD_PATH_API_URL, [responseObject objectForKey:@"path_id"]]

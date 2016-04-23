@@ -7,6 +7,9 @@
 
 class Edit extends Api_controller {
   
+  public function asd () {
+    
+  }
   public function demox () {
     $points = OAInput::post ('points');
 
