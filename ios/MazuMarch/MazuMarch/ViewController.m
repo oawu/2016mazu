@@ -32,7 +32,10 @@
     [self.locationManager setDelegate:self];
     [self.locationManager setDistanceFilter:0];
     [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
-    [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+//    [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+    if ([self.locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)]) {
+        [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+    }
     [self.locationManager requestAlwaysAuthorization];
     [self.locationManager setDistanceFilter:self.distance];
     

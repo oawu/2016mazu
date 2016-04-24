@@ -33,7 +33,7 @@
 #define LOAD_PATH_API_URL @"http://pic.mazu.ioa.tw/api/path/"
 
 #define USER_ID @"1"
-#define LOAD_MESSAGE_TIMER 5 //sec
+#define LOAD_MESSAGE_TIMER 10 //sec
 #define LOAD_PATH_TIMER 30 //sec
 
 #define USER_DEFAULTS [NSUserDefaults standardUserDefaults]

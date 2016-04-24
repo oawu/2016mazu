@@ -144,8 +144,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="pqk-SC-QM0" kind="relationship" relationship="viewControllers" id="ZAV-qF-gfm"/>
-                        <segue destination="5WK-CG-ISg" kind="relationship" relationship="viewControllers" id="hP8-CS-F10"/>
                         <segue destination="Ds2-hf-S81" kind="relationship" relationship="viewControllers" id="O4Z-Yj-sHc"/>
+                        <segue destination="5WK-CG-ISg" kind="relationship" relationship="viewControllers" id="hP8-CS-F10"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iK8-nP-VvB" userLabel="First Responder" sceneMemberID="firstResponder"/>
