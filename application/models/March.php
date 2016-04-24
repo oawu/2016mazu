@@ -32,15 +32,17 @@ class March extends OaModel {
   }
   public function paths2 ($limit = 0) {
     $paths = MarchPath::find ('all', array ('select' => 'id,latitude2,longitude2,time_at', 'limit' => $limit, 'order' => 'id DESC', 'conditions' => array ('march_id = ? AND is_enabled = 1 AND is_ios = ?', $this->id, $this->is_ios)));
+    $p = array ();
+    $temp = null;
 
+    foreach ($paths as $path) {
+      if (!$temp || ($temp->latitude2 != $path->latitude2) || ($temp->longitude2 != $path->longitude2))
+        array_push ($p, array ('a' => $path->latitude2, 'n' => $path->longitude2,));
+      $temp = $path;
+    }
     return array (
         't' => isset ($paths[0]) ? $paths[0]->time_at->format ('Y-m-d H:i:s') : '',
-        'p' => array_map (function ($path) {
-            return array (
-                  'a' => $path->latitude2,
-                  'n' => $path->longitude2,
-                );
-          }, $paths)
+        'p' => $p
       );
   }
   public function paths ($is_GPS = true, $is_snap2roads = false, $limit = 0) {

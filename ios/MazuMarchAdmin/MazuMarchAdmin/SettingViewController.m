@@ -88,6 +88,7 @@
     [self.pathSegmentedControl setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.pathSegmentedControl addTarget:self action:@selector(chooseOne:) forControlEvents:UIControlEventValueChanged];
     [self.pathSegmentedControl setSelectedSegmentIndex:0];
+//    [self.pathSegmentedControl setsi]
 
     [self.scrollView addSubview:self.pathSegmentedControl];
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pathSegmentedControl attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.pathTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -99,8 +100,8 @@
     [self.pointsLabel setTextColor:[UIColor colorWithRed:0.50 green:0.50 blue:0.52 alpha:1.00]];
     
     [self.scrollView addSubview:self.pointsLabel];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pointsLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.pathSegmentedControl attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pointsLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.pathSegmentedControl attribute:NSLayoutAttributeRight multiplier:1 constant:5]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pointsLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.pointsSteper attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pointsLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.pointsSteper attribute:NSLayoutAttributeRight multiplier:1 constant:5]];
     
     
 
@@ -179,8 +180,8 @@
         [httpManager POST:PUT_SETTING_API_URL
                parameters:data
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      [self.versionSteper setValue:[[responseObject objectForKey:@"version"] integerValue]];
-                      [self.versionLabel setText:[NSString stringWithFormat:@"%@", [responseObject objectForKey:@"version"]]];
+                      [self.pointsSteper setValue:[[responseObject objectForKey:@"points"] integerValue]];
+                      [self.pointsLabel setText:[NSString stringWithFormat:@"%@", [responseObject objectForKey:@"points"]]];
                       
                       [alert dismissViewControllerAnimated:YES completion:nil];
                   }
