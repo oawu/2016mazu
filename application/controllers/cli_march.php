@@ -35,7 +35,7 @@ class Cli_march extends Site_controller {
 
     $data = array (
       'v' => $version,
-      'm' => array_map (function ($march) {
+      'm' => array_map (function ($march) use ($gps_setting) {
           $p = $march->paths2 ($gps_setting->points);
           return array (
               'i' => $march->id,
