@@ -71,7 +71,7 @@ class Maps extends Site_controller {
            ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
            ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'));
 
-      // redirect (base_url ('gps'));
+      redirect (base_url ('gps'));
     } else {
       $title = '三月' . $this->dintao_tabs[$index]['title'] . ' 陣頭遶境 Google Maps 路線地圖';
       $desc = $this->dintao_tabs[$index]['desc'];
