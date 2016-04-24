@@ -58,6 +58,10 @@ class Settings extends Api_controller {
       if (!is_numeric ($posts['version']))
         return 'version 錯誤！';
 
+    if (isset ($posts['points']))
+      if (!is_numeric ($posts['points']))
+        return 'points 錯誤！';
+
     return '';
   }
 }

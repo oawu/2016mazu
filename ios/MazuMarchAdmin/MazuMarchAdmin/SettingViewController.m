@@ -61,6 +61,28 @@
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.crontabTitleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.versionTitleLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:s]];
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.crontabTitleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.versionTitleLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     
+    
+    self.pointsTitleLabel = [UILabel new];
+    [self.pointsTitleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.pointsTitleLabel setText:@"路徑點數："];
+    [self.pointsTitleLabel setTextColor:[UIColor colorWithRed:0.50 green:0.50 blue:0.52 alpha:1.00]];
+    
+    [self.scrollView addSubview: self.pointsTitleLabel];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pointsTitleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.crontabTitleLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:s]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pointsTitleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.crontabTitleLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    
+    
+    self.pointsSteper = [UIStepper new];
+    [self.pointsSteper setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.pointsSteper setMinimumValue:0];
+    [self.pointsSteper setValue:0];
+    [self.pointsSteper addTarget:self action:@selector(stepperChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.scrollView addSubview:self.pointsSteper];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pointsSteper attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.pointsTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pointsSteper attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.pointsTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:2]];
+    
+
 
     self.pathSegmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"關閉", @"19下午", @"19晚間", @"20下午", @"20晚間"]];
     [self.pathSegmentedControl setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -71,12 +93,23 @@
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pathSegmentedControl attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.pathTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pathSegmentedControl attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.pathTitleLabel attribute:NSLayoutAttributeRight multiplier:1 constant:2]];
     
+    self.pointsLabel = [UILabel new];
+    [self.pointsLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.pointsLabel setText:@""];
+    [self.pointsLabel setTextColor:[UIColor colorWithRed:0.50 green:0.50 blue:0.52 alpha:1.00]];
+    
+    [self.scrollView addSubview:self.pointsLabel];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pointsLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.pathSegmentedControl attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.pointsLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.pathSegmentedControl attribute:NSLayoutAttributeRight multiplier:1 constant:5]];
+    
+    
+
     
     self.versionSteper = [UIStepper new];
     [self.versionSteper setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.versionSteper setMinimumValue:0];
     [self.versionSteper setValue:0];
-    [self.versionSteper addTarget:self action:@selector(stepperChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.versionSteper addTarget:self action:@selector(versionStepperChanged:) forControlEvents:UIControlEventValueChanged];
     
     [self.scrollView addSubview:self.versionSteper];
     [self.scrollView addConstraint:[NSLayoutConstraint constraintWithItem:self.versionSteper attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.versionTitleLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
@@ -138,6 +171,35 @@
     [self.parentViewController presentViewController:alert animated:YES completion:^{
         
         NSMutableDictionary *data = [NSMutableDictionary new];
+        [data setValue:[NSString stringWithFormat:@"%d", version] forKey:@"points"];
+        [data setValue:@"put" forKey:@"_method"];
+        
+        AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
+        [httpManager.responseSerializer setAcceptableContentTypes:[NSSet setWithObject:@"application/json"]];
+        [httpManager POST:PUT_SETTING_API_URL
+               parameters:data
+                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      [self.versionSteper setValue:[[responseObject objectForKey:@"version"] integerValue]];
+                      [self.versionLabel setText:[NSString stringWithFormat:@"%@", [responseObject objectForKey:@"version"]]];
+                      
+                      [alert dismissViewControllerAnimated:YES completion:nil];
+                  }
+                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      [alert dismissViewControllerAnimated:YES completion:nil];
+                  }
+         ];
+    }];
+}
+
+
+- (void)versionStepperChanged:(UIStepper*)sender {
+    int version = (int)[sender value];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"更新中" message:@"請稍候..." preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self.parentViewController presentViewController:alert animated:YES completion:^{
+        
+        NSMutableDictionary *data = [NSMutableDictionary new];
         [data setValue:[NSString stringWithFormat:@"%d", version] forKey:@"version"];
         [data setValue:@"put" forKey:@"_method"];
         
@@ -146,7 +208,6 @@
         [httpManager POST:PUT_SETTING_API_URL
                parameters:data
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      NSLog(@"%@", responseObject);
                       [self.versionSteper setValue:[[responseObject objectForKey:@"version"] integerValue]];
                       [self.versionLabel setText:[NSString stringWithFormat:@"%@", [responseObject objectForKey:@"version"]]];
 
@@ -195,6 +256,9 @@
     [self.pathSegmentedControl setHidden:YES];
     [self.versionSteper setHidden:YES];
     [self.crontabSwitch setHidden:YES];
+    [self.pointsTitleLabel setHidden:YES];
+    [self.pointsLabel setHidden:YES];
+    [self.pointsSteper setHidden:YES];
 }
 
 
@@ -206,6 +270,9 @@
     [self.pathSegmentedControl setHidden:NO];
     [self.versionSteper setHidden:NO];
     [self.crontabSwitch setHidden:NO];
+    [self.pointsTitleLabel setHidden:NO];
+    [self.pointsLabel setHidden:NO];
+    [self.pointsSteper setHidden:NO];
     
     
     [self.pathSegmentedControl setSelectedSegmentIndex:[[data objectForKey:@"path_id"] integerValue]];
@@ -214,6 +281,9 @@
     [self.versionLabel setText:[NSString stringWithFormat:@"%@", [data objectForKey:@"version"]]];
         
     [self.crontabSwitch setOn:[[data objectForKey:@"is_crontab"] boolValue] animated:NO];
+    
+    [self.pointsSteper setValue:[[data objectForKey:@"points"] integerValue]];
+    [self.pointsLabel setText:[NSString stringWithFormat:@"%@", [data objectForKey:@"points"]]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

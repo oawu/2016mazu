@@ -18,8 +18,11 @@
 @property UILabel *versionTitleLabel;
 @property UILabel *versionLabel;
 @property UILabel *crontabTitleLabel;
+@property UILabel *pointsTitleLabel;
+@property UILabel *pointsLabel;
 
 @property UISegmentedControl *pathSegmentedControl;
 @property UIStepper *versionSteper;
 @property UISwitch *crontabSwitch;
+@property UIStepper *pointsSteper;
 @end
