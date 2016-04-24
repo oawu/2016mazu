@@ -251,6 +251,7 @@ class Maps extends Site_controller {
             'infos' => $infos,
             'prev' => $prev,
             'next' => $next,
+            'change' => array ()
           ), false, ENVIRONMENT == 'production' ? 60 * 3 : 0);
   }
 }
