@@ -64,21 +64,29 @@ $(function () {
 
       $map.get (0).markers = result.m.map (function (m) {
         var p = m.p.first ();
-
-        return {
-          id: m.i,
-          title: m.n,
-          time: m.t,
-          marker: new MarkerWithLabel ({
+        var marker = new MarkerWithLabel ({
               map: $map.get (0)._map, draggable: false, optimized: false,
               position: p ? new google.maps.LatLng (p.a, p.n) : new google.maps.LatLng (23.5676650690051, 120.30458718538284),
               icon: {path: 'M 0 0'},
               zIndex: 999 - m.i,
 
               labelAnchor: !m.c.length ? new google.maps.Point (100 / 2, 35 + 15) : new google.maps.Point (40 / 2, 70),
-              labelContent: !m.c.length ? '<div><div>' + m.n + '</div></div><div></div>' : '<img src="' + m.c + '" /><div>' + m.n + '</div><time>' + $.timeago (m.t) + '</time>',
+              labelContent: !m.c.length ? '<div><div>' + m.n + '</div></div><div></div>' : '<img src="' + m.c + '" /><div>' + m.n + '</div><time>' + $.timeago (!m.c.length ? m.t : ((date = new Date ()) ? date.getFullYear () + '-' + (date.getMonth () + 1) + '-' + date.getDate () + ' ' + date.getHours () + ':' + date.getMinutes () + ':' + date.getSeconds () : '')) + '</time>',
               labelClass: !m.c.length ? 'd' : 'm',
-            }),
+            });
+        google.maps.event.addListener (marker, 'click', function (e) {
+          bounds = new google.maps.LatLngBounds ();
+          bounds.extend (this.position);
+          this.zIndex = $map.get (0).z;
+          $map.get (0).z++;
+          $map.get (0)._map.fitBounds (bounds);
+        });
+
+        return {
+          id: m.i,
+          title: m.n,
+          time: m.t,
+          marker: marker,
           polyline: new google.maps.Polyline ({
               map: $map.get (0)._map,
               strokeColor: 'rgba(249, 39, 114, .45)',
@@ -160,7 +168,6 @@ $(function () {
                          bounds.extend (m.marker.position);
                          m.marker.zIndex = $map.get (0).z;
                          $map.get (0).z++;
-                         console.error (m.marker.zIndex);
                        }
                      }
                      if (bounds) $map.get (0)._map.fitBounds (bounds);
