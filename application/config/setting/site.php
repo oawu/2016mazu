@@ -15,7 +15,7 @@ $site['menu'] = array (
     '首頁' => array (
         '網站首頁' => array ('roles' => array ('all'), 'icon' => 'fi-h', 'href' => base_url (), 'class' => 'main', 'method' => 'index', 'target' => '_self'),
         '笨港文化' => array ('roles' => array ('all'), 'icon' => 'icon-file-text2', 'href' => base_url ('articles'), 'class' => 'articles', 'method' => '', 'target' => '_self'),
-        // 'GPS定位' => array ('roles' => array ('all'), 'icon' => 'icon-gps_fixed', 'href' => base_url ('gps'), 'class' => 'gps', 'method' => '', 'target' => '_self'),
+        'GPS定位' => array ('roles' => array ('all'), 'icon' => 'icon-gps_fixed', 'href' => base_url ('gps'), 'class' => 'gps', 'method' => '', 'target' => '_self'),
       ),
     '三月十九' => array (
         '北港廟會' => array ('roles' => array ('all'), 'icon' => 'icon-location', 'href' => base_url ('march19'), 'class' => 'march19', 'method' => 'index', 'target' => '_self'),
