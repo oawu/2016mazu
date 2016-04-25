@@ -39,8 +39,8 @@ $(function () {
           if (!(r && r.length)) return;
           $map.get (0).pathPolyline = new google.maps.Polyline ({
             map: $map.get (0)._map,
-            strokeColor: 'rgba(101, 216, 238, .4)',
-            strokeWeight: 8,
+            strokeColor: 'rgba(172, 48, 46, 1.00)',
+            strokeWeight: 3,
             path: r.map (function (p) { return new google.maps.LatLng (p.a, p.n); })
           });
         });
