@@ -33,15 +33,23 @@ class Maps extends Site_controller {
     $this->add_js (Cfg::setting ('google', 'client_js_url'), false);
   }
   public function gps () {
-    
-    $this->set_subtitle ('三月十九，神轎定位')
-         ->add_css (base_url ('application', 'views', 'content', 'site', 'maps', 'gps', 'a.css'))
-         ->add_js (resource_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
-         ->add_hidden (array ('id' => 'url3', 'value' => base_url ('api', 'march_messages')))
-         ->add_hidden (array ('id' => 'url4', 'value' => base_url ('api', 'march_messages', 'report')))
-         ->add_hidden (array ('id' => 'url5', 'value' => base_url ('api', 'march_users')))
-         ->load_view (array (
-          ));
+    $m = March::find_by_id (2);
+    $p = $m->paths2 (5);
+    $p = array_map(function ($p) {
+      return array (
+          'latitude' => $p['a'],
+          'longitude' => $p['n'],
+          'time' => date('Y-m-d H:i:s')
+        );
+    }, $p['p']);
+    return $this->output_json ($p);
+
+
+    // $this->set_subtitle ('三月十九，神轎定位')
+    //      ->set_frame_path ('frame', 'pure')
+    //      ->load_view (array (
+    //         'p' => json_encode ($p['p'])
+    //       ));
   }
   public function dintao ($index = 0) {
     $march19 = '2016-04-25 00:00:00';

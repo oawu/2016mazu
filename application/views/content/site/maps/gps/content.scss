@@ -8,10 +8,11 @@
 .gmnoprint {
   display: none !important;
 }
+
 .map {
   overflow: hidden;
   position: relative;
-  height: 580px;
+    height: 100%;
   padding: 0 !important;
   text-align: left;
   background: $mainBackgroundColor $mainBackgroundImage;

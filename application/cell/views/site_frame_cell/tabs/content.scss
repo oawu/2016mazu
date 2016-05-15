@@ -20,7 +20,7 @@
 
   background-color: rgba(255, 255, 255, 1);
   @media screen and (min-width: $mainWidth) {
-    left: calc(((100% - #{$mainWidth}) / 2) + #{$wrapperLeftWidth} + 1px);
+    left: calc(((100% - #{$mainWidth}) / 2) + #{$wrapperLeftWidth});
     width: $mainWidth - $wrapperLeftWidth - 1px * 2;
   }
   // border-bottom: 1px solid rgba(201, 202, 200, 1);

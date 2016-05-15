@@ -14,7 +14,6 @@ class Cli extends Site_controller {
       echo 'Request 錯誤！';
       exit ();
     }
-
   }
 
   private function color ($string, $foreground_color = null, $background_color = null, $is_print = false) {
