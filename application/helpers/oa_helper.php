@@ -44,7 +44,7 @@ if (!function_exists ('rand_x')) {
 }
 if (!function_exists ('oa_url_encode')) {
   function oa_url_encode ($str) {
-    return rawurlencode (preg_replace ('/[\/%]/', ' ', $str));
+    return rawurlencode (preg_replace ('/[\/%]/', ' ', preg_replace ('/[\(\)]/', '', $str)));
   }
 }
 if (!function_exists ('resource_url')) {
