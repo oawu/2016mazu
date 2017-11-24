@@ -2698,6 +2698,7 @@ var _items, _ids,
 
 var _getItemAt,
 	_getIdsAt,
+	_getOrmsAt,
 	_getNumItems,
 	_initialIsLoop,
 	_getZeroBounds = function() {
@@ -2928,6 +2929,7 @@ _registerModule('Controller', {
 			self.ids = _ids = ids;
 			_getItemAt = self.getItemAt;
 			_getIdsAt = self.getIdsAt;
+			_getOrmsAt = self.getOrmsAt;
 			_getNumItems = _options.getNumItemsFn; //self.getNumItems;
 
 
@@ -3553,7 +3555,8 @@ var _historyUpdateTimeout,
 		}
 
 		var id = _getIdsAt( _currentItemIndex );
-		_shout ('pvCallback', id);
+		var orm = _getOrmsAt( _currentItemIndex );
+		_shout ('pvCallback', id, orm);
 
 		var newHash = _initialHash + '&'  +  'gid=' + _options.galleryUID + '&' + 'pid=' + pid + '&id=' + id;
 
